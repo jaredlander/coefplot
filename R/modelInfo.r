@@ -26,6 +26,7 @@ modelInfo.lm <- function(model)
 modelInfo(model3)
 names(coef(model3))
 print("hi")
+print("bye")
 buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs)
 {
     varDFTemp <- adply(modelFactorVars, 1, function(x, modelD) { expand.grid(x, extractLevels(x, modelD), stringsAsFactors=FALSE) }, modelModel)	## Build a frame of the variables and the coefficient names for the factor variables
