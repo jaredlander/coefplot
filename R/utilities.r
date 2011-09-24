@@ -44,12 +44,7 @@ buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs)
     # see if the coefficient is equivalent to the variable
     varDF[, c("PivotAlter", "Valid")] <- ddply(.data=varIDF, .variables="PivotAlter", .fun=function(DF) { data.frame(Valid=regexpr(unique(DF$PivotAlter), DF$Coef, ignore.case=FALSE)) })
 
-    ## go through each row and 
-# 	for(i in 1:nrow(varDF))
-# 	{
-# 		varDF$Valid[i] <- with(varDF, regexpr(paste("", PivotAlter[i], "", sep=""), Coef[i], ignore.case=FALSE))
-# 	}
-	
+    # just take the ones that match
 	varDF <- varDF[varDF$Valid > 0, ]
 	return(varDF)
 	varDF <- ddply(varDF, .(Coef), function(vect, namer, collapse, keepers) { vect$Subbers <- paste(vect[, c(namer)], collapse=collapse); return(vect[1, keepers]) }, namer="Var", collapse="|", keepers=c("Var", "Coef", "Subbers", "CoefAlter", "CoefShort"))
