@@ -4,7 +4,7 @@ modelInfo <- function(model, ...)
     UseMethod("modelInfo", model)
 }
 
-modelInfo.lm <- function(model, shorten=TRUE, ...)
+modelInfo.lm <- function(model, shorten=TRUE, factors=NULL, ...)
 {
     # get the model summary to easily get info out of it
     modelSummary <- summary(model)
@@ -19,11 +19,11 @@ modelInfo.lm <- function(model, shorten=TRUE, ...)
     # store the names of the coefficients
     newList <- names(coef)    	## names of the coefficients
     
-    matchedVars <- buildFactorDF(modelFactorVars=factorVars, modelModel=model$model, modelCoefs=newList)    # figure out which variable belongs to each coefficient
+    matchedVars <- buildFactorDF(modelFactorVars=factorVars, modelModel=model$model, modelCoefs=newList, shorten=shorten, factors=factors)    # figure out which variable belongs to each coefficient
     return(matchedVars)
     return(newList)
 }
 #modelInfo(model3)
 #names(coef(model3))
-print("hi")
-print("bye")
+#print("hi")
+#print("bye")

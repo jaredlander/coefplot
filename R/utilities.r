@@ -1,4 +1,6 @@
-##Utilities
+## Utilities
+## Written by Jared P. Lander
+## See LISCENSE for copyright information
 
 ## Converts special characters in escaped special characters
 ## Meant to help out when doing regular expressions
@@ -44,16 +46,23 @@ subSpecials <- function(..., specialChars=c("\\!", "\\(", "\\)", "\\-", "\\=", "
     return(llply(list(...), subOut, specialChars=specialChars, modChars))  # run .subOut on each vector, returning the resulting list
 }
 
-#bob <- subSpecials(c("Jared", "Ben"), c("Aimee"))
-# length(bob[[2]])
-# length(bob[[1]])
 
 ## @modelFactorVars: (character vector) names of variables that are factors
 ## @modelModel: (model.matrix) the model.matrix from the model, I would like this to be changed to accept a smaller set of the model.matrix so there is less data being passed arounf
 ## @modelCoefs: (character vector) the coefficient names that will be matched and shortened
-## @shorten:  (boolean or character vector) if true all variables will be shortened, if false, none will be (to save computation), if a character vector, only the ones listed will be shortened, the other will remain (this may get VERY complicated
-buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE)
+## @shorten:  (logical or character vector) if true all variables will be shortened, if false, none will be (to save computation), if a character vector, only the ones listed will be shortened, the other will remain (this may get VERY complicated
+## @factors: (character vector) a list of vectors to work with if we are only interested in a few
+## @exclude: (logical) if factors restricts what we are looking at then decide if we want just that variable or the stuff it interacts with too
+##              right now it doesn't do anything, but someday it will
+buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE, factors=NULL, exclude=NULL)
 {
+    # if we are only looking for some factors, just check those saving time on the rest
+    # needs to be changed to work with exclude
+     if(!is.null(factors))
+     {
+         modelFactorVars <- factors
+     }
+    
     # build a data.frame that matches each factor variable with it's levels
     varDFTemp <- adply(modelFactorVars, 1, function(x, modelD) { expand.grid(x, extractLevels(x, modelD), stringsAsFactors=FALSE) }, modelModel)	## Build a frame of the variables and the coefficient names for the factor variables
 	names(varDFTemp)[2:3] <- c("Var", "Pivot")		## give good names to the frame
@@ -117,7 +126,7 @@ buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE)
     {
         varDF$CoefShort <- varDF$Coef
     }
-    
+
     # return the results
 	return(varDF[, c("Var", "Coef", "CoefShort")])
 }
