@@ -4,7 +4,7 @@ modelInfo <- function(model, ...)
     UseMethod("modelInfo", model)
 }
 
-modelInfo.lm <- function(model)
+modelInfo.lm <- function(model, shorten=TRUE, ...)
 {
     # get the model summary to easily get info out of it
     modelSummary <- summary(model)
