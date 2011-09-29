@@ -54,14 +54,15 @@ subSpecials <- function(..., specialChars=c("\\!", "\\(", "\\)", "\\-", "\\=", "
 ## @factors: (character vector) a list of vectors to work with if we are only interested in a few
 ## @exclude: (logical) if factors restricts what we are looking at then decide if we want just that variable or the stuff it interacts with too
 ##              right now it doesn't do anything, but someday it will
+## have to finish dealing with only showing some factors while also shortening some, all or none
 buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE, factors=NULL, exclude=NULL)
 {
     # if we are only looking for some factors, just check those saving time on the rest
     # needs to be changed to work with exclude
-     if(!is.null(factors))
-     {
-         modelFactorVars <- factors
-     }
+#     if(!is.null(factors))
+#     {
+#         modelFactorVars <- factors
+#     }
     
     # build a data.frame that matches each factor variable with it's levels
     varDFTemp <- adply(modelFactorVars, 1, function(x, modelD) { expand.grid(x, extractLevels(x, modelD), stringsAsFactors=FALSE) }, modelModel)	## Build a frame of the variables and the coefficient names for the factor variables
@@ -122,11 +123,11 @@ buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE,
     # if we are not supposed to shorten the coefficients at all (shorten==FALSE) then just swap Coef into CoefShort
     # this can be done so that the caller function just grabs Coef instead of CoefShort
     # would be nice if this can be done higher up so not as much processing needs to be done
-    if(!shorten)
+    if(identical(shorten, FALSE))
     {
         varDF$CoefShort <- varDF$Coef
     }
-
+return(varDF)
     # return the results
 	return(varDF[, c("Var", "Coef", "CoefShort")])
 }
