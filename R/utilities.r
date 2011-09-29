@@ -48,7 +48,11 @@ subSpecials <- function(..., specialChars=c("\\!", "\\(", "\\)", "\\-", "\\=", "
 # length(bob[[2]])
 # length(bob[[1]])
 
-buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs)
+## @modelFactorVars: (character vector) names of variables that are factors
+## @modelModel: (model.matrix) the model.matrix from the model, I would like this to be changed to accept a smaller set of the model.matrix so there is less data being passed arounf
+## @modelCoefs: (character vector) the coefficient names that will be matched and shortened
+## @shorten:  (boolean or character vector) if true all variables will be shortened, if false, none will be (to save computation), if a character vector, only the ones listed will be shortened, the other will remain (this may get VERY complicated
+buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE)
 {
     # build a data.frame that matches each factor variable with it's levels
     varDFTemp <- adply(modelFactorVars, 1, function(x, modelD) { expand.grid(x, extractLevels(x, modelD), stringsAsFactors=FALSE) }, modelModel)	## Build a frame of the variables and the coefficient names for the factor variables
@@ -133,7 +137,7 @@ buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs)
 # 		varDF$Var[i] <- gsub(paste(varDF$CoefBack[i], "$", sep=""), ":", varDF$Coef[i])
 # 	}
 	
-	varDF$Var <- gsub(":$", "", varDF$Var)
+#	varDF$Var <- gsub(":$", "", varDF$Var)
 	
 	return(varDF[, c("Var", "Coef", "CoefShort")])
 }
