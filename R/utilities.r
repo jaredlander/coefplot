@@ -27,6 +27,7 @@ subOut <- function(toAlter, specialChars=c("\\!", "\\(", "\\)", "\\-", "\\=", "\
   return(toAlter)
 }
 
+
 ## Converts special characters in escaped special characters
 ## Meant to help out when doing regular expressions
 ## @...: 1 to n vectors to be subbed on
@@ -38,10 +39,10 @@ subSpecials <- function(..., specialChars=c("\\!", "\\(", "\\)", "\\-", "\\=", "
                         modChars=c("\\\\!", "\\\\(", "\\\\)", "\\\\-", "\\\\=", "\\\\*"), simplify=FALSE)
 {
   # make sure the special characters has the same length as the replacement characters
-  #if(length(specialChars) != length(modChars))
-  #{
-    #stop("specialChars and modChars must be the same length", call.=FALSE)
-  #}
+  if(length(specialChars) != length(modChars))
+  {
+    stop("specialChars and modChars must be the same length", call.=FALSE)
+  }
     
     return(llply(list(...), subOut, specialChars=specialChars, modChars))  # run .subOut on each vector, returning the resulting list
 }
@@ -55,26 +56,26 @@ subSpecials <- function(..., specialChars=c("\\!", "\\(", "\\)", "\\-", "\\=", "
 ## @exclude: (logical) if factors restricts what we are looking at then decide if we want just that variable or the stuff it interacts with too
 ##              right now it doesn't do anything, but someday it will
 ## have to finish dealing with only showing some factors while also shortening some, all or none
-buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE, factors=NULL, exclude=NULL)
+buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE, factors=NULL, only=NULL)
 {
     # if we are only looking for some factors, just check those saving time on the rest
     # needs to be changed to work with exclude
-#     if(!is.null(factors))
-#     {
-#         modelFactorVars <- factors
-#     }
+#      if(!is.null(factors))
+#      {
+#          modelFactorVars <- factors
+#      }
     
     # build a data.frame that matches each factor variable with it's levels
     varDFTemp <- adply(modelFactorVars, 1, function(x, modelD) { expand.grid(x, extractLevels(x, modelD), stringsAsFactors=FALSE) }, modelModel)	## Build a frame of the variables and the coefficient names for the factor variables
 	names(varDFTemp)[2:3] <- c("Var", "Pivot")		## give good names to the frame
-	
+#return(varDFTemp)	
     # match each level to every coefficient (factor or numeric)
 	varDF <- expand.grid(varDFTemp$Pivot, modelCoefs, stringsAsFactors=FALSE)
 	names(varDF)[1:2] <- c("Pivot", "Coef")		## give good names to the frame
-	
+#return(varDF)	
     # join the two data.frames so we have variable name, levels name and coefficient names
     varDF <- join(varDF, varDFTemp, by="Pivot")
-	
+#return(varDF)
     rm(varDFTemp); gc() # housekeeping
 	
     ## create columns to hold altered versions of the variable and pivot, it replaces special characters with their excaped versions
@@ -106,28 +107,56 @@ buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE,
 
     # just take the ones that match
     varDF <- varDF[varDF$Valid > 0, ]
+#return(varDF)
     
-    # if a list of variables to shorten was given, then make sure that the other variable names won't be subbed out
+    varDF$VarCheck <- varDF$VarAlter
+    
+    ## if a list of variables to shorten was given, then make sure that the other variable names won't be subbed out
     if(identical(class(shorten), "character"))      # maybe this should be class(shorten) == "character" instead to make things safer?
     {
         # make the ones that aren't listed "" so that they won't be subbed out
         varDF[!varDF$Var %in% shorten, "VarAlter"] <- ""
     }
     
-    # group the variable names to sub out with a "|" between each so any will be subbed out
-    varDF <- ddply(varDF, .(Coef), function(vect, namer, collapse, keepers) { vect$Subbers <- paste(vect[, c(namer)], collapse=collapse); return(vect[1, keepers]) }, namer="VarAlter", collapse="|", keepers=c("Var", "Coef", "Subbers", "CoefShort"))
+    ## group the variable names to sub out with a "|" between each so any will be subbed out
+    ## this now creates two variables like that
+    ## Subbers is used for the coefficient shortening
+    ## Checkers is used for narrowing down the the variables
+    varDF <- ddply(varDF, .(Coef), function(vect, namer, checker, collapse, keepers) { vect$Subbers <- paste(vect[, c(namer)], collapse=collapse); vect$Checkers <- paste(vect[, c(checker)], collapse=collapse); return(vect[1, keepers]) }, namer="VarAlter", checker="VarCheck", collapse="|", keepers=c("Var", "Coef", "Subbers", "Checkers", "CoefShort"))
 
-    # now sub out the subbers from the coef to make coef short
-    varDF <- ddply(varDF, .(Subbers), function(DF) { DF$CoefShort <- gsub(unique(DF$Subbers), "", DF$Coef); return(DF) } )
-
+    ## if only certain factors are to be shown, narrow down the list to them
+    if(!is.null(factors))
+    {
+    	theCheckers <- strsplit(x=varDF$Checkers, split="|", fixed=TRUE)
+	 
+    	## if they only want that variable and not it's interactions
+		if(identical(only, TRUE))
+		{
+			varDF <- varDF[varDF$Checkers %in% factors, ]
+		}else
+		{
+			## if any of the variables are in the factors to keep then keep it
+			theKeepers <- laply(theCheckers, function(x, toCheck) { any(x %in% toCheck) }, toCheck=factors)
+			varDF <- varDF[theKeepers, ]
+			rm(theKeepers); gc()
+		}
+		
+		rm(theCheckers); gc()
+    }
+    
     # if we are not supposed to shorten the coefficients at all (shorten==FALSE) then just swap Coef into CoefShort
     # this can be done so that the caller function just grabs Coef instead of CoefShort
     # would be nice if this can be done higher up so not as much processing needs to be done
     if(identical(shorten, FALSE))
     {
         varDF$CoefShort <- varDF$Coef
+        return(varDF[, c("Var", "Coef", "CoefShort")])
     }
-return(varDF)
+    
+    # now sub out the subbers from the coef to make coef short
+    varDF <- ddply(varDF, .(Subbers), function(DF) { DF$CoefShort <- gsub(unique(DF$Subbers), "", DF$Coef); return(DF) } )
+#return(varDF)
+
     # return the results
 	return(varDF[, c("Var", "Coef", "CoefShort")])
 }
