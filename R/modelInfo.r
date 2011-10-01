@@ -1,11 +1,11 @@
 ## information on models
-modelInfo <- function(model, ...)
+getModelInfo <- function(model, ...)
 {
     UseMethod("modelInfo", model)
 }
 
 
-modelInfo.lm <- function(model, shorten=TRUE, factors=NULL, only=NULL, ...)
+getModelInfo.lm <- function(model, shorten=TRUE, factors=NULL, only=NULL, ...)
 {
     # get the model summary to easily get info out of it
     modelSummary <- summary(model)
@@ -17,12 +17,21 @@ modelInfo.lm <- function(model, shorten=TRUE, factors=NULL, only=NULL, ...)
     varTypes <- attr(model$terms, "dataClasses")			## These are the types of the different variables
 	factorVars <- names(varTypes[varTypes %in% c("factor", "other")])		## The variables that are factor
 
-    # store the names of the coefficients
+	# store the names of the coefficients
     newList <- names(coef)    	## names of the coefficients
+	
+	if(length(factorVars) > 0)
+	{		
+		matchedVars <- buildFactorDF(modelFactorVars=factorVars, modelModel=model$model, modelCoefs=newList, shorten=shorten, factors=factors, only=only)    # figure out which variable belongs to each coefficient
+	}else
+	{
+		newList <- NA
+		matchedVars <- data.frame(Var=NA, Coef=NA, Coefshort=NA)
+	}
     
-    matchedVars <- buildFactorDF(modelFactorVars=factorVars, modelModel=model$model, modelCoefs=newList, shorten=shorten, factors=factors, only=only)    # figure out which variable belongs to each coefficient
-    return(matchedVars)
-    return(newList)
+	rm(varTypes); gc()		# do some memory cleanup
+	
+	list(coef=coef, SE=SE, factorVars=factorVars, factorVarsHuman=factorVars, factorCoefs=newList, matchedVars=matchedVars)				## return the coefs and SEs as a named list
 }
 #modelInfo(model3)
 #names(coef(model3))
