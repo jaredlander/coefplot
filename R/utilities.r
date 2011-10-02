@@ -53,8 +53,7 @@ subSpecials <- function(..., specialChars=c("\\!", "\\(", "\\)", "\\-", "\\=", "
 ## @modelCoefs: (character vector) the coefficient names that will be matched and shortened
 ## @shorten:  (logical or character vector) if true all variables will be shortened, if false, none will be (to save computation), if a character vector, only the ones listed will be shortened, the other will remain (this may get VERY complicated
 ## @factors: (character vector) a list of vectors to work with if we are only interested in a few
-## @exclude: (logical) if factors restricts what we are looking at then decide if we want just that variable or the stuff it interacts with too
-##              right now it doesn't do anything, but someday it will
+## @only: (logical) if factors restricts what we are looking at then decide if we want just that variable or the stuff it interacts with too
 ## have to finish dealing with only showing some factors while also shortening some, all or none
 buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE, factors=NULL, only=NULL)
 {
@@ -150,7 +149,7 @@ buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE,
     if(identical(shorten, FALSE))
     {
         varDF$CoefShort <- varDF$Coef
-        return(varDF[, c("Var", "Coef", "CoefShort")])
+        return(varDF[, c("Var", "Checkers", "Coef", "CoefShort")])
     }
     
     # now sub out the subbers from the coef to make coef short
@@ -158,7 +157,7 @@ buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE,
 #return(varDF)
 
     # return the results
-	return(varDF[, c("Var", "Coef", "CoefShort")])
+	return(varDF[, c("Var", "Checkers", "Coef", "CoefShort")])
 }
 
 
