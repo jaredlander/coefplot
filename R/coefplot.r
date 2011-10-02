@@ -36,6 +36,7 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
 						cex=.8, textAngle=0, numberAngle=0,
 						zeroColor="grey", zeroLWD=1, zeroType=2,
 						facet=FALSE, scales="free",
+						sort="natural", decreasing=FALSE,
 						intercept=TRUE, plot=TRUE, ...)
 {
     # get the information on the model
@@ -63,6 +64,7 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
 	modelCI$CoefShort <- ifelse(is.na(modelCI$CoefShort), modelCI$Name, modelCI$CoefShort)
 	
 	# Similar for the Checkers column
+
 	modelCI$Checkers <- ifelse(is.na(modelCI$Checkers), "Numeric", modelCI$Checkers)
 	
 	## if the intercept is not to be shown, then remove it
@@ -78,6 +80,25 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
   		rm(theIntercept); gc()		# housekeeping
 	}
 	
+	## possible orderings of the coefficients
+	ordering <- switch(sort,
+							natural=order(1:nrow(modelCI), decreasing=decreasing), 	# the way the data came in
+							normal=order(1:nrow(modelCI), decreasing=decreasing),	# the way the data came in
+							nat=order(1:nrow(modelCI), decreasing=decreasing), 			# the way the data came in
+							magnitude=order(modelCI$Coef, decreasing=decreasing), 		#  size order
+							mag=order(modelCI$Coef, decreasing=decreasing), 			# size order
+							size=order(modelCI$Coef, decreasing=decreasing),			# size order
+							alphabetical=order(modelCI$Name, decreasing=decreasing), 	# alphabetical order
+							alpha=order(modelCI$Name, decreasing=decreasing),			# alphabetical order
+							order(1:nrow(modelCI))		# default, the way it came in
+					)
+	
+	# implement the ordering
+	modelCI <- modelCI[ordering, ]
+	#return(modelCI)
+	#return(modelCI$Name)
+	modelCI$CoefShort <- factor(modelCI$CoefShort, levels=modelCI$CoefShort)
+	#print(modelCI$CoefShort)
 	# which columns will be kept in the melted data.frame
 	keepCols <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coef", "Checkers", "CoefShort")
 	
@@ -98,7 +119,7 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
 	
 	# faceting info
 	faceting <- list(None=NULL, Display=facet_wrap(~Checkers, scales=scales))
-	
+
 	## if we are to make the plot
 	if(plot)
 	{

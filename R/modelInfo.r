@@ -30,8 +30,8 @@ getModelInfo.lm <- function(model, shorten=TRUE, factors=NULL, only=NULL, ...)
 	if(length(factorVars) > 0)
 	{
 		# figure out which variable belongs to each coefficient
-		# currently only passing one row of the model, and it seem to work
-		matchedVars <- buildFactorDF(modelFactorVars=factorVars, modelModel=model$model[1, ], modelCoefs=newList, shorten=shorten, factors=factors, only=only)
+		# passing just one row doesn't work
+		matchedVars <- buildFactorDF(modelFactorVars=factorVars, modelModel=model$model, modelCoefs=newList, shorten=shorten, factors=factors, only=only)
 		
 		if(!is.null(factors))
 		{
