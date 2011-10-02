@@ -37,8 +37,24 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
 						zeroColor="grey", zeroLWD=1, zeroType=2,
 						facet=FALSE, scales="free",
 						sort="natural", decreasing=FALSE,
+						numeric=FALSE, fillColor="grey", alpha=1/2,
+						horizontal=FALSE,
 						intercept=TRUE, plot=TRUE, ...)
 {
+	theDots <- list(...)
+	
+ 
+ 	## if they are treating a factor as numeric, then they must specify exactly one factor
+ 	## hopefully this will soon expand to listing multiple factors
+	if(numeric & length(grep("factors", names(theDots)))!=1)
+	{
+		stop("When treating a factor variable as numeric, the specific factor must be specified using \"factors\"")
+	}else if(numeric)
+	{
+		# if we are treating it as numeric, then the sorting should be numeric
+		sort="mag"
+	}
+
     # get the information on the model
     modelInfo <- getModelInfo(model, ...)
 	
@@ -51,6 +67,7 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
 	modelCI <- data.frame(LowOuter=modelCoef - outerCI*modelSE, HighOuter=modelCoef + outerCI*modelSE, LowInner=modelCoef - innerCI*modelSE, HighInner=modelCoef + innerCI*modelSE, Coef=modelCoef) # build a data.frame of the confidence bounds and original coefficients
 	modelCI$Name <- rownames(modelCI)	## grab the coefficient names into the data.frame
 	
+ 
 	## join the factor coefficient info to the data.frame holding the coefficient info
 	modelMatcher <- modelMatched[, c("Checkers", "Coef", "CoefShort")]
 	names(modelMatcher)[2] <- "Name"
@@ -68,7 +85,7 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
 	modelCI$Checkers <- ifelse(is.na(modelCI$Checkers), "Numeric", modelCI$Checkers)
 	
 	## if the intercept is not to be shown, then remove it
-	if(intercept == FALSE)		## remove the intercept if so desired
+	if(intercept == FALSE | numeric)		## remove the intercept if so desired
 	{
 		theIntercept <- which(modelCI$Name == "(Intercept)")	# find the variable that is the intercept
 		# make sure the intercept is actually present, if so, remove it
@@ -80,6 +97,12 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
   		rm(theIntercept); gc()		# housekeeping
 	}
 	
+	# if there are no good coefficients, then stop
+	if(nrow(modelCI) == 0)
+	{
+		stop("There are no valid coeficients to plot", call.=FALSE)
+	}
+  
 	## possible orderings of the coefficients
 	ordering <- switch(sort,
 							natural=order(1:nrow(modelCI), decreasing=decreasing), 	# the way the data came in
@@ -113,24 +136,38 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
 	
 	## build the layer infos
 	# outerCI layer
-	outerCIGeom <- list(Display=geom_line(aes(x=value, group=CoefShort), data=modelMeltOuter, colour=color, lwd=lwdOuter), None=NULL)
+	outerCIGeom <- list(
+						Display=geom_line(aes(x=value, group=CoefShort), data=modelMeltOuter, colour=color, lwd=lwdOuter), None=NULL)
 	# innerCI layer
 	innerCIGeom <- list(Display=geom_line(aes(x=value, group=CoefShort), data=modelMeltInner, colour=color, lwd=lwdInner), None=NULL)
-	
+	# ribbon layer
+	ribbonGeom <- list(None=NULL, geom_ribbon(aes(ymin=LowOuter, ymax=HighOuter, group=Checkers), data=modelCI, fill=fillColor, alpha=alpha, lwd=lwdOuter))
+
 	# faceting info
 	faceting <- list(None=NULL, Display=facet_wrap(~Checkers, scales=scales))
 
 	## if we are to make the plot
 	if(plot)
 	{
+		if(numeric)
+		{
+			p <- ggplot(data=modelCI, aes(y=Coef, x=CoefShort))			# the basics of the plot
+			p <- p + geom_hline(yintercept=0, colour=zeroColor, linetype=zeroType, lwd=zeroLWD)		# the zero line
+			p <- p + ribbonGeom[[numeric + 1]]		# the ribbon
+			p <- p + geom_point(colour=color)						# the points
+			p <- p + geom_line(data=modelCI, aes(y=HighOuter, x=CoefShort, group=Checkers), colour=color) +
+				geom_line(data=modelCI, aes(y=LowOuter, x=CoefShort, group=Checkers), colour=color)
+			return(p)
+		}
 		p <- ggplot(data=modelCI, aes(x=Coef, y=CoefShort))			# the basics of the plot
 		p <- p + geom_vline(xintercept=0, colour=zeroColor, linetype=zeroType, lwd=zeroLWD)		# the zero line
-		p <- p + outerCIGeom[[outerCI/outerCI]] +					# the outer CI bars
+		p <- p + outerCIGeom[[(outerCI/outerCI)]] +					# the outer CI bars
 			innerCIGeom[[innerCI/innerCI]]						# the inner CI bars
   		p <- p + geom_point(colour=color)						# the points
 		p <- p + opts(title=title, axis.text.y=theme_text(angle=textAngle), axis.text.x=theme_text(angle=numberAngle)) + labs(x=xlab, y=ylab)	# labeling and text info
 		p <- p + faceting[[facet + 1]]		# faceting
-		
+		p <- p + if(horizontal) coord_flip()
+  
 		rm(modelMelt, modelMeltOuter, modelMeltInner); gc()		# housekeeping
 		
 		return(p)		# return the ggplot object
