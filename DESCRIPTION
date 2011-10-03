@@ -1,0 +1,10 @@
+Package: coefplot
+Type: Package
+Title: What the package does (short line)
+Version: 1.0
+Date: 2011-10-02
+Author: Jared P. Lander
+Maintainer: <info -at- jaredlander -dot- com
+Description: Plots the coefficients from a model object
+License: BSD, see LISCENSE
+LazyLoad: yes
