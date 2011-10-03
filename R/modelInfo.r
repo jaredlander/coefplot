@@ -45,7 +45,7 @@ getModelInfo.lm <- function(model, shorten=TRUE, factors=NULL, only=NULL, ...)
 	}else
 	{
 		newList <- NA
-		matchedVars <- data.frame(Var=NA, Coef=NA, Coefshort=NA)
+		matchedVars <- data.frame(Var=NA, Checkers=NA, Coef=NA, CoefShort=NA)
 	}
     
 	rm(varTypes); gc()		# do some memory cleanup

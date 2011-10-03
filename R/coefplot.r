@@ -6,6 +6,7 @@ coefplot <- function(model, ...)
 }
 
 
+
 ## the lm method for coefplot
 ## @model (lm object) the model we are graphing
 ## @title  (character) the name of the plot, if NULL then no name is given
@@ -61,7 +62,7 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
 	# get the coef and SE from modelInfo
 	modelCoef <- modelInfo$coef# the coefficients
 	modelSE <- modelInfo$SE# the standard errors
-	modelMatched <- modelInfo$matchedVars# the data.frame matching coefficients to variables
+ 	modelMatched <- modelInfo$matchedVars# the data.frame matching coefficients to variables
 	
 	# all the info about the coefficients
 	modelCI <- data.frame(LowOuter=modelCoef - outerCI*modelSE, HighOuter=modelCoef + outerCI*modelSE, LowInner=modelCoef - innerCI*modelSE, HighInner=modelCoef + innerCI*modelSE, Coef=modelCoef) # build a data.frame of the confidence bounds and original coefficients
@@ -72,7 +73,7 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
 	modelMatcher <- modelMatched[, c("Checkers", "Coef", "CoefShort")]
 	names(modelMatcher)[2] <- "Name"
 	modelMatcher$Name <- as.character(modelMatcher$Name)
-	
+
 	modelCI <- join(modelCI, modelMatcher, by="Name")
 	
 	rm(modelMatcher); gc()		# housekeeping
