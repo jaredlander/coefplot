@@ -52,6 +52,21 @@ getModelInfo.lm <- function(model, shorten=TRUE, factors=NULL, only=NULL, ...)
 	
 	list(coef=coef, SE=SE, factorVars=factorVars, factorVarsHuman=factorVars, factorCoefs=newList, matchedVars=matchedVars)				## return the coefs and SEs as a named list
 }
+
+
+## can deal with this in a very simliar way to lm
+getModelInfo.rxLinMod <- function(model, shorten=TRUE, factors=NULL, only=NULL, ...)
+{
+	# get the model summary to easily get info out of it
+    modelSummary <- summary(model)[[1]]
+    
+    ## extract coefficients and standard errors
+	coef <- modelSummary$coefficients[, 1]
+	SE <- modelSummary$coefficients[, 2]		# gets standard error from summary
+	
+	return(list(coef, SE))
+}
+getModelInfo(rxModel8)
 #modelInfo(model3)
 #names(coef(model3))
 #print("hi")
