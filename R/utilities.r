@@ -135,6 +135,8 @@ buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE,
 		}else
 		{
 			## if any of the variables are in the factors to keep then keep it
+            ######################
+            ## need to adjust it so the user can specify just the interaction of factors, and not the factors themselves
 			theKeepers <- laply(theCheckers, function(x, toCheck) { any(x %in% toCheck) }, toCheck=factors)
 			varDF <- varDF[theKeepers, ]
 			rm(theKeepers); gc()

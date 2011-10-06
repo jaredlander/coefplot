@@ -58,16 +58,45 @@ getModelInfo.lm <- function(model, shorten=TRUE, factors=NULL, only=NULL, ...)
 getModelInfo.rxLinMod <- function(model, shorten=TRUE, factors=NULL, only=NULL, ...)
 {
 	# get the model summary to easily get info out of it
-    modelSummary <- summary(model)[[1]]
+    #modelSummary <- summary(model)[[1]]
     
     ## extract coefficients and standard errors
-	coef <- modelSummary$coefficients[, 1]
-	SE <- modelSummary$coefficients[, 2]		# gets standard error from summary
-	
+	coef <- model$coefficients          # coefficients
+	SE <- model$coef.std.error		# gets standard error from summary
+
+    ## the special characters and their escaped equivalents
+    specials <- c("\\!", "\\(", "\\)", "\\-", "\\=", "\\.")
+	specialsSub <- c("\\\\!", "\\\\(", "\\\\)", "\\\\-", "\\\\=", "\\\\.")
+
+    ## if they are reducing variables, get rid of them now
+    if(!is.null(factors))
+    {
+        # take care of special characters
+        factors <- subSpecials(factors, specialChars=specials, modChars=specialsSub)[[1]]
+
+        # make a pipe seperated list of factors to keep
+        toKeep <- paste(factors, collapse="|")
+
+        ## if they are only keeping the factor itself, and not interactions
+        if(identical(only, TRUE))
+        {
+            # just check for when that variable is the only one
+            theString <- paste("^(", toKeep, ")=[^, ]*?$", sep="")
+        }else
+        {
+            # as long as that variable is in there
+            theString <- paste("(^|, | for )(", toKeep, ")=", sep="")
+        }
+        
+        # the ones we are going to keep
+        theKeepers <- grep(theString, rownames(coef))
+        
+        coef <- coef[theKeepers, ]
+        SE <- SE[theKeepers, ]
+    }
+
 	return(list(coef, SE))
 }
-#getModelInfo(rxModel8)
-#modelInfo(model3)
-#names(coef(model3))
-#print("hi")
-#print("bye")
+getModelInfo(rxModel6, factors=c("cut", "color"), only=T )
+getModelInfo(rxModel6, factors=c("cut"), only=F )
+getModelInfo(rxModel6 )

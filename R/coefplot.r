@@ -2,7 +2,7 @@
 ## this way it can be used for more than just the generalized family of linear models
 coefplot <- function(model, ...)
 {
-    UseMethod(generic="coefplot", object=model)
+    UseMethod(generic="coefplot")
 }
 
 
