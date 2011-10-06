@@ -9,8 +9,8 @@
 ## @specialChars: the characters to be replaced
 ## @modChars: new version of characters
 ## returns the modified vector
-subOut <- function(toAlter, specialChars=c("\\!", "\\(", "\\)", "\\-", "\\=", "\\*"), 
-                        modChars=c("\\\\!", "\\\\(", "\\\\)", "\\\\-", "\\\\=", "\\\\*"))
+subOut <- function(toAlter, specialChars=c("\\!", "\\(", "\\)", "\\-", "\\=", "\\*", "\\."), 
+                        modChars=c("\\\\!", "\\\\(", "\\\\)", "\\\\-", "\\\\=", "\\\\*", "\\\\."))
 {
   # make sure the special characters has the same length as the replacement characters
   if(length(specialChars) != length(modChars))
@@ -82,8 +82,8 @@ buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE,
 	varDF$VarAlter <- varDF$Var
 	
     ## the special characters and their escaped equivalents
-	specials <- c("\\!", "\\(", "\\)", "\\-", "\\=")
-	specialsSub <- c("\\\\!", "\\\\(", "\\\\)", "\\\\-", "\\\\=")
+	specials <- c("\\!", "\\(", "\\)", "\\-", "\\=", "\\.")
+	specialsSub <- c("\\\\!", "\\\\(", "\\\\)", "\\\\-", "\\\\=", "\\\\.")
 	
     ## go through and do the replacing
 	alterList <- subSpecials(varDF$VarAlter, varDF$PivotAlter, specialChars=specials, modChars=specialsSub)
