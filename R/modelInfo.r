@@ -66,7 +66,7 @@ getModelInfo.rxLinMod <- function(model, shorten=TRUE, factors=NULL, only=NULL, 
 	
 	return(list(coef, SE))
 }
-getModelInfo(rxModel8)
+#getModelInfo(rxModel8)
 #modelInfo(model3)
 #names(coef(model3))
 #print("hi")

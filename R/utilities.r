@@ -153,7 +153,7 @@ buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE,
     }
     
     # now sub out the subbers from the coef to make coef short
-    varDF <- ddply(varDF, .(Subbers), function(DF) { DF$CoefShort <- gsub(unique(DF$Subbers), "", DF$Coef); return(DF) } )
+    varDF <- ddply(varDF, .(Subbers), function(DF) { DF$CoefShort <- gsub(paste("(^|:)", "(", unique(DF$Subbers), ")", sep=""), "\\1", DF$Coef); return(DF) } )
 #return(varDF)
 
     # return the results
