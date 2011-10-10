@@ -55,6 +55,7 @@ subSpecials <- function(..., specialChars=c("\\!", "\\(", "\\)", "\\-", "\\=", "
 ## @factors: (character vector) a list of vectors to work with if we are only interested in a few
 ## @only: (logical) if factors restricts what we are looking at then decide if we want just that variable or the stuff it interacts with too
 ## have to finish dealing with only showing some factors while also shortening some, all or none
+##      should be done! Yay!
 buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE, factors=NULL, only=NULL)
 {
     # if we are only looking for some factors, just check those saving time on the rest
@@ -170,6 +171,12 @@ extractLevels <- function(varName, modelModel)
 {
     # put the variable name in front of the level
     paste(varName, levels(factor(modelModel[[varName]])), sep="")
+}
+
+
+rxVarMatcher <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE, factors=NULL, only=NULL)
+{
+    
 }
 
 #buildFactorDF <- compiler::cmpfun(buildFactorDF)

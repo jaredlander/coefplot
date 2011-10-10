@@ -21,7 +21,7 @@ getModelInfo.lm <- function(model, shorten=TRUE, factors=NULL, only=NULL, ...)
 	SE <- modelSummary$coefficients[, 2]		# gets standard error from summary
     
     varTypes <- attr(model$terms, "dataClasses")			## These are the types of the different variables
-	factorVars <- names(varTypes[varTypes %in% c("factor", "other")])		## The variables that are factor
+	factorVars <- names(varTypes[varTypes %in% c("factor", "other")])    	## The variables that are factor
 
 	# store the names of the coefficients
     newList <- names(coef)    	## names of the coefficients
@@ -61,8 +61,8 @@ getModelInfo.rxLinMod <- function(model, shorten=TRUE, factors=NULL, only=NULL, 
     #modelSummary <- summary(model)[[1]]
     
     ## extract coefficients and standard errors
-	coef <- model$coefficients          # coefficients
-	SE <- model$coef.std.error		# gets standard error from summary
+	coef <- model$coefficients#modelSummary$coefficients[, 1, drop=F]             #model$coefficients          # coefficients
+	SE <- model$coef.std.error#modelSummary$coefficients[, 2, drop=F]               #model$coef.std.error		# gets standard error
 
     ## the special characters and their escaped equivalents
     specials <- c("\\!", "\\(", "\\)", "\\-", "\\=", "\\.")
@@ -74,7 +74,7 @@ getModelInfo.rxLinMod <- function(model, shorten=TRUE, factors=NULL, only=NULL, 
         # take care of special characters
         factors <- subSpecials(factors, specialChars=specials, modChars=specialsSub)[[1]]
 
-        # make a pipe seperated list of factors to keep
+        # make a pipe seperated character of factors to keep
         toKeep <- paste(factors, collapse="|")
 
         ## if they are only keeping the factor itself, and not interactions
@@ -90,13 +90,39 @@ getModelInfo.rxLinMod <- function(model, shorten=TRUE, factors=NULL, only=NULL, 
         
         # the ones we are going to keep
         theKeepers <- grep(theString, rownames(coef))
-        
-        coef <- coef[theKeepers, ]
-        SE <- SE[theKeepers, ]
+
+        # take just the coefs and SEs that were specified
+        coef <- coef[theKeepers, , drop=FALSE]
+        SE <- SE[theKeepers, , drop=FALSE]
     }
 
-	return(list(coef, SE))
+    ## figure out which variables are factors
+    # get coefficient names
+    coefNames <- rownames(coef)
+
+    # get the variables put into the formula and clean them up
+    theTerms <- paste(rxModel6$formula)[[3]]
+    theTerms <- gsub("\\*|\\+", "|", theTerms)
+    theTerms <- gsub(" ", "", theTerms)
+
+    # get those variables out of the coefficient names
+    # these are the factor variables thanks to the equal sign in the regular expression
+    factorVars <- unlist(str_extract_all(string=coefNames, pattern=paste("(^|, | for )(", theTerms, ")=", sep="")))
+
+    # strip out spaces, for, commas and equals and get unique values
+    factorVars <- unique(gsub("(^ for )|(^, )|(=$)", "", factorVars))
+return(theVars)
+#    factorVars <- names(varTypes[varTypes %in% c("factor", "other")])        ## The variables that are factor
+	return(list(Coef=coef, SE=SE))
 }
 getModelInfo(rxModel6, factors=c("cut", "color"), only=T )
 getModelInfo(rxModel6, factors=c("cut"), only=F )
 getModelInfo(rxModel6 )
+getModelInfo(model6)
+hold <- rownames(rxModel6$coefficients)
+theTerms <- paste(rxModel6$formula)[[3]]
+theTerms <- gsub("\\*|\\+", "|", theTerms)
+theTerms <- gsub(" ", "", theTerms)
+str_extract_all(string=hold, pattern=paste("(^|, | for )(", theTerms, ")=", sep=""))
+grep(paste("(^|, | for )(", theTerms, ")=", sep=""), hold)
+gsub(paste("(^|, | for )(", theTerms, ")=", sep=""), "\\2", hold)
