@@ -3,9 +3,11 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 %%  ~~function to do ... ~~
+Sub special characters out of a character vector.
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Converts each of the special characters to their equivalents in each element of a single vectorvectors.
 }
 \usage{
 subOut(toAlter, specialChars = c("\\!", "\\(", "\\)", "\\-", "\\=", "\\*"), modChars = c("\\\\!", "\\\\(", "\\\\)", "\\\\-", "\\\\=", "\\\\*"))
@@ -14,12 +16,15 @@ subOut(toAlter, specialChars = c("\\!", "\\(", "\\)", "\\-", "\\=", "\\*"), modC
 \arguments{
   \item{toAlter}{
 %%     ~~Describe \code{toAlter} here~~
+Character vector that will be altered by subbing the special characters with their escaped equivalents
 }
   \item{specialChars}{
 %%     ~~Describe \code{specialChars} here~~
+The characters to be subbed out
 }
   \item{modChars}{
 %%     ~~Describe \code{modChars} here~~
+The escaped versions 
 }
 }
 \details{

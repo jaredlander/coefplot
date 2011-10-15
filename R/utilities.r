@@ -9,23 +9,23 @@
 ## @specialChars: the characters to be replaced
 ## @modChars: new version of characters
 ## returns the modified vector
-subOut <- function(toAlter, specialChars=c("\\!", "\\(", "\\)", "\\-", "\\=", "\\*", "\\."), 
-                        modChars=c("\\\\!", "\\\\(", "\\\\)", "\\\\-", "\\\\=", "\\\\*", "\\\\."))
-{
-  # make sure the special characters has the same length as the replacement characters
-  if(length(specialChars) != length(modChars))
-  {
-    stop("specialChars and modChars must be the same length", call.=FALSE)
-  }
-  
-  # loop through the special characters and sub in the replacements
-  for(i in 1:length(specialChars))
-    {
-		toAlter <- gsub(specialChars[i], modChars[i], toAlter)    # do the subbing
-  }
-  
-  return(toAlter)
-}
+# subOut <- function(toAlter, specialChars=c("\\!", "\\(", "\\)", "\\-", "\\=", "\\*", "\\."), 
+#                         modChars=c("\\\\!", "\\\\(", "\\\\)", "\\\\-", "\\\\=", "\\\\*", "\\\\."))
+# {
+#   # make sure the special characters has the same length as the replacement characters
+#   if(length(specialChars) != length(modChars))
+#   {
+#     stop("specialChars and modChars must be the same length", call.=FALSE)
+#   }
+#   
+#   # loop through the special characters and sub in the replacements
+#   for(i in 1:length(specialChars))
+#     {
+# 		toAlter <- gsub(specialChars[i], modChars[i], toAlter)    # do the subbing
+#   }
+#   
+#   return(toAlter)
+# }
 
 
 ## Converts special characters in escaped special characters
@@ -35,17 +35,17 @@ subOut <- function(toAlter, specialChars=c("\\!", "\\(", "\\)", "\\-", "\\=", "\
 ## @modChars: new version of characters
 ## calls .subOut to do the actual work
 ## returns list of the modified vectors
-subSpecials <- function(..., specialChars=c("\\!", "\\(", "\\)", "\\-", "\\=", "\\*"), 
-                        modChars=c("\\\\!", "\\\\(", "\\\\)", "\\\\-", "\\\\=", "\\\\*"), simplify=FALSE)
-{
-  # make sure the special characters has the same length as the replacement characters
-  if(length(specialChars) != length(modChars))
-  {
-    stop("specialChars and modChars must be the same length", call.=FALSE)
-  }
-    
-    return(llply(list(...), subOut, specialChars=specialChars, modChars))  # run .subOut on each vector, returning the resulting list
-}
+# subSpecials <- function(..., specialChars=c("\\!", "\\(", "\\)", "\\-", "\\=", "\\*"), 
+#                         modChars=c("\\\\!", "\\\\(", "\\\\)", "\\\\-", "\\\\=", "\\\\*"), simplify=FALSE)
+# {
+#   # make sure the special characters has the same length as the replacement characters
+#   if(length(specialChars) != length(modChars))
+#   {
+#     stop("specialChars and modChars must be the same length", call.=FALSE)
+#   }
+#     
+#     return(llply(list(...), subOut, specialChars=specialChars, modChars))  # run .subOut on each vector, returning the resulting list
+#}
 
 
 ## @modelFactorVars: (character vector) names of variables that are factors
@@ -83,11 +83,12 @@ buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE,
 	varDF$VarAlter <- varDF$Var
 	
     ## the special characters and their escaped equivalents
-	specials <- c("\\!", "\\(", "\\)", "\\-", "\\=", "\\.")
-	specialsSub <- c("\\\\!", "\\\\(", "\\\\)", "\\\\-", "\\\\=", "\\\\.")
+	specials <- c("!", "(", ")", "-", "=", ".")
+#    specials <- c("\\!", "\\(", "\\)", "\\-", "\\=", "\\.")
+#	specialsSub <- c("\\\\!", "\\\\(", "\\\\)", "\\\\-", "\\\\=", "\\\\.")
 	
     ## go through and do the replacing
-	alterList <- subSpecials(varDF$VarAlter, varDF$PivotAlter, specialChars=specials, modChars=specialsSub)
+	alterList <- subSpecials(varDF$VarAlter, varDF$PivotAlter, specialChars=specials)
     
     ## put the subbed values back
     varDF$VarAlter <- alterList[[1]]
@@ -191,11 +192,12 @@ rxVarMatcher <- function(modelFactorVars, modelCoefNames, modelCoefs, shorten=TR
     varDF$VarAlter <- varDF$Var
 	
     ## the special characters and their escaped equivalents
-	specials <- c("\\!", "\\(", "\\)", "\\-", "\\=", "\\.")
-	specialsSub <- c("\\\\!", "\\\\(", "\\\\)", "\\\\-", "\\\\=", "\\\\.")
+	specials <- c("!", "(", ")", "-", "=", ".")
+#    specials <- c("\\!", "\\(", "\\)", "\\-", "\\=", "\\.")
+#	specialsSub <- c("\\\\!", "\\\\(", "\\\\)", "\\\\-", "\\\\=", "\\\\.")
 	
     # go through and do the replacing
-	alterList <- subSpecials(varDF$VarAlter, specialChars=specials, modChars=specialsSub)
+	alterList <- subSpecials(varDF$VarAlter, specialChars=specials)
     
     # put the subbed values back
     varDF$VarAlter <- alterList[[1]]

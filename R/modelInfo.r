@@ -65,14 +65,15 @@ getModelInfo.rxLinMod <- function(model, shorten=TRUE, factors=NULL, only=NULL, 
 	SE <- model$coef.std.error#modelSummary$coefficients[, 2, drop=F]               #model$coef.std.error		# gets standard error
 
     ## the special characters and their escaped equivalents
-    specials <- c("\\!", "\\(", "\\)", "\\-", "\\=", "\\.")
-	specialsSub <- c("\\\\!", "\\\\(", "\\\\)", "\\\\-", "\\\\=", "\\\\.")
+    specials <- c("!", "(", ")", "-", "=", ".")
+#    specials <- c("\\!", "\\(", "\\)", "\\-", "\\=", "\\.")
+#	specialsSub <- c("\\\\!", "\\\\(", "\\\\)", "\\\\-", "\\\\=", "\\\\.")
 
     ## if they are reducing variables, get rid of them now
     if(!is.null(factors))
     {
         # take care of special characters
-        factors <- subSpecials(factors, specialChars=specials, modChars=specialsSub)[[1]]
+        factors <- subSpecials(factors, specialChars=specials)[[1]]
 
         # make a pipe seperated character of factors to keep
         toKeep <- paste(factors, collapse="|")
@@ -128,7 +129,8 @@ getModelInfo.rxLinMod <- function(model, shorten=TRUE, factors=NULL, only=NULL, 
 }
 
 #getModelInfo(rxModel6 )
-coefplot(rxModel6)
+#coefplot(rxModel6)
+#coefplot(rxModel10)
 # getModelInfo(rxModel6, factors=c("cut", "color"), only=T )
 # getModelInfo(rxModel6, factors=c("cut"), only=F)
 # getModelInfo(rxModel6, shorten=c("cut", "color"))
