@@ -63,17 +63,17 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
 	modelCoef <- modelInfo$coef# the coefficients
 	modelSE <- modelInfo$SE# the standard errors
  	modelMatched <- modelInfo$matchedVars# the data.frame matching coefficients to variables
-	
+#return(modelSE)
 	# all the info about the coefficients
 	modelCI <- data.frame(LowOuter=modelCoef - outerCI*modelSE, HighOuter=modelCoef + outerCI*modelSE, LowInner=modelCoef - innerCI*modelSE, HighInner=modelCoef + innerCI*modelSE, Coef=modelCoef) # build a data.frame of the confidence bounds and original coefficients
+    names(modelCI) <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coef")
+
 	modelCI$Name <- rownames(modelCI)	## grab the coefficient names into the data.frame
-	
  
 	## join the factor coefficient info to the data.frame holding the coefficient info
 	modelMatcher <- modelMatched[, c("Checkers", "Coef", "CoefShort")]
 	names(modelMatcher)[2] <- "Name"
 	modelMatcher$Name <- as.character(modelMatcher$Name)
-
 	modelCI <- join(modelCI, modelMatcher, by="Name")
 	
 	rm(modelMatcher); gc()		# housekeeping
@@ -84,7 +84,7 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
 	# Similar for the Checkers column
 
 	modelCI$Checkers <- ifelse(is.na(modelCI$Checkers), "Numeric", modelCI$Checkers)
-	
+
 	## if the intercept is not to be shown, then remove it
 	if(intercept == FALSE | numeric)		## remove the intercept if so desired
 	{
@@ -125,7 +125,7 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
 	#print(modelCI$CoefShort)
 	# which columns will be kept in the melted data.frame
 	keepCols <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coef", "Checkers", "CoefShort")
-	
+
 	# melt the data frame so it is suitable for ggplot
 	modelMelt <- reshape2::melt(data=modelCI[ ,keepCols], id.vars=c("CoefShort", "Checkers"), variable_name="Type")
 	
@@ -177,6 +177,11 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
 		rm(modelMelt, modelMeltOuter, modelMeltInner); gc()		# housekeeping
 		return(modelCI)
 	}
+}
+
+coefplot.rxLinMod <- function(...)
+{
+    coefplot.lm(...)
 }
 
 ## the glm method for coefplot

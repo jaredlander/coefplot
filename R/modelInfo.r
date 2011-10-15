@@ -122,17 +122,13 @@ getModelInfo.rxLinMod <- function(model, shorten=TRUE, factors=NULL, only=NULL, 
 		newList <- NA
 		matchedVars <- data.frame(Var=NA, Checkers=NA, Coef=NA, CoefShort=NA)
 	}
-    
-	
-	
-#    factorVars <- names(varTypes[varTypes %in% c("factor", "other")])        ## The variables that are factor
-#return(matchedVars)
-#    modelCI <- data.frame(Coef=coef, 
+
+ 
     return(list(coef=coef, SE=SE, factorVars=factorVars, factorCoefs=coefNames, matchedVars=matchedVars))    			## return the coefs and SEs as a named list
 }
 
 #getModelInfo(rxModel6 )
-#coefplot(rxModel6)
+coefplot(rxModel6)
 # getModelInfo(rxModel6, factors=c("cut", "color"), only=T )
 # getModelInfo(rxModel6, factors=c("cut"), only=F)
 # getModelInfo(rxModel6, shorten=c("cut", "color"))
