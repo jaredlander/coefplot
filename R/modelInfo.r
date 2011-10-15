@@ -111,18 +111,39 @@ getModelInfo.rxLinMod <- function(model, shorten=TRUE, factors=NULL, only=NULL, 
 
     # strip out spaces, for, commas and equals and get unique values
     factorVars <- unique(gsub("(^ for )|(^, )|(=$)", "", factorVars))
-return(theVars)
+#return(list(factors=factorVars, coefNames=coefNames))
+    # build matched df
+ 
+    if(length(factorVars) > 0)
+    {
+        matchedVars <- rxVarMatcher(modelFactorVars=factorVars, modelCoefNames=coefNames, shorten=shorten)
+    }else
+    {
+		newList <- NA
+		matchedVars <- data.frame(Var=NA, Checkers=NA, Coef=NA, CoefShort=NA)
+	}
+    
+	
+	
 #    factorVars <- names(varTypes[varTypes %in% c("factor", "other")])        ## The variables that are factor
-	return(list(Coef=coef, SE=SE))
+#return(matchedVars)
+#    modelCI <- data.frame(Coef=coef, 
+    return(list(coef=coef, SE=SE, factorVars=factorVars, factorCoefs=coefNames, matchedVars=matchedVars))    			## return the coefs and SEs as a named list
 }
-getModelInfo(rxModel6, factors=c("cut", "color"), only=T )
-getModelInfo(rxModel6, factors=c("cut"), only=F )
-getModelInfo(rxModel6 )
-getModelInfo(model6)
-hold <- rownames(rxModel6$coefficients)
-theTerms <- paste(rxModel6$formula)[[3]]
-theTerms <- gsub("\\*|\\+", "|", theTerms)
-theTerms <- gsub(" ", "", theTerms)
-str_extract_all(string=hold, pattern=paste("(^|, | for )(", theTerms, ")=", sep=""))
-grep(paste("(^|, | for )(", theTerms, ")=", sep=""), hold)
-gsub(paste("(^|, | for )(", theTerms, ")=", sep=""), "\\2", hold)
+
+#getModelInfo(rxModel6 )
+#coefplot(rxModel6)
+# getModelInfo(rxModel6, factors=c("cut", "color"), only=T )
+# getModelInfo(rxModel6, factors=c("cut"), only=F)
+# getModelInfo(rxModel6, shorten=c("cut", "color"))
+#getModelInfo(rxModel10)
+# getModelInfo(model6)
+# hold <- rownames(rxModel6$coefficients)
+# theTerms <- paste(rxModel6$formula)[[3]]
+# theTerms <- gsub("\\*|\\+", "|", theTerms)
+# theTerms <- gsub(" ", "", theTerms)
+# str_extract_all(string=hold, pattern=paste("(^|, | for )(", theTerms, ")=", sep=""))
+# grep(paste("(^|, | for )(", theTerms, ")=", sep=""), hold)
+# gsub(paste("(^|, | for )(", theTerms, ")=", sep=""), "\\2", hold)
+# play <- getModelInfo(rxModel6 )
+# play
