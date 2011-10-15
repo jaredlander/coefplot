@@ -28,7 +28,6 @@ coefplot <- function(model, ...)
 ## @intercept (logical) whether the Intercept coefficient should be plotted
 ## @plot (logical) if the plot should be drawn, if false then a data.frame of the values will be returned
 ## @... other arguments
-#####
 ### non-listed arguments
 ## @factors (character vector) list of factor vars that will be the only ones shown
 ## @only: (logical) if factors restricts what we are looking at then decide if we want just that variable or the stuff it interacts with too
@@ -63,7 +62,7 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
 	modelCoef <- modelInfo$coef# the coefficients
 	modelSE <- modelInfo$SE# the standard errors
  	modelMatched <- modelInfo$matchedVars# the data.frame matching coefficients to variables
-#return(modelSE)
+
 	# all the info about the coefficients
 	modelCI <- data.frame(LowOuter=modelCoef - outerCI*modelSE, HighOuter=modelCoef + outerCI*modelSE, LowInner=modelCoef - innerCI*modelSE, HighInner=modelCoef + innerCI*modelSE, Coef=modelCoef) # build a data.frame of the confidence bounds and original coefficients
     names(modelCI) <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coef")
@@ -179,11 +178,14 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
 	}
 }
 
+
+## just simply call coefplot.lm which will work just fine
 coefplot.rxLinMod <- function(...)
 {
     coefplot.lm(...)
 }
 
+# no need, glm defaults to lm
 ## the glm method for coefplot
 # coefplot.glm <- function(model, ...)
 # {
