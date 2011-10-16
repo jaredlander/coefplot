@@ -10,7 +10,7 @@ Sub special characters out of a character vector.
 Converts each of the special characters to their equivalents in each element of a single vectorvectors.
 }
 \usage{
-subOut(toAlter, specialChars = c("\\!", "\\(", "\\)", "\\-", "\\=", "\\*"), modChars = c("\\\\!", "\\\\(", "\\\\)", "\\\\-", "\\\\=", "\\\\*"))
+subOut(toAlter, specialChars = c("!", "(", ")", "-", "=", "*"))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -22,13 +22,11 @@ Character vector that will be altered by subbing the special characters with the
 %%     ~~Describe \code{specialChars} here~~
 The characters to be subbed out
 }
-  \item{modChars}{
-%%     ~~Describe \code{modChars} here~~
-The escaped versions 
-}
+
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
+Each element in the specialChar vector is subbed for its escaped equivalent in each of the elements of toAlter
 }
 \value{
 %%  ~Describe the value returned
@@ -36,12 +34,15 @@ The escaped versions
 %%  \item{comp1 }{Description of 'comp1'}
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
+toAlter is returned with any of the defined specialChars subbed out for their escaped equivalents
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
 %%  ~~who you are~~
+Jared P. Lander
+www.jaredlander.com
 }
 \note{
 %%  ~~further notes~~
@@ -51,21 +52,22 @@ The escaped versions
 
 \seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{sub}}
 }
 \examples{
 ##---- Should be DIRECTLY executable !! ----
 ##-- ==>  Define data, use random,
 ##--	or do  help(data=index)  for the standard data sets.
 
+subOut(c("Hello", "(parens)", "Excited! Mark"))
+subOut(c("Hello", "(parens)", "Excited! Mark"), specialChars=c("!", "("))
+
 ## The function is currently defined as
-function (toAlter, specialChars = c("\\!", "\\(", "\\)", "\\-", 
-    "\\=", "\\*"), modChars = c("\\\\!", "\\\\(", "\\\\)", "\\\\-", 
-    "\\\\=", "\\\\*")) 
+function (toAlter, specialChars = c("!", "(", ")", "-", "=", "*")) 
 {
-    if (length(specialChars) != length(modChars)) {
-        stop("specialChars and modChars must be the same length", 
-            call. = FALSE)
-    }
+    specialChars <- paste("\\", specialChars, sep="")
+    
+    modChars <- paste("\\", specialChars, sep="")
     for (i in 1:length(specialChars)) {
         toAlter <- gsub(specialChars[i], modChars[i], toAlter)
     }
