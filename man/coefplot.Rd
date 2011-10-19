@@ -12,6 +12,8 @@ Coefficient Plot
 }
 \usage{
 coefplot(model, ...)
+coefplot.lm(model, title = "Coefficient Plot", xlab = "Value", ylab = "Coefficient", innerCI = 1, outerCI = 2, lwdInner = 1, lwdOuter = 0, color = "blue", cex = 0.8, textAngle = 0, numberAngle = 0, zeroColor = "grey", zeroLWD = 1, zeroType = 2, facet = FALSE, scales = "free", sort = "natural", decreasing = FALSE, numeric = FALSE, fillColor = "grey", alpha = 1/2, horizontal = FALSE, intercept = TRUE, plot = TRUE, ...)
+
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
