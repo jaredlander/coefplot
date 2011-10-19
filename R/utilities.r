@@ -3,8 +3,6 @@
 ## See LISCENSE for copyright information
 
 
-
-
 ## @modelFactorVars: (character vector) names of variables that are factors
 ## @modelModel: (model.matrix) the model.matrix from the model, I would like this to be changed to accept a smaller set of the model.matrix so there is less data being passed arounf
 ## @modelCoefs: (character vector) the coefficient names that will be matched and shortened
@@ -25,14 +23,14 @@ buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE,
     # build a data.frame that matches each factor variable with it's levels
     varDFTemp <- adply(modelFactorVars, 1, function(x, modelD) { expand.grid(x, extractLevels(x, modelD), stringsAsFactors=FALSE) }, modelModel)	## Build a frame of the variables and the coefficient names for the factor variables
 	names(varDFTemp)[2:3] <- c("Var", "Pivot")		## give good names to the frame
-#return(varDFTemp)	
+
     # match each level to every coefficient (factor or numeric)
 	varDF <- expand.grid(varDFTemp$Pivot, modelCoefs, stringsAsFactors=FALSE)
 	names(varDF)[1:2] <- c("Pivot", "Coef")		## give good names to the frame
-#return(varDF)	
+
     # join the two data.frames so we have variable name, levels name and coefficient names
     varDF <- join(varDF, varDFTemp, by="Pivot")
-#return(varDF)
+
     rm(varDFTemp); gc() # housekeeping
 	
     ## create columns to hold altered versions of the variable and pivot, it replaces special characters with their excaped versions
@@ -41,8 +39,6 @@ buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE,
 	
     ## the special characters and their escaped equivalents
 	specials <- c("!", "(", ")", "-", "=", ".")
-#    specials <- c("\\!", "\\(", "\\)", "\\-", "\\=", "\\.")
-#	specialsSub <- c("\\\\!", "\\\\(", "\\\\)", "\\\\-", "\\\\=", "\\\\.")
 	
     ## go through and do the replacing
 	alterList <- subSpecials(varDF$VarAlter, varDF$PivotAlter, specialChars=specials)
@@ -65,7 +61,6 @@ buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE,
 
     # just take the ones that match
     varDF <- varDF[varDF$Valid > 0, ]
-#return(varDF)
     
     varDF$VarCheck <- varDF$VarAlter
     
@@ -115,7 +110,6 @@ buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE,
     
     # now sub out the subbers from the coef to make coef short
     varDF <- ddply(varDF, .(Subbers), function(DF) { DF$CoefShort <- gsub(paste("(^|:)", "(", unique(DF$Subbers), ")", sep=""), "\\1", DF$Coef); return(DF) } )
-#return(varDF)
 
     # return the results
 	return(varDF[, c("Var", "Checkers", "Coef", "CoefShort")])
@@ -150,8 +144,6 @@ rxVarMatcher <- function(modelFactorVars, modelCoefNames, modelCoefs, shorten=TR
 	
     ## the special characters and their escaped equivalents
 	specials <- c("!", "(", ")", "-", "=", ".")
-#    specials <- c("\\!", "\\(", "\\)", "\\-", "\\=", "\\.")
-#	specialsSub <- c("\\\\!", "\\\\(", "\\\\)", "\\\\-", "\\\\=", "\\\\.")
 	
     # go through and do the replacing
 	alterList <- subSpecials(varDF$VarAlter, specialChars=specials)
@@ -190,15 +182,12 @@ rxVarMatcher <- function(modelFactorVars, modelCoefNames, modelCoefs, shorten=TR
         varDF$CoefShort <- varDF$Coef
         return(varDF[, c("Var", "Checkers", "Coef", "CoefShort")])
     }
-#return(varDF)
+
     # do the shortening
     varDF <- ddply(varDF, .(Subbers), function(DF) { DF$CoefShort <- gsub(paste("(^|, | for )", "(", unique(DF$Subbers), ")=", sep=""), "\\1", DF$Coef); return(DF) } )
-#return(varDF)
 
     # return the results
     return(varDF[, c("Var", "Checkers", "Coef", "CoefShort")])
     
     #return(varDF)
 }
-#getModelInfo(rxModel6, shorten=T )
-#buildFactorDF <- compiler::cmpfun(buildFactorDF)

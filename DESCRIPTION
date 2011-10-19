@@ -6,5 +6,6 @@ Date: 2011-10-02
 Author: Jared P. Lander
 Maintainer: <info -at- jaredlander -dot- com
 Description: Plots the coefficients from a model object
-License: BSD, see LISCENSE
+License: BSD
+Depends: ggplot2, useful, stringr
 LazyLoad: yes

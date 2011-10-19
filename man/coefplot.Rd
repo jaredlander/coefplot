@@ -1,8 +1,11 @@
 \name{coefplot}
 \alias{coefplot}
+\alias{coefplot.lm}
+\alias{coefplot.rxLinMod}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 %%  ~~function to do ... ~~
+Coefficient Plot
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
@@ -50,9 +53,9 @@ coefplot(model, ...)
 ##--	or do  help(data=index)  for the standard data sets.
 
 ## The function is currently defined as
-function (model, ...) 
+function(model, ...)
 {
-    UseMethod(generic = "coefplot", object = model)
+    UseMethod(generic="coefplot")
   }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

@@ -50,7 +50,7 @@ getModelInfo(model, ...)
 ##--	or do  help(data=index)  for the standard data sets.
 
 ## The function is currently defined as
-function (model, ...) 
+function(model, ...)
 {
     UseMethod("getModelInfo", model)
   }

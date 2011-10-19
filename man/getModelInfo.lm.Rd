@@ -59,37 +59,46 @@ getModelInfo.lm(model, shorten = TRUE, factors = NULL, only = NULL, ...)
 ##--	or do  help(data=index)  for the standard data sets.
 
 ## The function is currently defined as
-function (model, shorten = TRUE, factors = NULL, only = NULL, 
-    ...) 
+function(model, shorten=TRUE, factors=NULL, only=NULL, ...)
 {
+    # get the model summary to easily get info out of it
     modelSummary <- summary(model)
-    coef <- modelSummary$coefficients[, 1]
-    SE <- modelSummary$coefficients[, 2]
-    varTypes <- attr(model$terms, "dataClasses")
-    factorVars <- names(varTypes[varTypes \%in\% c("factor", "other")])
-    newList <- names(coef)
-    if (length(factorVars) > 0) {
-        matchedVars <- buildFactorDF(modelFactorVars = factorVars, 
-            modelModel = model$model, modelCoefs = newList, shorten = shorten, 
-            factors = factors, only = only)
-        if (!is.null(factors)) {
-            remainingFactors <- which(names(coef) \%in\% matchedVars$Coef)
-            coef <- coef[remainingFactors]
-            SE <- SE[remainingFactors]
-            newList <- newList[remainingFactors]
-            rm(remainingFactors)
-            gc()
-        }
-    }
-    else {
-        newList <- NA
-        matchedVars <- data.frame(Var = NA, Checkers = NA, Coef = NA, 
-            CoefShort = NA)
-    }
-    rm(varTypes)
-    gc()
-    list(coef = coef, SE = SE, factorVars = factorVars, factorVarsHuman = factorVars, 
-        factorCoefs = newList, matchedVars = matchedVars)
+    
+    ## extract coefficients and standard errors
+	coef <- modelSummary$coefficients[, 1]
+	SE <- modelSummary$coefficients[, 2]		# gets standard error from summary
+    
+    varTypes <- attr(model$terms, "dataClasses")			## These are the types of the different variables
+	factorVars <- names(varTypes[varTypes \%in\% c("factor", "other")])    	## The variables that are factor
+
+	# store the names of the coefficients
+    newList <- names(coef)    	## names of the coefficients
+	
+	## if there are some factor variables
+	if(length(factorVars) > 0)
+	{
+		# figure out which variable belongs to each coefficient
+		# passing just one row doesn't work
+		matchedVars <- buildFactorDF(modelFactorVars=factorVars, modelModel=model$model, modelCoefs=newList, shorten=shorten, factors=factors, only=only)
+		
+		if(!is.null(factors))
+		{
+			## since some factors are not included they must also be removed from coef's and SE's
+			remainingFactors <- which(names(coef) \%in\% matchedVars$Coef)
+			coef <- coef[remainingFactors]
+			SE <- SE[remainingFactors]
+			newList <- newList[remainingFactors]
+			rm(remainingFactors); gc()
+		}
+	}else
+	{
+		newList <- NA
+		matchedVars <- data.frame(Var=NA, Checkers=NA, Coef=NA, CoefShort=NA)
+	}
+    
+	rm(varTypes); gc()		# do some memory cleanup
+	
+	list(coef=coef, SE=SE, factorVars=factorVars, factorVarsHuman=factorVars, factorCoefs=newList, matchedVars=matchedVars)				## return the coefs and SEs as a named list
   }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

@@ -66,8 +66,6 @@ getModelInfo.rxLinMod <- function(model, shorten=TRUE, factors=NULL, only=NULL, 
 
     ## the special characters and their escaped equivalents
     specials <- c("!", "(", ")", "-", "=", ".")
-#    specials <- c("\\!", "\\(", "\\)", "\\-", "\\=", "\\.")
-#	specialsSub <- c("\\\\!", "\\\\(", "\\\\)", "\\\\-", "\\\\=", "\\\\.")
 
     ## if they are reducing variables, get rid of them now
     if(!is.null(factors))
@@ -112,7 +110,7 @@ getModelInfo.rxLinMod <- function(model, shorten=TRUE, factors=NULL, only=NULL, 
 
     # strip out spaces, for, commas and equals and get unique values
     factorVars <- unique(gsub("(^ for )|(^, )|(=$)", "", factorVars))
-#return(list(factors=factorVars, coefNames=coefNames))
+
     # build matched df
  
     if(length(factorVars) > 0)
@@ -127,21 +125,3 @@ getModelInfo.rxLinMod <- function(model, shorten=TRUE, factors=NULL, only=NULL, 
  
     return(list(coef=coef, SE=SE, factorVars=factorVars, factorCoefs=coefNames, matchedVars=matchedVars))    			## return the coefs and SEs as a named list
 }
-
-#getModelInfo(rxModel6 )
-#coefplot(rxModel6)
-#coefplot(rxModel10)
-# getModelInfo(rxModel6, factors=c("cut", "color"), only=T )
-# getModelInfo(rxModel6, factors=c("cut"), only=F)
-# getModelInfo(rxModel6, shorten=c("cut", "color"))
-#getModelInfo(rxModel10)
-# getModelInfo(model6)
-# hold <- rownames(rxModel6$coefficients)
-# theTerms <- paste(rxModel6$formula)[[3]]
-# theTerms <- gsub("\\*|\\+", "|", theTerms)
-# theTerms <- gsub(" ", "", theTerms)
-# str_extract_all(string=hold, pattern=paste("(^|, | for )(", theTerms, ")=", sep=""))
-# grep(paste("(^|, | for )(", theTerms, ")=", sep=""), hold)
-# gsub(paste("(^|, | for )(", theTerms, ")=", sep=""), "\\2", hold)
-# play <- getModelInfo(rxModel6 )
-# play
