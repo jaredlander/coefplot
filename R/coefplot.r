@@ -1,6 +1,8 @@
 ## the generic function for coefplot
 ## this way it can be used for more than just the generalized family of linear models
 
+## Should there be a seperate help file for each coefplot method?
+
 #' Dot plot for model coefficients
 #'
 #' A graphical display of the coefficients and standard errors from a fitted model
@@ -9,9 +11,9 @@
 #'
 #' This can be extended with new methods for other types of models not currently available.
 #'
-#' A future iteration of \code{coefplot.glm} will allo for plotting the coefficients on the transformed scale.
+#' A future iteration of \code{coefplot.glm} will also for plotting the coefficients on the transformed scale.
 #'
-#' @aliases coefplot coefplot.lm coefplot.rxLinMod
+#' @aliases coefplot coefplot.lm coefplot.rxLinMod plotcoef
 #' @author Jared P. Lander
 #' www.jaredlander.com
 #' @export coefplot coefplot.lm coefplot.rxLinMod
@@ -24,16 +26,22 @@
 #' @param innerCI How wide the inner confidence interval should be, normally 1 standard deviation.  If 0, then there will be no inner confidence interval.
 #' @param outerCI How wide the outer confidence interval should be, normally 2 standard deviations.  If 0, then there will be no outer confidence interval.
 #' @param lwdInner The thickness of the inner confidence interval
-#' @param lwdouter The thickness of the outer confidence interval
+#' @param lwdOuter The thickness of the outer confidence interval
 #' @param color The color of the points and lines
 #' @param cex The text size multiplier, currently not used
 #' @param textAngle The angle for the coefficient labels, 0 is horizontal
-#' @param numericAngle The angle for the value labels, 0 is horizontal
+#' @param numberAngle The angle for the value labels, 0 is horizontal
 #' @param zeroColor The color of the line indicating 0
 #' @param zeroLWD The thickness of the 0 line
 #' @param zeroType The type of 0 line, 0 will mean no line
 #' @param facet logical; If the coefficients should be faceted by the variables, numeric coefficients (including the intercept) will be one facet
 #' @param scales The way the axes should be treated in a faceted plot.  Can be c("fixed", "free", "free_x", "free_y")
+#' @param sort Determines the sort order of the coefficients.  Possible values are c("natural", "normal", "magnitude", "size", "alphabetical")
+#' @param decreasing logical; Whether the coefficients should be ascending or descending
+#' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with constinuous confidence bounds.
+#' @param fillColor The color of the confidence bounds for a numeric factor
+#' @param alpha The transparency level of the numeric factor's confidence bound
+#' @param horizontal logical; If the plot should be displayed horizontally
 #' @param intercept logical; Whether the Intercept coefficient should be plotted
 #' @param plot logical; If the plot should be drawn, if false then a data.frame of the values will be returned
 #' @param \dots other arguments
@@ -41,8 +49,9 @@
 #' @param factors Vector of factor variables that will be the only ones shown
 #' @param only logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.
 #' @param shorten logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped.
-#' @return If \code{plot} is \{TRUE} then a \code{\link{ggplot}} object is returned.  Otherwise a \code{\link{data.frame}} listing coeffcients and confidence bands is returned.
+#' @return If \code{plot} is \code{TRUE} then a \code{\link{ggplot}} object is returned.  Otherwise a \code{\link{data.frame}} listing coeffcients and confidence bands is returned.
 #' @seealso \code{\link{lm}} \code{\link{glm}} \code{\link{rxLinMod}} \code{\link{ggplot}}
+#' @usage coefplot.lm(model, title="Coefficient Plot", xlab="Value", ylab="Coefficient", innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0,  color="blue", cex=.8, textAngle=0, numberAngle=0, zeroColor="grey", zeroLWD=1, zeroType=2, facet=FALSE, scales="free", sort="natural", decreasing=FALSE, numeric=FALSE, fillColor="grey", alpha=1/2, horizontal=FALSE, intercept=TRUE, plot=TRUE, ...)
 #' @examples
 #' 
 #' data(diamonds)
@@ -66,7 +75,6 @@ coefplot <- function(model, ...)
 
 
 ## the lm method for coefplot
-
 coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coefficient", 
 						innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0,  color="blue",
 						cex=.8, textAngle=0, numberAngle=0,
@@ -227,3 +235,9 @@ coefplot.rxLinMod <- function(...)
 # {
 #     plot(coef(model))
 # }
+
+# just another name for it
+plotcoef <- function(...)
+{
+    coefplot(...)
+}

@@ -2,9 +2,17 @@
 \alias{coefplot}
 \alias{coefplot.lm}
 \alias{coefplot.rxLinMod}
+\alias{plotcoef}
 \title{Dot plot for model coefficients}
 \usage{
-  coefplot(model, ...)
+  coefplot.lm(model, title="Coefficient Plot",
+  xlab="Value", ylab="Coefficient", innerCI=1, outerCI=2,
+  lwdInner=1, lwdOuter=0, color="blue", cex=.8,
+  textAngle=0, numberAngle=0, zeroColor="grey", zeroLWD=1,
+  zeroType=2, facet=FALSE, scales="free", sort="natural",
+  decreasing=FALSE, numeric=FALSE, fillColor="grey",
+  alpha=1/2, horizontal=FALSE, intercept=TRUE, plot=TRUE,
+  ...)
 }
 \arguments{
   \item{model}{The model we are graphing}
@@ -27,7 +35,7 @@
   \item{lwdInner}{The thickness of the inner confidence
   interval}
 
-  \item{lwdouter}{The thickness of the outer confidence
+  \item{lwdOuter}{The thickness of the outer confidence
   interval}
 
   \item{color}{The color of the points and lines}
@@ -37,7 +45,7 @@
   \item{textAngle}{The angle for the coefficient labels, 0
   is horizontal}
 
-  \item{numericAngle}{The angle for the value labels, 0 is
+  \item{numberAngle}{The angle for the value labels, 0 is
   horizontal}
 
   \item{zeroColor}{The color of the line indicating 0}
@@ -53,6 +61,26 @@
   \item{scales}{The way the axes should be treated in a
   faceted plot.  Can be c("fixed", "free", "free_x",
   "free_y")}
+
+  \item{sort}{Determines the sort order of the
+  coefficients.  Possible values are c("natural", "normal",
+  "magnitude", "size", "alphabetical")}
+
+  \item{decreasing}{logical; Whether the coefficients
+  should be ascending or descending}
+
+  \item{numeric}{logical; If true and factors has exactly
+  one value, then it is displayed in a horizontal graph
+  with constinuous confidence bounds.}
+
+  \item{fillColor}{The color of the confidence bounds for a
+  numeric factor}
+
+  \item{alpha}{The transparency level of the numeric
+  factor's confidence bound}
+
+  \item{horizontal}{logical; If the plot should be
+  displayed horizontally}
 
   \item{intercept}{logical; Whether the Intercept
   coefficient should be plotted}
@@ -79,7 +107,7 @@
   variable names stripped.}
 }
 \value{
-  If \code{plot} is \{TRUE} then a \code{\link{ggplot}}
+  If \code{plot} is \code{TRUE} then a \code{\link{ggplot}}
   object is returned.  Otherwise a \code{\link{data.frame}}
   listing coeffcients and confidence bands is returned.
 }
@@ -94,7 +122,7 @@
   This can be extended with new methods for other types of
   models not currently available.
 
-  A future iteration of \code{coefplot.glm} will allo for
+  A future iteration of \code{coefplot.glm} will also for
   plotting the coefficients on the transformed scale.
 }
 \examples{

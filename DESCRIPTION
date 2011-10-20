@@ -4,13 +4,15 @@ Title: What the package does (short line)
 Version: 1.0
 Date: 2011-10-02
 Author: Jared P. Lander
-Maintainer: <packages@jaredlander@dot.com>
+Maintainer: <packages@jaredlander.com>
 Description: Plots the coefficients from a model object
 License: BSD
 Depends:
     ggplot2,
+    plyr,
     useful,
-    stringr
+    stringr,
+    reshape2
 LazyLoad: yes
 Collate:
     'coefplot.r'

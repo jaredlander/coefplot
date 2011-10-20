@@ -101,7 +101,7 @@ getModelInfo.rxLinMod <- function(model, shorten=TRUE, factors=NULL, only=NULL, 
     coefNames <- rownames(coef)
 
     # get the variables put into the formula and clean them up
-    theTerms <- paste(rxModel6$formula)[[3]]
+    theTerms <- paste(model$formula)[[3]]
     theTerms <- gsub("\\*|\\+", "|", theTerms)
     theTerms <- gsub(" ", "", theTerms)
 
