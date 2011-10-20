@@ -7,5 +7,12 @@ Author: Jared P. Lander
 Maintainer: <info -at- jaredlander -dot- com
 Description: Plots the coefficients from a model object
 License: BSD
-Depends: ggplot2, useful, stringr
+Depends:
+    ggplot2,
+    useful,
+    stringr
 LazyLoad: yes
+Collate:
+    'coefplot.r'
+    'modelInfo.r'
+    'utilities.r'

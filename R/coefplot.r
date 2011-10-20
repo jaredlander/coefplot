@@ -1,5 +1,63 @@
 ## the generic function for coefplot
 ## this way it can be used for more than just the generalized family of linear models
+
+#' Dot plot for model coefficients
+#'
+#' A graphical display of the coefficients and standard errors from a fitted model
+#'
+#' \code{coefplot} is the S3 generic method for plotting the coefficients from a fitted model.
+#'
+#' This can be extended with new methods for other types of models not currently available.
+#'
+#' A future iteration of \code{coefplot.glm} will allo for plotting the coefficients on the transformed scale.
+#'
+#' @aliases coefplot coefplot.lm coefplot.rxLinMod
+#' @author Jared P. Lander
+#' www.jaredlander.com
+#' @export coefplot coefplot.lm coefplot.rxLinMod
+#' @keywords coefplot dotplot coefficient coefficients model lm glm rxLinMod linear
+#' @import ggplot2 plyr reshape2 useful
+#' @param model The model we are graphing
+#' @param title  The name of the plot, if NULL then no name is given
+#' @param xlab The x label
+#' @param ylab The y label
+#' @param innerCI How wide the inner confidence interval should be, normally 1 standard deviation.  If 0, then there will be no inner confidence interval.
+#' @param outerCI How wide the outer confidence interval should be, normally 2 standard deviations.  If 0, then there will be no outer confidence interval.
+#' @param lwdInner The thickness of the inner confidence interval
+#' @param lwdouter The thickness of the outer confidence interval
+#' @param color The color of the points and lines
+#' @param cex The text size multiplier, currently not used
+#' @param textAngle The angle for the coefficient labels, 0 is horizontal
+#' @param numericAngle The angle for the value labels, 0 is horizontal
+#' @param zeroColor The color of the line indicating 0
+#' @param zeroLWD The thickness of the 0 line
+#' @param zeroType The type of 0 line, 0 will mean no line
+#' @param facet logical; If the coefficients should be faceted by the variables, numeric coefficients (including the intercept) will be one facet
+#' @param scales The way the axes should be treated in a faceted plot.  Can be c("fixed", "free", "free_x", "free_y")
+#' @param intercept logical; Whether the Intercept coefficient should be plotted
+#' @param plot logical; If the plot should be drawn, if false then a data.frame of the values will be returned
+#' @param \dots other arguments
+### non-listed arguments
+#' @param factors Vector of factor variables that will be the only ones shown
+#' @param only logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.
+#' @param shorten logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped.
+#' @return If \code{plot} is \{TRUE} then a \code{\link{ggplot}} object is returned.  Otherwise a \code{\link{data.frame}} listing coeffcients and confidence bands is returned.
+#' @seealso \code{\link{lm}} \code{\link{glm}} \code{\link{rxLinMod}} \code{\link{ggplot}}
+#' @examples
+#' 
+#' data(diamonds)
+#' corner(diamonds)
+#' model1 <- lm(price ~ carat + cut*color, data=diamonds)
+#' model2 <- lm(price ~ carat*color, data=diamonds)
+#' coefplot(model1)
+#' coefplot(model1, shorten=FALSE)
+#' coefplot(model1, shorten=c("cut"))
+#' coefplot(model1, shorten=c("cut"), intercept=FALSE)
+#' coefplot(model1, factors="cut")
+#' coefplot(model1, factors="cut", only=TRUE)
+#' coefplot(model1, facet=TRUE)
+#' coefplot(model2)
+#'
 coefplot <- function(model, ...)
 {
     UseMethod(generic="coefplot")
@@ -8,29 +66,7 @@ coefplot <- function(model, ...)
 
 
 ## the lm method for coefplot
-## @model (lm object) the model we are graphing
-## @title  (character) the name of the plot, if NULL then no name is given
-## @xlab (character) the x label
-## @ylab (character) the y label
-## @innerCI (numeric) how wide the inner confidence interval should be, normally 1 standard deviation, if 0, then there will be no inner confidence interval
-## @outerCI (numeric) how wide the outer confidence interval should be, normally 2 standard deviation, if 0, then there will be no outer confidence interval
-## @lwdInner (numeric) the thickness of the inner confidence interval
-## @lwdouter (numeric) the thickness of the outer confidence interval
-## @color (character) the color of the points and lines
-## @cex (numeric) the text size multiplier, currently not used
-## @textAngle (numeric) the angle for the coefficient labels, 0 is horizontal
-## @numericAngle (numeric) the angle for the value labels, 0 is horizontal
-## @zeroColor (character) the color of the line indicating 0
-## @zeroLWD (numeric) the thickness of the 0 line
-## @zeroType (numeric) the type of 0 line, 0 will mean no line
-## @facet (logical) if the coefficients should be faceted by the variables, numeric coefficients will be one facet
-## @scales (character) the way the axes should be treated in a faceted plot
-## @intercept (logical) whether the Intercept coefficient should be plotted
-## @plot (logical) if the plot should be drawn, if false then a data.frame of the values will be returned
-## @... other arguments
-### non-listed arguments
-## @factors (character vector) list of factor vars that will be the only ones shown
-## @only: (logical) if factors restricts what we are looking at then decide if we want just that variable or the stuff it interacts with too
+
 coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coefficient", 
 						innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0,  color="blue",
 						cex=.8, textAngle=0, numberAngle=0,

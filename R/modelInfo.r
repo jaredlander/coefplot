@@ -1,4 +1,5 @@
 ## information on models
+#' @import stringr
 getModelInfo <- function(model, ...)
 {
     UseMethod("getModelInfo", model)
