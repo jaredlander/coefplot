@@ -1,6 +1,7 @@
 export(coefplot)
 export(coefplot.lm)
 export(coefplot.rxLinMod)
+export(plotcoef)
 import(ggplot2)
 import(plyr)
 import(reshape2)

@@ -3,7 +3,7 @@
 
 ## Should there be a seperate help file for each coefplot method?
 
-#' Dot plot for model coefficients
+#' Dotplot for model coefficients
 #'
 #' A graphical display of the coefficients and standard errors from a fitted model
 #'
@@ -11,14 +11,51 @@
 #'
 #' This can be extended with new methods for other types of models not currently available.
 #'
-#' A future iteration of \code{coefplot.glm} will also for plotting the coefficients on the transformed scale.
+#' A future iteration of \code{coefplot.glm} will also allow for plotting the coefficients on the transformed scale.
 #'
-#' @aliases coefplot coefplot.lm coefplot.rxLinMod plotcoef
+#' See \code{\link{coefplot.lm}} for specific documentation and the return value.
+#'
+#' @aliases coefplot plotcoef
 #' @author Jared P. Lander
+#' @seealso \code{\link{coefplot.lm}}
+#' @param \dots See \code{\link{coefplot.lm}} for argument details
+#' @return A ggplot2 object or data.frame.  See details in \code{\link{coefplot.lm}} for more information
 #' www.jaredlander.com
-#' @export coefplot coefplot.lm coefplot.rxLinMod
+#' @export coefplot plotcoef
 #' @keywords coefplot dotplot coefficient coefficients model lm glm rxLinMod linear
 #' @import ggplot2 plyr reshape2 useful
+#' @examples
+#' 
+#' data(diamonds)
+#' corner(diamonds)
+#' model1 <- lm(price ~ carat + cut*color, data=diamonds)
+#' model2 <- lm(price ~ carat*color, data=diamonds)
+#' coefplot(model1)
+#' coefplot(model1, shorten=FALSE)
+#' coefplot(model1, shorten=c("cut"))
+#' coefplot(model1, shorten=c("cut"), intercept=FALSE)
+#' coefplot(model1, factors="cut")
+#' coefplot(model1, factors="cut", only=TRUE)
+#' coefplot(model1, facet=TRUE)
+#' coefplot(model2)
+#'
+coefplot <- function(model, ...)
+{
+    UseMethod(generic="coefplot")
+}
+
+
+
+## the lm method for coefplot
+#' Dotplot for model coefficients
+#'
+#' A graphical display of the coefficients and standard errors from a fitted model
+#'
+#' \code{coefplot} is the S3 generic method for plotting the coefficients from a fitted model.
+#'
+#' @aliases coefplot.lm coefplot.rxLinMod
+#' @author Jared P. Lander
+#' @seealso \code{\link{coefplot.lm}}
 #' @param model The model we are graphing
 #' @param title  The name of the plot, if NULL then no name is given
 #' @param xlab The x label
@@ -51,6 +88,7 @@
 #' @param shorten logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped.
 #' @return If \code{plot} is \code{TRUE} then a \code{\link{ggplot}} object is returned.  Otherwise a \code{\link{data.frame}} listing coeffcients and confidence bands is returned.
 #' @seealso \code{\link{lm}} \code{\link{glm}} \code{\link{rxLinMod}} \code{\link{ggplot}}
+#' @export coefplot.lm coefplot.rxLinMod
 #' @usage coefplot.lm(model, title="Coefficient Plot", xlab="Value", ylab="Coefficient", innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0,  color="blue", cex=.8, textAngle=0, numberAngle=0, zeroColor="grey", zeroLWD=1, zeroType=2, facet=FALSE, scales="free", sort="natural", decreasing=FALSE, numeric=FALSE, fillColor="grey", alpha=1/2, horizontal=FALSE, intercept=TRUE, plot=TRUE, ...)
 #' @examples
 #' 
@@ -67,14 +105,6 @@
 #' coefplot(model1, facet=TRUE)
 #' coefplot(model2)
 #'
-coefplot <- function(model, ...)
-{
-    UseMethod(generic="coefplot")
-}
-
-
-
-## the lm method for coefplot
 coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coefficient", 
 						innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0,  color="blue",
 						cex=.8, textAngle=0, numberAngle=0,
