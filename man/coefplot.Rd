@@ -6,6 +6,9 @@
   coefplot(model, ...)
 }
 \arguments{
+  \item{model}{The fitted model with coefficients to be
+  plotted}
+
   \item{\dots}{See \code{\link{coefplot.lm}} for argument
   details}
 }
