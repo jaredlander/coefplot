@@ -1,5 +1,22 @@
 ## information on models
+#' Model Information
+#'
+#' Extracts and builds extensive information from models
+#'
+#' Helper function for \code{\link{coefplot}}
+#' @author Jared P. Lander
+#' @seealso \code{\link{coefplot.lm}}
+#' @param model The fitted model with coefficients to be plotted
+#' @param \dots Further arguments such as shorten, only and factors
 #' @import stringr
+#' @rdname getModelInfo
+#' @return Information on the model
+#' @examples
+#'
+#' data(diamonds)
+#' model1 <- lm(price ~ carat + cut*color, data=diamonds)
+#' coefplot(model1)
+#'
 getModelInfo <- function(model, ...)
 {
     UseMethod("getModelInfo", model)
@@ -7,11 +24,35 @@ getModelInfo <- function(model, ...)
 
 
 ## Builds all of the info necessary for building the graph
-## @model (lm object) the model to be plotted
-## @shorten (logical or character vector) logical if all or none of the factors should be shortened, if character then only the variables listed will be shortened
-## @factors (character vector) a list of factors to include, if NULL all of them will be included
-## @only (logical) if TRUE then only the specified factors will be computed, otherwise the included factors and their interactions will be computed
-## @... other options
+# param model (lm object) the model to be plotted
+# param shorten (logical or character vector) logical if all or none of the factors should be shortened, if character then only the variables listed will be shortened
+# param factors (character vector) a list of factors to include, if NULL all of them will be included
+# param only (logical) if TRUE then only the specified factors will be computed, otherwise the included factors and their interactions will be computed
+# param \dots other options
+# return Information on the model
+#' Model Information
+#'
+#' Extracts and builds extensive information from lm and glm models
+#'
+#' Helper function for \code{\link{coefplot}}
+#' @author Jared P. Lander
+#' @seealso \code{\link{coefplot.lm}}
+#' @param model The fitted model with coefficients to be plotted
+#' @param factors Vector of factor variables that will be the only ones shown
+#' @param only logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.
+#' @param shorten logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped.
+#' @param \dots Further arguments
+#' @import stringr
+#' @rdname getModelInfo.lm
+## @method getModelInfo lm
+#' @S3method getModelInfo lm
+#' @return Information on the model
+#' @examples
+#'
+#' data(diamonds)
+#' model1 <- lm(price ~ carat + cut*color, data=diamonds)
+#' coefplot(model1)
+#'
 getModelInfo.lm <- function(model, shorten=TRUE, factors=NULL, only=NULL, ...)
 {
     # get the model summary to easily get info out of it
@@ -56,6 +97,29 @@ getModelInfo.lm <- function(model, shorten=TRUE, factors=NULL, only=NULL, ...)
 
 
 ## can deal with this in a very simliar way to lm
+#' Model Information
+#'
+#' Extracts and builds extensive information from rxLinMod models
+#'
+#' Helper function for \code{\link{coefplot}}
+#' @author Jared P. Lander
+#' @seealso \code{\link{coefplot.lm}} \code{\link{coefplot}}
+#' @param model The fitted model with coefficients to be plotted
+#' @param factors Vector of factor variables that will be the only ones shown
+#' @param only logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.
+#' @param shorten logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped.
+#' @param \dots Further arguments
+#' @import stringr
+#' @rdname getModelInfo.rxLinMod
+## @method getModelInfo rxLinMod
+#' @S3method getModelInfo rxLinMod
+#' @return Information on the model
+#' @examples
+#'
+#' data(diamonds)
+#' model1 <- lm(price ~ carat + cut*color, data=diamonds)
+#' coefplot(model1)
+#' 
 getModelInfo.rxLinMod <- function(model, shorten=TRUE, factors=NULL, only=NULL, ...)
 {
 	# get the model summary to easily get info out of it

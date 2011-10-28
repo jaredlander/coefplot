@@ -1,4 +1,6 @@
+\docType{package}
 \name{coefplot}
+\alias{"coefplot-package"}
 \alias{coefplot}
 \alias{plotcoef}
 \title{Dotplot for model coefficients}
@@ -20,6 +22,9 @@
 \description{
   A graphical display of the coefficients and standard
   errors from a fitted model
+
+  Provides an S3 generic method for plotting coefficients
+  from a model so it can be extended to other model types.
 }
 \details{
   \code{coefplot} is the S3 generic method for plotting the
@@ -33,6 +38,9 @@
 
   See \code{\link{coefplot.lm}} for specific documentation
   and the return value.
+
+  Currently, methods are available for lm, glm and rxLinMod
+  objects.
 }
 \examples{
 data(diamonds)

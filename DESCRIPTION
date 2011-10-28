@@ -1,6 +1,6 @@
 Package: coefplot
 Type: Package
-Title: What the package does (short line)
+Title: Plots Coefficients from Fitted Models
 Version: 1.0
 Date: 2011-10-02
 Author: Jared P. Lander
@@ -18,3 +18,4 @@ Collate:
     'coefplot.r'
     'modelInfo.r'
     'utilities.r'
+    'coefplot-package.r'
