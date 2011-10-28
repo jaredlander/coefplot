@@ -61,7 +61,7 @@ coefplot <- function(model, ...)
 #' \code{shorten} logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped. 
 #'
 #' @aliases coefplot.lm coefplot.rxLinMod
-#' @author Jared P. Lander
+#' @author Jared P. Lander www.jaredlander.com
 #' @usage coefplot.lm(model, title="Coefficient Plot", xlab="Value", ylab="Coefficient", innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0, color="blue", cex=.8, textAngle=0, numberAngle=0, zeroColor="grey", zeroLWD=1, zeroType=2, facet=FALSE, scales="free", sort="natural", decreasing=FALSE, numeric=FALSE, fillColor="grey", alpha=1/2, horizontal=FALSE, intercept=TRUE, plot=TRUE, ...)
 #' @param model The model we are graphing
 #' @param title  The name of the plot, if NULL then no name is given
@@ -135,74 +135,9 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
 		sort="mag"
 	}
 
-    # get the information on the model
-    modelInfo <- getModelInfo(model, ...)
-	
-	# get the coef and SE from modelInfo
-	modelCoef <- modelInfo$coef# the coefficients
-	modelSE <- modelInfo$SE# the standard errors
- 	modelMatched <- modelInfo$matchedVars# the data.frame matching coefficients to variables
+    modelCI <- buildModelCI(model, outerCI=outerCI, innerCI=innerCI, intercept=intercept, numeric=numeric, sort=sort, decreasing=decreasing, ...)
 
-	# all the info about the coefficients
-	modelCI <- data.frame(LowOuter=modelCoef - outerCI*modelSE, HighOuter=modelCoef + outerCI*modelSE, LowInner=modelCoef - innerCI*modelSE, HighInner=modelCoef + innerCI*modelSE, Coef=modelCoef) # build a data.frame of the confidence bounds and original coefficients
-    names(modelCI) <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coef")
-
-	modelCI$Name <- rownames(modelCI)	## grab the coefficient names into the data.frame
- 
-	## join the factor coefficient info to the data.frame holding the coefficient info
-	modelMatcher <- modelMatched[, c("Checkers", "Coef", "CoefShort")]
-	names(modelMatcher)[2] <- "Name"
-	modelMatcher$Name <- as.character(modelMatcher$Name)
-	modelCI <- join(modelCI, modelMatcher, by="Name")
-	
-	rm(modelMatcher); gc()		# housekeeping
-	
-	# since we will be using coef short for the coefficient labels the numeric variables need to be given CoefShort elements which will be taken from the Name column
-	modelCI$CoefShort <- ifelse(is.na(modelCI$CoefShort), modelCI$Name, modelCI$CoefShort)
-	
-	# Similar for the Checkers column
-
-	modelCI$Checkers <- ifelse(is.na(modelCI$Checkers), "Numeric", modelCI$Checkers)
-
-	## if the intercept is not to be shown, then remove it
-	if(intercept == FALSE | numeric)		## remove the intercept if so desired
-	{
-		theIntercept <- which(modelCI$Name == "(Intercept)")	# find the variable that is the intercept
-		# make sure the intercept is actually present, if so, remove it
-		if(length(theIntercept) > 0)
-		{
-			# remove the intercept
-			modelCI <- modelCI[-theIntercept, ]
-		}
-  		rm(theIntercept); gc()		# housekeeping
-	}
-	
-	# if there are no good coefficients, then stop
-	if(nrow(modelCI) == 0)
-	{
-		stop("There are no valid coeficients to plot", call.=FALSE)
-	}
-  
-	## possible orderings of the coefficients
-	ordering <- switch(sort,
-							natural=order(1:nrow(modelCI), decreasing=decreasing), 	# the way the data came in
-							normal=order(1:nrow(modelCI), decreasing=decreasing),	# the way the data came in
-							nat=order(1:nrow(modelCI), decreasing=decreasing), 			# the way the data came in
-							magnitude=order(modelCI$Coef, decreasing=decreasing), 		#  size order
-							mag=order(modelCI$Coef, decreasing=decreasing), 			# size order
-							size=order(modelCI$Coef, decreasing=decreasing),			# size order
-							alphabetical=order(modelCI$Name, decreasing=decreasing), 	# alphabetical order
-							alpha=order(modelCI$Name, decreasing=decreasing),			# alphabetical order
-							order(1:nrow(modelCI))		# default, the way it came in
-					)
-	
-	# implement the ordering
-	modelCI <- modelCI[ordering, ]
-	#return(modelCI)
-	#return(modelCI$Name)
-	modelCI$CoefShort <- factor(modelCI$CoefShort, levels=modelCI$CoefShort)
-	#print(modelCI$CoefShort)
-	# which columns will be kept in the melted data.frame
+    # which columns will be kept in the melted data.frame
 	keepCols <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coef", "Checkers", "CoefShort")
 
 	# melt the data frame so it is suitable for ggplot

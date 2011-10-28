@@ -17,5 +17,6 @@
 #' multiplot(model1, model2)
 multiplot <- function(...)
 {
-    
+    # grab the models
+    theDots <- list(...)
 }
