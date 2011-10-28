@@ -214,6 +214,7 @@ rxVarMatcher <- function(modelFactorVars, modelCoefNames, modelCoefs, shorten=TR
 #' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with constinuous confidence bounds.
 #' @param intercept logical; Whether the Intercept coefficient should be plotted
 #' @param \dots See Details for information on \code{factors}, \code{only} and \code{shorten}
+#' @param multi logical, If \code{TRUE} a column is added denoting which model the modelCI is for
 ## @param factors Vector of factor variables that will be the only ones shown
 ## @param only logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.
 ## @param shorten logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped.
@@ -301,6 +302,8 @@ buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FA
 	#return(modelCI)
 	#return(modelCI$Name)
 	modelCI$CoefShort <- factor(modelCI$CoefShort, levels=modelCI$CoefShort)
+    
+    modelCI$Call <- as.character(model$call)[2]
     
     # return the data.frame
     return(modelCI)

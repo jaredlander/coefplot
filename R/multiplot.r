@@ -19,4 +19,14 @@ multiplot <- function(...)
 {
     # grab the models
     theDots <- list(...)
+    
+    # need to add arguments for buildModelCI
+    # functionize modelMelt
+    # get the modelCI for each model and make one big data.frame
+    modelCI <- ldply(theDots, .fun=buildModelCI)
+    
+    # Turn the Call into a unique identifier for each model
+    modelCI$Call <- as.numeric(factor(modelCI$Call, levels=unique(modelCI$Call)))
+    
+    return(modelCI)
 }
