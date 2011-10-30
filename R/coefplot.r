@@ -62,7 +62,7 @@ coefplot <- function(model, ...)
 #'
 #' @aliases coefplot.lm coefplot.rxLinMod
 #' @author Jared P. Lander www.jaredlander.com
-#' @usage coefplot.lm(model, title="Coefficient Plot", xlab="Value", ylab="Coefficient", innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0, color="blue", cex=.8, textAngle=0, numberAngle=0, zeroColor="grey", zeroLWD=1, zeroType=2, facet=FALSE, scales="free", sort="natural", decreasing=FALSE, numeric=FALSE, fillColor="grey", alpha=1/2, horizontal=FALSE, intercept=TRUE, plot=TRUE, ...)
+## @usage coefplot.lm(model, title="Coefficient Plot", xlab="Value", ylab="Coefficient", innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0, color="blue", cex=.8, textAngle=0, numberAngle=0, zeroColor="grey", zeroLWD=1, zeroType=2, facet=FALSE, scales="free", sort="natural", decreasing=FALSE, numeric=FALSE, fillColor="grey", alpha=1/2, horizontal=FALSE, intercept=TRUE, plot=TRUE, ...)
 #' @param model The model we are graphing
 #' @param title  The name of the plot, if NULL then no name is given
 #' @param xlab The x label
@@ -141,15 +141,22 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
     # which columns will be kept in the melted data.frame
 	keepCols <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coef", "Checkers", "CoefShort")
 
-	# melt the data frame so it is suitable for ggplot
-	modelMelt <- reshape2::melt(data=modelCI[ ,keepCols], id.vars=c("CoefShort", "Checkers"), variable_name="Type")
-	
-	# just the outerCI info
-	modelMeltOuter <- modelMelt[modelMelt$Type %in% c("LowOuter", "HighOuter"), ]	# pull out the 95% CI
-	
-	# just the innerCI info
-	modelMeltInner <- modelMelt[modelMelt$Type %in% c("LowInner", "HighInner"), ]	# pull out the 68% CI
-	
+    modelMelting <- meltModelCI(modelCI=modelCI, keepCols=keepCols, 
+                        id.vars=c("CoefShort", "Checkers"), variable_name="Type", outerCols=c("LowOuter", "HighOuter"), 
+                        innerCols=c("LowInner", "HighInner"))
+    modelMelt <- modelMelting$modelMelt
+    modelMeltInner <- modelMelting$modelMeltInner
+    modelMeltOuter <- modelMelting$modelMeltOuter
+    
+# 	# melt the data frame so it is suitable for ggplot
+# 	modelMelt <- reshape2::melt(data=modelCI[ ,keepCols], id.vars=c("CoefShort", "Checkers"), variable_name="Type")
+# 	
+# 	# just the outerCI info
+# 	modelMeltOuter <- modelMelt[modelMelt$Type %in% c("LowOuter", "HighOuter"), ]	# pull out the 95% CI
+# 	
+# 	# just the innerCI info
+# 	modelMeltInner <- modelMelt[modelMelt$Type %in% c("LowInner", "HighInner"), ]	# pull out the 68% CI
+
 	## build the layer infos
 	# outerCI layer
 	outerCIGeom <- list(

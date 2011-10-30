@@ -33,9 +33,6 @@
 
   \item{\dots}{See Details for information on
   \code{factors}, \code{only} and \code{shorten}}
-
-  \item{multi}{logical, If \code{TRUE} a column is added
-  denoting which model the modelCI is for}
 }
 \value{
   Otherwise a \code{\link{data.frame}} listing coeffcients
