@@ -352,3 +352,87 @@ meltModelCI <- function(modelCI, keepCols=c("LowOuter", "HighOuter", "LowInner",
     # return the data.frames
     return(list(modelMelt=modelMelt, modelMeltOuter=modelMeltOuter, modelMeltInner=modelMeltInner))
 }
+
+
+#' Coefplot plotting
+#'
+#' Build ggplot object for coefplot
+#'
+#' This function builds up the ggplot layer by layer for \code{\link{coefplot.lm}}
+#'
+#' @author Jared P. Lander www.jaredlander.com
+#' @seealso \code{\link{coefplot.lm}} \code{\link{coefplot}}
+#' @aliases buildPlotting
+#' @param modelCI An object created by \code{\link{buildModelCI}}
+#' @param modelMeltInner The inner SE part of the object built by \code{\link{meltModelCI}}
+#' @param modelMeltOuter The outer SE part of the object built by \code{\link{meltModelCI}}
+#' @param title The name of the plot, if NULL then no name is given
+#' @param xlab The x label
+#' @param ylab The y label
+#' @param innerCI How wide the inner confidence interval should be, normally 1 standard deviation.  If 0, then there will be no inner confidence interval.
+#' @param outerCI How wide the outer confidence interval should be, normally 2 standard deviations.  If 0, then there will be no outer confidence interval.
+#' @param lwdInner The thickness of the inner confidence interval
+#' @param lwdOuter The thickness of the outer confidence interval
+#' @param color The color of the points and lines
+#' @param cex The text size multiplier, currently not used
+#' @param textAngle The angle for the coefficient labels, 0 is horizontal
+#' @param numberAngle The angle for the value labels, 0 is horizontal
+#' @param zeroColor The color of the line indicating 0
+#' @param zeroLWD The thickness of the 0 line
+#' @param zeroType The type of 0 line, 0 will mean no line
+#' @param facet logical; If the coefficients should be faceted by the variables, numeric coefficients (including the intercept) will be one facet
+#' @param scales The way the axes should be treated in a faceted plot.  Can be c("fixed", "free", "free_x", "free_y")
+#' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with constinuous confidence bounds.
+#' @param fillColor The color of the confidence bounds for a numeric factor
+#' @param alpha The transparency level of the numeric factor's confidence bound
+#' @param horizontal logical; If the plot should be displayed horizontally
+#' @return a ggplot graph object
+#' @examples
+#'
+#' data(diamonds)
+#' model1 <- lm(price ~ carat + cut, data=diamonds)
+#' theCI <- coefplot:::buildModelCI(model1)
+#' theCIMelt <- coefplot:::meltModelCI(theCI)
+#' coefplot:::buildPlotting(theCI, theCIMelt$modelMeltInner, theCIMelt$modelMeltInner)
+#'
+buildPlotting <- function(modelCI, modelMeltInner, modelMeltOuter, title="Coefficient Plot", xlab="Value", ylab="Coefficient",
+                        lwdInner=1, lwdOuter=0, color="blue",
+    					cex=.8, textAngle=0, numberAngle=0, outerCI=2, innerCI=1,
+						zeroColor="grey", zeroLWD=1, zeroType=2, numeric=FALSE, fillColor="grey", alpha=1/2,
+    					horizontal=FALSE, facet=FALSE, scales="free")
+{
+    ## build the layer infos
+    # outerCI layer
+	outerCIGeom <- list(Display=geom_line(aes(x=value, group=CoefShort), data=modelMeltOuter, colour=color, lwd=lwdOuter), None=NULL)
+	# innerCI layer
+	innerCIGeom <- list(Display=geom_line(aes(x=value, group=CoefShort), data=modelMeltInner, colour=color, lwd=lwdInner), None=NULL)
+	# ribbon layer
+	ribbonGeom <- list(None=NULL, geom_ribbon(aes(ymin=LowOuter, ymax=HighOuter, group=Checkers), data=modelCI, fill=fillColor, alpha=alpha, lwd=lwdOuter))
+
+	# faceting info
+	faceting <- list(None=NULL, Display=facet_wrap(~Checkers, scales=scales))
+    
+    if(numeric)
+	{
+		p <- ggplot(data=modelCI, aes(y=Coef, x=CoefShort))			# the basics of the plot
+		p <- p + geom_hline(yintercept=0, colour=zeroColor, linetype=zeroType, lwd=zeroLWD)		# the zero line
+		p <- p + ribbonGeom[[numeric + 1]]		# the ribbon
+		p <- p + geom_point(colour=color)						# the points
+		p <- p + geom_line(data=modelCI, aes(y=HighOuter, x=CoefShort, group=Checkers), colour=color) +
+			geom_line(data=modelCI, aes(y=LowOuter, x=CoefShort, group=Checkers), colour=color)
+	}else
+    {
+    	p <- ggplot(data=modelCI, aes(x=Coef, y=CoefShort))			# the basics of the plot
+    	p <- p + geom_vline(xintercept=0, colour=zeroColor, linetype=zeroType, lwd=zeroLWD)		# the zero line
+    	p <- p + outerCIGeom[[(outerCI/outerCI)]] +					# the outer CI bars
+    		innerCIGeom[[innerCI/innerCI]]						# the inner CI bars
+       	p <- p + geom_point(colour=color)						# the points
+     	p <- p + opts(title=title, axis.text.y=theme_text(angle=textAngle), axis.text.x=theme_text(angle=numberAngle)) + labs(x=xlab, y=ylab)	# labeling and text info
+     	p <- p + faceting[[facet + 1]]		# faceting
+     	p <- p + if(horizontal) coord_flip()
+    }
+
+	rm(modelCI, modelMeltOuter, modelMeltInner); gc()		# housekeeping
+    
+	return(p)		# return the ggplot object
+}
