@@ -1,3 +1,6 @@
+Version 1.1
+Added multiplot to plot numerous models at once
+Moved a lot of code in coefplot.lm to their own functions
 Version 1.0
 First build
 Methods for plotting coefficients from lm, glm and rxLinMod

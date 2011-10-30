@@ -6,8 +6,9 @@
   "Value", ylab = "Coefficient", innerCI = 1, outerCI = 2,
   lwdInner = 1, lwdOuter = 0, color = "blue", cex = 0.8,
   textAngle = 0, numberAngle = 0, zeroColor = "grey",
-  zeroLWD = 1, zeroType = 2, sort = "natural", decreasing =
-  FALSE, numeric = FALSE, fillColor = "grey", alpha = 1/2,
+  zeroLWD = 1, zeroType = 2, scales = "fixed", ncol =
+  length(theDots), sort = "natural", decreasing = FALSE,
+  numeric = FALSE, fillColor = "grey", alpha = 1/2,
   horizontal = FALSE, factors = NULL, only = NULL, shorten
   = TRUE, intercept = TRUE, plot = TRUE)
 }
@@ -50,6 +51,10 @@
   \item{zeroLWD}{The thickness of the 0 line}
 
   \item{zeroType}{The type of 0 line, 0 will mean no line}
+
+  \item{scales}{The way the axes should be treated in a
+  faceted plot.  Can be c("fixed", "free", "free_x",
+  "free_y")}
 
   \item{sort}{Determines the sort order of the
   coefficients.  Possible values are c("natural", "normal",
