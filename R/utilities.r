@@ -305,6 +305,9 @@ buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FA
     
     modelCI$Call <- as.character(model$call)[2]
     
+    # convert the pipe in Checkers to a * for better display
+    modelCI$Checkers <- gsub("\\|", ":", modelCI$Checkers)
+    
     # return the data.frame
     return(modelCI)
 }

@@ -148,43 +148,10 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
     modelMeltInner <- modelMelting$modelMeltInner
     modelMeltOuter <- modelMelting$modelMeltOuter
     rm(modelMelting); gc()      # housekeeping
-    
-
-# 	## build the layer infos
-# 	# outerCI layer
-# 	outerCIGeom <- list(Display=geom_line(aes(x=value, group=CoefShort), data=modelMeltOuter, colour=color, lwd=lwdOuter), None=NULL)
-# 	# innerCI layer
-# 	innerCIGeom <- list(Display=geom_line(aes(x=value, group=CoefShort), data=modelMeltInner, colour=color, lwd=lwdInner), None=NULL)
-# 	# ribbon layer
-# 	ribbonGeom <- list(None=NULL, geom_ribbon(aes(ymin=LowOuter, ymax=HighOuter, group=Checkers), data=modelCI, fill=fillColor, alpha=alpha, lwd=lwdOuter))
-
-# 	# faceting info
-#  	faceting <- list(None=NULL, Display=facet_wrap(~Checkers, scales=scales))
 
 	## if we are to make the plot
 	if(plot)
 	{
-# 		if(numeric)
-# 		{
-# 			p <- ggplot(data=modelCI, aes(y=Coef, x=CoefShort))			# the basics of the plot
-# 			p <- p + geom_hline(yintercept=0, colour=zeroColor, linetype=zeroType, lwd=zeroLWD)		# the zero line
-# 			p <- p + ribbonGeom[[numeric + 1]]		# the ribbon
-# 			p <- p + geom_point(colour=color)						# the points
-# 			p <- p + geom_line(data=modelCI, aes(y=HighOuter, x=CoefShort, group=Checkers), colour=color) +
-# 				geom_line(data=modelCI, aes(y=LowOuter, x=CoefShort, group=Checkers), colour=color)
-# 			return(p)
-# 		}
-# 		p <- ggplot(data=modelCI, aes(x=Coef, y=CoefShort))			# the basics of the plot
-# 		p <- p + geom_vline(xintercept=0, colour=zeroColor, linetype=zeroType, lwd=zeroLWD)		# the zero line
-# 		p <- p + outerCIGeom[[(outerCI/outerCI)]] +					# the outer CI bars
-# 			innerCIGeom[[innerCI/innerCI]]						# the inner CI bars
-#   		p <- p + geom_point(colour=color)						# the points
-# 		p <- p + opts(title=title, axis.text.y=theme_text(angle=textAngle), axis.text.x=theme_text(angle=numberAngle)) + labs(x=xlab, y=ylab)	# labeling and text info
-# 		p <- p + faceting[[facet + 1]]		# faceting
-# 		p <- p + if(horizontal) coord_flip()
-#   
-# 		rm(modelCI, modelMeltOuter, modelMeltInner); gc()		# housekeeping
-		
         p <- buildPlotting(modelCI=modelCI, modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
                            title=title, xlab=xlab, ylab=ylab,
                            lwdInner=lwdInner, lwdOuter=lwdOuter, color=color, cex=cex, textAngle=textAngle, 
