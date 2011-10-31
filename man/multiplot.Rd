@@ -5,12 +5,13 @@
   multiplot(..., title = "Coefficient Plot", xlab =
   "Value", ylab = "Coefficient", innerCI = 1, outerCI = 2,
   lwdInner = 1, lwdOuter = 0, color = "blue", cex = 0.8,
-  textAngle = 0, numberAngle = 0, zeroColor = "grey",
+  textAngle = 0, numberAngle = 90, zeroColor = "grey",
   zeroLWD = 1, zeroType = 2, scales = "fixed", ncol =
-  length(theDots), sort = "natural", decreasing = FALSE,
-  numeric = FALSE, fillColor = "grey", alpha = 1/2,
-  horizontal = FALSE, factors = NULL, only = NULL, shorten
-  = TRUE, intercept = TRUE, plot = TRUE)
+  length(unique(modelCI$Call)), sort = "natural",
+  decreasing = FALSE, numeric = FALSE, fillColor = "grey",
+  alpha = 1/2, horizontal = FALSE, factors = NULL, only =
+  NULL, shorten = TRUE, intercept = TRUE, plot = TRUE, drop
+  = FALSE)
 }
 \arguments{
   \item{\dots}{Models to be plotted}
@@ -56,6 +57,9 @@
   faceted plot.  Can be c("fixed", "free", "free_x",
   "free_y")}
 
+  \item{ncol}{The number of columns that the models should
+  be plotted in}
+
   \item{sort}{Determines the sort order of the
   coefficients.  Possible values are c("natural", "normal",
   "magnitude", "size", "alphabetical")}
@@ -97,6 +101,9 @@
   character vector of variables only coefficients for
   factor levels associated with those variables will the
   variable names stripped.}
+
+  \item{drop}{logical; if TRUE then models without valid
+  coeffiecients to show will not be plotted}
 }
 \value{
   A ggplot object
@@ -112,7 +119,11 @@
 data(diamonds)
 model1 <- lm(price ~ carat + cut, data=diamonds)
 model2 <- lm(price ~ carat + cut + color, data=diamonds)
-multiplot(model1, model2)
+model3 <- lm(price ~ carat + color, data=diamonds)
+multiplot(model1, model2, model3)
+multiplot(model1, model2, model3, factors="color")
+multiplot(model1, model2, model3, factors="color", drop=TRUE)
+multiplot(model1, model2, model3, plot=FALSE)
 }
 \seealso{
   \code{link{coefplot}}
