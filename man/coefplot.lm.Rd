@@ -1,14 +1,13 @@
 \name{coefplot.lm}
 \alias{coefplot.lm}
-\alias{coefplot.rxLinMod}
-\title{Dotplot for model coefficients}
+\title{Dotplot for lm coefficients}
 \usage{
-  coefplot.lm(model, title = "Coefficient Plot", xlab =
-  "Value", ylab = "Coefficient", innerCI = 1, outerCI = 2,
-  lwdInner = 1, lwdOuter = 0, color = "blue", cex = 0.8,
-  textAngle = 0, numberAngle = 0, zeroColor = "grey",
-  zeroLWD = 1, zeroType = 2, facet = FALSE, scales =
-  "free", sort = "natural", decreasing = FALSE, numeric =
+  \method{coefplot}{lm} (model, title = "Coefficient Plot",
+  xlab = "Value", ylab = "Coefficient", innerCI = 1,
+  outerCI = 2, lwdInner = 1, lwdOuter = 0, color = "blue",
+  cex = 0.8, textAngle = 0, numberAngle = 0, zeroColor =
+  "grey", zeroLWD = 1, zeroType = 2, facet = FALSE, scales
+  = "free", sort = "natural", decreasing = FALSE, numeric =
   FALSE, fillColor = "grey", alpha = 1/2, horizontal =
   FALSE, factors = NULL, only = NULL, shorten = TRUE,
   intercept = TRUE, plot = TRUE, ...)
@@ -87,8 +86,6 @@
   \item{plot}{logical; If the plot should be drawn, if
   false then a data.frame of the values will be returned}
 
-  \item{\dots}{Arguments passed on to other functions}
-
   \item{factors}{Vector of factor variables that will be
   the only ones shown}
 
@@ -104,6 +101,8 @@
   character vector of variables only coefficients for
   factor levels associated with those variables will the
   variable names stripped.}
+
+  \item{\dots}{Arguments passed on to other functions}
 }
 \value{
   If \code{plot} is \code{TRUE} then a \code{\link{ggplot}}
@@ -112,27 +111,15 @@
 }
 \description{
   A graphical display of the coefficients and standard
-  errors from a fitted model
+  errors from a fitted lm model
 }
 \details{
-  \code{coefplot} is the S3 generic method for plotting the
-  coefficients from a fitted model.
+  \code{\link{coefplot}} is the S3 generic method for
+  plotting the coefficients from a fitted model.
 
-  \code{factors} Vector of factor variables that will be
-  the only ones shown
-
-  \code{only} logical; If factors has a value this
-  determines how interactions are treated.  True means just
-  that variable will be shown and not its interactions.
-  False means interactions will be included.
-
-  \code{shorten} logical or character; If \code{FALSE} then
-  coefficients for factor levels will include their
-  variable name.  If \code{TRUE} coefficients for factor
-  levels will be stripped of their variable names.  If a
-  character vector of variables only coefficients for
-  factor levels associated with those variables will the
-  variable names stripped.
+  This method also plots coefficients from glm (using
+  coefplot.lm) and rxLinMod models (through a redirection
+  from coefplot.rxLinMod)
 }
 \examples{
 data(diamonds)

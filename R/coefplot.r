@@ -48,19 +48,15 @@ coefplot <- function(model, ...)
 
 
 ## the lm method for coefplot
-#' Dotplot for model coefficients
+#' Dotplot for lm coefficients
 #'
-#' A graphical display of the coefficients and standard errors from a fitted model
+#' A graphical display of the coefficients and standard errors from a fitted lm model
 #'
-#' \code{coefplot} is the S3 generic method for plotting the coefficients from a fitted model.
+#' \code{\link{coefplot}} is the S3 generic method for plotting the coefficients from a fitted model.
 #'
-#' \code{factors} Vector of factor variables that will be the only ones shown
+#' This method also plots coefficients from glm (using coefplot.lm) and rxLinMod models (through a redirection from coefplot.rxLinMod)
 #'
-#' \code{only} logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.
-#'
-#' \code{shorten} logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped. 
-#'
-#' @aliases coefplot.lm coefplot.rxLinMod
+#' @aliases coefplot.lm
 #' @author Jared P. Lander www.jaredlander.com
 ## @usage coefplot.lm(model, title="Coefficient Plot", xlab="Value", ylab="Coefficient", innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0, color="blue", cex=.8, textAngle=0, numberAngle=0, zeroColor="grey", zeroLWD=1, zeroType=2, facet=FALSE, scales="free", sort="natural", decreasing=FALSE, numeric=FALSE, fillColor="grey", alpha=1/2, horizontal=FALSE, intercept=TRUE, plot=TRUE, ...)
 #' @param model The model we are graphing
@@ -88,15 +84,17 @@ coefplot <- function(model, ...)
 #' @param horizontal logical; If the plot should be displayed horizontally
 #' @param intercept logical; Whether the Intercept coefficient should be plotted
 #' @param plot logical; If the plot should be drawn, if false then a data.frame of the values will be returned
-#' @param \dots Arguments passed on to other functions
 ##See Details for information on \code{factors}, \code{only} and \code{shorten}
 ### non-listed arguments
 #' @param factors Vector of factor variables that will be the only ones shown
 #' @param only logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.
 #' @param shorten logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped.
+#' @param \dots Arguments passed on to other functions
 #' @return If \code{plot} is \code{TRUE} then a \code{\link{ggplot}} object is returned.  Otherwise a \code{\link{data.frame}} listing coeffcients and confidence bands is returned.
 #' @seealso \code{\link{lm}} \code{\link{glm}} \code{\link{ggplot}} \code{\link{coefplot}} \code{\link{plotcoef}}
 #' @export coefplot.lm
+#' @method coefplot lm
+#' @S3method coefplot lm
 #' @examples
 #' 
 #' data(diamonds)
@@ -170,6 +168,24 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
 
 
 ## just simply call coefplot.lm which will work just fine
+#' Dotplot for rxLinMod coefficients
+#'
+#' A graphical display of the coefficients and standard errors from a fitted rxLinMod model
+#'
+#' \code{\link{coefplot}} is the S3 generic method for plotting the coefficients from a fitted model.
+#'
+#' For more information on this function and it's arguments see \code{\link{coefplot.lm}}
+#'
+#' @aliases coefplot.rxLinMod
+#' @export coefplot.rxLinMod
+#' @method coefplot rxLinMod
+#' @S3method coefplot rxLinMod
+#' @author Jared P. Lander www.jaredlander.com
+#' @param \dots All arguments are passed on to \code{\link{coefplot.lm}}.  Please see that function for argument information.
+#' @return A ggplot object.  See \code{\link{coefplot.lm}} for more information.
+#' @examples
+#' 
+#' # See coefplot.lm for examples
 coefplot.rxLinMod <- function(...)
 {
     coefplot.lm(...)

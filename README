@@ -1,3 +1,5 @@
+Version 1.1.1
+Adjusting the S3 dispatch for coefplot.rxLinMod
 Version 1.1
 Added multiplot to plot numerous models at once
 Moved a lot of code in coefplot.lm to their own functions
