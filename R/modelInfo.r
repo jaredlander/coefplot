@@ -168,6 +168,7 @@ getModelInfo.rxLinMod <- function(model, shorten=TRUE, factors=NULL, only=NULL, 
     theTerms <- paste(model$formula)[[3]]
     theTerms <- gsub("\\*|\\+", "|", theTerms)
     theTerms <- gsub(" ", "", theTerms)
+    theTerms <- gsub("F\\(([A-Za-z0-9]+)\\)", "F_\\1", theTerms)
 
     # get those variables out of the coefficient names
     # these are the factor variables thanks to the equal sign in the regular expression
