@@ -60,9 +60,17 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
 						horizontal=FALSE, factors=NULL, only=NULL, shorten=TRUE,
 						intercept=TRUE, plot=TRUE, drop=FALSE)
 {
-    # grab the models
-    theDots <- list(...)
-    
+    ## if ... is already a list just grab the dots, otherwise force it into a list
+    if(tryCatch(is.list(...), error = function(e) FALSE))
+    {
+        # grab the models
+        theDots <- list(...)[[1]]
+    }else
+    {
+        # grab the models
+        theDots <- list(...)
+    }
+#    return(theDots)
     # need to add arguments for buildModelCI
     # functionize modelMelt
     # need to change getModelInfo and buildModelCI and coefplot.lm so that shorten, factors and only are normal arguments and not part of ..., that way it will work better for this
