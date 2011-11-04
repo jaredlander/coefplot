@@ -3,7 +3,9 @@
 #'
 #' Plot the coeffcients from multiple models
 #'
-#' Plots a graph similar to \code{\link{coefplot}} but for multiple plots at once
+#' Plots a graph similar to \code{\link{coefplot}} but for multiple plots at once.
+#'
+#' For now, if \code{names} is provided the plots will appear in alphabetical order of the names.  This wil be adjusted in future iterations.
 #'
 #' @export multiplot
 #' @seealso \code{link{coefplot}}
@@ -27,6 +29,7 @@
 #' @param ncol The number of columns that the models should be plotted in
 #' @param sort Determines the sort order of the coefficients.  Possible values are c("natural", "normal", "magnitude", "size", "alphabetical")
 #' @param decreasing logical; Whether the coefficients should be ascending or descending
+#' @param names Names for models, if NULL then they will be numerically labelled
 #' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with constinuous confidence bounds.
 #' @param fillColor The color of the confidence bounds for a numeric factor
 #' @param alpha The transparency level of the numeric factor's confidence bound
@@ -54,8 +57,8 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
 						cex=.8, textAngle=0, numberAngle=90,
 						zeroColor="grey", zeroLWD=1, zeroType=2,
 						#facet=FALSE, 
-                        scales="fixed", ncol=length(unique(modelCI$Call)),
-						sort="natural", decreasing=FALSE,
+                        scales="fixed", ncol=length(unique(modelCI$Name)),
+						sort="natural", decreasing=FALSE, names=NULL,
 						numeric=FALSE, fillColor="grey", alpha=1/2,
 						horizontal=FALSE, factors=NULL, only=NULL, shorten=TRUE,
 						intercept=TRUE, plot=TRUE, drop=FALSE)
@@ -80,6 +83,12 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
     # Turn the Call into a unique identifier for each model
     modelCI$Name <- as.numeric(factor(modelCI$Name, levels=unique(modelCI$Name)))
     
+    # if names are provided use those instead of the numbers
+    if(!is.null(names))
+    {
+        modelCI$Name <- names[modelCI$Name]
+    }
+    
     ## if we are not plotting return modelCI right away
     if(!plot)
     {
@@ -89,16 +98,16 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
     ## if drop is true get rid of models without valid coefficients
     if(drop)
     {
-        notNA <- daply(modelCI, .variables="Call", function(x) { !all(is.na(x$Coef)) })
+        notNA <- daply(modelCI, .variables="Name", function(x) { !all(is.na(x$Coef)) })
         #return(notNA)
-        modelCI <- modelCI[modelCI$Call %in% which(notNA == TRUE), ]
+        modelCI <- modelCI[modelCI$Name %in% which(notNA == TRUE), ]
     }
     
     # which columns will be kept in the melted data.frame
     keepCols <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coef", "Checkers", "CoefShort", "Name")
     
     modelMelting <- meltModelCI(modelCI=modelCI, keepCols=keepCols, 
-                        id.vars=c("CoefShort", "Checkers", "Call"), variable_name="Type", outerCols=c("LowOuter", "HighOuter"), 
+                        id.vars=c("CoefShort", "Checkers", "Name"), variable_name="Type", outerCols=c("LowOuter", "HighOuter"), 
                         innerCols=c("LowInner", "HighInner"))
     #modelMelt <- modelMelting$modelMelt
     #return(modelMelting)

@@ -7,11 +7,11 @@
   lwdInner = 1, lwdOuter = 0, color = "blue", cex = 0.8,
   textAngle = 0, numberAngle = 90, zeroColor = "grey",
   zeroLWD = 1, zeroType = 2, scales = "fixed", ncol =
-  length(unique(modelCI$Call)), sort = "natural",
-  decreasing = FALSE, numeric = FALSE, fillColor = "grey",
-  alpha = 1/2, horizontal = FALSE, factors = NULL, only =
-  NULL, shorten = TRUE, intercept = TRUE, plot = TRUE, drop
-  = FALSE)
+  length(unique(modelCI$Name)), sort = "natural",
+  decreasing = FALSE, names = NULL, numeric = FALSE,
+  fillColor = "grey", alpha = 1/2, horizontal = FALSE,
+  factors = NULL, only = NULL, shorten = TRUE, intercept =
+  TRUE, plot = TRUE, drop = FALSE)
 }
 \arguments{
   \item{\dots}{Models to be plotted}
@@ -67,6 +67,9 @@
   \item{decreasing}{logical; Whether the coefficients
   should be ascending or descending}
 
+  \item{names}{Names for models, if NULL then they will be
+  numerically labelled}
+
   \item{numeric}{logical; If true and factors has exactly
   one value, then it is displayed in a horizontal graph
   with constinuous confidence bounds.}
@@ -113,7 +116,11 @@
 }
 \details{
   Plots a graph similar to \code{\link{coefplot}} but for
-  multiple plots at once
+  multiple plots at once.
+
+  For now, if \code{names} is provided the plots will
+  appear in alphabetical order of the names.  This wil be
+  adjusted in future iterations.
 }
 \examples{
 data(diamonds)
