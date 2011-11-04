@@ -214,6 +214,7 @@ rxVarMatcher <- function(modelFactorVars, modelCoefNames, modelCoefs, shorten=TR
 #' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with constinuous confidence bounds.
 #' @param intercept logical; Whether the Intercept coefficient should be plotted
 #' @param \dots See Details for information on \code{factors}, \code{only} and \code{shorten}
+#' @param name A name for the model, if NULL the call will be used
 ## @param multi logical, If \code{TRUE} a column is added denoting which model the modelCI is for
 ## @param factors Vector of factor variables that will be the only ones shown
 ## @param only logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.
@@ -234,7 +235,7 @@ rxVarMatcher <- function(modelFactorVars, modelCoefNames, modelCoefs, shorten=TR
 #' #coefplot(model3, factors="cut", numeric=T)
 #' #coefplot(model3, shorten="cut")
 #'
-buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FALSE, sort="natural", decreasing=TRUE, ...)
+buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FALSE, sort="natural", decreasing=TRUE, name=NULL, ...)
 {
     # get the information on the model
     modelInfo <- getModelInfo(model, ...)
@@ -303,7 +304,14 @@ buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FA
 	#return(modelCI$Name)
 	modelCI$CoefShort <- factor(modelCI$CoefShort, levels=modelCI$CoefShort)
     
-    modelCI$Call <- as.character(model$call)[2]
+    # if a name for the model is provided, use it, otherwise use the call
+    if(is.null(name))
+    {
+        modelCI$Name <- as.character(model$call)[2]
+    }else
+    {
+        modelCI$Name <- name
+    }
     
     # convert the pipe in Checkers to a * for better display
     modelCI$Checkers <- gsub("\\|", ":", modelCI$Checkers)

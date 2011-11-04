@@ -78,7 +78,7 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
     modelCI <- ldply(theDots, .fun=buildModelCI, outerCI=outerCI, innerCI=innerCI, intercept=intercept, numeric=numeric, sort=sort, decreasing=decreasing, factors=factors, only=only, shorten=shorten)
     
     # Turn the Call into a unique identifier for each model
-    modelCI$Call <- as.numeric(factor(modelCI$Call, levels=unique(modelCI$Call)))
+    modelCI$Name <- as.numeric(factor(modelCI$Name, levels=unique(modelCI$Name)))
     
     ## if we are not plotting return modelCI right away
     if(!plot)
@@ -95,7 +95,7 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
     }
     
     # which columns will be kept in the melted data.frame
-    keepCols <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coef", "Checkers", "CoefShort", "Call")
+    keepCols <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coef", "Checkers", "CoefShort", "Name")
     
     modelMelting <- meltModelCI(modelCI=modelCI, keepCols=keepCols, 
                         id.vars=c("CoefShort", "Checkers", "Call"), variable_name="Type", outerCols=c("LowOuter", "HighOuter"), 
@@ -116,7 +116,7 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
                            zeroType=zeroType, numeric=numeric, fillColor=fillColor, alpha=alpha, 
                            horizontal=horizontal, facet=FALSE, scales="fixed")
     
-        p + facet_wrap(~Call, scales=scales, ncol=ncol)
+        p + facet_wrap(~Name, scales=scales, ncol=ncol)
     }else
     {
         return(modelCI)

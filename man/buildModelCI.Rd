@@ -4,7 +4,7 @@
 \usage{
   buildModelCI(model, outerCI = 2, innerCI = 1, intercept =
   TRUE, numeric = FALSE, sort = "natural", decreasing =
-  TRUE, ...)
+  TRUE, name = NULL, ...)
 }
 \arguments{
   \item{model}{The fitted model to build information on}
@@ -33,6 +33,9 @@
 
   \item{\dots}{See Details for information on
   \code{factors}, \code{only} and \code{shorten}}
+
+  \item{name}{A name for the model, if NULL the call will
+  be used}
 }
 \value{
   Otherwise a \code{\link{data.frame}} listing coeffcients
