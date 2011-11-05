@@ -150,7 +150,7 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
 	## if we are to make the plot
 	if(plot)
 	{
-        p <- buildPlotting(modelCI=modelCI, modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
+        p <- buildPlotting.lm(modelCI=modelCI, modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
                            title=title, xlab=xlab, ylab=ylab,
                            lwdInner=lwdInner, lwdOuter=lwdOuter, color=color, cex=cex, textAngle=textAngle, 
                            numberAngle=numberAngle, zeroColor=zeroColor, zeroLWD=zeroLWD, outerCI=outerCI, innerCI=innerCI,

@@ -364,6 +364,7 @@ meltModelCI <- function(modelCI, keepCols=c("LowOuter", "HighOuter", "LowInner",
     return(list(modelMelt=modelMelt, modelMeltOuter=modelMeltOuter, modelMeltInner=modelMeltInner))
 }
 
+#buildPlotting <-function()
 
 #' Coefplot plotting
 #'
@@ -373,7 +374,7 @@ meltModelCI <- function(modelCI, keepCols=c("LowOuter", "HighOuter", "LowInner",
 #'
 #' @author Jared P. Lander www.jaredlander.com
 #' @seealso \code{\link{coefplot.lm}} \code{\link{coefplot}}
-#' @aliases buildPlotting
+#' @aliases buildPlotting.lm
 #' @param modelCI An object created by \code{\link{buildModelCI}}
 #' @param modelMeltInner The inner SE part of the object built by \code{\link{meltModelCI}}
 #' @param modelMeltOuter The outer SE part of the object built by \code{\link{meltModelCI}}
@@ -404,9 +405,9 @@ meltModelCI <- function(modelCI, keepCols=c("LowOuter", "HighOuter", "LowInner",
 #' model1 <- lm(price ~ carat + cut, data=diamonds)
 #' theCI <- coefplot:::buildModelCI(model1)
 #' theCIMelt <- coefplot:::meltModelCI(theCI)
-#' coefplot:::buildPlotting(theCI, theCIMelt$modelMeltInner, theCIMelt$modelMeltInner)
+#' coefplot:::buildPlotting.lm(theCI, theCIMelt$modelMeltInner, theCIMelt$modelMeltInner)
 #'
-buildPlotting <- function(modelCI, modelMeltInner, modelMeltOuter, title="Coefficient Plot", xlab="Value", ylab="Coefficient",
+buildPlotting.lm <- function(modelCI, modelMeltInner, modelMeltOuter, title="Coefficient Plot", xlab="Value", ylab="Coefficient",
                         lwdInner=1, lwdOuter=0, color="blue",
     					cex=.8, textAngle=0, numberAngle=0, outerCI=2, innerCI=1,
 						zeroColor="grey", zeroLWD=1, zeroType=2, numeric=FALSE, fillColor="grey", alpha=1/2,
@@ -447,3 +448,14 @@ buildPlotting <- function(modelCI, modelMeltInner, modelMeltOuter, title="Coeffi
     
 	return(p)		# return the ggplot object
 }
+
+
+# ggplot(data=holder, aes(y=Coef, x=CoefShort, colour=factor(Name))) + geom_point(position=position_dodge(width=.8), aes(ymax=Coef)) + labs(x="Value", y="Coefficient") + scale_colour_discrete("Model") + geom_line(data=holdMelting$modelMeltOuter, aes(y=value, group=Grouper, ymax=value, ymin=value), position=position_dodge(width=.8)) + coord_flip()
+# 
+# ggplot(data=holder[!holder$CoefShort %in% c("(Intercept)", "carat") & holder$Name != 3, ], aes(y=Coef, x=CoefShort, colour=factor(Name))) + labs(x="Value", y="Coefficient") + scale_colour_discrete("Model") + geom_errorbar(data=holdMelting$modelMeltOuter[!holdMelting$modelMeltOuter$CoefShort %in% c("(Intercept)", "carat") & holdMelting$modelMeltOuter$Name != 3, ], aes(y=value, group=Grouper, ymax=value+100, ymin=value-100), position=position_dodge(width=.8)) + coord_flip()
+# 
+# mod5 <- lm(price ~ cut, data=diamonds)
+# mod6 <- lm(price ~ cut + color, data=diamonds)
+# mod7 <- lm(price ~ cut + color + clarity, data=diamonds)
+# holder2 <- multiplot(mod5, mod6, mod7, plot=F)
+# ggplot(holder2, aes(y=Coef, x=CoefShort, colour=factor(Name))) + geom_linerange(aes(ymin=LowOuter, ymax=HighOuter), position=position_dodge(width=1), lwd=0) + geom_linerange(aes(ymin=LowInner, ymax=HighInner), position=position_dodge(width=1), lwd=1) + geom_point(position=position_dodge(width=1), aes(ymax=Coef)) + coord_flip()
