@@ -125,13 +125,13 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
  
  	## if they are treating a factor as numeric, then they must specify exactly one factor
  	## hopefully this will soon expand to listing multiple factors
-	if(numeric & length(grep("factors", names(theDots)))!=1)
+	if(numeric & length(factors)!=1)
 	{
 		stop("When treating a factor variable as numeric, the specific factor must be specified using \"factors\"")
 	}else if(numeric)
 	{
 		# if we are treating it as numeric, then the sorting should be numeric
-		sort="mag"
+		sort="alpha"
 	}
 
     modelCI <- buildModelCI(model, outerCI=outerCI, innerCI=innerCI, intercept=intercept, numeric=numeric, sort=sort, decreasing=decreasing, factors=factors, only=only, shorten=shorten, ...)
@@ -139,29 +139,30 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
     # which columns will be kept in the melted data.frame
 	keepCols <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coef", "Checkers", "CoefShort")
 
-    modelMelting <- meltModelCI(modelCI=modelCI, keepCols=keepCols, 
-                        id.vars=c("CoefShort", "Checkers"), variable_name="Type", outerCols=c("LowOuter", "HighOuter"), 
-                        innerCols=c("LowInner", "HighInner"))
-    #modelMelt <- modelMelting$modelMelt
-    modelMeltInner <- modelMelting$modelMeltInner
-    modelMeltOuter <- modelMelting$modelMeltOuter
-    rm(modelMelting); gc()      # housekeeping
+#     modelMelting <- meltModelCI(modelCI=modelCI, keepCols=keepCols, 
+#                         id.vars=c("CoefShort", "Checkers"), variable_name="Type", outerCols=c("LowOuter", "HighOuter"), 
+#                         innerCols=c("LowInner", "HighInner"))
+#     #modelMelt <- modelMelting$modelMelt
+#     modelMeltInner <- modelMelting$modelMeltInner
+#     modelMeltOuter <- modelMelting$modelMeltOuter
+#     rm(modelMelting); gc()      # housekeeping
 
 	## if we are to make the plot
 	if(plot)
 	{
-        p <- buildPlotting.lm(modelCI=modelCI, modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
+        p <- buildPlotting.lm(modelCI=modelCI, 
+                            #modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
                            title=title, xlab=xlab, ylab=ylab,
                            lwdInner=lwdInner, lwdOuter=lwdOuter, color=color, cex=cex, textAngle=textAngle, 
                            numberAngle=numberAngle, zeroColor=zeroColor, zeroLWD=zeroLWD, outerCI=outerCI, innerCI=innerCI,
                            zeroType=zeroType, numeric=numeric, fillColor=fillColor, alpha=alpha, 
                            horizontal=horizontal, facet=facet, scales=scales)
         
-        rm(modelCI, modelMeltOuter, modelMeltInner); gc()    	# housekeeping
+        rm(modelCI); gc()    	# housekeeping
 		return(p)		# return the ggplot object
 	}else
 	{
-		rm(modelMeltOuter, modelMeltInner); gc()		# housekeeping
+		#rm(modelMeltOuter, modelMeltInner); gc()		# housekeeping
 		return(modelCI)
 	}
 }
