@@ -442,7 +442,7 @@ buildPlotting.lm <- function(modelCI,
     		innerCIGeom[[innerCI/innerCI]]						# the inner CI bars
        	p <- p + geom_point(colour=color)						# the points
         p <- p + scale_x_discrete()
-     	p <- p + opts(title=title, axis.text.x=theme_text(angle=textAngle), axis.text.y=theme_text(angle=numberAngle)) + labs(y=xlab, x=ylab)	# labeling and text info
+     	p <- p + opts(title=title, axis.text.y=theme_text(angle=textAngle), axis.text.x=theme_text(angle=numberAngle)) + labs(y=xlab, x=ylab)	# labeling and text info
      	p <- p + faceting[[facet + 1]]		# faceting
      	p <- p + if(!horizontal) coord_flip()
     }
