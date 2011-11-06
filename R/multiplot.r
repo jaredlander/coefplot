@@ -25,6 +25,7 @@
 #' @param zeroLWD The thickness of the 0 line
 #' @param zeroType The type of 0 line, 0 will mean no line
 ## @param facet logical; If the coefficients should be faceted by the variables, numeric coefficients (including the intercept) will be one facet
+#' @param single logical; If TRUE there will be one plot with the points and bars stacked, otherwise the models will be displayed in seperate facets
 #' @param scales The way the axes should be treated in a faceted plot.  Can be c("fixed", "free", "free_x", "free_y")
 #' @param ncol The number of columns that the models should be plotted in
 #' @param sort Determines the sort order of the coefficients.  Possible values are c("natural", "normal", "magnitude", "size", "alphabetical")
@@ -54,10 +55,11 @@
 #'
 multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coefficient", 
     					innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0,  color="blue",
-						cex=.8, textAngle=0, numberAngle=0,
+						cex=.8, textAngle=0, numberAngle=90,
 						zeroColor="grey", zeroLWD=1, zeroType=2,
-						#facet=FALSE, 
-                        scales="fixed", ncol=length(unique(modelCI$Name)),
+						#facet=FALSE,
+                        single=TRUE,
+                        scales="fixed", ncol=length(unique(modelCI$Model)),
 						sort="natural", decreasing=FALSE, names=NULL,
 						numeric=FALSE, fillColor="grey", alpha=1/2,
 						horizontal=FALSE, factors=NULL, only=NULL, shorten=TRUE,
@@ -74,19 +76,17 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
         theDots <- list(...)
     }
 #    return(theDots)
-    # need to add arguments for buildModelCI
-    # functionize modelMelt
     # need to change getModelInfo and buildModelCI and coefplot.lm so that shorten, factors and only are normal arguments and not part of ..., that way it will work better for this
     # get the modelCI for each model and make one big data.frame
     modelCI <- ldply(theDots, .fun=buildModelCI, outerCI=outerCI, innerCI=innerCI, intercept=intercept, numeric=numeric, sort=sort, decreasing=decreasing, factors=factors, only=only, shorten=shorten)
     
     # Turn the Call into a unique identifier for each model
-    modelCI$Name <- as.numeric(factor(modelCI$Name, levels=unique(modelCI$Name)))
+    modelCI$Model <- as.numeric(factor(modelCI$Model, levels=unique(modelCI$Model)))
     
     # if names are provided use those instead of the numbers
     if(!is.null(names))
     {
-        modelCI$Name <- names[modelCI$Name]
+        modelCI$Model <- names[modelCI$Model]
     }
     
     ## if we are not plotting return modelCI right away
@@ -106,31 +106,19 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
     # which columns will be kept in the melted data.frame
     #keepCols <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coef", "Checkers", "CoefShort", "Name")
     
-#     modelMelting <- meltModelCI(modelCI=modelCI, keepCols=keepCols, 
-#                         id.vars=c("CoefShort", "Checkers", "Name"), variable_name="Type", outerCols=c("LowOuter", "HighOuter"), 
-#                         innerCols=c("LowInner", "HighInner"))
-    #modelMelt <- modelMelting$modelMelt
-    #return(modelMelting)
-#    modelMeltInner <- modelMelting$modelMeltInner
-#    modelMeltOuter <- modelMelting$modelMeltOuter
-    #return(modelMelting)
-#    rm(modelMelting); gc()      # housekeeping
     
     if(plot)
     {
-        p <- buildPlotting.lm(modelCI=modelCI, 
-                            #modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
+        p <- buildPlotting.lm(modelCI=modelCI,
                            title=title, xlab=xlab, ylab=ylab,
                            lwdInner=lwdInner, lwdOuter=lwdOuter, color=color, cex=cex, textAngle=textAngle, 
-                           numberAngle=numberAngle, zeroColor=zeroColor, zeroLWD=zeroLWD, outerCI=outerCI, innerCI=innerCI,
+                           numberAngle=numberAngle, zeroColor=zeroColor, zeroLWD=zeroLWD, outerCI=outerCI, innerCI=innerCI, multi=single,
                            zeroType=zeroType, numeric=numeric, fillColor=fillColor, alpha=alpha, 
                            horizontal=horizontal, facet=FALSE, scales="fixed")
     
-        p + facet_wrap(~Name, scales=scales, ncol=ncol)
+        p + if(!single) facet_wrap(~Model, scales=scales, ncol=ncol)
     }else
     {
         return(modelCI)
     }
-    
-    #return(modelCI)
 }

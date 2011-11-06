@@ -139,22 +139,13 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
     # which columns will be kept in the melted data.frame
 	keepCols <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coef", "Checkers", "CoefShort")
 
-#     modelMelting <- meltModelCI(modelCI=modelCI, keepCols=keepCols, 
-#                         id.vars=c("CoefShort", "Checkers"), variable_name="Type", outerCols=c("LowOuter", "HighOuter"), 
-#                         innerCols=c("LowInner", "HighInner"))
-#     #modelMelt <- modelMelting$modelMelt
-#     modelMeltInner <- modelMelting$modelMeltInner
-#     modelMeltOuter <- modelMelting$modelMeltOuter
-#     rm(modelMelting); gc()      # housekeeping
-
 	## if we are to make the plot
 	if(plot)
 	{
-        p <- buildPlotting.lm(modelCI=modelCI, 
-                            #modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
+        p <- buildPlotting.lm(modelCI=modelCI,
                            title=title, xlab=xlab, ylab=ylab,
                            lwdInner=lwdInner, lwdOuter=lwdOuter, color=color, cex=cex, textAngle=textAngle, 
-                           numberAngle=numberAngle, zeroColor=zeroColor, zeroLWD=zeroLWD, outerCI=outerCI, innerCI=innerCI,
+                           numberAngle=numberAngle, zeroColor=zeroColor, zeroLWD=zeroLWD, outerCI=outerCI, innerCI=innerCI, multi=FALSE,
                            zeroType=zeroType, numeric=numeric, fillColor=fillColor, alpha=alpha, 
                            horizontal=horizontal, facet=facet, scales=scales)
         

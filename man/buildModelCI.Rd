@@ -82,6 +82,6 @@ coefplot:::buildModelCI(model1)
   Jared P. Lander www.jaredlander.com
 }
 \seealso{
-  \code{\link{coefplot}}
+  \code{\link{coefplot}} \code{\link{multiplot}}
 }
 
