@@ -49,6 +49,7 @@
 #' model2 <- lm(price ~ carat + cut + color, data=diamonds)
 #' model3 <- lm(price ~ carat + color, data=diamonds)
 #' multiplot(model1, model2, model3)
+#' multiplot(model1, model2, model3, single=FALSE)
 #' multiplot(model1, model2, model3, factors="color")
 #' multiplot(model1, model2, model3, factors="color", drop=TRUE)
 #' multiplot(model1, model2, model3, plot=FALSE)
@@ -98,9 +99,9 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
     ## if drop is true get rid of models without valid coefficients
     if(drop)
     {
-        notNA <- daply(modelCI, .variables="Name", function(x) { !all(is.na(x$Coef)) })
+        notNA <- daply(modelCI, .variables="Model", function(x) { !all(is.na(x$Coef)) })
         #return(notNA)
-        modelCI <- modelCI[modelCI$Name %in% which(notNA == TRUE), ]
+        modelCI <- modelCI[modelCI$Model %in% which(notNA == TRUE), ]
     }
     
     # which columns will be kept in the melted data.frame
@@ -116,7 +117,7 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
                            zeroType=zeroType, numeric=numeric, fillColor=fillColor, alpha=alpha, 
                            horizontal=horizontal, facet=FALSE, scales="fixed")
     
-        p + if(!single) facet_wrap(~Model, scales=scales, ncol=ncol)
+        p + scale_colour_discrete("Model") + if(!single) facet_wrap(~Model, scales=scales, ncol=ncol)
     }else
     {
         return(modelCI)
