@@ -436,7 +436,7 @@ buildPlotting.lm <- function(modelCI,
     # first is for a normal coefplot or a faceted multiplot
     # the second is for a single-pane multiplot
     pointGeom <- list(DisplayOne=geom_point(colour=color),
-                      DisplayMany=geom_point(position=position_dodge(width=1), aes(ymax=Coef, colour=Model)),
+                      DisplayMany=geom_point(position=position_dodge(width=1), aes(ymax=Coef, colour=as.factor(Model))),
                       None=NULL)
     
 	# faceting info
