@@ -100,8 +100,8 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
     if(drop)
     {
         notNA <- daply(modelCI, .variables="Model", function(x) { !all(is.na(x$Coef)) })
-        #return(notNA)
-        modelCI <- modelCI[modelCI$Model %in% which(notNA == TRUE), ]
+        #return(which(notNA == TRUE))
+        modelCI <- modelCI[modelCI$Model %in% names(which(notNA == TRUE)), ]
     }
     
     # which columns will be kept in the melted data.frame
