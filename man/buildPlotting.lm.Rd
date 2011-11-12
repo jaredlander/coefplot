@@ -2,17 +2,24 @@
 \alias{buildPlotting.lm}
 \title{Coefplot plotting}
 \usage{
-  buildPlotting.lm(modelCI, title = "Coefficient Plot",
-  xlab = "Value", ylab = "Coefficient", lwdInner = 1,
-  lwdOuter = 0, color = "blue", cex = 0.8, textAngle = 0,
-  numberAngle = 0, outerCI = 2, innerCI = 1, multi = FALSE,
-  zeroColor = "grey", zeroLWD = 1, zeroType = 2, numeric =
-  FALSE, fillColor = "grey", alpha = 1/2, horizontal =
-  FALSE, facet = FALSE, scales = "free")
+  buildPlotting.lm(modelCI, modelMeltInner = NULL,
+  modelMeltOuter = NULL, title = "Coefficient Plot", xlab =
+  "Value", ylab = "Coefficient", lwdInner = 1, lwdOuter =
+  0, color = "blue", cex = 0.8, textAngle = 0, numberAngle
+  = 0, outerCI = 2, innerCI = 1, multi = FALSE, zeroColor =
+  "grey", zeroLWD = 1, zeroType = 2, numeric = FALSE,
+  fillColor = "grey", alpha = 1/2, horizontal = FALSE,
+  facet = FALSE, scales = "free")
 }
 \arguments{
   \item{modelCI}{An object created by
   \code{\link{buildModelCI}}}
+
+  \item{modelMeltInner}{The inner SE part of the object
+  built by \code{\link{meltModelCI}}}
+
+  \item{modelMeltOuter}{The outer SE part of the object
+  built by \code{\link{meltModelCI}}}
 
   \item{title}{The name of the plot, if NULL then no name
   is given}
