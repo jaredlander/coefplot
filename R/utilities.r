@@ -235,8 +235,11 @@ rxVarMatcher <- function(modelFactorVars, modelCoefNames, modelCoefs, shorten=TR
 #' #coefplot(model3, factors="cut", numeric=T)
 #' #coefplot(model3, shorten="cut")
 #'
-buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FALSE, sort="natural", decreasing=TRUE, name=NULL, ...)
+buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FALSE, sort=c("natural", "normal", "magnitude", "size", "alphabetical"), decreasing=TRUE, name=NULL, ...)
 {
+    # get variables that have multiple options
+    sort <- match.arg(sort)
+    
     # get the information on the model
     modelInfo <- getModelInfo(model, ...)
     

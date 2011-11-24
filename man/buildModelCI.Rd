@@ -3,8 +3,9 @@
 \title{Build data.frame for plotting}
 \usage{
   buildModelCI(model, outerCI = 2, innerCI = 1, intercept =
-  TRUE, numeric = FALSE, sort = "natural", decreasing =
-  TRUE, name = NULL, ...)
+  TRUE, numeric = FALSE, sort = c("natural", "normal",
+  "magnitude", "size", "alphabetical"), decreasing = TRUE,
+  name = NULL, ...)
 }
 \arguments{
   \item{model}{The fitted model to build information on}

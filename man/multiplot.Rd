@@ -8,10 +8,11 @@
   textAngle = 0, numberAngle = 90, zeroColor = "grey",
   zeroLWD = 1, zeroType = 2, single = TRUE, scales =
   "fixed", ncol = length(unique(modelCI$Model)), sort =
-  "natural", decreasing = FALSE, names = NULL, numeric =
-  FALSE, fillColor = "grey", alpha = 1/2, horizontal =
-  FALSE, factors = NULL, only = NULL, shorten = TRUE,
-  intercept = TRUE, plot = TRUE, drop = FALSE)
+  c("natural", "normal", "magnitude", "size",
+  "alphabetical"), decreasing = FALSE, names = NULL,
+  numeric = FALSE, fillColor = "grey", alpha = 1/2,
+  horizontal = FALSE, factors = NULL, only = NULL, shorten
+  = TRUE, intercept = TRUE, plot = TRUE, drop = FALSE)
 }
 \arguments{
   \item{\dots}{Models to be plotted}

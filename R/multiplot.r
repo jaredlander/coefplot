@@ -61,7 +61,7 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
 						#facet=FALSE,
                         single=TRUE,
                         scales="fixed", ncol=length(unique(modelCI$Model)),
-						sort="natural", decreasing=FALSE, names=NULL,
+						sort=c("natural", "normal", "magnitude", "size", "alphabetical"), decreasing=FALSE, names=NULL,
 						numeric=FALSE, fillColor="grey", alpha=1/2,
 						horizontal=FALSE, factors=NULL, only=NULL, shorten=TRUE,
 						intercept=TRUE, plot=TRUE, drop=FALSE)
@@ -76,6 +76,10 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
         # grab the models
         theDots <- list(...)
     }
+    
+    # get variables that have multiple options
+    sort <- match.arg(sort)
+    
 #    return(theDots)
     # need to change getModelInfo and buildModelCI and coefplot.lm so that shorten, factors and only are normal arguments and not part of ..., that way it will work better for this
     # get the modelCI for each model and make one big data.frame
