@@ -1,5 +1,5 @@
 Version 1.1.2
-Plotting now uses linerange so now melting is necessary
+multiplot can plot in a single pane or in facets
 Version 1.1.1
 Adjusting the S3 dispatch for coefplot.rxLinMod
 Version 1.1
