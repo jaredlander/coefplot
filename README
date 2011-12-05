@@ -1,5 +1,6 @@
 Version 1.1.2
 multiplot can plot in a single pane or in facets
+Changed sort argument to use match.arg
 Version 1.1.1
 Adjusting the S3 dispatch for coefplot.rxLinMod
 Version 1.1

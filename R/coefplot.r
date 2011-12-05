@@ -135,9 +135,19 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
 		# if we are treating it as numeric, then the sorting should be numeric
 		sort="alpha"
 	}
+    
+    if(length(factors) > 0)
+    {
+        factors <- subSpecials(factors)
+    }
 
     modelCI <- buildModelCI(model, outerCI=outerCI, innerCI=innerCI, intercept=intercept, numeric=numeric, sort=sort, decreasing=decreasing, factors=factors, only=only, shorten=shorten, ...)
 
+    if(numeric)
+    {
+        modelCI$CoefShort <- as.numeric(as.character(modelCI$CoefShort))
+    }
+    
     # which columns will be kept in the melted data.frame
     keepCols <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coef", "Checkers", "CoefShort")
 
