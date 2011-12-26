@@ -173,6 +173,9 @@ getModelInfo.rxLinMod <- function(model, shorten=TRUE, factors=NULL, only=NULL, 
     # get those variables out of the coefficient names
     # these are the factor variables thanks to the equal sign in the regular expression
     factorVars <- unlist(str_extract_all(string=coefNames, pattern=paste("(^|, | for )(", theTerms, ")=", sep="")))
+    # the function below depends on R 2.14 so it cannot be used for now to preserve backward compatability
+    #theReg <- gregexpr(pattern=paste("(^|, | for )(", theTerms, ")=", sep=""), text=coefNames)
+    #factorVars <- unlist(regmatches(x=coefNames, m=theReg))
 
     # strip out spaces, for, commas and equals and get unique values
     factorVars <- unique(gsub("(^ for )|(^, )|(=$)", "", factorVars))
