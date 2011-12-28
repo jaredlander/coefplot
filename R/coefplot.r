@@ -212,6 +212,7 @@ coefplot.rxLinMod <- function(...)
 #     plot(coef(model))
 # }
 
+
 # just another name for it
 plotcoef <- function(...)
 {

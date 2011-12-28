@@ -57,7 +57,7 @@ getModelInfo.lm <- function(model, shorten=TRUE, factors=NULL, only=NULL, ...)
 {
     # get the model summary to easily get info out of it
     modelSummary <- summary(model)
-    
+# test of branch    
     ## extract coefficients and standard errors
 	coef <- modelSummary$coefficients[, 1]
 	SE <- modelSummary$coefficients[, 2]		# gets standard error from summary
