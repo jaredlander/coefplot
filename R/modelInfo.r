@@ -57,10 +57,15 @@ getModelInfo.lm <- function(model, shorten=TRUE, factors=NULL, only=NULL, ...)
 {
     # get the model summary to easily get info out of it
     modelSummary <- summary(model)
-# test of branch    
+
     ## extract coefficients and standard errors
 	coef <- modelSummary$coefficients[, 1]
 	SE <- modelSummary$coefficients[, 2]		# gets standard error from summary
+
+    ## strategy for narrowing down variables before hand
+    # narrow variables that contain the name
+    # do normal processing
+    # then narrow based on matchedVars$Checkers
     
     varTypes <- attr(model$terms, "dataClasses")			## These are the types of the different variables
 	factorVars <- names(varTypes[varTypes %in% c("factor", "other")])    	## The variables that are factor
@@ -97,7 +102,7 @@ getModelInfo.lm <- function(model, shorten=TRUE, factors=NULL, only=NULL, ...)
 
 
 ## can deal with this in a very simliar way to lm
-#' Model Information
+#' Model Information for rxLinMod
 #'
 #' Extracts and builds extensive information from rxLinMod models
 #'
@@ -193,4 +198,34 @@ getModelInfo.rxLinMod <- function(model, shorten=TRUE, factors=NULL, only=NULL, 
 
  
     return(list(coef=coef, SE=SE, factorVars=factorVars, factorCoefs=coefNames, matchedVars=matchedVars))    			## return the coefs and SEs as a named list
+}
+
+
+## can deal with this in a very simliar way to lm
+#' Model Information for rxLogit
+#'
+#' Extracts and builds extensive information from rxLogit models
+#'
+#' Helper function for \code{\link{coefplot}}
+#' @author Jared P. Lander
+#' @seealso \code{\link{coefplot.lm}} \code{\link{coefplot}}
+#' @param model The fitted model with coefficients to be plotted
+#' @param factors Vector of factor variables that will be the only ones shown
+#' @param only logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.
+#' @param shorten logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped.
+#' @param \dots Further arguments
+#' @import stringr
+#' @rdname getModelInfo.rxLogit
+## @method getModelInfo rxLogit
+#' @S3method getModelInfo rxLogit
+#' @return Information on the model
+#' @examples
+#'
+#' data(diamonds)
+#' model1 <- lm(price ~ carat + cut*color, data=diamonds)
+#' coefplot(model1)
+#'
+getModelInfo.rxLogit <- function(...)
+{
+    getModelInfo.rxLinMod(...)
 }

@@ -3,6 +3,13 @@
 ## See LISCENSE for copyright information
 
 
+#' @return The numbers for which variables to keep
+reduceNames <- function(coefNames, selected)#=coefNames)
+{
+    # do a smart regex
+    grep(pattern=paste("(^| for |, |:)", selected, sep=""), x=coefNames)
+}
+
 ## @modelFactorVars: (character vector) names of variables that are factors
 ## @modelModel: (model.matrix) the model.matrix from the model, I would like this to be changed to accept a smaller set of the model.matrix so there is less data being passed arounf
 ## @modelCoefs: (character vector) the coefficient names that will be matched and shortened

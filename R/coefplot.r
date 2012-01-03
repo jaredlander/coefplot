@@ -205,6 +205,31 @@ coefplot.rxLinMod <- function(...)
     coefplot.lm(...)
 }
 
+
+## just simply call coefplot.lm which will work just fine
+#' Dotplot for rxLogit coefficients
+#'
+#' A graphical display of the coefficients and standard errors from a fitted rxLogit model
+#'
+#' \code{\link{coefplot}} is the S3 generic method for plotting the coefficients from a fitted model.
+#'
+#' For more information on this function and it's arguments see \code{\link{coefplot.lm}}
+#'
+#' @aliases coefplot.rxLogit
+#' @export coefplot.rxLogit
+#' @method coefplot rxLogit
+#' @S3method coefplot rxLogit
+#' @author Jared P. Lander www.jaredlander.com
+#' @param \dots All arguments are passed on to \code{\link{coefplot.lm}}.  Please see that function for argument information.
+#' @return A ggplot object.  See \code{\link{coefplot.lm}} for more information.
+#' @examples
+#' 
+#' # See coefplot.lm for examples
+coefplot.rxLogit <- function(...)
+{
+    coefplot.lm(...)
+}
+
 # no need, glm defaults to lm
 ## the glm method for coefplot
 # coefplot.glm <- function(model, ...)

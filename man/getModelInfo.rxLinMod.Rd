@@ -1,6 +1,6 @@
 \name{getModelInfo.rxLinMod}
 \alias{getModelInfo.rxLinMod}
-\title{Model Information}
+\title{Model Information for rxLinMod}
 \usage{
   getModelInfo.rxLinMod(model, shorten = TRUE, factors =
   NULL, only = NULL, ...)
