@@ -1,3 +1,7 @@
+Version 1.1.5
+Fixed glitch that didn't plot inner CI for single plots or multipane multiplots
+Version 1.1.4
+Added functionality for rxLogit
 Version 1.1.2
 multiplot can plot in a single pane or in facets
 Changed sort argument to use match.arg

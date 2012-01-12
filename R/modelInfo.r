@@ -103,7 +103,7 @@ getModelInfo.lm <- function(model, shorten=TRUE, factors=NULL, only=NULL, ...)
 #'
 #' Helper function for \code{\link{coefplot}}
 #' @author Jared P. Lander
-#' @seealso \code{\link{coefplot.lm}} \code{\link{coefplot}}
+#' @seealso \code{\link{coefplot.lm}} \code{\link{coefplot}} \code{\link{getModelInfo.rxLinMod}}
 #' @param model The fitted model with coefficients to be plotted
 #' @param factors Vector of factor variables that will be the only ones shown
 #' @param only logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.
@@ -202,13 +202,15 @@ getModelInfo.rxLinMod <- function(model, shorten=TRUE, factors=NULL, only=NULL, 
 #' Extracts and builds extensive information from rxLogit models
 #'
 #' Helper function for \code{\link{coefplot}}
+#'
+#' See \code{\link{getModelInfo.rxLinMod}} for more information on this function's arguments as it is simply a wrapper function.
 #' @author Jared P. Lander
 #' @seealso \code{\link{coefplot.lm}} \code{\link{coefplot}}
-#' @param model The fitted model with coefficients to be plotted
-#' @param factors Vector of factor variables that will be the only ones shown
-#' @param only logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.
-#' @param shorten logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped.
-#' @param \dots Further arguments
+## @param model The fitted model with coefficients to be plotted
+## @param factors Vector of factor variables that will be the only ones shown
+## @param only logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.
+## @param shorten logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped.
+#' @param \dots Further arguments.  See \code{\link{getModelInfo.rxLinMod}} for more information on this function's arguments.
 #' @import stringr
 #' @rdname getModelInfo.rxLogit
 ## @method getModelInfo rxLogit

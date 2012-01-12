@@ -431,7 +431,7 @@ buildPlotting.lm <- function(modelCI,
 	# innerCI layer
     # first is for a normal coefplot or a faceted multiplot
     # the second is for a single-pane multiplot
-	innerCIGeom <- list(DisplayOne=geom_line(aes(y=CoefShort, x=value, group=CoefShort), data=modelMeltInner, colour=color, lwd=lwdOuter),
+	innerCIGeom <- list(DisplayOne=geom_line(aes(y=CoefShort, x=value, group=CoefShort), data=modelMeltInner, colour=color, lwd=lwdInner),
                         DisplayMany=geom_linerange(aes(ymin=LowInner, ymax=HighInner, colour=as.factor(Model)), data=modelCI, lwd=lwdInner, position=position_dodge(width=1)),
                         None=NULL)
 	# ribbon layer
@@ -473,8 +473,8 @@ buildPlotting.lm <- function(modelCI,
         # for a regular coefplot or a multiplot in seperate facets
         p <- ggplot(data=modelCI, aes(x=Coef, y=CoefShort))    		# the basics of the plot
     	p <- p + geom_vline(xintercept=0, colour=zeroColor, linetype=zeroType, lwd=zeroLWD)		# the zero line
-        p <- p + outerCIGeom[[(outerCI/outerCI)]] #+    				# the outer CI bars
-    		    #innerCIGeom[[innerCI/innerCI]]						# the inner CI bars
+        p <- p + outerCIGeom[[(outerCI/outerCI)]] +    				# the outer CI bars
+    		    innerCIGeom[[innerCI/innerCI]]						# the inner CI bars
        	p <- p + pointGeom[[1]]						# the points
         p <- p + opts(title=title, axis.text.y=theme_text(angle=textAngle), axis.text.x=theme_text(angle=numberAngle)) + labs(x=xlab, y=ylab)    # labeling and text info
         p <- p + faceting[[facet + 1]]    	# faceting

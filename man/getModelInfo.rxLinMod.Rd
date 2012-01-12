@@ -1,6 +1,6 @@
 \name{getModelInfo.rxLinMod}
 \alias{getModelInfo.rxLinMod}
-\title{Model Information}
+\title{Model Information for rxLinMod}
 \usage{
   getModelInfo.rxLinMod(model, shorten = TRUE, factors =
   NULL, only = NULL, ...)
@@ -47,5 +47,6 @@ coefplot(model1)
 }
 \seealso{
   \code{\link{coefplot.lm}} \code{\link{coefplot}}
+  \code{\link{getModelInfo.rxLinMod}}
 }
 
