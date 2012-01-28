@@ -3,7 +3,7 @@
 \title{Model Information}
 \usage{
   getModelInfo.lm(model, shorten = TRUE, factors = NULL,
-  only = NULL, ...)
+    only = NULL, ...)
 }
 \arguments{
   \item{model}{The fitted model with coefficients to be

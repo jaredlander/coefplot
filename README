@@ -1,3 +1,5 @@
+Version 1.1.6
+Made change to reshape2::melt so that variable.name and value.name behave properly with new ggplot2
 Version 1.1.5
 Fixed glitch that didn't plot inner CI for single plots or multipane multiplots
 Version 1.1.4

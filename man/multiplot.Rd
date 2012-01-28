@@ -2,17 +2,18 @@
 \alias{multiplot}
 \title{Plot multiple coefplots}
 \usage{
-  multiplot(..., title = "Coefficient Plot", xlab =
-  "Value", ylab = "Coefficient", innerCI = 1, outerCI = 2,
-  lwdInner = 1, lwdOuter = 0, color = "blue", cex = 0.8,
-  textAngle = 0, numberAngle = 90, zeroColor = "grey",
-  zeroLWD = 1, zeroType = 2, single = TRUE, scales =
-  "fixed", ncol = length(unique(modelCI$Model)), sort =
-  c("natural", "normal", "magnitude", "size",
-  "alphabetical"), decreasing = FALSE, names = NULL,
-  numeric = FALSE, fillColor = "grey", alpha = 1/2,
-  horizontal = FALSE, factors = NULL, only = NULL, shorten
-  = TRUE, intercept = TRUE, plot = TRUE, drop = FALSE)
+  multiplot(..., title = "Coefficient Plot",
+    xlab = "Value", ylab = "Coefficient", innerCI = 1,
+    outerCI = 2, lwdInner = 1, lwdOuter = 0,
+    color = "blue", cex = 0.8, textAngle = 0,
+    numberAngle = 90, zeroColor = "grey", zeroLWD = 1,
+    zeroType = 2, single = TRUE, scales = "fixed",
+    ncol = length(unique(modelCI$Model)),
+    sort = c("natural", "normal", "magnitude", "size", "alphabetical"),
+    decreasing = FALSE, names = NULL, numeric = FALSE,
+    fillColor = "grey", alpha = 1/2, horizontal = FALSE,
+    factors = NULL, only = NULL, shorten = TRUE,
+    intercept = TRUE, plot = TRUE, drop = FALSE)
 }
 \arguments{
   \item{\dots}{Models to be plotted}

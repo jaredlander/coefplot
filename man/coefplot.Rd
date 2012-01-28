@@ -1,7 +1,7 @@
 \docType{package}
 \name{coefplot}
-\alias{"coefplot-package"}
 \alias{coefplot}
+\alias{coefplot-package}
 \alias{plotcoef}
 \title{Dotplot for model coefficients}
 \usage{

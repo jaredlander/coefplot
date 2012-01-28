@@ -2,11 +2,12 @@
 \alias{meltModelCI}
 \title{Melt the modelCI}
 \usage{
-  meltModelCI(modelCI, keepCols = c("LowOuter",
-  "HighOuter", "LowInner", "HighInner", "Coef", "Checkers",
-  "CoefShort"), id.vars = c("CoefShort", "Checkers"),
-  variable_name = "Type", outerCols = c("LowOuter",
-  "HighOuter"), innerCols = c("LowInner", "HighInner"))
+  meltModelCI(modelCI,
+    keepCols = c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coef", "Checkers", "CoefShort"),
+    id.vars = c("CoefShort", "Checkers"),
+    variable.name = "Type", value.name = "value",
+    outerCols = c("LowOuter", "HighOuter"),
+    innerCols = c("LowInner", "HighInner"))
 }
 \arguments{
   \item{modelCI}{A \code{\link{data.frame}} as built by
@@ -18,8 +19,11 @@
   \item{id.vars}{The columns to use as ID variables in
   \code{\link{melt}}}
 
-  \item{variable_name}{Used in \code{\link{melt}} for
-  naming the column that stores the melted values}
+  \item{variable.name}{Used in \code{\link{melt}} for
+  naming the column that stores the melted variables}
+
+  \item{value.name}{Used in \code{\link{melt}} for naming
+  the column that stores the melted values}
 
   \item{innerCols}{The columns to be included in the
   \code{\link{data.frame}} of inner standard errors}
