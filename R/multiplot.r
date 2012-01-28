@@ -112,7 +112,7 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
     keepCols <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coef", "Checkers", "CoefShort", "Model")
 
     modelMelting <- meltModelCI(modelCI=modelCI, keepCols=keepCols, id.vars=c("CoefShort", "Checkers", "Model"), 
-                                variable_name="Type", outerCols=c("LowOuter", "HighOuter"), innerCols=c("LowInner", "HighInner")) 
+                                variable.name="Type", value.name="value", outerCols=c("LowOuter", "HighOuter"), innerCols=c("LowInner", "HighInner")) 
  
 
     modelMelt <- modelMelting$modelMelt 

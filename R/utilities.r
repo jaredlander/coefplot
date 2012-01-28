@@ -359,11 +359,11 @@ buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FA
 #' coefplot:::meltModelCI(modeled)
 #'
 meltModelCI <- function(modelCI, keepCols=c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coef", "Checkers", "CoefShort"), 
-                        id.vars=c("CoefShort", "Checkers"), variable_name="Type", outerCols=c("LowOuter", "HighOuter"), 
+                        id.vars=c("CoefShort", "Checkers"), variable.name="Type", value.name="value", outerCols=c("LowOuter", "HighOuter"), 
                         innerCols=c("LowInner", "HighInner"))
 {
     # melt the data frame so it is suitable for ggplot
-    modelMelt <- reshape2::melt(data=modelCI[ ,keepCols], id.vars=id.vars, variable_name=variable_name)
+    modelMelt <- reshape2::melt(data=modelCI[ ,keepCols], id.vars=id.vars, variable.name=variable.name, value.name=value.name)
 	
 	# just the outerCI info
 	modelMeltOuter <- modelMelt[modelMelt$Type %in% outerCols, ]	# pull out the 95% CI
