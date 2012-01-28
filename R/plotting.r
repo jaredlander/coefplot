@@ -56,7 +56,7 @@ buildPlotting.lm <- function(modelCI,
     # first is for a normal coefplot or a faceted multiplot
     # the second is for a single-pane multiplot
 
-	outerCIGeom <- list(DisplayOne=geom_line(aes(t=CoefShort, x=value, group=CoefShort), data=modelMeltOuter, colour=color, lwd=lwdOuter),
+	outerCIGeom <- list(DisplayOne=geom_line(aes(y=CoefShort, x=value, group=CoefShort), data=modelMeltOuter, colour=color, lwd=lwdOuter),
                         DisplayMany=geom_linerange(aes(ymin=LowOuter, ymax=HighOuter, colour=as.factor(Model)), data=modelCI, lwd=lwdOuter, position=position_dodge(width=1)),
                         None=NULL)
 	# innerCI layer
