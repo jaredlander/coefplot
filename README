@@ -1,17 +1,5 @@
-Version 1.1.6
-Made change to reshape2::melt so that variable.name and value.name behave properly with new ggplot2
-Version 1.1.5
-Fixed glitch that didn't plot inner CI for single plots or multipane multiplots
-Version 1.1.4
-Added functionality for rxLogit
-Version 1.1.2
-multiplot can plot in a single pane or in facets
-Changed sort argument to use match.arg
-Version 1.1.1
-Adjusting the S3 dispatch for coefplot.rxLinMod
-Version 1.1
-Added multiplot to plot numerous models at once
-Moved a lot of code in coefplot.lm to their own functions
-Version 1.0
-First build
-Methods for plotting coefficients from lm, glm and rxLinMod
+Coefplot is a package for plotting the coefficients and standard errors from a variety of models.  Currently lm, glm, rxLinMod and rxLogit are supported.
+
+The package is designed for S3 dispatch from the functions coefplot and getModelInfo to make for easy additions of new models.
+
+If interested in helping please contact the package author.
