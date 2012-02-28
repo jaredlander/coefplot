@@ -3,13 +3,14 @@
 \title{Coefplot plotting}
 \usage{
   buildPlotting.lm(modelCI, modelMeltInner = NULL,
-  modelMeltOuter = NULL, title = "Coefficient Plot", xlab =
-  "Value", ylab = "Coefficient", lwdInner = 1, lwdOuter =
-  0, color = "blue", cex = 0.8, textAngle = 0, numberAngle
-  = 0, outerCI = 2, innerCI = 1, multi = FALSE, zeroColor =
-  "grey", zeroLWD = 1, zeroType = 2, numeric = FALSE,
-  fillColor = "grey", alpha = 1/2, horizontal = FALSE,
-  facet = FALSE, scales = "free")
+    modelMeltOuter = NULL, title = "Coefficient Plot",
+    xlab = "Value", ylab = "Coefficient", lwdInner = 1,
+    lwdOuter = 0, color = "blue", cex = 0.8, textAngle = 0,
+    numberAngle = 0, outerCI = 2, innerCI = 1,
+    multi = FALSE, zeroColor = "grey", zeroLWD = 1,
+    zeroType = 2, numeric = FALSE, fillColor = "grey",
+    alpha = 1/2, horizontal = FALSE, facet = FALSE,
+    scales = "free")
 }
 \arguments{
   \item{modelCI}{An object created by

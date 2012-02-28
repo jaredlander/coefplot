@@ -7,13 +7,13 @@ Author: Jared P. Lander
 Maintainer: <packages@jaredlander.com>
 Description: Plots the coefficients from a model object
 License: BSD
+LazyLoad: yes
 Depends:
     ggplot2,
     plyr,
     useful,
     stringr,
     reshape2
-LazyLoad: yes
 Collate:
     'coefplot.r'
     'modelInfo.r'

@@ -2,11 +2,12 @@
 \alias{meltModelCI}
 \title{Melt the modelCI}
 \usage{
-  meltModelCI(modelCI, keepCols = c("LowOuter",
-  "HighOuter", "LowInner", "HighInner", "Coef", "Checkers",
-  "CoefShort"), id.vars = c("CoefShort", "Checkers"),
-  variable_name = "Type", outerCols = c("LowOuter",
-  "HighOuter"), innerCols = c("LowInner", "HighInner"))
+  meltModelCI(modelCI,
+    keepCols = c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coef", "Checkers", "CoefShort"),
+    id.vars = c("CoefShort", "Checkers"),
+    variable.name = "Type", value.name = "value",
+    outerCols = c("LowOuter", "HighOuter"),
+    innerCols = c("LowInner", "HighInner"))
 }
 \arguments{
   \item{modelCI}{A \code{\link{data.frame}} as built by

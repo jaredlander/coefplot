@@ -2,8 +2,8 @@
 \alias{getModelInfo.rxLinMod}
 \title{Model Information for rxLinMod}
 \usage{
-  getModelInfo.rxLinMod(model, shorten = TRUE, factors =
-  NULL, only = NULL, ...)
+  getModelInfo.rxLinMod(model, shorten = TRUE,
+    factors = NULL, only = NULL, ...)
 }
 \arguments{
   \item{model}{The fitted model with coefficients to be
