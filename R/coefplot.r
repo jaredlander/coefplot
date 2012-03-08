@@ -158,7 +158,7 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
     modelMelt <- modelMelting$modelMelt 
     modelMeltInner <- modelMelting$modelMeltInner 
     modelMeltOuter <- modelMelting$modelMeltOuter 
-    rm(modelMelting); gc()      # housekeeping
+    rm(modelMelting);      # housekeeping
 
 	## if we are to make the plot
 	if(plot)
@@ -171,7 +171,7 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
                            zeroType=zeroType, numeric=numeric, fillColor=fillColor, alpha=alpha, 
                            horizontal=horizontal, facet=facet, scales=scales)
         
-        rm(modelCI); gc()    	# housekeeping
+        rm(modelCI);    	# housekeeping
 		return(p)		# return the ggplot object
 	}else
 	{

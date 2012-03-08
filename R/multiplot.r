@@ -118,7 +118,7 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
     modelMelt <- modelMelting$modelMelt 
     modelMeltInner <- modelMelting$modelMeltInner 
     modelMeltOuter <- modelMelting$modelMeltOuter 
-    rm(modelMelting); gc()      # housekeeping 
+    rm(modelMelting);      # housekeeping 
 
     
     if(plot)

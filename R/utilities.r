@@ -31,7 +31,7 @@ buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE,
     # join the two data.frames so we have variable name, levels name and coefficient names
     varDF <- join(varDF, varDFTemp, by="Pivot")
 
-    rm(varDFTemp); gc() # housekeeping
+    rm(varDFTemp); # housekeeping
 	
     ## create columns to hold altered versions of the variable and pivot, it replaces special characters with their excaped versions
     varDF$PivotAlter <- varDF$Pivot
@@ -47,7 +47,7 @@ buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE,
     varDF$VarAlter <- alterList[[1]]
     varDF$PivotAlter <- alterList[[2]]
     
-    rm(alterList); gc() # housekeeping
+    rm(alterList); # housekeeping
     
 
     # set up a column to keep track of which combinations are good
@@ -94,10 +94,10 @@ buildFactorDF <- function(modelFactorVars, modelModel, modelCoefs, shorten=TRUE,
             ## need to adjust it so the user can specify just the interaction of factors, and not the factors themselves
 			theKeepers <- laply(theCheckers, function(x, toCheck) { any(x %in% toCheck) }, toCheck=factors)
 			varDF <- varDF[theKeepers, ]
-			rm(theKeepers); gc()
+			rm(theKeepers);
 		}
 		
-		rm(theCheckers); gc()
+		rm(theCheckers);
     }
     
     # if we are not supposed to shorten the coefficients at all (shorten==FALSE) then just swap Coef into CoefShort
@@ -154,7 +154,7 @@ rxVarMatcher <- function(modelFactorVars, modelCoefNames, modelCoefs, shorten=TR
     varDF$VarCheck <- varDF$VarAlter
     varDF$CoefShort <- NA
     
-    rm(alterList); gc() # housekeeping
+    rm(alterList);   # housekeeping
 
     # now check VarAlter against coef
     varDF <- ddply(varDF, .variables="Var", .fun=function(DF) { DF$Valid <- regexpr(pattern=paste("(^| for |, )(", unique(DF$VarAlter), ")=", sep=""), text=DF$Coef); return(DF) })
@@ -261,7 +261,7 @@ buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FA
 	modelMatcher$Name <- as.character(modelMatcher$Name)
 	modelCI <- join(modelCI, modelMatcher, by="Name")
 	
-	rm(modelMatcher); gc()		# housekeeping
+	rm(modelMatcher);		# housekeeping
 	
 	# since we will be using coef short for the coefficient labels the numeric variables need to be given CoefShort elements which will be taken from the Name column
 	modelCI$CoefShort <- ifelse(is.na(modelCI$CoefShort), modelCI$Name, modelCI$CoefShort)
@@ -280,7 +280,7 @@ buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FA
 			# remove the intercept
 			modelCI <- modelCI[-theIntercept, ]
 		}
-  		rm(theIntercept); gc()		# housekeeping
+  		rm(theIntercept);		# housekeeping
 	}
 	
 	# if there are no good coefficients, then stop
@@ -483,7 +483,7 @@ buildPlotting.lm <- function(modelCI,
         p <- p + faceting[[facet + 1]]    	# faceting
      	p <- p + if(horizontal) coord_flip()
     }
-	rm(modelCI); gc()		# housekeeping
+	rm(modelCI);		# housekeeping
     
 	return(p)		# return the ggplot object
 }
