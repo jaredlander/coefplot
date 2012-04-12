@@ -311,7 +311,7 @@ buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FA
     # if a name for the model is provided, use it, otherwise use the call
     if(is.null(name))
     {
-        modelCI$Model <- as.character(model$call)[2]
+        modelCI$Model <- as.character(paste(model$call, collapse="_"))
     }else
     {
         modelCI$Model <- name
