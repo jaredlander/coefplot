@@ -21,3 +21,4 @@ Collate:
     'utilities.r'
     'coefplot-package.r'
     'multiplot.r'
+ByteCompile: TRUE
