@@ -11,9 +11,10 @@ LazyLoad: yes
 Depends:
     ggplot2,
     plyr,
-    useful,
     stringr,
     reshape2
+Imports:
+    useful
 Collate:
     'coefplot.r'
     'modelInfo.r'
