@@ -9,11 +9,11 @@ Description: Plots the coefficients from a model object
 License: BSD
 LazyLoad: yes
 Depends:
-    ggplot2,
+    ggplot2
+Imports:
     plyr,
     stringr,
-    reshape2
-Imports:
+    reshape2,
     useful
 Collate:
     'coefplot.r'
