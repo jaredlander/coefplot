@@ -468,7 +468,7 @@ buildPlotting.lm <- function(modelCI,
     		    innerCIGeom[[innerCI/innerCI + multi]]						# the inner CI bars
        	p <- p + pointGeom[[1 + multi]]						# the points
         p <- p + scale_x_discrete()
-     	p <- p + opts(title=title, axis.text.y=theme_text(angle=textAngle), axis.text.x=theme_text(angle=numberAngle)) + labs(y=xlab, x=ylab)	# labeling and text info
+     	p <- p + theme(axis.text.y=element_text(angle=textAngle), axis.text.x=element_text(angle=numberAngle)) + labs(title=title, y=xlab, x=ylab)	# labeling and text info
      	p <- p + faceting[[facet + 1]]		# faceting
      	p <- p + if(!horizontal) coord_flip()
     }else
@@ -479,7 +479,7 @@ buildPlotting.lm <- function(modelCI,
         p <- p + outerCIGeom[[(outerCI/outerCI)]] +    				# the outer CI bars
     		    innerCIGeom[[innerCI/innerCI]]						# the inner CI bars
        	p <- p + pointGeom[[1]]						# the points
-        p <- p + opts(title=title, axis.text.y=theme_text(angle=textAngle), axis.text.x=theme_text(angle=numberAngle)) + labs(x=xlab, y=ylab)    # labeling and text info
+        p <- p + theme(axis.text.y=element_text(angle=textAngle), axis.text.x=element_text(angle=numberAngle)) + labs(title=title, x=xlab, y=ylab)    # labeling and text info
         p <- p + faceting[[facet + 1]]    	# faceting
      	p <- p + if(horizontal) coord_flip()
     }
