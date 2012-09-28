@@ -28,7 +28,7 @@
 #' @examples
 #' 
 #' data(diamonds)
-#' corner(diamonds)
+#' head(diamonds)
 #' model1 <- lm(price ~ carat + cut*color, data=diamonds)
 #' model2 <- lm(price ~ carat*color, data=diamonds)
 #' coefplot(model1)
@@ -98,7 +98,7 @@ coefplot <- function(model, ...)
 #' @examples
 #' 
 #' data(diamonds)
-#' corner(diamonds)
+#' head(diamonds)
 #' model1 <- lm(price ~ carat + cut*color, data=diamonds)
 #' model2 <- lm(price ~ carat*color, data=diamonds)
 #' coefplot(model1)
