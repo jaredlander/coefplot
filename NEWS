@@ -1,3 +1,7 @@
+Version 1.1.8
+-----------------------------------------------------------------------------------------------------
+Minor changes to plotting to reflect change in gpplot2_0.9.2.
+
 Version 1.1.7
 -----------------------------------------------------------------------------------------------------
 Thanks to Felipe Carrillo I have fixed a bug in multiplot.  Previously, if multiple models with the same formula but different data.frames were inputed then they would all have the same name (even if specified with the "names" argument) and only one model would be plotted.  This now works as expected, plotting all the models regardless of identical formulas.
