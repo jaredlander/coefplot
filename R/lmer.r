@@ -21,7 +21,6 @@ add.ran.fix <- function(ranGroup, fixed)
 #' @aliases getModelInfo.met
 #' @inheritParams getModelInfo
 #' @S3method getModelInfo mer
-#' @import arm
 #' @param effects Indicates if we are plotting fixed (individual level) or random (group) effects
 getModelInfo.mer.ranef <- function(model, grouping=1, ...)
 {
