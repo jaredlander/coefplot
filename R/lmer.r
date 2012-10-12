@@ -96,13 +96,29 @@ coefplot.mer.ranef <- function(model, grouping=1, outerCI=2, innerCI=1, ...)
                             modelMeltInner=modelInfo$modelMelt$modelMeltInner, modelMeltOuter=modelInfo$modelMelt$modelMeltOuter, ...)
 }
 
+#' coefplot.mer
+#' 
+#' Plot Coefficients from lmer
+#' 
+#' Details to follow
+#' 
+#' @aliases coefplot.mer
+#' @author Jared P. Lander
+#' @export coefplot.mer
+#' @S3method coefplot mer
+#' @method coefplot mer
+#' @param model Model to be plotted
+#' @param effects Which type of effects to plot, only ranef implemented now
+#' @param grouping Which grouping factor t0 plot
+#' @param \dots Further arguments
+#' @return A coefficient plot
 coefplot.mer <- function(model, effects=c("ranef", "fixef"), grouping=1, ...)
 {
     effects <- match.arg(effects)
     
-    do.call("coefplot.mer.ranef", args=list(model=model, grouping=grouping, ...=...))
+    do.call(sprintf("coefplot.mer.%s", effects), args=list(model=model, grouping=grouping, ...=...))
 }
-coefplot.mer(M8, color="green")
+
 buildPlotting.mer.ranef <- function(modelCI,
                                     modelMeltInner, modelMeltOuter,
                                     color="blue", scales=c("free_x", "free_y", "free", "fixed"),
