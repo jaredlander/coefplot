@@ -21,4 +21,5 @@ Collate:
     'utilities.r'
     'coefplot-package.r'
     'multiplot.r'
+    'lmer.r'
 ByteCompile: TRUE
