@@ -20,8 +20,10 @@ add.ran.fix <- function(ranGroup, fixed)
 #' Details
 #' @aliases getModelInfo.met
 #' @inheritParams getModelInfo
-#' @S3method getModelInfo mer
+# @S3method getModelInfo mer
 #' @param effects Indicates if we are plotting fixed (individual level) or random (group) effects
+#' @param \dots Further arguments
+#' @return List of coefficients and standard errors
 getModelInfo.mer.ranef <- function(model, grouping=1, ...)
 {
     # figure out which type of effects we are plotting

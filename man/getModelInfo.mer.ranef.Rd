@@ -9,8 +9,13 @@
   \item{effects}{Indicates if we are plotting fixed
   (individual level) or random (group) effects}
 
+  \item{\dots}{Further arguments}
+
   \item{model}{The fitted model with coefficients to be
   plotted}
+}
+\value{
+  List of coefficients and standard errors
 }
 \description{
   Title
