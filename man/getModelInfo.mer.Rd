@@ -1,9 +1,9 @@
-\name{getModelInfo.mer.ranef}
-\alias{getModelInfo.mer.ranef}
+\name{getModelInfo.mer}
+\alias{getModelInfo.mer}
 \alias{getModelInfo.met}
 \title{getModelInfo.mer.ranef}
 \usage{
-  getModelInfo.mer.ranef(model, grouping = 1, ...)
+  getModelInfo.mer(model, grouping = 1, ...)
 }
 \arguments{
   \item{effects}{Indicates if we are plotting fixed

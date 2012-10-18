@@ -13,13 +13,31 @@ add.ran.fix <- function(ranGroup, fixed)
     matrix(fixed[names(ranGroup)], byrow=TRUE, nrow=nrow(ranGroup), ncol=ncol(ranGroup)) + ranGroup
 }
 
-#' getModelInfo.mer
+#' getModelInfo.mer.ranef
 #' 
 #' Title
 #' 
 #' Details
 #' @aliases getModelInfo.met
 #' @inheritParams getModelInfo
+# @method getModelInfo mer
+# @S3method getModelInfo mer
+#' @param effects Indicates if we are plotting fixed (individual level) or random (group) effects
+#' @param \dots Further arguments
+#' @return List of coefficients and standard errors
+getModelInfo.mer <- function(model, grouping=1, ...)
+{
+    
+}
+
+#' getModelInfo.mer.ranef
+#' 
+#' Title
+#' 
+#' Details
+#' @aliases getModelInfo.met
+#' @inheritParams getModelInfo
+# @method getModelInfo mer
 # @S3method getModelInfo mer
 #' @param effects Indicates if we are plotting fixed (individual level) or random (group) effects
 #' @param \dots Further arguments
