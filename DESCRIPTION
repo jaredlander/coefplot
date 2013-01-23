@@ -21,4 +21,5 @@ Collate:
     'utilities.r'
     'coefplot-package.r'
     'multiplot.r'
+    'extractCoef.r'
 ByteCompile: TRUE
