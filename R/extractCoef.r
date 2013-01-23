@@ -24,9 +24,9 @@ extract.coef.default <- function(model, ...)
     theSumm <- summary(model)
     # get coef and standard error
     info <- as.data.frame(theSumm$coefficients[, 1:2])
-    names(info) <- c("Coefficient", "SE")
+    names(info) <- c("Value", "SE")
     # make a variable tracking the name
-    info$Variable <- rownames(info)
+    info$Coefficient <- rownames(info)
     
     return(info)
 }
@@ -140,9 +140,9 @@ extract.coef.rxLinMod <- function(model, ...)
     # get coefs
     info <- as.data.frame(theSumm$coefficients[, 1:2])
     # give good names
-    names(info) <- c("Coefficient", "SE")
+    names(info) <- c("Value", "SE")
     # get variable names
-    info$Variable <- rownames(info)
+    info$Coefficient <- rownames(info)
     
     return(info)
 }
