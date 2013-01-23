@@ -28,9 +28,11 @@
 #' coefplot:::buildModelCI(model1)
 #'
 buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FALSE, 
-                         sort=c("natural", "normal", "magnitude", "size", "alphabetical"), 
+                         sort=c("natural", "magnitude", "alphabetical"), 
                          decreasing=TRUE, name=NULL, interceptName="(Intercept)", ...)
 {
+    sort <- match.arg(sort)
+    
     # get model information
     modelCI <- extract.coef(model)
     
@@ -58,6 +60,17 @@ buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FA
     {
         modelCI$Model <- name
     }
+    
+    ## possible orderings of the coefficients
+    ordering <- switch(sort,
+                       natural=order(1:nrow(modelCI), decreasing=decreasing), 	# the way the data came in
+                       magnitude=order(modelCI$Coef, decreasing=decreasing), 		#  size order
+                       alphabetical=order(modelCI$Name, decreasing=decreasing), 	# alphabetical order
+                       order(1:nrow(modelCI))		# default, the way it came in
+    )
+    
+    # implement the ordering
+    modelCI <- modelCI[ordering, ]
     
     return(modelCI)
 }
@@ -90,7 +103,8 @@ buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FA
 #' modeled <- coefplot:::buildModelCI(model1)
 #' coefplot:::meltModelCI(modeled)
 #'
-meltModelCI <- function(modelCI, keepCols=c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coefficient", "Value"), 
+meltModelCI <- function(modelCI, 
+                        keepCols=c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coefficient", "Value"), 
                         id.vars=c("Coefficient"), variable.name="Type", 
                         value.name="Value", outerCols=c("LowOuter", "HighOuter"), 
                         innerCols=c("LowInner", "HighInner"))
