@@ -31,14 +31,10 @@
 #' head(diamonds)
 #' model1 <- lm(price ~ carat + cut*color, data=diamonds)
 #' model2 <- lm(price ~ carat*color, data=diamonds)
+#' model3 <- glm(price > 10000 ~ carat*color, data=diamonds)
 #' coefplot(model1)
-#' coefplot(model1, shorten=FALSE)
-#' coefplot(model1, shorten=c("cut"))
-#' coefplot(model1, shorten=c("cut"), intercept=FALSE)
-#' coefplot(model1, factors="cut")
-#' coefplot(model1, factors="cut", only=TRUE)
-#' coefplot(model1, facet=TRUE)
 #' coefplot(model2)
+#' coefplot(model3)
 #'
 coefplot <- function(model, ...)
 {
