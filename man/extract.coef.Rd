@@ -25,8 +25,13 @@ require(ggplot2)
 data(diamonds)
 mod1 <- lm(price ~ carat + cut + x, data=diamonds)
 mod2 <- glm(price > 10000 ~ carat + cut + x, data=diamonds, family=binomial(link="logit"))
+mod3 <- lm(price ~ carat*cut + x, data=diamonds)
 extract.coef(mod1)
 extract.coef(mod2)
+extract.coef(mod3)
+\dontrun{
+mod4 <- rxLinMod(price ~ carat*cut + x, diamonds)
+}
 }
 \author{
   Jared P. Lander

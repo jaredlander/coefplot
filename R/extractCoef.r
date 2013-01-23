@@ -24,6 +24,7 @@ extract.coef.default <- function(model, ...)
     theSumm <- summary(model)
     # get coef and standard error
     info <- as.data.frame(theSumm$coefficients[, 1:2])
+    names(info) <- c("Coefficient", "SE")
     # make a variable tracking the name
     info$Variable <- rownames(info)
     
@@ -97,10 +98,107 @@ extract.coef.glm <- function(model, ...)
 #' data(diamonds)
 #' mod1 <- lm(price ~ carat + cut + x, data=diamonds)
 #' mod2 <- glm(price > 10000 ~ carat + cut + x, data=diamonds, family=binomial(link="logit"))
+#' mod3 <- lm(price ~ carat*cut + x, data=diamonds)
 #' extract.coef(mod1)
 #' extract.coef(mod2)
+#' extract.coef(mod3)
+#' \dontrun{
+#' mod4 <- rxLinMod(price ~ carat*cut + x, diamonds)
+#' }
 #' 
 extract.coef <- function(model, ...)
 {
     UseMethod(generic="extract.coef", object=model)
+}
+
+
+#' extract.coef.rxLinMod
+#' 
+#' Extract Coefficient Information from rxLinMod Models
+#' 
+#' Gets the coefficient values and standard errors, and variable names from an rxLinMod model.
+#' 
+#' @author Jared P. Lander
+#' @aliases extract.coef.rxLinMod
+#' @inheritParams extract.coef.default
+#' @param \dots Further arguments
+#' @S3method extract.coef rxLinMod
+#' @method extract.coef rxLinMod
+#' @return A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.
+#' @examples
+#' \dontrun{
+#' require(ggplot2)
+#' data(diamonds)
+#' mod3 <- rxLinMod(price ~ carat + cut + x, data=diamonds)
+#' extract.coef(mod3)
+#' }
+#' 
+extract.coef.rxLinMod <- function(model, ...)
+{
+    # get summary
+    theSumm <- summary(model)[[1]]
+    # get coefs
+    info <- as.data.frame(theSumm$coefficients[, 1:2])
+    # give good names
+    names(info) <- c("Coefficient", "SE")
+    # get variable names
+    info$Variable <- rownames(info)
+    
+    return(info)
+}
+
+
+#' extract.coef.rxGlm
+#' 
+#' Extract Coefficient Information from rxGlm Models
+#' 
+#' Gets the coefficient values and standard errors, and variable names from an rxGlm model.
+#' 
+#' @author Jared P. Lander
+#' @aliases extract.coef.rxGlm
+#' @inheritParams extract.coef.default
+#' @param \dots Further arguments
+#' @S3method extract.coef rxGlm
+#' @method extract.coef rxGlm
+#' @return A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.
+#' @examples
+#' \dontrun{
+#' require(ggplot2)
+#' data(diamonds)
+#' mod4 <- rxGlm(price ~ carat + cut + x, data=diamonds)
+#' mod5 <- rxGlm(price > 10000 ~ carat + cut + x, data=diamonds, fmaily="binomial")
+#' extract.coef(mod4)
+#' extract.coef(mod5)
+#' }
+#' 
+extract.coef.rxGlm <- function(model, ...)
+{
+    extract.coef.default(model=model, ...)
+}
+
+
+#' extract.coef.rxLogit
+#' 
+#' Extract Coefficient Information from rxLogit Models
+#' 
+#' Gets the coefficient values and standard errors, and variable names from an rxLogit model.
+#' 
+#' @author Jared P. Lander
+#' @aliases extract.coef.rxLogit
+#' @inheritParams extract.coef.default
+#' @param \dots Further arguments
+#' @S3method extract.coef rxLogit
+#' @method extract.coef rxLogit
+#' @return A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.
+#' @examples
+#' \dontrun{
+#' require(ggplot2)
+#' data(diamonds)
+#' mod6 <- rxLogit(price > 10000 ~ carat + cut + x, data=diamonds)
+#' extract.coef(mod6)
+#' }
+#' 
+extract.coef.rxLogit <- function(model, ...)
+{
+    extract.coef.default(model=model, ...)
 }
