@@ -16,6 +16,7 @@
 #' @param decreasing logical; Whether the coefficients should be ascending or descending
 #' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with constinuous confidence bounds.
 #' @param intercept logical; Whether the Intercept coefficient should be plotted
+#' @param interceptName Specifies name of intercept it case it is not the default of "(Intercept").
 #' @param \dots See Details for information on \code{factors}, \code{only} and \code{shorten}
 #' @param name A name for the model, if NULL the call will be used
 #' @return Otherwise a \code{\link{data.frame}} listing coeffcients and confidence bands is returned.
@@ -28,7 +29,7 @@
 #'
 buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FALSE, 
                          sort=c("natural", "normal", "magnitude", "size", "alphabetical"), 
-                         decreasing=TRUE, name=NULL, ...)
+                         decreasing=TRUE, name=NULL, interceptName="(Intercept)", ...)
 {
     # get model information
     modelCI <- extract.coef(model)
@@ -41,6 +42,12 @@ buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FA
     
     # get rid of SE column
     modelCI$SE <- NULL
+    
+    # if no intercept is desired, remove it
+    if(!intercept)
+    {
+        modelCI <- modelCI[rownames(modelCI) != interceptName, ]
+    }
     
     # make column for model name
     # if a name for the model is provided, use it, otherwise use the call
