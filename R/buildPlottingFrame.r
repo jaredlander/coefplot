@@ -8,6 +8,7 @@
 #'
 #' @author Jared P. Lander
 #' @aliases buildModelCI
+#' @export buildModelCI
 #' @param model A Fitted model such as form lm, glm
 #' @param innerCI How wide the inner confidence interval should be, normally 1 standard deviation.  If 0, then there will be no inner confidence interval.
 #' @param outerCI How wide the outer confidence interval should be, normally 2 standard deviations.  If 0, then there will be no outer confidence interval.
