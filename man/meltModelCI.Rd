@@ -3,9 +3,9 @@
 \title{Melt the modelCI}
 \usage{
   meltModelCI(modelCI,
-    keepCols = c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coef", "Checkers", "CoefShort"),
-    id.vars = c("CoefShort", "Checkers"),
-    variable.name = "Type", value.name = "value",
+    keepCols = c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coefficient", "Value"),
+    id.vars = c("Coefficient"), variable.name = "Type",
+    value.name = "Value",
     outerCols = c("LowOuter", "HighOuter"),
     innerCols = c("LowInner", "HighInner"))
 }

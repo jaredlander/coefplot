@@ -6,9 +6,44 @@
     intercept = TRUE, numeric = FALSE,
     sort = c("natural", "normal", "magnitude", "size", "alphabetical"),
     decreasing = TRUE, name = NULL, ...)
+
+  buildModelCI(model, outerCI = 2, innerCI = 1,
+    intercept = TRUE, numeric = FALSE,
+    sort = c("natural", "normal", "magnitude", "size", "alphabetical"),
+    decreasing = TRUE, name = NULL, ...)
 }
 \arguments{
   \item{model}{The fitted model to build information on}
+
+  \item{innerCI}{How wide the inner confidence interval
+  should be, normally 1 standard deviation.  If 0, then
+  there will be no inner confidence interval.}
+
+  \item{outerCI}{How wide the outer confidence interval
+  should be, normally 2 standard deviations.  If 0, then
+  there will be no outer confidence interval.}
+
+  \item{sort}{Determines the sort order of the
+  coefficients.  Possible values are c("natural", "normal",
+  "magnitude", "size", "alphabetical")}
+
+  \item{decreasing}{logical; Whether the coefficients
+  should be ascending or descending}
+
+  \item{numeric}{logical; If true and factors has exactly
+  one value, then it is displayed in a horizontal graph
+  with constinuous confidence bounds.}
+
+  \item{intercept}{logical; Whether the Intercept
+  coefficient should be plotted}
+
+  \item{\dots}{See Details for information on
+  \code{factors}, \code{only} and \code{shorten}}
+
+  \item{name}{A name for the model, if NULL the call will
+  be used}
+
+  \item{model}{A Fitted model such as form lm, glm}
 
   \item{innerCI}{How wide the inner confidence interval
   should be, normally 1 standard deviation.  If 0, then
@@ -41,10 +76,14 @@
 \value{
   Otherwise a \code{\link{data.frame}} listing coeffcients
   and confidence bands is returned.
+  Otherwise a \code{\link{data.frame}} listing coeffcients
+  and confidence bands is returned.
 }
 \description{
   Builds a data.frame that is appropriate for plotting
   coefficients
+
+  Construct Confidence Interval Values
 }
 \details{
   This is the workhorse for coefplot, it get's the data all
@@ -65,6 +104,9 @@
   character vector of variables only coefficients for
   factor levels associated with those variables will the
   variable names stripped.
+
+  Takes a model and builds a data.frame holding the
+  coefficient value and the confidence interval values
 }
 \examples{
 data(diamonds)
@@ -78,11 +120,18 @@ coefplot:::buildModelCI(model1)
 #coefplot(model3, factors="cut")
 #coefplot(model3, factors="cut", numeric=T)
 #coefplot(model3, shorten="cut")
+data(diamonds)
+model1 <- lm(price ~ carat + cut, data=diamonds)
+coefplot:::buildModelCI(model1)
 }
 \author{
   Jared P. Lander www.jaredlander.com
+
+  Jared P. Lander
 }
 \seealso{
+  \code{\link{coefplot}} \code{\link{multiplot}}
+
   \code{\link{coefplot}} \code{\link{multiplot}}
 }
 
