@@ -106,12 +106,12 @@ coefplot <- function(model, ...)
 #' coefplot(model1, facet=TRUE)
 #' coefplot(model2)
 #'
-coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coefficient", 
+coefplot.default <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coefficient", 
 						innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0,  color="blue",
 						cex=.8, textAngle=0, numberAngle=0,
 						zeroColor="grey", zeroLWD=1, zeroType=2,
 						facet=FALSE, scales="free",
-						sort=c("natural", "normal", "magnitude", "size", "alphabetical"), decreasing=FALSE,
+						sort=c("natural", "magnitude", "alphabetical"), decreasing=FALSE,
 						numeric=FALSE, fillColor="grey", alpha=1/2,
 						horizontal=FALSE, factors=NULL, only=NULL, shorten=TRUE,
 						intercept=TRUE, plot=TRUE, ...)
@@ -120,60 +120,39 @@ coefplot.lm <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coe
 	
     # get variables that have multiple options
     sort <- match.arg(sort)
- 
- 	## if they are treating a factor as numeric, then they must specify exactly one factor
- 	## hopefully this will soon expand to listing multiple factors
-	if(numeric & length(factors)!=1)
-	{
-		stop("When treating a factor variable as numeric, the specific factor must be specified using \"factors\"")
-	}else if(numeric)
-	{
-		# if we are treating it as numeric, then the sorting should be numeric
-		sort="alpha"
-	}
     
-    if(length(factors) > 0)
-    {
-        factors <- subSpecials(factors)
-    }
-
+    # construct a data.frame containing confidence interval information
     modelCI <- buildModelCI(model, outerCI=outerCI, innerCI=innerCI, intercept=intercept, numeric=numeric, sort=sort, decreasing=decreasing, factors=factors, only=only, shorten=shorten, ...)
 
-    if(numeric)
+    # if not plotting just return the modelCI data.frame
+    if(!plot)
     {
-        modelCI$CoefShort <- as.numeric(as.character(modelCI$CoefShort))
+        return(modelCI)
     }
     
     # which columns will be kept in the melted data.frame
-    keepCols <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coef", "Checkers", "CoefShort")
+    keepCols <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coefficient", "Model")
 
-    modelMelting <- meltModelCI(modelCI=modelCI, keepCols=keepCols, id.vars=c("CoefShort", "Checkers"), 
-                                variable.name="Type", value.name="value", outerCols=c("LowOuter", "HighOuter"), innerCols=c("LowInner", "HighInner")) 
-
+    modelMelting <- meltModelCI(modelCI=modelCI, keepCols=keepCols, id.vars=c("Coefficient", "Model"), 
+                                variable.name="Type", value.name="Value", 
+                                outerCols=c("LowOuter", "HighOuter"), 
+                                innerCols=c("LowInner", "HighInner")) 
 
     modelMelt <- modelMelting$modelMelt 
     modelMeltInner <- modelMelting$modelMeltInner 
     modelMeltOuter <- modelMelting$modelMeltOuter 
     rm(modelMelting);      # housekeeping
-
-	## if we are to make the plot
-	if(plot)
-	{
-        p <- buildPlotting.lm(modelCI=modelCI,
-                            modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
-                           title=title, xlab=xlab, ylab=ylab,
-                           lwdInner=lwdInner, lwdOuter=lwdOuter, color=color, cex=cex, textAngle=textAngle, 
-                           numberAngle=numberAngle, zeroColor=zeroColor, zeroLWD=zeroLWD, outerCI=outerCI, innerCI=innerCI, multi=FALSE,
-                           zeroType=zeroType, numeric=numeric, fillColor=fillColor, alpha=alpha, 
-                           horizontal=horizontal, facet=facet, scales=scales)
-        
-        rm(modelCI);    	# housekeeping
-		return(p)		# return the ggplot object
-	}else
-	{
-		#rm(modelMeltOuter, modelMeltInner); gc()		# housekeeping
-		return(modelCI)
-	}
+    
+    p <- buildPlotting.default(modelCI=modelCI,
+                        modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
+                       title=title, xlab=xlab, ylab=ylab,
+                       lwdInner=lwdInner, lwdOuter=lwdOuter, color=color, cex=cex, textAngle=textAngle, 
+                       numberAngle=numberAngle, zeroColor=zeroColor, zeroLWD=zeroLWD, outerCI=outerCI, innerCI=innerCI, multi=FALSE,
+                       zeroType=zeroType, numeric=numeric, fillColor=fillColor, alpha=alpha, 
+                       horizontal=horizontal, facet=facet, scales=scales)
+    
+    rm(modelCI);    	# housekeeping
+	return(p)		# return the ggplot object
 }
 
 
