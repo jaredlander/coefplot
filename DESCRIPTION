@@ -1,10 +1,10 @@
 Package: coefplot
 Type: Package
 Title: Plots Coefficients from Fitted Models
-Version: 1.1.8
-Date: 2012-09-28
+Version: 1.1.9
+Date: 2013-01-23
 Author: Jared P. Lander
-Maintainer: <packages@jaredlander.com>
+Maintainer: Jared P. Lander <packages@jaredlander.com>
 Description: Plots the coefficients from a model object
 License: BSD
 LazyLoad: yes

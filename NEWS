@@ -1,3 +1,8 @@
+Version 1.1.9
+-----------------------------------------------------------------------------------------------------
+Refactoring of code to make new models easier to add.
+For now this means certain functionality will be lost, such as the shortening of coefficient names, plot a factor variable numerically.
+
 Version 1.1.8
 -----------------------------------------------------------------------------------------------------
 Minor changes to plotting to reflect change in gpplot2_0.9.2.
