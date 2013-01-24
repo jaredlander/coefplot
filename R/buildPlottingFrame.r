@@ -12,7 +12,7 @@
 #' @param model A Fitted model such as form lm, glm
 #' @param innerCI How wide the inner confidence interval should be, normally 1 standard deviation.  If 0, then there will be no inner confidence interval.
 #' @param outerCI How wide the outer confidence interval should be, normally 2 standard deviations.  If 0, then there will be no outer confidence interval.
-#' @param sort Determines the sort order of the coefficients.  Possible values are c("natural", "normal", "magnitude", "size", "alphabetical")
+#' @param sort Determines the sort order of the coefficients.  Possible values are c("natural", "magnitude", "alphabetical")
 #' @param decreasing logical; Whether the coefficients should be ascending or descending
 #' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with constinuous confidence bounds.
 #' @param intercept logical; Whether the Intercept coefficient should be plotted
@@ -40,7 +40,7 @@ buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FA
     modelCI <- within(modelCI, {LowOuter <- Value - outerCI*SE;
                   HighOuter <- Value + outerCI*SE;
                   LowInner <- Value - innerCI*SE;
-                  HighInner <- Value - innerCI*SE})
+                  HighInner <- Value + innerCI*SE})
     
     # get rid of SE column
     modelCI$SE <- NULL
@@ -64,13 +64,14 @@ buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FA
     ## possible orderings of the coefficients
     ordering <- switch(sort,
                        natural=order(1:nrow(modelCI), decreasing=decreasing), 	# the way the data came in
-                       magnitude=order(modelCI$Coef, decreasing=decreasing), 		#  size order
-                       alphabetical=order(modelCI$Name, decreasing=decreasing), 	# alphabetical order
+                       magnitude=order(modelCI$Value, decreasing=decreasing), 		#  size order
+                       alphabetical=order(modelCI$Coefficient, decreasing=decreasing), 	# alphabetical order
                        order(1:nrow(modelCI))		# default, the way it came in
     )
     
     # implement the ordering
     modelCI <- modelCI[ordering, ]
+    modelCI$Coefficient <- factor(modelCI$Coefficient, levels=modelCI$Coefficient)
     
     return(modelCI)
 }
