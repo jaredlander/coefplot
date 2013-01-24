@@ -1,4 +1,5 @@
-\name{coefplot.lm}
+\name{coefplot.default}
+\alias{coefplot.default}
 \alias{coefplot.lm}
 \title{Dotplot for lm coefficients}
 \usage{
@@ -8,7 +9,7 @@
     color = "blue", cex = 0.8, textAngle = 0,
     numberAngle = 0, zeroColor = "grey", zeroLWD = 1,
     zeroType = 2, facet = FALSE, scales = "free",
-    sort = c("natural", "normal", "magnitude", "size", "alphabetical"),
+    sort = c("natural", "magnitude", "alphabetical"),
     decreasing = FALSE, numeric = FALSE,
     fillColor = "grey", alpha = 1/2, horizontal = FALSE,
     factors = NULL, only = NULL, shorten = TRUE,

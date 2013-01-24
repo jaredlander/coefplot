@@ -1,8 +1,9 @@
-\name{buildPlotting.lm}
+\name{buildPlotting.default}
+\alias{buildPlotting.default}
 \alias{buildPlotting.lm}
 \title{Coefplot plotting}
 \usage{
-  buildPlotting.lm(modelCI, modelMeltInner = NULL,
+  buildPlotting.default(modelCI, modelMeltInner = NULL,
     modelMeltOuter = NULL, title = "Coefficient Plot",
     xlab = "Value", ylab = "Coefficient", lwdInner = 1,
     lwdOuter = 0, color = "blue", cex = 0.8, textAngle = 0,
@@ -10,7 +11,8 @@
     multi = FALSE, zeroColor = "grey", zeroLWD = 1,
     zeroType = 2, numeric = FALSE, fillColor = "grey",
     alpha = 1/2, horizontal = FALSE, facet = FALSE,
-    scales = "free")
+    scales = "free", value = "Value",
+    coefficient = "Coefficient")
 }
 \arguments{
   \item{modelCI}{An object created by

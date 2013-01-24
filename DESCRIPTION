@@ -17,9 +17,9 @@ Imports:
     useful
 Collate:
     'coefplot.r'
-    'modelInfo.r'
-    'utilities.r'
     'coefplot-package.r'
     'multiplot.r'
     'extractCoef.r'
+    'buildPlottingFrame.r'
+    'buildPlot.r'
 ByteCompile: TRUE
