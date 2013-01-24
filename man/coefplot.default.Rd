@@ -1,7 +1,6 @@
 \name{coefplot.default}
 \alias{coefplot.default}
-\alias{coefplot.lm}
-\title{Dotplot for coefficients}
+\title{coefplot.default}
 \usage{
   \method{coefplot}{default} (model,
     title = "Coefficient Plot", xlab = "Value",
@@ -14,10 +13,10 @@
     decreasing = FALSE, numeric = FALSE,
     fillColor = "grey", alpha = 1/2, horizontal = FALSE,
     factors = NULL, only = NULL, shorten = TRUE,
-    intercept = TRUE, plot = TRUE, ...)
+    intercept = TRUE, variables = NULL, plot = TRUE, ...)
 }
 \arguments{
-  \item{model}{The model we are graphing}
+  \item{model}{The model to plot.}
 
   \item{title}{The name of the plot, if NULL then no name
   is given}
@@ -58,11 +57,12 @@
 
   \item{facet}{logical; If the coefficients should be
   faceted by the variables, numeric coefficients (including
-  the intercept) will be one facet}
+  the intercept) will be one facet.  Currently not
+  available.}
 
   \item{scales}{The way the axes should be treated in a
   faceted plot.  Can be c("fixed", "free", "free_x",
-  "free_y")}
+  "free_y").  Currently not available.}
 
   \item{sort}{Determines the sort order of the
   coefficients.  Possible values are c("natural", "normal",
@@ -73,22 +73,29 @@
 
   \item{numeric}{logical; If true and factors has exactly
   one value, then it is displayed in a horizontal graph
-  with constinuous confidence bounds.}
+  with constinuous confidence bounds.  Currently not
+  available.}
 
   \item{fillColor}{The color of the confidence bounds for a
-  numeric factor}
+  numeric factor.  Currently not available.}
 
   \item{alpha}{The transparency level of the numeric
-  factor's confidence bound}
+  factor's confidence bound.  Currently not available.}
 
   \item{horizontal}{logical; If the plot should be
-  displayed horizontally}
+  displayed horizontally.  Currently not available.}
 
   \item{intercept}{logical; Whether the Intercept
   coefficient should be plotted}
 
   \item{plot}{logical; If the plot should be drawn, if
   false then a data.frame of the values will be returned}
+
+  \item{variables}{A character vector specifying which
+  variables to keep.  Each individual variable has to be
+  specfied, so individual levels of factors must be
+  specified.  We are working on making this easier to
+  implement, but this is the only option for now.}
 
   \item{factors}{Vector of factor variables that will be
   the only ones shown}
@@ -104,7 +111,7 @@
   levels will be stripped of their variable names.  If a
   character vector of variables only coefficients for
   factor levels associated with those variables will the
-  variable names stripped.}
+  variable names stripped.  Currently not available.}
 
   \item{\dots}{Arguments passed on to other functions}
 }
@@ -114,10 +121,12 @@
   listing coeffcients and confidence bands is returned.
 }
 \description{
-  A graphical display of the coefficients and standard
-  errors from a fitted model
+  Dotplot for coefficients
 }
 \details{
+  A graphical display of the coefficients and standard
+  errors from a fitted model
+
   \code{\link{coefplot}} is the S3 generic method for
   plotting the coefficients from a fitted model.
 
@@ -131,16 +140,10 @@ head(diamonds)
 model1 <- lm(price ~ carat + cut*color, data=diamonds)
 model2 <- lm(price ~ carat*color, data=diamonds)
 coefplot(model1)
-coefplot(model1, shorten=FALSE)
-coefplot(model1, shorten=c("cut"))
-coefplot(model1, shorten=c("cut"), intercept=FALSE)
-coefplot(model1, factors="cut")
-coefplot(model1, factors="cut", only=TRUE)
-coefplot(model1, facet=TRUE)
 coefplot(model2)
 }
 \author{
-  Jared P. Lander www.jaredlander.com
+  Jared P. Lander
 }
 \seealso{
   \code{\link{lm}} \code{\link{glm}} \code{\link{ggplot}}

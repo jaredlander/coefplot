@@ -1,6 +1,5 @@
 \name{buildPlotting.default}
 \alias{buildPlotting.default}
-\alias{buildPlotting.lm}
 \title{Coefplot plotting}
 \usage{
   buildPlotting.default(modelCI, modelMeltInner = NULL,
@@ -84,6 +83,11 @@
 
   \item{horizontal}{logical; If the plot should be
   displayed horizontally}
+
+  \item{value}{Name of variable for value metric}
+
+  \item{coefficient}{Name of variable for coefficient
+  names}
 }
 \value{
   a ggplot graph object
@@ -100,13 +104,13 @@ data(diamonds)
 model1 <- lm(price ~ carat + cut, data=diamonds)
 theCI <- coefplot:::buildModelCI(model1)
 theCIMelt <- coefplot:::meltModelCI(theCI)
-coefplot:::buildPlotting.lm(theCI, theCIMelt$modelMeltInner, theCIMelt$modelMeltInner)
+coefplot:::buildPlotting.default(theCI, theCIMelt$modelMeltInner, theCIMelt$modelMeltInner)
 }
 \author{
   Jared P. Lander www.jaredlander.com
 }
 \seealso{
-  \code{\link{coefplot.lm}} \code{\link{coefplot}}
+  \code{\link{coefplot.default}} \code{\link{coefplot}}
   \code{\link{multiplot}}
 }
 

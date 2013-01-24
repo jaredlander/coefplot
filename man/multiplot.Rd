@@ -129,6 +129,7 @@
   adjusted in future iterations.
 }
 \examples{
+\dontrun{
 data(diamonds)
 model1 <- lm(price ~ carat + cut, data=diamonds)
 model2 <- lm(price ~ carat + cut + color, data=diamonds)
@@ -138,6 +139,7 @@ multiplot(model1, model2, model3, single=FALSE)
 multiplot(model1, model2, model3, factors="color")
 multiplot(model1, model2, model3, factors="color", drop=TRUE)
 multiplot(model1, model2, model3, plot=FALSE)
+}
 }
 \seealso{
   \code{link{coefplot}}

@@ -43,6 +43,8 @@ coefplot <- function(model, ...)
 
 
 ## the default method for coefplot
+#' coefplot.default
+#' 
 #' Dotplot for coefficients
 #'
 #' A graphical display of the coefficients and standard errors from a fitted model
@@ -51,9 +53,9 @@ coefplot <- function(model, ...)
 #'
 #' This method also plots coefficients from glm (using coefplot.lm) and rxLinMod models (through a redirection from coefplot.rxLinMod)
 #'
-#' @aliases coefplot.lm
-#' @author Jared P. Lander www.jaredlander.com
-#' @param model The model we are graphing
+#' @aliases coefplot.default
+#' @author Jared P. Lander
+#' @param model The model to plot.
 #' @param title The name of the plot, if NULL then no name is given
 #' @param xlab The x label
 #' @param ylab The y label
@@ -68,21 +70,22 @@ coefplot <- function(model, ...)
 #' @param zeroColor The color of the line indicating 0
 #' @param zeroLWD The thickness of the 0 line
 #' @param zeroType The type of 0 line, 0 will mean no line
-#' @param facet logical; If the coefficients should be faceted by the variables, numeric coefficients (including the intercept) will be one facet
-#' @param scales The way the axes should be treated in a faceted plot.  Can be c("fixed", "free", "free_x", "free_y")
+#' @param facet logical; If the coefficients should be faceted by the variables, numeric coefficients (including the intercept) will be one facet.  Currently not available.
+#' @param scales The way the axes should be treated in a faceted plot.  Can be c("fixed", "free", "free_x", "free_y").  Currently not available.
 #' @param sort Determines the sort order of the coefficients.  Possible values are c("natural", "normal", "magnitude", "size", "alphabetical")
 #' @param decreasing logical; Whether the coefficients should be ascending or descending
-#' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with constinuous confidence bounds.
-#' @param fillColor The color of the confidence bounds for a numeric factor
-#' @param alpha The transparency level of the numeric factor's confidence bound
-#' @param horizontal logical; If the plot should be displayed horizontally
+#' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with constinuous confidence bounds.  Currently not available.
+#' @param fillColor The color of the confidence bounds for a numeric factor.  Currently not available.
+#' @param alpha The transparency level of the numeric factor's confidence bound.  Currently not available.
+#' @param horizontal logical; If the plot should be displayed horizontally.  Currently not available.
 #' @param intercept logical; Whether the Intercept coefficient should be plotted
 #' @param plot logical; If the plot should be drawn, if false then a data.frame of the values will be returned
+#' @param variables A character vector specifying which variables to keep.  Each individual variable has to be specfied, so individual levels of factors must be specified.  We are working on making this easier to implement, but this is the only option for now.
 ##See Details for information on \code{factors}, \code{only} and \code{shorten}
 ### non-listed arguments
 #' @param factors Vector of factor variables that will be the only ones shown
 #' @param only logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.
-#' @param shorten logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped.
+#' @param shorten logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped.  Currently not available.
 #' @param \dots Arguments passed on to other functions
 #' @return If \code{plot} is \code{TRUE} then a \code{\link{ggplot}} object is returned.  Otherwise a \code{\link{data.frame}} listing coeffcients and confidence bands is returned.
 #' @seealso \code{\link{lm}} \code{\link{glm}} \code{\link{ggplot}} \code{\link{coefplot}} \code{\link{plotcoef}}
@@ -96,12 +99,6 @@ coefplot <- function(model, ...)
 #' model1 <- lm(price ~ carat + cut*color, data=diamonds)
 #' model2 <- lm(price ~ carat*color, data=diamonds)
 #' coefplot(model1)
-#' coefplot(model1, shorten=FALSE)
-#' coefplot(model1, shorten=c("cut"))
-#' coefplot(model1, shorten=c("cut"), intercept=FALSE)
-#' coefplot(model1, factors="cut")
-#' coefplot(model1, factors="cut", only=TRUE)
-#' coefplot(model1, facet=TRUE)
 #' coefplot(model2)
 #'
 coefplot.default <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coefficient", 
@@ -112,7 +109,7 @@ coefplot.default <- function(model, title="Coefficient Plot", xlab="Value", ylab
 						sort=c("natural", "magnitude", "alphabetical"), decreasing=FALSE,
 						numeric=FALSE, fillColor="grey", alpha=1/2,
 						horizontal=FALSE, factors=NULL, only=NULL, shorten=TRUE,
-						intercept=TRUE, plot=TRUE, ...)
+						intercept=TRUE, variables=NULL, plot=TRUE, ...)
 {
 	theDots <- list(...)
 	
@@ -120,7 +117,8 @@ coefplot.default <- function(model, title="Coefficient Plot", xlab="Value", ylab
     sort <- match.arg(sort)
     
     # construct a data.frame containing confidence interval information
-    modelCI <- buildModelCI(model, outerCI=outerCI, innerCI=innerCI, intercept=intercept, numeric=numeric, sort=sort, decreasing=decreasing, factors=factors, only=only, shorten=shorten, ...)
+    modelCI <- buildModelCI(model, outerCI=outerCI, innerCI=innerCI, intercept=intercept, variables=variables, numeric=numeric, sort=sort, 
+                            decreasing=decreasing, factors=factors, only=only, shorten=shorten, ...)
 
     # if not plotting just return the modelCI data.frame
     if(!plot)
@@ -225,10 +223,13 @@ coefplot.glm <- function(...)
 #' @return A ggplot object.  See \code{\link{coefplot.lm}} for more information.
 #' @examples
 #' 
+#' \dontrun{
 #' mod4 <- rxGlm(price ~ carat + cut + x, data=diamonds)
 #' mod5 <- rxGlm(price > 10000 ~ carat + cut + x, data=diamonds, fmaily="binomial")
 #' coefplot(mod4)
 #' coefplot(mod5)
+#' }
+#' 
 coefplot.rxGlm <- function(...)
 {
     coefplot.default(...)

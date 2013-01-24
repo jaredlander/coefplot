@@ -5,8 +5,8 @@
 #' This function builds up the ggplot layer by layer for \code{\link{coefplot.lm}}
 #'
 #' @author Jared P. Lander www.jaredlander.com
-#' @seealso \code{\link{coefplot.lm}} \code{\link{coefplot}} \code{\link{multiplot}}
-#' @aliases buildPlotting.lm
+#' @seealso \code{\link{coefplot.default}} \code{\link{coefplot}} \code{\link{multiplot}}
+#' @aliases buildPlotting.default
 #' @param modelCI An object created by \code{\link{buildModelCI}}
 #' @param modelMeltInner The inner SE part of the object built by \code{\link{meltModelCI}}
 #' @param modelMeltOuter The outer SE part of the object built by \code{\link{meltModelCI}}
@@ -31,6 +31,8 @@
 #' @param fillColor The color of the confidence bounds for a numeric factor
 #' @param alpha The transparency level of the numeric factor's confidence bound
 #' @param horizontal logical; If the plot should be displayed horizontally
+#' @param value Name of variable for value metric
+#' @param coefficient Name of variable for coefficient names
 #' @return a ggplot graph object
 #' @examples
 #'
@@ -38,7 +40,7 @@
 #' model1 <- lm(price ~ carat + cut, data=diamonds)
 #' theCI <- coefplot:::buildModelCI(model1)
 #' theCIMelt <- coefplot:::meltModelCI(theCI)
-#' coefplot:::buildPlotting.lm(theCI, theCIMelt$modelMeltInner, theCIMelt$modelMeltInner)
+#' coefplot:::buildPlotting.default(theCI, theCIMelt$modelMeltInner, theCIMelt$modelMeltInner)
 #'
 buildPlotting.default <- function(modelCI, 
                                   modelMeltInner=NULL, modelMeltOuter=NULL, title="Coefficient Plot", 

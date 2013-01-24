@@ -44,6 +44,7 @@
 #' @return A ggplot object
 #' @examples
 #'
+#'\dontrun{
 #' data(diamonds)
 #' model1 <- lm(price ~ carat + cut, data=diamonds)
 #' model2 <- lm(price ~ carat + cut + color, data=diamonds)
@@ -53,6 +54,7 @@
 #' multiplot(model1, model2, model3, factors="color")
 #' multiplot(model1, model2, model3, factors="color", drop=TRUE)
 #' multiplot(model1, model2, model3, plot=FALSE)
+#' }
 #'
 multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coefficient", 
     					innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0,  color="blue",
@@ -123,7 +125,7 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
     
     if(plot)
     {
-        p <- buildPlotting.lm(modelCI=modelCI,
+        p <- buildPlotting.default(modelCI=modelCI,
                             modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
                            title=title, xlab=xlab, ylab=ylab,
                            lwdInner=lwdInner, lwdOuter=lwdOuter, color=color, cex=cex, textAngle=textAngle, 

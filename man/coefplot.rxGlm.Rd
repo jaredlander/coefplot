@@ -27,10 +27,12 @@
   see \code{\link{coefplot.default}}
 }
 \examples{
+\dontrun{
 mod4 <- rxGlm(price ~ carat + cut + x, data=diamonds)
 mod5 <- rxGlm(price > 10000 ~ carat + cut + x, data=diamonds, fmaily="binomial")
 coefplot(mod4)
 coefplot(mod5)
+}
 }
 \author{
   Jared P. Lander
