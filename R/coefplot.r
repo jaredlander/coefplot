@@ -21,7 +21,6 @@
 #' @param model The fitted model with coefficients to be plotted
 #' @param \dots See \code{\link{coefplot.lm}} for argument details
 #' @return A ggplot2 object or data.frame.  See details in \code{\link{coefplot.lm}} for more information
-#' www.jaredlander.com
 #' @export coefplot plotcoef
 #' @keywords coefplot dotplot coefficient coefficients model lm glm rxLinMod linear
 #' @import ggplot2 plyr reshape2 useful
@@ -43,10 +42,10 @@ coefplot <- function(model, ...)
 
 
 
-## the lm method for coefplot
-#' Dotplot for lm coefficients
+## the default method for coefplot
+#' Dotplot for coefficients
 #'
-#' A graphical display of the coefficients and standard errors from a fitted lm model
+#' A graphical display of the coefficients and standard errors from a fitted model
 #'
 #' \code{\link{coefplot}} is the S3 generic method for plotting the coefficients from a fitted model.
 #'
@@ -54,7 +53,6 @@ coefplot <- function(model, ...)
 #'
 #' @aliases coefplot.lm
 #' @author Jared P. Lander www.jaredlander.com
-## @usage coefplot.lm(model, title="Coefficient Plot", xlab="Value", ylab="Coefficient", innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0, color="blue", cex=.8, textAngle=0, numberAngle=0, zeroColor="grey", zeroLWD=1, zeroType=2, facet=FALSE, scales="free", sort="natural", decreasing=FALSE, numeric=FALSE, fillColor="grey", alpha=1/2, horizontal=FALSE, intercept=TRUE, plot=TRUE, ...)
 #' @param model The model we are graphing
 #' @param title The name of the plot, if NULL then no name is given
 #' @param xlab The x label
@@ -88,9 +86,9 @@ coefplot <- function(model, ...)
 #' @param \dots Arguments passed on to other functions
 #' @return If \code{plot} is \code{TRUE} then a \code{\link{ggplot}} object is returned.  Otherwise a \code{\link{data.frame}} listing coeffcients and confidence bands is returned.
 #' @seealso \code{\link{lm}} \code{\link{glm}} \code{\link{ggplot}} \code{\link{coefplot}} \code{\link{plotcoef}}
-#' @export coefplot.lm
-#' @method coefplot lm
-#' @S3method coefplot lm
+#' @export coefplot.default
+#' @method coefplot default
+#' @S3method coefplot default
 #' @examples
 #' 
 #' data(diamonds)
@@ -155,8 +153,90 @@ coefplot.default <- function(model, title="Coefficient Plot", xlab="Value", ylab
 	return(p)		# return the ggplot object
 }
 
+#' coefplot.lm
+#' 
+#' Dotplot for lm coefficients
+#'
+#' A graphical display of the coefficients and standard errors from a fitted lm model
+#'
+#' \code{\link{coefplot}} is the S3 generic method for plotting the coefficients from a fitted model.
+#'
+#' For more information on this function and it's arguments see \code{\link{coefplot.default}}
+#'
+#' @aliases coefplot.lm
+#' @export coefplot.lm
+#' @method coefplot lm
+#' @S3method coefplot lm
+#' @author Jared P. Lander
+#' @param \dots All arguments are passed on to \code{\link{coefplot.default}}.  Please see that function for argument information.
+#' @return A ggplot object.  See \code{\link{coefplot.lm}} for more information.
+#' @examples
+#' 
+#' model1 <- lm(price ~ carat + cut*color, data=diamonds)
+#' coefplot(model1)
+coefplot.lm <- function(...)
+{
+    coefplot.default(...)
+}
+
+#' coefplot.glm
+#' 
+#' Dotplot for glm coefficients
+#'
+#' A graphical display of the coefficients and standard errors from a fitted glm model
+#'
+#' \code{\link{coefplot}} is the S3 generic method for plotting the coefficients from a fitted model.
+#'
+#' For more information on this function and it's arguments see \code{\link{coefplot.default}}
+#'
+#' @aliases coefplot.glm
+#' @export coefplot.glm
+#' @method coefplot glm
+#' @S3method coefplot glm
+#' @author Jared P. Lander
+#' @param \dots All arguments are passed on to \code{\link{coefplot.default}}.  Please see that function for argument information.
+#' @return A ggplot object.  See \code{\link{coefplot.lm}} for more information.
+#' @examples
+#' 
+#' model2 <- glm(price > 10000 ~ carat + cut*color, data=diamonds, family=binomial(link="logit"))
+#' coefplot(model2)
+coefplot.glm <- function(...)
+{
+    coefplot.default(...)
+}
+
+
+#' coefplot.rxGlm
+#' 
+#' Dotplot for rxGlm coefficients
+#'
+#' A graphical display of the coefficients and standard errors from a fitted rxGlm model
+#'
+#' \code{\link{coefplot}} is the S3 generic method for plotting the coefficients from a fitted model.
+#'
+#' For more information on this function and it's arguments see \code{\link{coefplot.default}}
+#'
+#' @aliases coefplot.rxGlm
+#' @export coefplot.rxGlm
+#' @method coefplot rxGlm
+#' @S3method coefplot rxGlm
+#' @author Jared P. Lander
+#' @param \dots All arguments are passed on to \code{\link{coefplot.default}}.  Please see that function for argument information.
+#' @return A ggplot object.  See \code{\link{coefplot.lm}} for more information.
+#' @examples
+#' 
+#' mod4 <- rxGlm(price ~ carat + cut + x, data=diamonds)
+#' mod5 <- rxGlm(price > 10000 ~ carat + cut + x, data=diamonds, fmaily="binomial")
+#' coefplot(mod4)
+#' coefplot(mod5)
+coefplot.rxGlm <- function(...)
+{
+    coefplot.default(...)
+}
 
 ## just simply call coefplot.lm which will work just fine
+#' coefplot.rxLinMod
+#' 
 #' Dotplot for rxLinMod coefficients
 #'
 #' A graphical display of the coefficients and standard errors from a fitted rxLinMod model
@@ -174,14 +254,20 @@ coefplot.default <- function(model, title="Coefficient Plot", xlab="Value", ylab
 #' @return A ggplot object.  See \code{\link{coefplot.lm}} for more information.
 #' @examples
 #' 
-#' # See coefplot.lm for examples
+#' \dontrun{
+#' data(diamonds)
+#' mod3 <- rxLinMod(price ~ carat + cut + x, data=diamonds)
+#' coefplot(mod3)
+#' }
 coefplot.rxLinMod <- function(...)
 {
-    coefplot.lm(...)
+    coefplot.default(...)
 }
 
 
 ## just simply call coefplot.lm which will work just fine
+#' coefplot.rxLogit
+#' 
 #' Dotplot for rxLogit coefficients
 #'
 #' A graphical display of the coefficients and standard errors from a fitted rxLogit model
@@ -199,18 +285,16 @@ coefplot.rxLinMod <- function(...)
 #' @return A ggplot object.  See \code{\link{coefplot.lm}} for more information.
 #' @examples
 #' 
-#' # See coefplot.lm for examples
+#' \dontrun{
+#' data(diamonds)
+#' mod6 <- rxLogit(price > 10000 ~ carat + cut + x, data=diamonds)
+#' coefplot(mod6)
+#' }
 coefplot.rxLogit <- function(...)
 {
-    coefplot.lm(...)
+    coefplot.default(...)
 }
 
-# no need, glm defaults to lm
-## the glm method for coefplot
-# coefplot.glm <- function(model, ...)
-# {
-#     plot(coef(model))
-# }
 
 # just another name for it
 plotcoef <- function(...)

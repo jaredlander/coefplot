@@ -1,14 +1,15 @@
 \name{coefplot.default}
 \alias{coefplot.default}
 \alias{coefplot.lm}
-\title{Dotplot for lm coefficients}
+\title{Dotplot for coefficients}
 \usage{
-  \method{coefplot}{lm} (model, title = "Coefficient Plot",
-    xlab = "Value", ylab = "Coefficient", innerCI = 1,
-    outerCI = 2, lwdInner = 1, lwdOuter = 0,
-    color = "blue", cex = 0.8, textAngle = 0,
-    numberAngle = 0, zeroColor = "grey", zeroLWD = 1,
-    zeroType = 2, facet = FALSE, scales = "free",
+  \method{coefplot}{default} (model,
+    title = "Coefficient Plot", xlab = "Value",
+    ylab = "Coefficient", innerCI = 1, outerCI = 2,
+    lwdInner = 1, lwdOuter = 0, color = "blue", cex = 0.8,
+    textAngle = 0, numberAngle = 0, zeroColor = "grey",
+    zeroLWD = 1, zeroType = 2, facet = FALSE,
+    scales = "free",
     sort = c("natural", "magnitude", "alphabetical"),
     decreasing = FALSE, numeric = FALSE,
     fillColor = "grey", alpha = 1/2, horizontal = FALSE,
@@ -114,7 +115,7 @@
 }
 \description{
   A graphical display of the coefficients and standard
-  errors from a fitted lm model
+  errors from a fitted model
 }
 \details{
   \code{\link{coefplot}} is the S3 generic method for

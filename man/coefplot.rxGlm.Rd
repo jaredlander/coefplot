@@ -1,0 +1,38 @@
+\name{coefplot.rxGlm}
+\alias{coefplot.rxGlm}
+\title{coefplot.rxGlm}
+\usage{
+  \method{coefplot}{rxGlm} (...)
+}
+\arguments{
+  \item{\dots}{All arguments are passed on to
+  \code{\link{coefplot.default}}.  Please see that function
+  for argument information.}
+}
+\value{
+  A ggplot object.  See \code{\link{coefplot.lm}} for more
+  information.
+}
+\description{
+  Dotplot for rxGlm coefficients
+}
+\details{
+  A graphical display of the coefficients and standard
+  errors from a fitted rxGlm model
+
+  \code{\link{coefplot}} is the S3 generic method for
+  plotting the coefficients from a fitted model.
+
+  For more information on this function and it's arguments
+  see \code{\link{coefplot.default}}
+}
+\examples{
+mod4 <- rxGlm(price ~ carat + cut + x, data=diamonds)
+mod5 <- rxGlm(price > 10000 ~ carat + cut + x, data=diamonds, fmaily="binomial")
+coefplot(mod4)
+coefplot(mod5)
+}
+\author{
+  Jared P. Lander
+}
+

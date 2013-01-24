@@ -1,6 +1,6 @@
 \name{coefplot.rxLogit}
 \alias{coefplot.rxLogit}
-\title{Dotplot for rxLogit coefficients}
+\title{coefplot.rxLogit}
 \usage{
   \method{coefplot}{rxLogit} (...)
 }
@@ -14,10 +14,12 @@
   information.
 }
 \description{
-  A graphical display of the coefficients and standard
-  errors from a fitted rxLogit model
+  Dotplot for rxLogit coefficients
 }
 \details{
+  A graphical display of the coefficients and standard
+  errors from a fitted rxLogit model
+
   \code{\link{coefplot}} is the S3 generic method for
   plotting the coefficients from a fitted model.
 
@@ -25,7 +27,11 @@
   see \code{\link{coefplot.lm}}
 }
 \examples{
-# See coefplot.lm for examples
+\dontrun{
+data(diamonds)
+mod6 <- rxLogit(price > 10000 ~ carat + cut + x, data=diamonds)
+coefplot(mod6)
+}
 }
 \author{
   Jared P. Lander www.jaredlander.com

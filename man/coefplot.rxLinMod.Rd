@@ -1,6 +1,6 @@
 \name{coefplot.rxLinMod}
 \alias{coefplot.rxLinMod}
-\title{Dotplot for rxLinMod coefficients}
+\title{coefplot.rxLinMod}
 \usage{
   \method{coefplot}{rxLinMod} (...)
 }
@@ -14,10 +14,12 @@
   information.
 }
 \description{
-  A graphical display of the coefficients and standard
-  errors from a fitted rxLinMod model
+  Dotplot for rxLinMod coefficients
 }
 \details{
+  A graphical display of the coefficients and standard
+  errors from a fitted rxLinMod model
+
   \code{\link{coefplot}} is the S3 generic method for
   plotting the coefficients from a fitted model.
 
@@ -25,7 +27,11 @@
   see \code{\link{coefplot.lm}}
 }
 \examples{
-# See coefplot.lm for examples
+\dontrun{
+data(diamonds)
+mod3 <- rxLinMod(price ~ carat + cut + x, data=diamonds)
+coefplot(mod3)
+}
 }
 \author{
   Jared P. Lander www.jaredlander.com

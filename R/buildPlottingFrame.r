@@ -9,17 +9,18 @@
 #' @author Jared P. Lander
 #' @aliases buildModelCI
 #' @export buildModelCI
-#' @param model A Fitted model such as form lm, glm
+#' @param model A Fitted model such as from lm, glm
 #' @param innerCI How wide the inner confidence interval should be, normally 1 standard deviation.  If 0, then there will be no inner confidence interval.
 #' @param outerCI How wide the outer confidence interval should be, normally 2 standard deviations.  If 0, then there will be no outer confidence interval.
 #' @param sort Determines the sort order of the coefficients.  Possible values are c("natural", "magnitude", "alphabetical")
 #' @param decreasing logical; Whether the coefficients should be ascending or descending
-#' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with constinuous confidence bounds.
+#' @param variables A character vector specifying which variables to keep.  Each individual variable has to be specfied, so individual levels of factors must be specified.  We are working on making this easier to implement, but this is the only option for now.
+#' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with constinuous confidence bounds.; not used for now.
 #' @param intercept logical; Whether the Intercept coefficient should be plotted
 #' @param interceptName Specifies name of intercept it case it is not the default of "(Intercept").
 #' @param \dots See Details for information on \code{factors}, \code{only} and \code{shorten}
 #' @param name A name for the model, if NULL the call will be used
-#' @return Otherwise a \code{\link{data.frame}} listing coeffcients and confidence bands is returned.
+#' @return A \code{\link{data.frame}} listing coeffcients and confidence bands.
 #' @seealso \code{\link{coefplot}} \code{\link{multiplot}}
 #' @examples
 #'
@@ -28,7 +29,7 @@
 #' coefplot:::buildModelCI(model1)
 #'
 buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FALSE, 
-                         sort=c("natural", "magnitude", "alphabetical"), 
+                         sort=c("natural", "magnitude", "alphabetical"), variables=NULL,
                          decreasing=TRUE, name=NULL, interceptName="(Intercept)", ...)
 {
     sort <- match.arg(sort)
@@ -49,6 +50,12 @@ buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FA
     if(!intercept)
     {
         modelCI <- modelCI[rownames(modelCI) != interceptName, ]
+    }
+    
+    # only select certain variables
+    if(!is.null(variables))
+    {
+        modelCI <- modelCI[rownames(modelCI) %in% variables, ]
     }
     
     # make column for model name

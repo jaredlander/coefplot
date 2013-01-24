@@ -17,7 +17,6 @@
 \value{
   A ggplot2 object or data.frame.  See details in
   \code{\link{coefplot.lm}} for more information
-  www.jaredlander.com
 }
 \description{
   A graphical display of the coefficients and standard
