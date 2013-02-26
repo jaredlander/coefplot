@@ -56,6 +56,10 @@ buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FA
     if(!is.null(variables))
     {
         modelCI <- modelCI[rownames(modelCI) %in% variables, ]
+        if(NROW(modelCI) == 0)
+        {
+            return(NULL)
+        }
     }
     
     # make column for model name
@@ -112,13 +116,13 @@ buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FA
 #' coefplot:::meltModelCI(modeled)
 #'
 meltModelCI <- function(modelCI, 
-                        keepCols=c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coefficient", "Value"), 
-                        id.vars=c("Coefficient"), variable.name="Type", 
+                        keepCols=c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coefficient", "Value", "Model"), 
+                        id.vars=c("Coefficient", "Model"), variable.name="Type", 
                         value.name="Value", outerCols=c("LowOuter", "HighOuter"), 
                         innerCols=c("LowInner", "HighInner"))
 {
     # melt the data frame so it is suitable for ggplot
-    modelMelt <- melt(data=modelCI[ ,keepCols], id.vars=id.vars, variable.name=variable.name, value.name=value.name)
+    modelMelt <- melt(data=modelCI[, keepCols], id.vars=id.vars, variable.name=variable.name, value.name=value.name)
     
     # just the outerCI info
     modelMeltOuter <- modelMelt[modelMelt$Type %in% outerCols, ]	# pull out the outer (95% default) CI
