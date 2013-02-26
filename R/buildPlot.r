@@ -54,7 +54,7 @@ buildPlotting.default <- function(modelCI,
     # outerCI layer
     # first is for a normal coefplot or a faceted multiplot
     # the second is for a single-pane multiplot
-    #print(modelCI)
+
     outerCIGeom <- list(DisplayOne=geom_errorbarh(aes_string(xmin="LowOuter", xmax="HighOuter"), colour=color, lwd=lwdOuter, height=0),
                         DisplayMany=geom_linerange(aes_string(ymin="LowOuter", ymax="HighOuter", x=coefficient), data=modelCI, lwd=lwdOuter, position=position_dodge(width=1)),
                         None=NULL)
