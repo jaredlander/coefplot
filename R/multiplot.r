@@ -36,6 +36,8 @@
 #' @param alpha The transparency level of the numeric factor's confidence bound
 #' @param horizontal logical; If the plot should be displayed horizontally
 #' @param intercept logical; Whether the Intercept coefficient should be plotted
+#' @param interceptName Specifies name of intercept it case it is not the default of "(Intercept").
+#' @param variables A character vector specifying which variables to keep.  Each individual variable has to be specfied, so individual levels of factors must be specified.  We are working on making this easier to implement, but this is the only option for now.
 #' @param plot logical; If the plot should be drawn, if false then a data.frame of the values will be returned
 #' @param factors Vector of factor variables that will be the only ones shown
 #' @param only logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.
@@ -66,7 +68,7 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
 						sort=c("natural", "normal", "magnitude", "size", "alphabetical"), decreasing=FALSE, names=NULL,
 						numeric=FALSE, fillColor="grey", alpha=1/2,
 						horizontal=FALSE, factors=NULL, only=NULL, shorten=TRUE,
-						intercept=TRUE, plot=TRUE, drop=FALSE)
+						intercept=TRUE, interceptName="(Intercept)", variables=NULL, plot=TRUE, drop=FALSE)
 {
     ## if ... is already a list just grab the dots, otherwise force it into a list
     if(tryCatch(is.list(...), error = function(e) FALSE))
@@ -85,7 +87,8 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
 #    return(theDots)
     # need to change getModelInfo and buildModelCI and coefplot.lm so that shorten, factors and only are normal arguments and not part of ..., that way it will work better for this
     # get the modelCI for each model and make one big data.frame
-    modelCI <- ldply(theDots, .fun=buildModelCI, outerCI=outerCI, innerCI=innerCI, intercept=intercept, numeric=numeric, sort=sort, decreasing=decreasing, factors=factors, only=only, shorten=shorten)
+    modelCI <- ldply(theDots, .fun=buildModelCI, outerCI=outerCI, innerCI=innerCI, intercept=intercept, numeric=numeric, 
+                     sort=sort, decreasing=decreasing, factors=factors, only=only, shorten=shorten, variables=variables)
     
     # Turn the Call into a unique identifier for each model
     modelCI$Model <- as.numeric(factor(modelCI$Model, levels=unique(modelCI$Model)))
@@ -110,11 +113,17 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
         modelCI <- modelCI[modelCI$Model %in% names(which(notNA == TRUE)), ]
     }
     
+    if(!plot)
+    {
+        reutrn(modelCI)
+    }
+    
     # which columns will be kept in the melted data.frame
-    keepCols <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coef", "Checkers", "CoefShort", "Model")
-
-    modelMelting <- meltModelCI(modelCI=modelCI, keepCols=keepCols, id.vars=c("CoefShort", "Checkers", "Model"), 
-                                variable.name="Type", value.name="value", outerCols=c("LowOuter", "HighOuter"), innerCols=c("LowInner", "HighInner")) 
+    keepCols <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coefficient", "Model")
+    
+    modelMelting <- meltModelCI(modelCI=modelCI, keepCols=keepCols, id.vars=c("Coefficient", "Model"), 
+                                variable.name="Type", value.name="Value", outerCols=c("LowOuter", "HighOuter"), 
+                                innerCols=c("LowInner", "HighInner")) 
  
 
     modelMelt <- modelMelting$modelMelt 
@@ -122,20 +131,14 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
     modelMeltOuter <- modelMelting$modelMeltOuter 
     rm(modelMelting);      # housekeeping 
 
-    
-    if(plot)
-    {
-        p <- buildPlotting.default(modelCI=modelCI,
-                            modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
-                           title=title, xlab=xlab, ylab=ylab,
-                           lwdInner=lwdInner, lwdOuter=lwdOuter, color=color, cex=cex, textAngle=textAngle, 
-                           numberAngle=numberAngle, zeroColor=zeroColor, zeroLWD=zeroLWD, outerCI=outerCI, innerCI=innerCI, multi=single,
-                           zeroType=zeroType, numeric=numeric, fillColor=fillColor, alpha=alpha, 
-                           horizontal=horizontal, facet=FALSE, scales="fixed")
-    
-        p + scale_colour_discrete("Model") + if(!single) facet_wrap(~Model, scales=scales, ncol=ncol)
-    }else
-    {
-        return(modelCI)
-    }
+    p <- buildPlotting.default(modelCI=modelCI, 
+                        modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
+                       title=title, xlab=xlab, ylab=ylab,
+                       lwdInner=lwdInner, lwdOuter=lwdOuter, color=color, cex=cex, textAngle=textAngle, 
+                       numberAngle=numberAngle, zeroColor=zeroColor, zeroLWD=zeroLWD, outerCI=outerCI, innerCI=innerCI, single=single,
+                       zeroType=zeroType, numeric=numeric, fillColor=fillColor, alpha=alpha, 
+                               value="Value", coefficient="Coefficient",
+                       horizontal=horizontal, facet=FALSE, scales="fixed")
+    #return(p)
+    p + scale_colour_discrete("Model") + if(!single) facet_wrap(~Model, scales=scales, ncol=ncol)
 }
