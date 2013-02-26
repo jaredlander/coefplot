@@ -46,7 +46,7 @@ buildPlotting.default <- function(modelCI,
                                   modelMeltInner=NULL, modelMeltOuter=NULL, title="Coefficient Plot", 
                                   xlab="Value", ylab="Coefficient", lwdInner=1, lwdOuter=0, 
                                   color="blue", cex=.8, textAngle=0, numberAngle=0, 
-                                  outerCI=2, innerCI=1, multi=FALSE, 
+                                  outerCI=2, innerCI=1, single=FALSE, 
                                   zeroColor="grey", zeroLWD=1, zeroType=2, 
                                   numeric=FALSE, fillColor="grey", alpha=1/2,
                                   horizontal=FALSE, facet=FALSE, scales="free",
@@ -56,40 +56,50 @@ buildPlotting.default <- function(modelCI,
     # outerCI layer
     # first is for a normal coefplot or a faceted multiplot
     # the second is for a single-pane multiplot
-    outerCIGeom <- list(DisplayOne=geom_line(aes_string(y=coefficient, x=value, group=coefficient), data=modelMeltOuter, colour=color, lwd=lwdOuter),
-                        DisplayMany=geom_linerange(aes(ymin=LowOuter, ymax=HighOuter, colour=as.factor(Model)), data=modelCI, lwd=lwdOuter, position=position_dodge(width=1)),
+    
+    outerCIGeom <- list(DisplayOne=geom_line(aes_string(x=value, group=coefficient), data=modelMeltOuter, colour=color, lwd=lwdOuter),
+                        DisplayMany=geom_linerange(aes_string(ymin="LowOuter", ymax="HighOuter", x=coefficient), data=modelCI, lwd=lwdOuter, position=position_dodge(width=1)),
                         None=NULL)
+    
     # innerCI layer
     # first is for a normal coefplot or a faceted multiplot
     # the second is for a single-pane multiplot
-    innerCIGeom <- list(DisplayOne=geom_line(aes_string(y=coefficient, x=value, group=coefficient), data=modelMeltInner, colour=color, lwd=lwdInner),
-                        DisplayMany=geom_linerange(aes(ymin=LowInner, ymax=HighInner, colour=as.factor(Model)), data=modelCI, lwd=lwdInner, position=position_dodge(width=1)),
+    innerCIGeom <- list(DisplayOne=geom_line(aes_string(x=value, group=coefficient), data=modelMeltInner, colour=color, lwd=lwdInner),
+                        DisplayMany=geom_linerange(aes_string(ymin="LowInner", ymax="HighInner", x=coefficient), data=modelCI, lwd=lwdInner, position=position_dodge(width=1)),
                         None=NULL)
     # ribbon layer
-    ribbonGeom <- list(None=NULL, geom_ribbon(aes(ymin=LowOuter, ymax=HighOuter, group=Checkers), data=modelCI, fill=fillColor, alpha=alpha, lwd=lwdOuter))
+    #ribbonGeom <- list(None=NULL, geom_ribbon(aes(ymin=LowOuter, ymax=HighOuter, group=Checkers), data=modelCI, fill=fillColor, alpha=alpha, lwd=lwdOuter))
     
     # point layer
     # first is for a normal coefplot or a faceted multiplot
     # the second is for a single-pane multiplot
     pointGeom <- list(DisplayOne=geom_point(colour=color),
-                      DisplayMany=geom_point(position=position_dodge(width=1), aes(ymax=Coef, colour=as.factor(Model))),
+                      DisplayMany=geom_point(position=position_dodge(width=1), aes_string(ymax=value, y=value, x=coefficient), data=modelCI),
                       None=NULL)
+    
+    colorAes <- list(None=NULL, Single=aes(color=as.factor(Model)))
+    colorScale <- list(None=NULL, Single=scale_color_discrete())
+    xScale <- list(None=NULL, Single=scale_x_discrete())
     
     # faceting info
     faceting <- list(None=NULL, Display=facet_wrap(~Checkers, scales=scales))
     
     # for a regular coefplot or a multiplot in seperate facets
+    #p <- ggplot(data=modelCI, aes_string(x=value))
     p <- ggplot(data=modelCI, aes_string(x=value, y=coefficient))    		# the basics of the plot
+    #p <- p + colorAes[[1 + single]] #                                    # in case model needs to be factorized, do it here
     p <- p + geom_vline(xintercept=0, colour=zeroColor, linetype=zeroType, lwd=zeroLWD)		# the zero line
-    p <- p + outerCIGeom[[(outerCI/outerCI)]] +    				# the outer CI bars
-        innerCIGeom[[innerCI/innerCI]]						# the inner CI bars
-    p <- p + pointGeom[[1]]						# the points
+    p <- p + scale_x_discrete() + geom_linerange(aes_string(ymin="LowInner", ymax="HighInner", x=coefficient), data=modelCI, lwd=lwdInner, position=position_dodge(width=1))
+    #p <- p + outerCIGeom[[(outerCI/outerCI) + single]] #+    				# the outer CI bars
+     #   innerCIGeom[[innerCI/innerCI + single]]						# the inner CI bars
+    #p <- p + pointGeom[[1 + single]]						# the points
+    #p <- p + xScale[[1 + single]]# + scale_y_continuous() 
     p <- p + theme(axis.text.y=element_text(angle=textAngle), axis.text.x=element_text(angle=numberAngle)) + 
         labs(title=title, x=xlab, y=ylab)    # labeling and text info
-    p <- p + faceting[[facet + 1]]    	# faceting
-    p <- p + if(horizontal) coord_flip()
-
-    rm(modelCI);		# housekeeping
+    #p <- p + faceting[[facet + 1]]    	# faceting
+    #p <- p + if(horizontal) coord_flip()
+    
+    #rm(modelCI);		# housekeeping
     
     return(p)		# return the ggplot object
 }
