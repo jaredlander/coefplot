@@ -23,6 +23,8 @@ extract.coef.default <- function(model, ...)
     # get summary of model
     theSumm <- summary(model)
     # get coef and standard error
+#     print(theSumm)
+#     print(head(model))
     info <- as.data.frame(theSumm$coefficients[, 1:2])
     names(info) <- c("Value", "SE")
     # make a variable tracking the name
