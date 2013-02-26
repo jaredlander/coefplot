@@ -79,6 +79,7 @@ coefplot <- function(model, ...)
 #' @param alpha The transparency level of the numeric factor's confidence bound.  Currently not available.
 #' @param horizontal logical; If the plot should be displayed horizontally.  Currently not available.
 #' @param intercept logical; Whether the Intercept coefficient should be plotted
+#' @param interceptName Specifies name of intercept it case it is not the default of "(Intercept").
 #' @param plot logical; If the plot should be drawn, if false then a data.frame of the values will be returned
 #' @param variables A character vector specifying which variables to keep.  Each individual variable has to be specfied, so individual levels of factors must be specified.  We are working on making this easier to implement, but this is the only option for now.
 ##See Details for information on \code{factors}, \code{only} and \code{shorten}
@@ -109,7 +110,7 @@ coefplot.default <- function(model, title="Coefficient Plot", xlab="Value", ylab
 						sort=c("natural", "magnitude", "alphabetical"), decreasing=FALSE,
 						numeric=FALSE, fillColor="grey", alpha=1/2,
 						horizontal=FALSE, factors=NULL, only=NULL, shorten=TRUE,
-						intercept=TRUE, variables=NULL, plot=TRUE, ...)
+						intercept=TRUE, interceptName="(Intercept)", variables=NULL, plot=TRUE, ...)
 {
 	theDots <- list(...)
 	
@@ -117,7 +118,8 @@ coefplot.default <- function(model, title="Coefficient Plot", xlab="Value", ylab
     sort <- match.arg(sort)
     
     # construct a data.frame containing confidence interval information
-    modelCI <- buildModelCI(model, outerCI=outerCI, innerCI=innerCI, intercept=intercept, variables=variables, numeric=numeric, sort=sort, 
+    modelCI <- buildModelCI(model, outerCI=outerCI, innerCI=innerCI, intercept=intercept, variables=variables, 
+                            numeric=numeric, sort=sort, 
                             decreasing=decreasing, factors=factors, only=only, shorten=shorten, ...)
 
     # if not plotting just return the modelCI data.frame
