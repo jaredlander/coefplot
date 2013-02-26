@@ -131,18 +131,18 @@ coefplot.default <- function(model, title="Coefficient Plot", xlab="Value", ylab
     # which columns will be kept in the melted data.frame
     keepCols <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coefficient", "Model")
 
-    modelMelting <- meltModelCI(modelCI=modelCI, keepCols=keepCols, id.vars=c("Coefficient", "Model"), 
-                                variable.name="Type", value.name="Value", 
-                                outerCols=c("LowOuter", "HighOuter"), 
-                                innerCols=c("LowInner", "HighInner")) 
+#     modelMelting <- meltModelCI(modelCI=modelCI, keepCols=keepCols, id.vars=c("Coefficient", "Model"), 
+#                                 variable.name="Type", value.name="Value", 
+#                                 outerCols=c("LowOuter", "HighOuter"), 
+#                                 innerCols=c("LowInner", "HighInner")) 
 
-    modelMelt <- modelMelting$modelMelt 
-    modelMeltInner <- modelMelting$modelMeltInner 
-    modelMeltOuter <- modelMelting$modelMeltOuter 
-    rm(modelMelting);      # housekeeping
+    #modelMelt <- modelMelting$modelMelt 
+    #modelMeltInner <- modelMelting$modelMeltInner 
+    #modelMeltOuter <- modelMelting$modelMeltOuter 
+    #rm(modelMelting);      # housekeeping
     
     p <- buildPlotting.default(modelCI=modelCI,
-                        modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
+                        #modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
                        title=title, xlab=xlab, ylab=ylab,
                        lwdInner=lwdInner, lwdOuter=lwdOuter, color=color, cex=cex, textAngle=textAngle, 
                        numberAngle=numberAngle, zeroColor=zeroColor, zeroLWD=zeroLWD, outerCI=outerCI, innerCI=innerCI, multi=FALSE,
