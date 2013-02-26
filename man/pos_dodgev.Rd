@@ -1,0 +1,32 @@
+\name{pos_dodgev}
+\alias{pos_dodgev}
+\title{pos_dodgev}
+\usage{
+  pos_dodgev(df, height)
+}
+\arguments{
+  \item{df}{}
+
+  \item{height}{}
+}
+\value{
+  Not sure
+}
+\description{
+  Vertical dodging internal
+}
+\details{
+  A hacky adaptation of ggplot's pos_dodge function to be
+  used for vertical collisions.  No warranties on this
+  working except that it looks good for now.
+
+  The adaptation switch x's to y's and y's to x's and width
+  to height
+}
+\examples{
+# none here
+}
+\author{
+  Jared P. Lander
+}
+
