@@ -13,7 +13,8 @@
     decreasing = FALSE, names = NULL, numeric = FALSE,
     fillColor = "grey", alpha = 1/2, horizontal = FALSE,
     factors = NULL, only = NULL, shorten = TRUE,
-    intercept = TRUE, plot = TRUE, drop = FALSE)
+    intercept = TRUE, interceptName = "(Intercept)",
+    variables = NULL, plot = TRUE, drop = FALSE)
 }
 \arguments{
   \item{\dots}{Models to be plotted}
@@ -91,6 +92,15 @@
 
   \item{intercept}{logical; Whether the Intercept
   coefficient should be plotted}
+
+  \item{interceptName}{Specifies name of intercept it case
+  it is not the default of "(Intercept").}
+
+  \item{variables}{A character vector specifying which
+  variables to keep.  Each individual variable has to be
+  specfied, so individual levels of factors must be
+  specified.  We are working on making this easier to
+  implement, but this is the only option for now.}
 
   \item{plot}{logical; If the plot should be drawn, if
   false then a data.frame of the values will be returned}

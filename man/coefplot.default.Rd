@@ -13,7 +13,8 @@
     decreasing = FALSE, numeric = FALSE,
     fillColor = "grey", alpha = 1/2, horizontal = FALSE,
     factors = NULL, only = NULL, shorten = TRUE,
-    intercept = TRUE, variables = NULL, plot = TRUE, ...)
+    intercept = TRUE, interceptName = "(Intercept)",
+    variables = NULL, plot = TRUE, ...)
 }
 \arguments{
   \item{model}{The model to plot.}
@@ -87,6 +88,9 @@
 
   \item{intercept}{logical; Whether the Intercept
   coefficient should be plotted}
+
+  \item{interceptName}{Specifies name of intercept it case
+  it is not the default of "(Intercept").}
 
   \item{plot}{logical; If the plot should be drawn, if
   false then a data.frame of the values will be returned}

@@ -2,26 +2,21 @@
 \alias{buildPlotting.default}
 \title{Coefplot plotting}
 \usage{
-  buildPlotting.default(modelCI, modelMeltInner = NULL,
-    modelMeltOuter = NULL, title = "Coefficient Plot",
-    xlab = "Value", ylab = "Coefficient", lwdInner = 1,
-    lwdOuter = 0, color = "blue", cex = 0.8, textAngle = 0,
+  buildPlotting.default(modelCI,
+    title = "Coefficient Plot", xlab = "Value",
+    ylab = "Coefficient", lwdInner = 1, lwdOuter = 0,
+    color = "blue", cex = 0.8, textAngle = 0,
     numberAngle = 0, outerCI = 2, innerCI = 1,
     multi = FALSE, zeroColor = "grey", zeroLWD = 1,
     zeroType = 2, numeric = FALSE, fillColor = "grey",
     alpha = 1/2, horizontal = FALSE, facet = FALSE,
     scales = "free", value = "Value",
-    coefficient = "Coefficient")
+    coefficient = "Coefficient", errorHeight = 0,
+    dodgeHeight = 1)
 }
 \arguments{
   \item{modelCI}{An object created by
   \code{\link{buildModelCI}}}
-
-  \item{modelMeltInner}{The inner SE part of the object
-  built by \code{\link{meltModelCI}}}
-
-  \item{modelMeltOuter}{The outer SE part of the object
-  built by \code{\link{meltModelCI}}}
 
   \item{title}{The name of the plot, if NULL then no name
   is given}
@@ -39,7 +34,9 @@
   there will be no outer confidence interval.}
 
   \item{multi}{logical; If this is for
-  \code{\link{multiplot}} then dodge the geoms}
+  \code{\link{multiplot}} then leave the colors as
+  determined by the legend, if FALSE then make all colors
+  the same}
 
   \item{lwdInner}{The thickness of the inner confidence
   interval}
@@ -88,6 +85,10 @@
 
   \item{coefficient}{Name of variable for coefficient
   names}
+
+  \item{errorHeight}{Height of error bars}
+
+  \item{dodgeHeight}{Amount of vertical dodging}
 }
 \value{
   a ggplot graph object
@@ -104,7 +105,7 @@ data(diamonds)
 model1 <- lm(price ~ carat + cut, data=diamonds)
 theCI <- coefplot:::buildModelCI(model1)
 theCIMelt <- coefplot:::meltModelCI(theCI)
-coefplot:::buildPlotting.default(theCI, theCIMelt$modelMeltInner, theCIMelt$modelMeltInner)
+coefplot:::buildPlotting.default(theCI)
 }
 \author{
   Jared P. Lander www.jaredlander.com
