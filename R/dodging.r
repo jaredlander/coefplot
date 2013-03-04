@@ -115,7 +115,7 @@ position_dodgev <- function (width = NULL, height = NULL) {
     PositionDodgev$new(width = width, height = height)
 }
 
-PositionDodgev <- proto(Position, {
+PositionDodgev <- proto(ggplot2:::Position, {
     objname <- "dodgev"
     
     adjust <- function(., data) {
