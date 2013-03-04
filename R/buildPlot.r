@@ -13,7 +13,7 @@
 #' @param ylab The y label
 #' @param innerCI How wide the inner confidence interval should be, normally 1 standard deviation.  If 0, then there will be no inner confidence interval.
 #' @param outerCI How wide the outer confidence interval should be, normally 2 standard deviations.  If 0, then there will be no outer confidence interval.
-#' @param multi logical; If this is for \code{\link{multiplot}} then dodge the geoms
+#' @param multi logical; If this is for \code{\link{multiplot}} then leave the colors as determined by the legend, if FALSE then make all colors the same
 #' @param lwdInner The thickness of the inner confidence interval
 #' @param lwdOuter The thickness of the outer confidence interval
 #' @param color The color of the points and lines
@@ -31,6 +31,8 @@
 #' @param horizontal logical; If the plot should be displayed horizontally
 #' @param value Name of variable for value metric
 #' @param coefficient Name of variable for coefficient names
+#' @param errorHeight Height of error bars
+#' @param dodgeHeight Amount of vertical dodging
 #' @return a ggplot graph object
 #' @examples
 #'
@@ -48,35 +50,22 @@ buildPlotting.default <- function(modelCI,
                                   zeroColor="grey", zeroLWD=1, zeroType=2, 
                                   numeric=FALSE, fillColor="grey", alpha=1/2,
                                   horizontal=FALSE, facet=FALSE, scales="free",
-                                  value="Value", coefficient="Coefficient")
+                                  value="Value", coefficient="Coefficient", 
+                                  errorHeight=0, dodgeHeight=1)
 {
     ## build the layer infos
-    # outerCI layer
-    # first is for a normal coefplot or a faceted multiplot
-    # the second is for a single-pane multiplot
-
-    outerCIGeom <- list(DisplayOne=geom_errorbarh(aes_string(xmin="LowOuter", xmax="HighOuter"), colour=color, lwd=lwdOuter, height=0),
-                        DisplayMany=geom_linerange(aes_string(ymin="LowOuter", ymax="HighOuter", x=coefficient), data=modelCI, lwd=lwdOuter, position=position_dodge(width=1)),
-                        None=NULL)
+    outerCIGeom <- geom_errorbarh(aes_string(xmin="LowOuter", xmax="HighOuter", color="Model"), lwd=lwdOuter, height=errorHeight, position=position_dodgev(height=dodgeHeight))
     
-    # innerCI layer
-    # first is for a normal coefplot or a faceted multiplot
-    # the second is for a single-pane multiplot
-    innerCIGeom <- list(DisplayOne=geom_errorbarh(aes_string(xmin="LowInner", xmax="HighInner"), colour=color, lwd=lwdInner, height=0),
-                        DisplayMany=geom_linerange(aes_string(ymin="LowInner", ymax="HighInner", x=coefficient), data=modelCI, lwd=lwdInner, position=position_dodge(width=1)),
-                        None=NULL)
+    innerCIGeom <- geom_errorbarh(aes_string(xmin="LowInner", xmax="HighInner", color="Model"),lwd=lwdInner, height=errorHeight, position=position_dodgev(height=dodgeHeight))
+    
     # ribbon layer
     #ribbonGeom <- list(None=NULL, geom_ribbon(aes(ymin=LowOuter, ymax=HighOuter, group=Checkers), data=modelCI, fill=fillColor, alpha=alpha, lwd=lwdOuter))
     
     # point layer
-    # first is for a normal coefplot or a faceted multiplot
-    # the second is for a single-pane multiplot
-    pointGeom <- list(DisplayOne=geom_point(colour=color),
-                      DisplayMany=geom_point(position=position_dodge(width=1), aes_string(ymax=value, y=value, x=coefficient), data=modelCI),
-                      None=NULL)
-    
+    pointGeom <- geom_point(aes_string(xmin=value, xmax=value, color="Model"), position=position_dodgev(height=dodgeHeight))
+
     colorAes <- list(None=NULL, Single=aes(color=as.factor(Model)))
-    colorScale <- list(None=NULL, Single=scale_color_discrete())
+    colorScale <- scale_color_manual(values=rep(color, length(unique(modelCI$Model))), guide=FALSE)
     xScale <- list(None=NULL, Single=scale_x_discrete())
     
     # faceting info
@@ -87,17 +76,15 @@ buildPlotting.default <- function(modelCI,
     p <- ggplot(data=modelCI, aes_string(x=value, y=coefficient))    		# the basics of the plot
     #p <- p + colorAes[[1 + multi]] #                                    # in case model needs to be factorized, do it here
     p <- p + geom_vline(xintercept=0, colour=zeroColor, linetype=zeroType, lwd=zeroLWD)		# the zero line
-    #p <- p + scale_x_discrete() + geom_linerange(aes_string(ymin="LowInner", ymax="HighInner", x=coefficient), data=modelCI, lwd=lwdInner, position=position_dodge(width=1))
-    p <- p + outerCIGeom[[(outerCI/outerCI) + multi]] +    				# the outer CI bars
-        innerCIGeom[[innerCI/innerCI + multi]]						# the inner CI bars
-    p <- p + pointGeom[[1 + multi]]						# the points
-    p <- p + xScale[[1 + multi]]# + scale_y_continuous() 
+    p <- p + outerCIGeom +    				# the outer CI bars
+        innerCIGeom						# the inner CI bars
+    p <- p + pointGeom						# the points
+    #p <- p + xScale[[1 + multi]]
     p <- p + theme(axis.text.y=element_text(angle=textAngle), axis.text.x=element_text(angle=numberAngle)) + 
         labs(title=title, x=xlab, y=ylab)    # labeling and text info
+    p <- p + if(!multi) colorScale
     p <- p + faceting[[facet + 1]]    	# faceting
     p <- p + if(horizontal) coord_flip()
-    
-    #rm(modelCI);		# housekeeping
     
     return(p)		# return the ggplot object
 }
