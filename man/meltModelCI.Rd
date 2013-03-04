@@ -50,8 +50,9 @@
 \examples{
 data(diamonds)
 model1 <- lm(price ~ carat + cut, data=diamonds)
-modeled <- coefplot:::buildModelCI(model1)
-coefplot:::meltModelCI(modeled)
+\dontrun{modeled <- coefplot:::buildModelCI(model1)
+coefplot:::meltModelCI(modeled)}
+coefplot(model1)
 }
 \author{
   Jared P. Lander www.jaredlander.com
