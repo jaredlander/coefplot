@@ -16,7 +16,7 @@
 #' require(ggplot2)
 #' data(diamonds)
 #' mod1 <- lm(price ~ carat + cut + x, data=diamonds)
-#' extract.coef(mod1)
+#' \dontrun{extract.coef(mod1)}
 #' 
 extract.coef.default <- function(model, ...)
 {

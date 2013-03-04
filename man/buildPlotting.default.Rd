@@ -106,6 +106,7 @@ model1 <- lm(price ~ carat + cut, data=diamonds)
 theCI <- coefplot:::buildModelCI(model1)
 theCIMelt <- coefplot:::meltModelCI(theCI)
 coefplot:::buildPlotting.default(theCI)
+coefplot(model1)
 }
 \author{
   Jared P. Lander www.jaredlander.com
