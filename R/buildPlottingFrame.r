@@ -4,7 +4,7 @@
 #' 
 #' Construct Confidence Interval Values
 #' 
-#' Takes a model and builds a data.frame holding the coefficient value and the confidence interval values
+#' Takes a model and builds a data.frame holding the coefficient value and the confidence interval values.
 #'
 #' @author Jared P. Lander
 #' @aliases buildModelCI
@@ -27,6 +27,7 @@
 #' data(diamonds)
 #' model1 <- lm(price ~ carat + cut, data=diamonds)
 #' coefplot:::buildModelCI(model1)
+#' coefplot(model1)
 #'
 buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FALSE, 
                          sort=c("natural", "magnitude", "alphabetical"), variables=NULL,
@@ -112,8 +113,9 @@ buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FA
 #'
 #' data(diamonds)
 #' model1 <- lm(price ~ carat + cut, data=diamonds)
-#' modeled <- coefplot:::buildModelCI(model1)
-#' coefplot:::meltModelCI(modeled)
+#' \dontrun{modeled <- coefplot:::buildModelCI(model1)
+#' coefplot:::meltModelCI(modeled)}
+#' coefplot(model1)
 #'
 meltModelCI <- function(modelCI, 
                         keepCols=c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coefficient", "Value", "Model"), 

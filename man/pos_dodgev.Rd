@@ -5,9 +5,9 @@
   pos_dodgev(df, height)
 }
 \arguments{
-  \item{df}{}
+  \item{df}{Refer to ggplot2}
 
-  \item{height}{}
+  \item{height}{Refer to ggplot2}
 }
 \value{
   Not sure

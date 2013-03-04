@@ -5,9 +5,9 @@
   position_dodgev(width = NULL, height = NULL)
 }
 \arguments{
-  \item{width}{}
+  \item{width}{Refer to ggplot2}
 
-  \item{height}{}
+  \item{height}{Refer to ggplot2}
 }
 \value{
   Not sure

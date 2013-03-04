@@ -11,12 +11,13 @@
 #' @import scales
 #' @import proto
 #' @import ggplot2
+#' @export collidev
 #' @return Not sure
-#' @param data
-#' @param height
-#' @param name
-#' @param strategy
-#' @param check.height
+#' @param data data
+#' @param height How much to dodge the items
+#' @param name Refer to ggplot2
+#' @param strategy Refer to ggplot2
+#' @param check.height Refer to ggplot2
 #' @examples
 #' # none here
 collidev <- function(data, height = NULL, name, strategy, check.height = TRUE) 
@@ -73,9 +74,10 @@ collidev <- function(data, height = NULL, name, strategy, check.height = TRUE)
 #' 
 #' @author Jared P. Lander
 #' @aliases pos_dodgev
+#' @export pos_dodgev
 #' @return Not sure
-#' @param df
-#' @param height
+#' @param df Refer to ggplot2
+#' @param height Refer to ggplot2
 #' @examples
 #' # none here
 pos_dodgev <- function (df, height) 
@@ -107,8 +109,8 @@ pos_dodgev <- function (df, height)
 #' @author Jared P. Lander
 #' @aliases position_dodgev
 #' @return Not sure
-#' @param width
-#' @param height
+#' @param width Refer to ggplot2
+#' @param height Refer to ggplot2
 #' @examples
 #' # none here
 position_dodgev <- function (width = NULL, height = NULL) { 

@@ -41,6 +41,7 @@
 #' theCI <- coefplot:::buildModelCI(model1)
 #' theCIMelt <- coefplot:::meltModelCI(theCI)
 #' coefplot:::buildPlotting.default(theCI)
+#' coefplot(model1)
 #'
 buildPlotting.default <- function(modelCI, 
                                   title="Coefficient Plot", 

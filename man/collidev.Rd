@@ -6,15 +6,15 @@
     check.height = TRUE)
 }
 \arguments{
-  \item{data}{}
+  \item{data}{data}
 
-  \item{height}{}
+  \item{height}{How much to dodge the items}
 
-  \item{name}{}
+  \item{name}{Refer to ggplot2}
 
-  \item{strategy}{}
+  \item{strategy}{Refer to ggplot2}
 
-  \item{check.height}{}
+  \item{check.height}{Refer to ggplot2}
 }
 \value{
   Not sure
