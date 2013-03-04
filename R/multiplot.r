@@ -91,7 +91,7 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
                      sort=sort, decreasing=decreasing, factors=factors, only=only, shorten=shorten, variables=variables)
     
     # Turn the Call into a unique identifier for each model
-    modelCI$Model <- as.numeric(factor(modelCI$Model, levels=unique(modelCI$Model)))
+    modelCI$Model <- as.factor(as.numeric(factor(modelCI$Model, levels=unique(modelCI$Model))))
     
     # if names are provided use those instead of the numbers
     if(!is.null(names))
@@ -119,24 +119,24 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
     }
     
     # which columns will be kept in the melted data.frame
-    keepCols <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coefficient", "Model")
+#    keepCols <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coefficient", "Model")
     
-    modelMelting <- meltModelCI(modelCI=modelCI, keepCols=keepCols, id.vars=c("Coefficient", "Model"), 
-                                variable.name="Type", value.name="Value", outerCols=c("LowOuter", "HighOuter"), 
-                                innerCols=c("LowInner", "HighInner")) 
- 
-
-    modelMelt <- modelMelting$modelMelt 
-    modelMeltInner <- modelMelting$modelMeltInner 
-    modelMeltOuter <- modelMelting$modelMeltOuter 
-    rm(modelMelting);      # housekeeping 
+#     modelMelting <- meltModelCI(modelCI=modelCI, keepCols=keepCols, id.vars=c("Coefficient", "Model"), 
+#                                 variable.name="Type", value.name="Value", outerCols=c("LowOuter", "HighOuter"), 
+#                                 innerCols=c("LowInner", "HighInner")) 
+#  
+# 
+#     modelMelt <- modelMelting$modelMelt 
+#     modelMeltInner <- modelMelting$modelMeltInner 
+#     modelMeltOuter <- modelMelting$modelMeltOuter 
+#     rm(modelMelting);      # housekeeping 
 
     p <- buildPlotting.default(modelCI=modelCI, 
-                        modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
+                        #modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
                        title=title, xlab=xlab, ylab=ylab,
                        lwdInner=lwdInner, lwdOuter=lwdOuter, color=color, cex=cex, textAngle=textAngle, 
-                       numberAngle=numberAngle, zeroColor=zeroColor, zeroLWD=zeroLWD, outerCI=outerCI, innerCI=innerCI, single=single,
-                       zeroType=zeroType, numeric=numeric, fillColor=fillColor, alpha=alpha, 
+                       numberAngle=numberAngle, zeroColor=zeroColor, zeroLWD=zeroLWD, outerCI=outerCI, innerCI=innerCI,# single=single,
+                       zeroType=zeroType, numeric=numeric, fillColor=fillColor, alpha=alpha, multi=TRUE,
                                value="Value", coefficient="Coefficient",
                        horizontal=horizontal, facet=FALSE, scales="fixed")
     #return(p)
