@@ -16,6 +16,7 @@
 #' @param multi logical; If this is for \code{\link{multiplot}} then leave the colors as determined by the legend, if FALSE then make all colors the same
 #' @param lwdInner The thickness of the inner confidence interval
 #' @param lwdOuter The thickness of the outer confidence interval
+#' @param pointSize Size of coefficient point
 #' @param color The color of the points and lines
 #' @param cex The text size multiplier, currently not used
 #' @param textAngle The angle for the coefficient labels, 0 is horizontal
@@ -45,7 +46,7 @@
 #'
 buildPlotting.default <- function(modelCI, 
                                   title="Coefficient Plot", 
-                                  xlab="Value", ylab="Coefficient", lwdInner=1, lwdOuter=0, 
+                                  xlab="Value", ylab="Coefficient", lwdInner=1, lwdOuter=0, pointSize=3,
                                   color="blue", cex=.8, textAngle=0, numberAngle=0, 
                                   outerCI=2, innerCI=1, multi=FALSE, 
                                   zeroColor="grey", zeroLWD=1, zeroType=2, 
@@ -63,7 +64,7 @@ buildPlotting.default <- function(modelCI,
     #ribbonGeom <- list(None=NULL, geom_ribbon(aes(ymin=LowOuter, ymax=HighOuter, group=Checkers), data=modelCI, fill=fillColor, alpha=alpha, lwd=lwdOuter))
     
     # point layer
-    pointGeom <- geom_point(aes_string(xmin=value, xmax=value, color="Model"), position=position_dodgev(height=dodgeHeight))
+    pointGeom <- geom_point(aes_string(xmin=value, xmax=value, color="Model"), size=pointSize, position=position_dodgev(height=dodgeHeight))
 
     colorAes <- list(None=NULL, Single=aes(color=as.factor(Model)))
     colorScale <- scale_color_manual(values=rep(color, length(unique(modelCI$Model))), guide=FALSE)

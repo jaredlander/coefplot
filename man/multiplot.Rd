@@ -4,7 +4,7 @@
 \usage{
   multiplot(..., title = "Coefficient Plot",
     xlab = "Value", ylab = "Coefficient", innerCI = 1,
-    outerCI = 2, lwdInner = 1, lwdOuter = 0,
+    outerCI = 2, lwdInner = 1, lwdOuter = 0, pointSize = 3,
     color = "blue", cex = 0.8, textAngle = 0,
     numberAngle = 90, zeroColor = "grey", zeroLWD = 1,
     zeroType = 2, single = TRUE, scales = "fixed",
@@ -39,6 +39,8 @@
 
   \item{lwdOuter}{The thickness of the outer confidence
   interval}
+
+  \item{pointSize}{Size of coefficient point}
 
   \item{color}{The color of the points and lines}
 

@@ -5,10 +5,10 @@
   \method{coefplot}{default} (model,
     title = "Coefficient Plot", xlab = "Value",
     ylab = "Coefficient", innerCI = 1, outerCI = 2,
-    lwdInner = 1, lwdOuter = 0, color = "blue", cex = 0.8,
-    textAngle = 0, numberAngle = 0, zeroColor = "grey",
-    zeroLWD = 1, zeroType = 2, facet = FALSE,
-    scales = "free",
+    lwdInner = 1, lwdOuter = 0, pointSize = 3,
+    color = "blue", cex = 0.8, textAngle = 0,
+    numberAngle = 0, zeroColor = "grey", zeroLWD = 1,
+    zeroType = 2, facet = FALSE, scales = "free",
     sort = c("natural", "magnitude", "alphabetical"),
     decreasing = FALSE, numeric = FALSE,
     fillColor = "grey", alpha = 1/2, horizontal = FALSE,
@@ -39,6 +39,8 @@
 
   \item{lwdOuter}{The thickness of the outer confidence
   interval}
+
+  \item{pointSize}{Size of coefficient point}
 
   \item{color}{The color of the points and lines}
 

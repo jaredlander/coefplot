@@ -17,6 +17,7 @@
 #' @param outerCI How wide the outer confidence interval should be, normally 2 standard deviations.  If 0, then there will be no outer confidence interval.
 #' @param lwdInner The thickness of the inner confidence interval
 #' @param lwdOuter The thickness of the outer confidence interval
+#' @param pointSize Size of coefficient point
 #' @param color The color of the points and lines
 #' @param cex The text size multiplier, currently not used
 #' @param textAngle The angle for the coefficient labels, 0 is horizontal
@@ -57,7 +58,7 @@
 #' }
 #'
 multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coefficient", 
-    					innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0,  color="blue",
+    					innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0, pointSize=3,  color="blue",
 						cex=.8, textAngle=0, numberAngle=90,
 						zeroColor="grey", zeroLWD=1, zeroType=2,
 						#facet=FALSE,
@@ -132,7 +133,7 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
     p <- buildPlotting.default(modelCI=modelCI, 
                         #modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
                        title=title, xlab=xlab, ylab=ylab,
-                       lwdInner=lwdInner, lwdOuter=lwdOuter, color=color, cex=cex, textAngle=textAngle, 
+                       lwdInner=lwdInner, lwdOuter=lwdOuter, pointSize=pointSize, color=color, cex=cex, textAngle=textAngle, 
                        numberAngle=numberAngle, zeroColor=zeroColor, zeroLWD=zeroLWD, outerCI=outerCI, innerCI=innerCI,# single=single,
                        zeroType=zeroType, numeric=numeric, fillColor=fillColor, alpha=alpha, multi=TRUE,
                                value="Value", coefficient="Coefficient",

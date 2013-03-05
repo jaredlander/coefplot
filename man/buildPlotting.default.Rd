@@ -5,12 +5,12 @@
   buildPlotting.default(modelCI,
     title = "Coefficient Plot", xlab = "Value",
     ylab = "Coefficient", lwdInner = 1, lwdOuter = 0,
-    color = "blue", cex = 0.8, textAngle = 0,
-    numberAngle = 0, outerCI = 2, innerCI = 1,
-    multi = FALSE, zeroColor = "grey", zeroLWD = 1,
-    zeroType = 2, numeric = FALSE, fillColor = "grey",
-    alpha = 1/2, horizontal = FALSE, facet = FALSE,
-    scales = "free", value = "Value",
+    pointSize = 3, color = "blue", cex = 0.8,
+    textAngle = 0, numberAngle = 0, outerCI = 2,
+    innerCI = 1, multi = FALSE, zeroColor = "grey",
+    zeroLWD = 1, zeroType = 2, numeric = FALSE,
+    fillColor = "grey", alpha = 1/2, horizontal = FALSE,
+    facet = FALSE, scales = "free", value = "Value",
     coefficient = "Coefficient", errorHeight = 0,
     dodgeHeight = 1)
 }
@@ -43,6 +43,8 @@
 
   \item{lwdOuter}{The thickness of the outer confidence
   interval}
+
+  \item{pointSize}{Size of coefficient point}
 
   \item{color}{The color of the points and lines}
 
