@@ -48,7 +48,7 @@ buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FA
     
     if(!is.null(newNames))
     {
-        modelCI$Coefficient <- revalue(x=modelCI$Coefficient, replace=newNames)
+        modelCI$Coefficient <- revalue(x=modelCI$Coefficient, replace=newNames, warn_missing=FALSE)
     }
     
     # build confidence bounds columns
