@@ -14,7 +14,7 @@
     fillColor = "grey", alpha = 1/2, horizontal = FALSE,
     factors = NULL, only = NULL, shorten = TRUE,
     intercept = TRUE, interceptName = "(Intercept)",
-    variables = NULL, plot = TRUE, ...)
+    variables = NULL, newNames = NULL, plot = TRUE, ...)
 }
 \arguments{
   \item{model}{The model to plot.}
@@ -102,6 +102,9 @@
   specfied, so individual levels of factors must be
   specified.  We are working on making this easier to
   implement, but this is the only option for now.}
+
+  \item{newNames}{Named character vector of new names for
+  coefficients}
 
   \item{factors}{Vector of factor variables that will be
   the only ones shown}

@@ -5,8 +5,8 @@
   buildModelCI(model, outerCI = 2, innerCI = 1,
     intercept = TRUE, numeric = FALSE,
     sort = c("natural", "magnitude", "alphabetical"),
-    variables = NULL, decreasing = TRUE, name = NULL,
-    interceptName = "(Intercept)", ...)
+    variables = NULL, newNames = NULL, decreasing = TRUE,
+    name = NULL, interceptName = "(Intercept)", ...)
 }
 \arguments{
   \item{model}{A Fitted model such as from lm, glm}
@@ -31,6 +31,9 @@
   specfied, so individual levels of factors must be
   specified.  We are working on making this easier to
   implement, but this is the only option for now.}
+
+  \item{newNames}{Named character vector of new names for
+  coefficients}
 
   \item{numeric}{logical; If true and factors has exactly
   one value, then it is displayed in a horizontal graph

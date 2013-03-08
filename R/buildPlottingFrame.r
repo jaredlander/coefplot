@@ -9,12 +9,14 @@
 #' @author Jared P. Lander
 #' @aliases buildModelCI
 #' @export buildModelCI
+#' @import plyr
 #' @param model A Fitted model such as from lm, glm
 #' @param innerCI How wide the inner confidence interval should be, normally 1 standard deviation.  If 0, then there will be no inner confidence interval.
 #' @param outerCI How wide the outer confidence interval should be, normally 2 standard deviations.  If 0, then there will be no outer confidence interval.
 #' @param sort Determines the sort order of the coefficients.  Possible values are c("natural", "magnitude", "alphabetical")
 #' @param decreasing logical; Whether the coefficients should be ascending or descending
 #' @param variables A character vector specifying which variables to keep.  Each individual variable has to be specfied, so individual levels of factors must be specified.  We are working on making this easier to implement, but this is the only option for now.
+#' @param newNames Named character vector of new names for coefficients
 #' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with constinuous confidence bounds.; not used for now.
 #' @param intercept logical; Whether the Intercept coefficient should be plotted
 #' @param interceptName Specifies name of intercept it case it is not the default of "(Intercept").
@@ -30,13 +32,24 @@
 #' coefplot(model1)
 #'
 buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FALSE, 
-                         sort=c("natural", "magnitude", "alphabetical"), variables=NULL,
+                         sort=c("natural", "magnitude", "alphabetical"), variables=NULL, newNames=NULL,
                          decreasing=TRUE, name=NULL, interceptName="(Intercept)", ...)
 {
     sort <- match.arg(sort)
     
     # get model information
     modelCI <- extract.coef(model)
+    
+    # eliminate unwanted coefficients
+    if(!is.null(variables))
+    {
+        modelCI <- modelCI[rownames(modelCI) %in% variables, ]
+    }
+    
+    if(!is.null(newNames))
+    {
+        modelCI$Coefficient <- revalue(x=modelCI$Coefficient, replace=newNames)
+    }
     
     # build confidence bounds columns
     modelCI <- within(modelCI, {LowOuter <- Value - outerCI*SE;

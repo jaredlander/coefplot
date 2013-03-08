@@ -84,6 +84,7 @@ coefplot <- function(model, ...)
 #' @param plot logical; If the plot should be drawn, if false then a data.frame of the values will be returned
 #' @param variables A character vector specifying which variables to keep.  Each individual variable has to be specfied, so individual levels of factors must be specified.  We are working on making this easier to implement, but this is the only option for now.
 ##See Details for information on \code{factors}, \code{only} and \code{shorten}
+#' @param newNames Named character vector of new names for coefficients
 ### non-listed arguments
 #' @param factors Vector of factor variables that will be the only ones shown
 #' @param only logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.
@@ -111,7 +112,7 @@ coefplot.default <- function(model, title="Coefficient Plot", xlab="Value", ylab
 						sort=c("natural", "magnitude", "alphabetical"), decreasing=FALSE,
 						numeric=FALSE, fillColor="grey", alpha=1/2,
 						horizontal=FALSE, factors=NULL, only=NULL, shorten=TRUE,
-						intercept=TRUE, interceptName="(Intercept)", variables=NULL, plot=TRUE, ...)
+						intercept=TRUE, interceptName="(Intercept)", variables=NULL, newNames=NULL, plot=TRUE, ...)
 {
 	theDots <- list(...)
 	
@@ -119,7 +120,7 @@ coefplot.default <- function(model, title="Coefficient Plot", xlab="Value", ylab
     sort <- match.arg(sort)
     
     # construct a data.frame containing confidence interval information
-    modelCI <- buildModelCI(model, outerCI=outerCI, innerCI=innerCI, intercept=intercept, variables=variables, 
+    modelCI <- buildModelCI(model, outerCI=outerCI, innerCI=innerCI, intercept=intercept, variables=variables, newNames=newNames,
                             numeric=numeric, sort=sort, 
                             decreasing=decreasing, factors=factors, only=only, shorten=shorten, ...)
 
