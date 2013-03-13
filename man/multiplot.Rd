@@ -14,7 +14,8 @@
     fillColor = "grey", alpha = 1/2, horizontal = FALSE,
     factors = NULL, only = NULL, shorten = TRUE,
     intercept = TRUE, interceptName = "(Intercept)",
-    variables = NULL, plot = TRUE, drop = FALSE)
+    variables = NULL, newNames = NULL, plot = TRUE,
+    drop = FALSE)
 }
 \arguments{
   \item{\dots}{Models to be plotted}
@@ -79,7 +80,7 @@
   should be ascending or descending}
 
   \item{names}{Names for models, if NULL then they will be
-  numerically labelled}
+  named after their inputs}
 
   \item{numeric}{logical; If true and factors has exactly
   one value, then it is displayed in a horizontal graph
@@ -105,6 +106,9 @@
   specfied, so individual levels of factors must be
   specified.  We are working on making this easier to
   implement, but this is the only option for now.}
+
+  \item{newNames}{Named character vector of new names for
+  coefficients}
 
   \item{plot}{logical; If the plot should be drawn, if
   false then a data.frame of the values will be returned}
