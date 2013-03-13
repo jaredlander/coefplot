@@ -36,7 +36,7 @@ buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FA
                          decreasing=TRUE, name=NULL, interceptName="(Intercept)", ...)
 {
     sort <- match.arg(sort)
-    
+    #print(structure(as.list(match.call()[-1]), class = "uneval")$model)
     # get model information
     modelCI <- extract.coef(model)
     
@@ -80,7 +80,8 @@ buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FA
     # if a name for the model is provided, use it, otherwise use the call
     if(is.null(name))
     {
-        modelCI$Model <- as.character(paste(model$call, collapse="_"))
+        #modelCI$Model <- as.character(paste(model$call, collapse="_"))
+        modelCI$Model <- paste(as.character(structure(as.list(match.call()[-1]), class = "uneval")$model), collapse="")
     }else
     {
         modelCI$Model <- name

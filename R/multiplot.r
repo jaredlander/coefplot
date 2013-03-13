@@ -32,7 +32,7 @@
 #' @param ncol The number of columns that the models should be plotted in
 #' @param sort Determines the sort order of the coefficients.  Possible values are c("natural", "normal", "magnitude", "size", "alphabetical")
 #' @param decreasing logical; Whether the coefficients should be ascending or descending
-#' @param names Names for models, if NULL then they will be numerically labelled
+#' @param names Names for models, if NULL then they will be named after their inputs
 #' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with constinuous confidence bounds.
 #' @param fillColor The color of the confidence bounds for a numeric factor
 #' @param alpha The transparency level of the numeric factor's confidence bound
@@ -82,9 +82,23 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
         theDots <- list(...)
     }
     
+    # get the inputs, anything in the dots is blank or ""
+    theArgs <- unlist(structure(as.list(match.call()[-1]), class = "uneval"))
+    # if names(theArgs) is null, only dots were passed, treat them all as model
+    # otherwise find args that are "" and treat them as model
+    if(is.null(names(theArgs)))
+    {
+        theNames <- theArgs
+    }else
+    {
+        theNames <- theArgs[names(theArgs) == ""]
+    }
+    
+    names(theDots) <- theNames
+    
     # get variables that have multiple options
     sort <- match.arg(sort)
-    
+    #print(names(theDots))
 #    return(theDots)
     # need to change getModelInfo and buildModelCI and coefplot.lm so that shorten, factors and only are normal arguments and not part of ..., that way it will work better for this
     # get the modelCI for each model and make one big data.frame
@@ -92,12 +106,16 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
                      sort=sort, decreasing=decreasing, factors=factors, only=only, shorten=shorten, variables=variables, newNames=newNames)
     
     # Turn the Call into a unique identifier for each model
-    modelCI$Model <- as.factor(as.numeric(factor(modelCI$Model, levels=unique(modelCI$Model))))
+    #modelCI$Model <- as.factor(as.numeric(factor(modelCI$Model, levels=unique(modelCI$Model))))
+    modelCI$Model <- modelCI$.id
+    modelCI$.id <- NULL
     
     # if names are provided use those instead of the numbers
     if(!is.null(names))
     {
+        names(names) <- theNames
         modelCI$Model <- names[modelCI$Model]
+        #modNames <- structure(as.list(match.call()[-1]), class = "uneval")
     }
     
     ## if we are not plotting return modelCI right away
