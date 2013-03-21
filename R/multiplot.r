@@ -5,7 +5,7 @@
 #'
 #' Plots a graph similar to \code{\link{coefplot}} but for multiple plots at once.
 #'
-#' For now, if \code{names} is provided the plots will appear in alphabetical order of the names.  This wil be adjusted in future iterations.
+#' For now, if \code{names} is provided the plots will appear in alphabetical order of the names.  This wil be adjusted in future iterations.  When setting \code{by} to "Model" and specifying exactly one variable in \code{variables} that one coefficient will be plotted repeatedly with the axis labeled by model.  This is Andy Gelman's secret weapon.
 #'
 #' @export multiplot
 #' @seealso \code{link{coefplot}}
@@ -46,7 +46,7 @@
 #' @param only logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.
 #' @param shorten logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped.
 #' @param drop logical; if TRUE then models without valid coeffiecients to show will not be plotted
-#' @param by If "Coefficient" then anormal multiplot is plotted, if "Model" then the coefficients are plotted along the axis with one for each model.  If plotting by model only one coefficient at a time can be selected.
+#' @param by If "Coefficient" then anormal multiplot is plotted, if "Model" then the coefficients are plotted along the axis with one for each model.  If plotting by model only one coefficient at a time can be selected.  This is called the secret weapon by Andy Gelman.
 #' @return A ggplot object
 #' @examples
 #'

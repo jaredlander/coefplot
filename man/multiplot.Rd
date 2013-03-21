@@ -135,7 +135,8 @@
   \item{by}{If "Coefficient" then anormal multiplot is
   plotted, if "Model" then the coefficients are plotted
   along the axis with one for each model.  If plotting by
-  model only one coefficient at a time can be selected.}
+  model only one coefficient at a time can be selected.
+  This is called the secret weapon by Andy Gelman.}
 }
 \value{
   A ggplot object
@@ -149,7 +150,11 @@
 
   For now, if \code{names} is provided the plots will
   appear in alphabetical order of the names.  This wil be
-  adjusted in future iterations.
+  adjusted in future iterations.  When setting \code{by} to
+  "Model" and specifying exactly one variable in
+  \code{variables} that one coefficient will be plotted
+  repeatedly with the axis labeled by model.  This is Andy
+  Gelman's secret weapon.
 }
 \examples{
 \dontrun{
