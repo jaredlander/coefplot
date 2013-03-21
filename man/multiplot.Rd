@@ -15,7 +15,7 @@
     factors = NULL, only = NULL, shorten = TRUE,
     intercept = TRUE, interceptName = "(Intercept)",
     variables = NULL, newNames = NULL, plot = TRUE,
-    drop = FALSE)
+    drop = FALSE, by = c("Coefficient", "Model"))
 }
 \arguments{
   \item{\dots}{Models to be plotted}
@@ -131,6 +131,11 @@
 
   \item{drop}{logical; if TRUE then models without valid
   coeffiecients to show will not be plotted}
+
+  \item{by}{If "Coefficient" then anormal multiplot is
+  plotted, if "Model" then the coefficients are plotted
+  along the axis with one for each model.  If plotting by
+  model only one coefficient at a time can be selected.}
 }
 \value{
   A ggplot object
