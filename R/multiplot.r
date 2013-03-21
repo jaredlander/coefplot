@@ -46,6 +46,7 @@
 #' @param only logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.
 #' @param shorten logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped.
 #' @param drop logical; if TRUE then models without valid coeffiecients to show will not be plotted
+#' @param by If "Coefficient" then anormal multiplot is plotted, if "Model" then the coefficients are plotted along the axis with one for each model.  If plotting by model only one coefficient at a time can be selected.
 #' @return A ggplot object
 #' @examples
 #'
@@ -107,10 +108,15 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
     {
         names(theDots) <- theNames
     }
-    
+ 
     # get variables that have multiple options
     sort <- match.arg(sort)
     by <- match.arg(by)
+    
+    if(by == "Model" & length(variables) != 1)
+    {
+        stop("If plotting the model along the axis then exactly one variable must be specified for plotting")
+    }
     
 #    return(theDots)
     # need to change getModelInfo and buildModelCI and coefplot.lm so that shorten, factors and only are normal arguments and not part of ..., that way it will work better for this
