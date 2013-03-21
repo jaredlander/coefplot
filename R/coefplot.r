@@ -300,6 +300,31 @@ coefplot.rxLogit <- function(...)
     coefplot.default(...)
 }
 
+# coefplot.glmnet <- function(..., s=NULL)
+# {
+#     modelCI <- extract.coef(model, s=s)
+#     
+#     # if not plotting just return the modelCI data.frame
+#     if(!plot)
+#     {
+#         return(modelCI)
+#     }
+# }
+# 
+# coefplot.cv.glmnet <- function(...)
+# {
+#     
+# }
+# 
+# extract.coef.glmnet <- function(model, s=median(model$lambda), ...)
+# {
+#     # get coefficients
+#     theCoef <- coefficients(object=model, s=s)
+#     # find non zero indices
+#     nonZeroIndex <- which(theCoef != 0)
+#     data.frame(Coefficient=rownames(theCoef)[nonZeroIndex], Value=theCoef[nonZeroIndex])
+# }
+
 
 # just another name for it
 plotcoef <- function(...)
