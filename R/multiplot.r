@@ -69,13 +69,19 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
 						sort=c("natural", "normal", "magnitude", "size", "alphabetical"), decreasing=FALSE, names=NULL,
 						numeric=FALSE, fillColor="grey", alpha=1/2,
 						horizontal=FALSE, factors=NULL, only=NULL, shorten=TRUE,
-						intercept=TRUE, interceptName="(Intercept)", variables=NULL, newNames=NULL, plot=TRUE, drop=FALSE)
+						intercept=TRUE, interceptName="(Intercept)", variables=NULL, newNames=NULL, plot=TRUE, drop=FALSE,
+                      by=c("Coefficient", "Model"))
 {
     ## if ... is already a list just grab the dots, otherwise force it into a list
     if(tryCatch(is.list(...), error = function(e) FALSE))
     {
         # grab the models
         theDots <- list(...)[[1]]
+        # since theDots came in as a list it might have names, if so, leave them, if not, assign them names
+        if(is.null(names(theDots)))
+        {
+            names(theDots) <- sprintf("Model%s", 1:length(theDots))
+        }
     }else
     {
         # grab the models
@@ -86,19 +92,26 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
     theArgs <- unlist(structure(as.list(match.call()[-1]), class = "uneval"))
     # if names(theArgs) is null, only dots were passed, treat them all as model
     # otherwise find args that are "" and treat them as model
+    #print(theArgs[names(theArgs) == ""])
     if(is.null(names(theArgs)))
     {
+        # if names(theArgs) is null, only dots were passed, treat them all as model
         theNames <- theArgs
     }else
     {
         theNames <- theArgs[names(theArgs) == ""]
     }
     
-    names(theDots) <- theNames
+    # if theDots doesn't already have names apply what we just created
+    if(is.null(names(theDots)))
+    {
+        names(theDots) <- theNames
+    }
     
     # get variables that have multiple options
     sort <- match.arg(sort)
-    #print(names(theDots))
+    by <- match.arg(by)
+    
 #    return(theDots)
     # need to change getModelInfo and buildModelCI and coefplot.lm so that shorten, factors and only are normal arguments and not part of ..., that way it will work better for this
     # get the modelCI for each model and make one big data.frame
@@ -157,8 +170,12 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
                         color=color, cex=cex, textAngle=textAngle, 
                        numberAngle=numberAngle, zeroColor=zeroColor, zeroLWD=zeroLWD, outerCI=outerCI, innerCI=innerCI,# single=single,
                        zeroType=zeroType, numeric=numeric, fillColor=fillColor, alpha=alpha, multi=TRUE,
-                               value="Value", coefficient="Coefficient",
+                               value="Value", coefficient=by,
                        horizontal=horizontal, facet=FALSE, scales="fixed")
     #return(p)
-    p + scale_colour_discrete("Model") + if(!single) facet_wrap(~Model, scales=scales, ncol=ncol)
+    
+    theColorScale <- list("Coefficient"=scale_colour_discrete("Model"), 
+                          "Model"=scale_color_manual(values=rep(color, length(unique(modelCI$Model))), guide=FALSE))
+    
+    p + theColorScale[[by]] +  if(!single) facet_wrap(~Model, scales=scales, ncol=ncol)
 }
