@@ -82,7 +82,7 @@ buildPlotting.default <- function(modelCI,
         innerCIGeom						# the inner CI bars
     p <- p + pointGeom						# the points
     #p <- p + xScale[[1 + multi]]
-    p <- p + theme(axis.text.y=element_text(angle=textAngle), axis.text.x=element_text(angle=numberAngle)) + 
+    p <- p + theme(axis.text.y=element_text(angle=textAngle, hjust=.5), axis.text.x=element_text(angle=numberAngle, vjust=.5)) + 
         labs(title=title, x=xlab, y=ylab)    # labeling and text info
     p <- p + if(!multi) colorScale
     p <- p + faceting[[facet + 1]]    	# faceting
