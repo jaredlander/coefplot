@@ -103,11 +103,11 @@
   it is not the default of "(Intercept").}
 
   \item{predictors}{A character vector specifying which
-  variables to keep.  Each individual coefficient can be
+  coefficients to keep.  Each individual coefficient can be
   specfied.  Use predictors to specify entire factors}
 
   \item{coefficients}{A character vector specifying which
-  factor variables to keep.  It will keep all levels and
+  factor coefficients to keep.  It will keep all levels and
   any interactions, even if those are not listed.}
 
   \item{strict}{If TRUE then predictors will only be

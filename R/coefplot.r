@@ -82,8 +82,8 @@ coefplot <- function(model, ...)
 #' @param intercept logical; Whether the Intercept coefficient should be plotted
 #' @param interceptName Specifies name of intercept it case it is not the default of "(Intercept").
 #' @param plot logical; If the plot should be drawn, if false then a data.frame of the values will be returned
-#' @param predictors A character vector specifying which variables to keep.  Each individual coefficient can be specfied.  Use predictors to specify entire factors
-#' @param coefficients A character vector specifying which factor variables to keep.  It will keep all levels and any interactions, even if those are not listed.
+#' @param predictors A character vector specifying which coefficients to keep.  Each individual coefficient can be specfied.  Use predictors to specify entire factors
+#' @param coefficients A character vector specifying which factor coefficients to keep.  It will keep all levels and any interactions, even if those are not listed.
 #' @param strict If TRUE then predictors will only be matched to its own coefficients, not its interactions
 ##See Details for information on \code{factors}, \code{only} and \code{shorten}
 #' @param newNames Named character vector of new names for coefficients
