@@ -28,11 +28,11 @@ mod2 <- lm(tip ~ total_bill * sex + day - 1, tips)
 mod3 <- glm(tip ~ total_bill * sex + day, tips, family=gaussian(link="identity"))
 mod4 <- lm(tip ~ (total_bill + sex + day)^3, tips)
 mod5 <- lm(tip ~ total_bill * sex + day + I(total_bill^2), tips)
-matchCoefs(mod1)
-matchCoefs(mod2)
-matchCoefs(mod3)
-matchCoefs(mod4)
-matchCoefs(mod5)
+coefplot:::matchCoefs(mod1)
+coefplot:::matchCoefs(mod2)
+coefplot:::matchCoefs(mod3)
+coefplot:::matchCoefs(mod4)
+coefplot:::matchCoefs(mod5)
 }
 \author{
   Jared P. Lander
