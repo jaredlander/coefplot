@@ -1,21 +1,49 @@
 # make data plotable
 
-#' buildModelCI
+#' @title buildModelCI
 #' 
-#' Construct Confidence Interval Values
+#' @description Construct Confidence Interval Values
 #' 
-#' Takes a model and builds a data.frame holding the coefficient value and the confidence interval values.
+#' @details Takes a model and builds a data.frame holding the coefficient value and the confidence interval values.
 #'
 #' @author Jared P. Lander
 #' @aliases buildModelCI
 #' @export buildModelCI
 #' @import plyr
 #' @param model A Fitted model such as from lm, glm
+#' @param \dots Arguments passed on onto other methods
+#' @return A \code{\link{data.frame}} listing coeffcients and confidence bands.
+#' @seealso \code{\link{coefplot}} \code{\link{multiplot}}
+#' @examples
+#'
+#' data(diamonds)
+#' model1 <- lm(price ~ carat + cut, data=diamonds)
+#' coefplot:::buildModelCI(model1)
+#' coefplot(model1)
+#'
+buildModelCI <- function(model, ...)
+{
+    UseMethod(generic="buildModelCI")
+}
+
+#' @title buildModelCI.default
+#' 
+#' @description Construct Confidence Interval Values
+#' 
+#' @details Takes a model and builds a data.frame holding the coefficient value and the confidence interval values.
+#'
+#' @author Jared P. Lander
+#' @aliases buildModelCI.default
+#' @export buildModelCI.default
+#' @S3method buildModelCI default
+#' @import plyr
+#' @param model A Fitted model such as from lm, glm
 #' @param innerCI How wide the inner confidence interval should be, normally 1 standard deviation.  If 0, then there will be no inner confidence interval.
 #' @param outerCI How wide the outer confidence interval should be, normally 2 standard deviations.  If 0, then there will be no outer confidence interval.
 #' @param sort Determines the sort order of the coefficients.  Possible values are c("natural", "magnitude", "alphabetical")
 #' @param decreasing logical; Whether the coefficients should be ascending or descending
-#' @param variables A character vector specifying which variables to keep.  Each individual variable has to be specfied, so individual levels of factors must be specified.  We are working on making this easier to implement, but this is the only option for now.
+#' @param predictors A character vector specifying which variables to keep.  Each individual variable has to be specfied, so individual levels of factors must be specified.  We are working on making this easier to implement, but this is the only option for now.
+#' @param coefficients A character vector specifying which factor variables to keep.  It will keep all levels and any interactions, even if those are not listed.
 #' @param newNames Named character vector of new names for coefficients
 #' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with constinuous confidence bounds.; not used for now.
 #' @param intercept logical; Whether the Intercept coefficient should be plotted
@@ -31,8 +59,9 @@
 #' coefplot:::buildModelCI(model1)
 #' coefplot(model1)
 #'
-buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FALSE, 
-                         sort=c("natural", "magnitude", "alphabetical"), variables=NULL, newNames=NULL,
+buildModelCI.default <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FALSE, 
+                         sort=c("natural", "magnitude", "alphabetical"), predictors=NULL, strict=FALSE, coefficients=NULL, 
+                         newNames=NULL,
                          decreasing=TRUE, name=NULL, interceptName="(Intercept)", ...)
 {
     sort <- match.arg(sort)
@@ -40,12 +69,42 @@ buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FA
     # get model information
     modelCI <- extract.coef(model)
     
-    # eliminate unwanted coefficients
-    if(!is.null(variables))
+    # if the user has specified predictors calculate which coefficient they go with
+    if(!is.null(predictors))
     {
-        modelCI <- modelCI[rownames(modelCI) %in% variables, ]
+        # build data.frame matching predictors with coefficients
+        matchPredsCoefs <- matchCoefs(model)
+        
+        # find out which coefficients we'll be keeping
+        # if strict, it will only match the singleton term
+        # if not strict it will match interactions
+        if(strict)
+        {
+            toKeep <- which(matchPredsCoefs$Term %in% predictors)
+        }else
+        {
+            toKeep <- which(matchPredsCoefs$.Pred %in% predictors)
+        }
+        
+        keptCoefsFromPredictors <- unique(matchPredsCoefs$Coefficient[toKeep])
+    }else
+    {
+        keptCoefsFromPredictors <- NULL
     }
     
+    # if individual coefficients were specified use them, if not it will be null
+    keptCoefsFromCoefficients <- coefficients
+    
+    if(!is.null(predictors) || !is.null(coefficients))
+    {
+        modelCI <- modelCI[modelCI$Coefficient %in% unique(c(keptCoefsFromPredictors, keptCoefsFromCoefficients)), ]
+    }
+    
+    if(NROW(modelCI) == 0)
+    {
+        return(NULL)
+    }
+
     if(!is.null(newNames))
     {
         modelCI$Coefficient <- revalue(x=modelCI$Coefficient, replace=newNames, warn_missing=FALSE)
@@ -64,16 +123,6 @@ buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FA
     if(!intercept)
     {
         modelCI <- modelCI[rownames(modelCI) != interceptName, ]
-    }
-    
-    # only select certain variables
-    if(!is.null(variables))
-    {
-        modelCI <- modelCI[rownames(modelCI) %in% variables, ]
-        if(NROW(modelCI) == 0)
-        {
-            return(NULL)
-        }
     }
     
     # make column for model name
