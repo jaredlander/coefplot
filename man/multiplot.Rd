@@ -14,8 +14,9 @@
     fillColor = "grey", alpha = 1/2, horizontal = FALSE,
     factors = NULL, only = NULL, shorten = TRUE,
     intercept = TRUE, interceptName = "(Intercept)",
-    variables = NULL, newNames = NULL, plot = TRUE,
-    drop = FALSE, by = c("Coefficient", "Model"))
+    coefficients = NULL, predictors = NULL, strict = FALSE,
+    newNames = NULL, plot = TRUE, drop = FALSE,
+    by = c("Coefficient", "Model"))
 }
 \arguments{
   \item{\dots}{Models to be plotted}
@@ -101,11 +102,16 @@
   \item{interceptName}{Specifies name of intercept it case
   it is not the default of "(Intercept").}
 
-  \item{variables}{A character vector specifying which
-  variables to keep.  Each individual variable has to be
-  specfied, so individual levels of factors must be
-  specified.  We are working on making this easier to
-  implement, but this is the only option for now.}
+  \item{predictors}{A character vector specifying which
+  variables to keep.  Each individual coefficient can be
+  specfied.  Use predictors to specify entire factors}
+
+  \item{coefficients}{A character vector specifying which
+  factor variables to keep.  It will keep all levels and
+  any interactions, even if those are not listed.}
+
+  \item{strict}{If TRUE then predictors will only be
+  matched to its own coefficients, not its interactions}
 
   \item{newNames}{Named character vector of new names for
   coefficients}

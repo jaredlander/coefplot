@@ -39,7 +39,9 @@
 #' @param horizontal logical; If the plot should be displayed horizontally
 #' @param intercept logical; Whether the Intercept coefficient should be plotted
 #' @param interceptName Specifies name of intercept it case it is not the default of "(Intercept").
-#' @param variables A character vector specifying which variables to keep.  Each individual variable has to be specfied, so individual levels of factors must be specified.  We are working on making this easier to implement, but this is the only option for now.
+#' @param predictors A character vector specifying which coefficients to keep.  Each individual coefficient can be specfied.  Use predictors to specify entire factors
+#' @param coefficients A character vector specifying which factor coefficients to keep.  It will keep all levels and any interactions, even if those are not listed.
+#' @param strict If TRUE then predictors will only be matched to its own coefficients, not its interactions
 #' @param newNames Named character vector of new names for coefficients
 #' @param plot logical; If the plot should be drawn, if false then a data.frame of the values will be returned
 #' @param factors Vector of factor variables that will be the only ones shown
@@ -70,7 +72,7 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
 						sort=c("natural", "normal", "magnitude", "size", "alphabetical"), decreasing=FALSE, names=NULL,
 						numeric=FALSE, fillColor="grey", alpha=1/2,
 						horizontal=FALSE, factors=NULL, only=NULL, shorten=TRUE,
-						intercept=TRUE, interceptName="(Intercept)", variables=NULL, newNames=NULL, plot=TRUE, drop=FALSE,
+						intercept=TRUE, interceptName="(Intercept)", coefficients=NULL, predictors=NULL, strict=FALSE, newNames=NULL, plot=TRUE, drop=FALSE,
                       by=c("Coefficient", "Model"))
 {
     ## if ... is already a list just grab the dots, otherwise force it into a list
@@ -113,7 +115,7 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
     sort <- match.arg(sort)
     by <- match.arg(by)
     
-    if(by == "Model" & length(variables) != 1)
+    if(by == "Model" & length(coefficients) != 1)
     {
         stop("If plotting the model along the axis then exactly one variable must be specified for plotting")
     }
@@ -122,7 +124,8 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
     # need to change getModelInfo and buildModelCI and coefplot.lm so that shorten, factors and only are normal arguments and not part of ..., that way it will work better for this
     # get the modelCI for each model and make one big data.frame
     modelCI <- ldply(theDots, .fun=buildModelCI, outerCI=outerCI, innerCI=innerCI, intercept=intercept, numeric=numeric, 
-                     sort=sort, decreasing=decreasing, factors=factors, only=only, shorten=shorten, variables=variables, newNames=newNames)
+                     sort=sort, decreasing=decreasing, factors=factors, only=only, shorten=shorten, coefficients=coefficients,
+                     predictors=predictors, strict=strict, newNames=newNames)
     
     # Turn the Call into a unique identifier for each model
     #modelCI$Model <- as.factor(as.numeric(factor(modelCI$Model, levels=unique(modelCI$Model))))
