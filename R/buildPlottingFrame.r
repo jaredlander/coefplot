@@ -44,6 +44,7 @@ buildModelCI <- function(model, ...)
 #' @param decreasing logical; Whether the coefficients should be ascending or descending
 #' @param predictors A character vector specifying which variables to keep.  Each individual variable has to be specfied, so individual levels of factors must be specified.  We are working on making this easier to implement, but this is the only option for now.
 #' @param coefficients A character vector specifying which factor variables to keep.  It will keep all levels and any interactions, even if those are not listed.
+#' @param strict If TRUE then predictors will only be matched to its own coefficients, not its interactions
 #' @param newNames Named character vector of new names for coefficients
 #' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with constinuous confidence bounds.; not used for now.
 #' @param intercept logical; Whether the Intercept coefficient should be plotted
@@ -78,15 +79,16 @@ buildModelCI.default <- function(model, outerCI=2, innerCI=1, intercept=TRUE, nu
         # find out which coefficients we'll be keeping
         # if strict, it will only match the singleton term
         # if not strict it will match interactions
-        if(strict)
+        if(!strict)
         {
-            toKeep <- which(matchPredsCoefs$Term %in% predictors)
+            toKeepNotStrict <- which(matchPredsCoefs$.Pred %in% predictors)
         }else
         {
-            toKeep <- which(matchPredsCoefs$.Pred %in% predictors)
+            toKeepNotStrict <- NULL
         }
+            toKeepStrict <- which(matchPredsCoefs$Term %in% predictors)
         
-        keptCoefsFromPredictors <- unique(matchPredsCoefs$Coefficient[toKeep])
+        keptCoefsFromPredictors <- unique(matchPredsCoefs$Coefficient[unique(c(toKeepNotStrict, toKeepStrict))])
     }else
     {
         keptCoefsFromPredictors <- NULL
