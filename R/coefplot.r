@@ -82,7 +82,9 @@ coefplot <- function(model, ...)
 #' @param intercept logical; Whether the Intercept coefficient should be plotted
 #' @param interceptName Specifies name of intercept it case it is not the default of "(Intercept").
 #' @param plot logical; If the plot should be drawn, if false then a data.frame of the values will be returned
-#' @param variables A character vector specifying which variables to keep.  Each individual variable has to be specfied, so individual levels of factors must be specified.  We are working on making this easier to implement, but this is the only option for now.
+#' @param predictors A character vector specifying which variables to keep.  Each individual coefficient can be specfied.  Use predictors to specify entire factors
+#' @param coefficients A character vector specifying which factor variables to keep.  It will keep all levels and any interactions, even if those are not listed.
+#' @param strict If TRUE then predictors will only be matched to its own coefficients, not its interactions
 ##See Details for information on \code{factors}, \code{only} and \code{shorten}
 #' @param newNames Named character vector of new names for coefficients
 ### non-listed arguments
@@ -105,25 +107,27 @@ coefplot <- function(model, ...)
 #' coefplot(model2)
 #'
 coefplot.default <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coefficient", 
-						innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0, pointSize=3,  color="blue",
-						cex=.8, textAngle=0, numberAngle=0,
-						zeroColor="grey", zeroLWD=1, zeroType=2,
-						facet=FALSE, scales="free",
-						sort=c("natural", "magnitude", "alphabetical"), decreasing=FALSE,
-						numeric=FALSE, fillColor="grey", alpha=1/2,
-						horizontal=FALSE, factors=NULL, only=NULL, shorten=TRUE,
-						intercept=TRUE, interceptName="(Intercept)", variables=NULL, newNames=NULL, plot=TRUE, ...)
+                             innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0, pointSize=3,  color="blue",
+                             cex=.8, textAngle=0, numberAngle=0,
+                             zeroColor="grey", zeroLWD=1, zeroType=2,
+                             facet=FALSE, scales="free",
+                             sort=c("natural", "magnitude", "alphabetical"), decreasing=FALSE,
+                             numeric=FALSE, fillColor="grey", alpha=1/2,
+                             horizontal=FALSE, factors=NULL, only=NULL, shorten=TRUE,
+                             intercept=TRUE, interceptName="(Intercept)", coefficients=NULL, predictors=NULL, strict=FALSE, 
+                             newNames=NULL, plot=TRUE, ...)
 {
 	theDots <- list(...)
 	
     # get variables that have multiple options
     sort <- match.arg(sort)
-    
+    #print(coefficients);print("hello");print(predictors)
     # construct a data.frame containing confidence interval information
-    modelCI <- buildModelCI(model, outerCI=outerCI, innerCI=innerCI, intercept=intercept, variables=variables, newNames=newNames,
+    modelCI <- buildModelCI(model, outerCI=outerCI, innerCI=innerCI, intercept=intercept, 
+                            coefficients=coefficients, predictors=predictors, strict=strict, newNames=newNames,
                             numeric=numeric, sort=sort, 
                             decreasing=decreasing, factors=factors, only=only, shorten=shorten, ...)
-
+    
     # if not plotting just return the modelCI data.frame
     if(!plot)
     {

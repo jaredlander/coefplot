@@ -2,7 +2,7 @@ Package: coefplot
 Type: Package
 Title: Plots Coefficients from Fitted Models
 Version: 1.1.9
-Date: 2013-01-23
+Date: 2013-04-27
 Author: Jared P. Lander
 Maintainer: Jared P. Lander <packages@jaredlander.com>
 Description: Plots the coefficients from a model object
@@ -25,4 +25,6 @@ Collate:
     'buildPlottingFrame.r'
     'buildPlot.r'
     'dodging.r'
+    'coefPredMatching.r'
 ByteCompile: TRUE
+Packaged: 2013-03-22 05:16:05 UTC; Jared
