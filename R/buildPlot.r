@@ -18,6 +18,7 @@
 #' @param lwdOuter The thickness of the outer confidence interval
 #' @param pointSize Size of coefficient point
 #' @param color The color of the points and lines
+#' @param shape The shape of the points
 #' @param cex The text size multiplier, currently not used
 #' @param textAngle The angle for the coefficient labels, 0 is horizontal
 #' @param numberAngle The angle for the value labels, 0 is horizontal
@@ -48,6 +49,7 @@ buildPlotting.default <- function(modelCI,
                                   title="Coefficient Plot", 
                                   xlab="Value", ylab="Coefficient", lwdInner=1, lwdOuter=0, pointSize=3,
                                   color="blue", cex=.8, textAngle=0, numberAngle=0, 
+                                  shape=16,
                                   outerCI=2, innerCI=1, multi=FALSE, 
                                   zeroColor="grey", zeroLWD=1, zeroType=2, 
                                   numeric=FALSE, fillColor="grey", alpha=1/2,
@@ -64,10 +66,11 @@ buildPlotting.default <- function(modelCI,
     #ribbonGeom <- list(None=NULL, geom_ribbon(aes(ymin=LowOuter, ymax=HighOuter, group=Checkers), data=modelCI, fill=fillColor, alpha=alpha, lwd=lwdOuter))
     
     # point layer
-    pointGeom <- geom_point(aes_string(xmin=value, xmax=value, color="Model"), size=pointSize, position=position_dodgev(height=dodgeHeight))
+    pointGeom <- geom_point(aes_string(xmin=value, xmax=value, color="Model", shape="Model"), size=pointSize, position=position_dodgev(height=dodgeHeight))
 
     colorAes <- list(None=NULL, Single=aes(color=as.factor(Model)))
     colorScale <- scale_color_manual(values=rep(color, length(unique(modelCI$Model))), guide=FALSE)
+    shapeScale <- scale_shape_manual(values=rep(shape, length(unique(modelCI$Model))), guide=FALSE)
     xScale <- list(None=NULL, Single=scale_x_discrete())
     
     # faceting info
@@ -84,7 +87,7 @@ buildPlotting.default <- function(modelCI,
     #p <- p + xScale[[1 + multi]]
     p <- p + theme(axis.text.y=element_text(angle=textAngle, hjust=.5), axis.text.x=element_text(angle=numberAngle, vjust=.5)) + 
         labs(title=title, x=xlab, y=ylab)    # labeling and text info
-    p <- p + if(!multi) colorScale
+    p <- p + if(!multi) list(colorScale, shapeScale)
     p <- p + faceting[[facet + 1]]    	# faceting
     p <- p + if(horizontal) coord_flip()
     

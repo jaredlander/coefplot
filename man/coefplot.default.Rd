@@ -6,7 +6,7 @@
     title = "Coefficient Plot", xlab = "Value",
     ylab = "Coefficient", innerCI = 1, outerCI = 2,
     lwdInner = 1, lwdOuter = 0, pointSize = 3,
-    color = "blue", cex = 0.8, textAngle = 0,
+    color = "blue", shape = 16, cex = 0.8, textAngle = 0,
     numberAngle = 0, zeroColor = "grey", zeroLWD = 1,
     zeroType = 2, facet = FALSE, scales = "free",
     sort = c("natural", "magnitude", "alphabetical"),
@@ -44,6 +44,8 @@
   \item{pointSize}{Size of coefficient point}
 
   \item{color}{The color of the points and lines}
+
+  \item{shape}{The shape of the points}
 
   \item{cex}{The text size multiplier, currently not used}
 
@@ -156,6 +158,9 @@ model1 <- lm(price ~ carat + cut*color, data=diamonds)
 model2 <- lm(price ~ carat*color, data=diamonds)
 coefplot(model1)
 coefplot(model2)
+coefplot(model1, predictors="color")
+coefplot(model1, predictors="color", strict=TRUE)
+coefplot(model1, coefficients=c("(Intercept)", "color.Q"))
 }
 \author{
   Jared P. Lander

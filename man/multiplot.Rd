@@ -5,7 +5,7 @@
   multiplot(..., title = "Coefficient Plot",
     xlab = "Value", ylab = "Coefficient", innerCI = 1,
     outerCI = 2, lwdInner = 1, lwdOuter = 0, pointSize = 3,
-    dodgeHeight = 1, color = "blue", cex = 0.8,
+    dodgeHeight = 1, color = "blue", shape = 16, cex = 0.8,
     textAngle = 0, numberAngle = 90, zeroColor = "grey",
     zeroLWD = 1, zeroType = 2, single = TRUE,
     scales = "fixed", ncol = length(unique(modelCI$Model)),
@@ -47,6 +47,8 @@
   \item{dodgeHeight}{Amount of vertical dodging}
 
   \item{color}{The color of the points and lines}
+
+  \item{shape}{The shape of the points}
 
   \item{cex}{The text size multiplier, currently not used}
 

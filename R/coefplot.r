@@ -65,6 +65,7 @@ coefplot <- function(model, ...)
 #' @param lwdOuter The thickness of the outer confidence interval
 #' @param pointSize Size of coefficient point
 #' @param color The color of the points and lines
+#' @param shape The shape of the points
 #' @param cex The text size multiplier, currently not used
 #' @param textAngle The angle for the coefficient labels, 0 is horizontal
 #' @param numberAngle The angle for the value labels, 0 is horizontal
@@ -110,7 +111,7 @@ coefplot <- function(model, ...)
 #' coefplot(model1, coefficients=c("(Intercept)", "color.Q"))
 #'
 coefplot.default <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coefficient", 
-                             innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0, pointSize=3,  color="blue",
+                             innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0, pointSize=3,  color="blue", shape=16,
                              cex=.8, textAngle=0, numberAngle=0,
                              zeroColor="grey", zeroLWD=1, zeroType=2,
                              facet=FALSE, scales="free",

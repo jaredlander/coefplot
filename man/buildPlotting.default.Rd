@@ -6,13 +6,13 @@
     title = "Coefficient Plot", xlab = "Value",
     ylab = "Coefficient", lwdInner = 1, lwdOuter = 0,
     pointSize = 3, color = "blue", cex = 0.8,
-    textAngle = 0, numberAngle = 0, outerCI = 2,
-    innerCI = 1, multi = FALSE, zeroColor = "grey",
-    zeroLWD = 1, zeroType = 2, numeric = FALSE,
-    fillColor = "grey", alpha = 1/2, horizontal = FALSE,
-    facet = FALSE, scales = "free", value = "Value",
-    coefficient = "Coefficient", errorHeight = 0,
-    dodgeHeight = 1)
+    textAngle = 0, numberAngle = 0, shape = 16,
+    outerCI = 2, innerCI = 1, multi = FALSE,
+    zeroColor = "grey", zeroLWD = 1, zeroType = 2,
+    numeric = FALSE, fillColor = "grey", alpha = 1/2,
+    horizontal = FALSE, facet = FALSE, scales = "free",
+    value = "Value", coefficient = "Coefficient",
+    errorHeight = 0, dodgeHeight = 1)
 }
 \arguments{
   \item{modelCI}{An object created by
@@ -47,6 +47,8 @@
   \item{pointSize}{Size of coefficient point}
 
   \item{color}{The color of the points and lines}
+
+  \item{shape}{The shape of the points}
 
   \item{cex}{The text size multiplier, currently not used}
 

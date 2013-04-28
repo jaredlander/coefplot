@@ -20,6 +20,7 @@
 #' @param pointSize Size of coefficient point
 #' @param dodgeHeight Amount of vertical dodging
 #' @param color The color of the points and lines
+#' @param shape The shape of the points
 #' @param cex The text size multiplier, currently not used
 #' @param textAngle The angle for the coefficient labels, 0 is horizontal
 #' @param numberAngle The angle for the value labels, 0 is horizontal
@@ -63,7 +64,7 @@
 #' }
 #'
 multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coefficient", 
-    					innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0, pointSize=3, dodgeHeight=1,  color="blue",
+    					innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0, pointSize=3, dodgeHeight=1,  color="blue", shape=16,
 						cex=.8, textAngle=0, numberAngle=90,
 						zeroColor="grey", zeroLWD=1, zeroType=2,
 						#facet=FALSE,
@@ -176,7 +177,7 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
                         #modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
                        title=title, xlab=xlab, ylab=ylab,
                        lwdInner=lwdInner, lwdOuter=lwdOuter, pointSize=pointSize, dodgeHeight=dodgeHeight, 
-                        color=color, cex=cex, textAngle=textAngle, 
+                        color=color, shape=shape, cex=cex, textAngle=textAngle, 
                        numberAngle=numberAngle, zeroColor=zeroColor, zeroLWD=zeroLWD, outerCI=outerCI, innerCI=innerCI,# single=single,
                        zeroType=zeroType, numeric=numeric, fillColor=fillColor, alpha=alpha, multi=TRUE,
                                value="Value", coefficient=by,
