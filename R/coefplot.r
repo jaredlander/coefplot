@@ -105,6 +105,9 @@ coefplot <- function(model, ...)
 #' model2 <- lm(price ~ carat*color, data=diamonds)
 #' coefplot(model1)
 #' coefplot(model2)
+#' coefplot(model1, predictors="color")
+#' coefplot(model1, predictors="color", strict=TRUE)
+#' coefplot(model1, coefficients=c("(Intercept)", "color.Q"))
 #'
 coefplot.default <- function(model, title="Coefficient Plot", xlab="Value", ylab="Coefficient", 
                              innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0, pointSize=3,  color="blue",
@@ -240,6 +243,11 @@ coefplot.glm <- function(...)
 #' 
 coefplot.rxGlm <- function(...)
 {
+    mf <- match.call(expand.dots=TRUE)
+    if("predictors" %in% names(mf) && !is.null(mf$predictors))
+    {
+        stop("predictors argument cannot be used for RevoScaleR models")
+    }
     coefplot.default(...)
 }
 
@@ -270,6 +278,11 @@ coefplot.rxGlm <- function(...)
 #' }
 coefplot.rxLinMod <- function(...)
 {
+    mf <- match.call(expand.dots=TRUE)
+    if("predictors" %in% names(mf) && !is.null(mf$predictors))
+    {
+        stop("predictors argument cannot be used for RevoScaleR models")
+    }
     coefplot.default(...)
 }
 
@@ -301,6 +314,11 @@ coefplot.rxLinMod <- function(...)
 #' }
 coefplot.rxLogit <- function(...)
 {
+    mf <- match.call(expand.dots=TRUE)
+    if("predictors" %in% names(mf) && !is.null(mf$predictors))
+    {
+        stop("predictors argument cannot be used for RevoScaleR models")
+    }
     coefplot.default(...)
 }
 
