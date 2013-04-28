@@ -70,7 +70,8 @@ buildPlotting.default <- function(modelCI,
 
     colorAes <- list(None=NULL, Single=aes(color=as.factor(Model)))
     colorScale <- scale_color_manual(values=rep(color, length(unique(modelCI$Model))), guide=FALSE)
-    shapeScale <- scale_shape_manual(values=rep(shape, length(unique(modelCI$Model))), guide=FALSE)
+    shapeScaleSingle <- scale_shape_manual(values=rep(shape, length(unique(modelCI$Model))), guide=FALSE)
+    shapeScaleMulti <- scale_shape_manual(values=1:length(unique(modelCI$Model)))
     xScale <- list(None=NULL, Single=scale_x_discrete())
     
     # faceting info
@@ -87,7 +88,7 @@ buildPlotting.default <- function(modelCI,
     #p <- p + xScale[[1 + multi]]
     p <- p + theme(axis.text.y=element_text(angle=textAngle, hjust=.5), axis.text.x=element_text(angle=numberAngle, vjust=.5)) + 
         labs(title=title, x=xlab, y=ylab)    # labeling and text info
-    p <- p + if(!multi) list(colorScale, shapeScale)
+    p <- p + if(!multi){ list(colorScale, shapeScaleSingle) }else{shapeScaleMulti}
     p <- p + faceting[[facet + 1]]    	# faceting
     p <- p + if(horizontal) coord_flip()
     
