@@ -19,7 +19,8 @@
     newNames = NULL, plot = TRUE, drop = FALSE,
     by = c("Coefficient", "Model"), plot.shapes = FALSE,
     plot.linetypes = FALSE,
-    legend.position = c("right", "left", "bottom", "top"))
+    legend.position = c("right", "left", "bottom", "top"),
+    secret.weapon = FALSE)
 }
 \arguments{
   \item{\dots}{Models to be plotted}
@@ -82,8 +83,8 @@
   be plotted in}
 
   \item{sort}{Determines the sort order of the
-  coefficients.  Possible values are c("natural", "normal",
-  "magnitude", "size", "alphabetical")}
+  coefficients.  Possible values are c("natural",
+  "magnitude", "alphabetical")}
 
   \item{decreasing}{logical; Whether the coefficients
   should be ascending or descending}
@@ -160,6 +161,10 @@
 
   \item{legend.position}{position of legend, one of "left",
   "right", "bottom", "top"}
+
+  \item{secret.weapon}{If this is \code{TRUE} and exactly
+  one coefficient is listed in coefficients then Andy
+  Gelman's secret weapon is plotted.}
 }
 \value{
   A ggplot object
@@ -199,6 +204,11 @@ multiplot(mod1, mod2, mod3, mod7, single=FALSE, scales="free_x")
 multiplot(mod1, mod2, mod3, mod7, single=FALSE, scales="free_x", plot.shapes=TRUE)
 multiplot(mod1, mod2, mod3, mod7, single=TRUE, scales="free_x", plot.shapes=TRUE, plot.linetypes=TRUE)
 multiplot(mod1, mod2, mod3, mod7, single=TRUE, scales="free_x", plot.shapes=FALSE, plot.linetypes=TRUE, legend.position="bottom")
+# the secret weapon
+multiplot(mod1, mod2, mod3, mod7, coefficients="total_bill", secret.weapon=TRUE)
+# horizontal secret weapon
+multiplot(mod1, mod2, mod3, mod7, coefficients="total_bill", by="Model", horizontal=FALSE)
+
 }
 }
 \seealso{
