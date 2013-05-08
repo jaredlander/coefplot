@@ -1,18 +1,17 @@
 Package: coefplot
 Type: Package
 Title: Plots Coefficients from Fitted Models
-Version: 1.1.9
-Date: 2013-04-27
+Version: 1.2.0
+Date: 2013-05-08
 Author: Jared P. Lander
 Maintainer: Jared P. Lander <packages@jaredlander.com>
 Description: Plots the coefficients from a model object
 License: BSD
 LazyLoad: yes
 Depends:
-    ggplot2
+    ggplot2 (>= 0.9.3)
 Imports:
     plyr,
-    stringr,
     reshape2,
     useful,
     scales,
