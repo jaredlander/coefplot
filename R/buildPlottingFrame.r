@@ -86,7 +86,7 @@ buildModelCI.default <- function(model, outerCI=2, innerCI=1, intercept=TRUE, nu
     {
         return(NULL)
     }
-
+    
     if(!is.null(newNames))
     {
         modelCI$Coefficient <- revalue(x=modelCI$Coefficient, replace=newNames, warn_missing=FALSE)
