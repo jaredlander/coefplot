@@ -23,7 +23,7 @@
 #' @return A ggplot2 object or data.frame.  See details in \code{\link{coefplot.lm}} for more information
 #' @export coefplot plotcoef
 #' @keywords coefplot dotplot coefficient coefficients model lm glm rxLinMod linear
-#' @import ggplot2 plyr reshape2 useful
+#' @import ggplot2 plyr useful
 #' @examples
 #' 
 #' data(diamonds)
@@ -145,19 +145,6 @@ coefplot.default <- function(model, title="Coefficient Plot", xlab="Value", ylab
     {
         return(modelCI)
     }
-    
-    # which columns will be kept in the melted data.frame
-#    keepCols <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coefficient", "Model")
-
-#     modelMelting <- meltModelCI(modelCI=modelCI, keepCols=keepCols, id.vars=c("Coefficient", "Model"), 
-#                                 variable.name="Type", value.name="Value", 
-#                                 outerCols=c("LowOuter", "HighOuter"), 
-#                                 innerCols=c("LowInner", "HighInner")) 
-
-    #modelMelt <- modelMelting$modelMelt 
-    #modelMeltInner <- modelMelting$modelMeltInner 
-    #modelMeltOuter <- modelMelting$modelMeltOuter 
-    #rm(modelMelting);      # housekeeping
     
     p <- buildPlotting.default(modelCI=modelCI,
                         #modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
