@@ -134,49 +134,49 @@ buildModelCI.default <- function(model, outerCI=2, innerCI=1, intercept=TRUE, nu
 }
 
 
-#' Melt the modelCI
-#'
-#' Melt a modelCI into a form suitable for plotting
-#'
-#' \code{\link{buildModelCI}} builds a data.frame for plotting.  This function melts it into plottable form and seperates the coefficient data from the SE data into seprate data.frames
-#'
-#' @author Jared P. Lander www.jaredlander.com
-#' @aliases meltModelCI
-#' @seealso \code{\link{coefplot}} \code{\link{buildModelCI}}
-#' @param modelCI A \code{\link{data.frame}} as built by \code{\link{buildModelCI}}
-#' @param keepCols The columns in modelCI that should be kept as there can be extras
-#' @param id.vars The columns to use as ID variables in \code{\link{melt}}
-#' @param variable.name Used in \code{\link{melt}} for naming the column that stores the melted variables
-#' @param value.name Used in \code{\link{melt}} for naming the column that stores the melted values
-#' @param innerCols The columns to be included in the \code{\link{data.frame}} of inner standard errors
-#' @param outerCols The columns to be included in the \code{\link{data.frame}} of outer standard errors
-#' @return A list consisting of
-#' \item{modelMelt}{Melted modelCI with all values}
-#' \item{modelMeltOuter}{modelMelt with only values associated with the outer standard errors}
-#' \item{modelMeltInner}{modelMelt with only values associated with the inner standard errors}
-#' @examples
-#'
-#' data(diamonds)
-#' model1 <- lm(price ~ carat + cut, data=diamonds)
-#' \dontrun{modeled <- coefplot:::buildModelCI(model1)
-#' coefplot:::meltModelCI(modeled)}
-#' coefplot(model1)
-#'
-meltModelCI <- function(modelCI, 
-                        keepCols=c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coefficient", "Value", "Model"), 
-                        id.vars=c("Coefficient", "Model"), variable.name="Type", 
-                        value.name="Value", outerCols=c("LowOuter", "HighOuter"), 
-                        innerCols=c("LowInner", "HighInner"))
-{
-    # melt the data frame so it is suitable for ggplot
-    modelMelt <- melt(data=modelCI[, keepCols], id.vars=id.vars, variable.name=variable.name, value.name=value.name)
-    
-    # just the outerCI info
-    modelMeltOuter <- modelMelt[modelMelt$Type %in% outerCols, ]	# pull out the outer (95% default) CI
-    
-    # just the innerCI info
-    modelMeltInner <- modelMelt[modelMelt$Type %in% innerCols, ]	# pull out the inner (68% default) CI
-    
-    # return the data.frames
-    return(list(modelMelt=modelMelt, modelMeltOuter=modelMeltOuter, modelMeltInner=modelMeltInner))
-}
+# #' Melt the modelCI
+# #'
+# #' Melt a modelCI into a form suitable for plotting
+# #'
+# #' \code{\link{buildModelCI}} builds a data.frame for plotting.  This function melts it into plottable form and seperates the coefficient data from the SE data into seprate data.frames
+# #'
+# #' @author Jared P. Lander www.jaredlander.com
+# #' @aliases meltModelCI
+# #' @seealso \code{\link{coefplot}} \code{\link{buildModelCI}}
+# #' @param modelCI A \code{\link{data.frame}} as built by \code{\link{buildModelCI}}
+# #' @param keepCols The columns in modelCI that should be kept as there can be extras
+# #' @param id.vars The columns to use as ID variables in \code{\link{melt}}
+# #' @param variable.name Used in \code{\link{melt}} for naming the column that stores the melted variables
+# #' @param value.name Used in \code{\link{melt}} for naming the column that stores the melted values
+# #' @param innerCols The columns to be included in the \code{\link{data.frame}} of inner standard errors
+# #' @param outerCols The columns to be included in the \code{\link{data.frame}} of outer standard errors
+# #' @return A list consisting of
+# #' \item{modelMelt}{Melted modelCI with all values}
+# #' \item{modelMeltOuter}{modelMelt with only values associated with the outer standard errors}
+# #' \item{modelMeltInner}{modelMelt with only values associated with the inner standard errors}
+# #' @examples
+# #'
+# #' data(diamonds)
+# #' model1 <- lm(price ~ carat + cut, data=diamonds)
+# #' \dontrun{modeled <- coefplot:::buildModelCI(model1)
+# #' coefplot:::meltModelCI(modeled)}
+# #' coefplot(model1)
+# #'
+# meltModelCI <- function(modelCI, 
+#                         keepCols=c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coefficient", "Value", "Model"), 
+#                         id.vars=c("Coefficient", "Model"), variable.name="Type", 
+#                         value.name="Value", outerCols=c("LowOuter", "HighOuter"), 
+#                         innerCols=c("LowInner", "HighInner"))
+# {
+#     # melt the data frame so it is suitable for ggplot
+#     modelMelt <- melt(data=modelCI[, keepCols], id.vars=id.vars, variable.name=variable.name, value.name=value.name)
+#     
+#     # just the outerCI info
+#     modelMeltOuter <- modelMelt[modelMelt$Type %in% outerCols, ]	# pull out the outer (95% default) CI
+#     
+#     # just the innerCI info
+#     modelMeltInner <- modelMelt[modelMelt$Type %in% innerCols, ]	# pull out the inner (68% default) CI
+#     
+#     # return the data.frames
+#     return(list(modelMelt=modelMelt, modelMeltOuter=modelMeltOuter, modelMeltInner=modelMeltInner))
+# }
