@@ -83,6 +83,7 @@ matchCoefs <- function(model, ...)
 #' @author Jared P. Lander
 #' @aliases matchCoefs.default
 #' @S3method matchCoefs default
+#' @import reshape2
 #' @param model Fitted model
 #' @param \dots Further arguments
 #' @return a data.frame matching predictors to coefficients
