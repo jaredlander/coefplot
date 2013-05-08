@@ -4,7 +4,7 @@
 #'
 #' Currently, methods are available for lm, glm and rxLinMod objects.
 #'
-#' @import plyr stringr ggplot2 reshape2
+# @import plyr ggplot2 reshape2
 #' @docType package
 #' @name coefplot
 #' @aliases coefplot-package
