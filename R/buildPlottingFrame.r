@@ -36,6 +36,7 @@ buildModelCI <- function(model, ...)
 #' @aliases buildModelCI.default
 #' @export buildModelCI.default
 #' @S3method buildModelCI default
+#' @method buildModelCI default
 #' @import plyr
 #' @param model A Fitted model such as from lm, glm
 #' @param innerCI How wide the inner confidence interval should be, normally 1 standard deviation.  If 0, then there will be no inner confidence interval.
@@ -71,28 +72,7 @@ buildModelCI.default <- function(model, outerCI=2, innerCI=1, intercept=TRUE, nu
     modelCI <- extract.coef(model)
     
     # if the user has specified predictors calculate which coefficient they go with
-    if(!is.null(predictors))
-    {
-        # build data.frame matching predictors with coefficients
-        matchPredsCoefs <- matchCoefs(model)
-        
-        # find out which coefficients we'll be keeping
-        # if strict, it will only match the singleton term
-        # if not strict it will match interactions
-        if(!strict)
-        {
-            toKeepNotStrict <- which(matchPredsCoefs$.Pred %in% predictors)
-        }else
-        {
-            toKeepNotStrict <- NULL
-        }
-            toKeepStrict <- which(matchPredsCoefs$Term %in% predictors)
-        
-        keptCoefsFromPredictors <- unique(matchPredsCoefs$Coefficient[unique(c(toKeepNotStrict, toKeepStrict))])
-    }else
-    {
-        keptCoefsFromPredictors <- NULL
-    }
+    keptCoefsFromPredictors <- getCoefsFromPredictors(model=model, predictors=predictors, strict=strict)
     
     # if individual coefficients were specified use them, if not it will be null
     keptCoefsFromCoefficients <- coefficients

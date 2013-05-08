@@ -1,0 +1,27 @@
+\name{doRegex}
+\alias{doRegex}
+\title{doRegex}
+\usage{
+  doRegex(x, matchAgainst, pattern = "(^| )\%s($|,|=)")
+}
+\arguments{
+  \item{x}{Root pattern to search for}
+
+  \item{matchAgainst}{Text to search through}
+
+  \item{pattern}{Regex pattern to build x into}
+}
+\value{
+  A list of indices of matchAgainst that is matched
+}
+\description{
+  Helper function for matching coefficients
+}
+\details{
+  Only used by \code{\link{getCoefsFromPredictorsRevo}} for
+  finding matches between predictors and coefficients
+}
+\author{
+  Jared P. Lander
+}
+

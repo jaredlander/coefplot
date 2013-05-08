@@ -1,6 +1,8 @@
 # 
 # baseball <- data.frame(Bat=sample(1:100, 20, replace=T), Batter=sample(c("David", "Batley", "Bob", "Ace"), 20, replace=T), Hits=sample(1:20, 20, replace=T))
+# baseball <- data.frame(Batter=sample(1:100, 10000, replace=T), Bat=sample(c("David", "Batley", "Bob", "Ace"), 10000, replace=T), Hits=sample(1:100, 10000, replace=T), Team=sample(c("Braves", "Red Sox", "Yankees", "Phillies"), size=10000, replace=T))
 # bMod <- lm(Hits ~ Bat*Batter, baseball)
+# bLinMod <- rxLinMod(Hits ~ Bat*Batter + Bat*Team, baseball)
 # matchCoefs(bMod)
 
 #' @title get.assign
@@ -147,3 +149,181 @@ matchCoefs.default <- function(model, ...)
 # factorMelt <- factorMelt[factorMelt$value == 1, ]
 # 
 # 
+
+#' @title getCoefsFromPredictors
+#' 
+#' @description Generic function for finding which coefficients go with which predictors
+#' 
+#' @details The user specifies predictors whose coefficients should be included in the coefplot.
+#' @aliases getCoefsFromPredictors
+#' @author Jared P. Lander
+#' @return A character vector of coefficients listing the coefficients that match the predictor
+#' @param model A fitted model
+#' @param predictors A character vector of predictors to match against
+#' @param \dots further arguments
+getCoefsFromPredictors <- function(model, predictors, ...)
+{
+    UseMethod(generic="getCoefsFromPredictors", object=model)
+}
+
+
+#' @title getCoefsFromPredictors.default
+#' 
+#' @description Default function (lm, glm) for matching coefficients with predictors
+#' 
+#' @details The user specifies predictors whose coefficients should be included in the coefplot.
+#' @aliases getCoefsFromPredictors.default
+#' @S3method getCoefsFromPredictors default
+#' @author Jared P. Lander
+#' @return A character vector of coefficients listing the coefficients that match the predictor
+#' @param model A fitted model
+#' @param predictors A character vector of predictors to match against.  Interactions can be explicitely specified by VariableA:VariableB.
+#' @param strict Logical specifying if interactions terms should be included (\code{FALSE}) or just the main terms (\code{TRUE}).
+#' @param \dots further arguments
+getCoefsFromPredictors.default <- function(model, predictors=NULL, strict=FALSE, ...)
+{
+    # if no predictors indicated just return NULL
+    if(is.null(predictors))
+    {
+        return(NULL)
+    }
+
+    # build data.frame matching predictors with coefficients
+    matchPredsCoefs <- matchCoefs(model)
+    
+    # find out which coefficients we'll be keeping
+    # if strict, it will only match the singleton term
+    # if not strict it will match interactions
+    if(!strict)
+    {
+        toKeepNotStrict <- which(matchPredsCoefs$.Pred %in% predictors)
+    }else
+    {
+        toKeepNotStrict <- NULL
+    }
+    toKeepStrict <- which(matchPredsCoefs$Term %in% predictors)
+    
+    keptCoefsFromPredictors <- unique(matchPredsCoefs$Coefficient[unique(c(toKeepNotStrict, toKeepStrict))])
+
+    return(keptCoefsFromPredictors)
+}
+
+
+#' @title getCoefsFromPredictorsRevo
+#' 
+#' @description Function thhat does the work for Revo models for matching coefficients with predictors
+#' 
+#' @details The user specifies predictors whose coefficients should be included in the coefplot.
+#' @aliases getCoefsFromPredictorsRevo
+#' @author Jared P. Lander
+#' @return A character vector of coefficients listing the coefficients that match the predictor.  As of now interactions cannot be explicitely specified.
+#' @param model A fitted model
+#' @param predictors A character vector of predictors to match against
+#' @param strict Logical specifying if interactions terms should be included (\code{FALSE}) or just the main terms (\code{TRUE}).
+#' @param \dots further arguments
+getCoefsFromPredictorsRevo <- function(model, predictors=NULL, strict=FALSE, ...)
+{
+    # if no predictors indicated just return NULL
+    if(is.null(predictors))
+    {
+        return(NULL)
+    }
+    
+    predMatcher <- subSpecials(predictors)[[1]]
+    names(predMatcher) <- predictors
+    
+    # get coefficient names
+    coefNames <- names(coef(model))
+    
+    # if strict do one search
+    if(strict)
+    {
+        # strict
+        toKeep <- lapply(predMatcher, FUN=doRegex, matchAgainst=coefNames, pattern="^%s(=+[^,]*)*$")
+    }else
+    {
+        # not strict
+        toKeep <- lapply(predMatcher, FUN=doRegex, matchAgainst=coefNames, pattern="(^| )%s($|,|=| for)")
+    }
+    
+    keepFrame <- ldply(toKeep, function(x) data.frame(Target=x))
+    
+    keptCoefsFromPredictors <- coefNames[keepFrame$Target]
+    
+    return(keptCoefsFromPredictors)
+}
+
+
+#' @title doRegex
+#' 
+#' @description Helper function for matching coefficients
+#' 
+#' @details Only used by \code{\link{getCoefsFromPredictorsRevo}} for finding matches between predictors and coefficients
+#' 
+#' @aliases doRegex
+#' @author Jared P. Lander
+#' @param x Root pattern to search for
+#' @param matchAgainst Text to search through
+#' @param pattern Regex pattern to build x into
+#' @return A list of indices of matchAgainst that is matched
+doRegex <- function(x, matchAgainst, pattern="(^| )%s($|,|=)")
+{
+    grep(pattern=sprintf(pattern, x), x=matchAgainst)
+}
+
+
+#' @title getCoefsFromPredictors.rxLinMod
+#' 
+#' @description Function for matching coefficients with predictors for rxLinMod
+#' 
+#' @details The user specifies predictors whose coefficients should be included in the coefplot.
+#' @aliases getCoefsFromPredictors.rxLinMod
+#' @S3method getCoefsFromPredictors rxLinMod
+#' @author Jared P. Lander
+#' @return A character vector of coefficients listing the coefficients that match the predictor
+#' @param model A fitted model
+#' @param predictors A character vector of predictors to match against
+#' @param strict Logical specifying if interactions terms should be included (\code{FALSE}) or just the main terms (\code{TRUE}).
+#' @param \dots further arguments
+getCoefsFromPredictors.rxLinMod <- function(model, predictors=NULL, strict=FALSE, ...)
+{
+    getCoefsFromPredictorsRevo(model, predictors, strict)
+}
+
+
+#' @title getCoefsFromPredictors.rxLogit
+#' 
+#' @description Function for matching coefficients with predictors for rxLogit
+#' 
+#' @details The user specifies predictors whose coefficients should be included in the coefplot.
+#' @aliases getCoefsFromPredictors.rxLogit
+#' @S3method getCoefsFromPredictors rxLogit
+#' @author Jared P. Lander
+#' @return A character vector of coefficients listing the coefficients that match the predictor
+#' @param model A fitted model
+#' @param predictors A character vector of predictors to match against
+#' @param strict Logical specifying if interactions terms should be included (\code{FALSE}) or just the main terms (\code{TRUE}).
+#' @param \dots further arguments
+getCoefsFromPredictors.rxLogit <- function(model, predictors=NULL, strict=FALSE, ...)
+{
+    getCoefsFromPredictorsRevo(model, predictors, strict)
+}
+
+
+#' @title getCoefsFromPredictors.rxGlm
+#' 
+#' @description Function for matching coefficients with predictors for rxGlm
+#' 
+#' @details The user specifies predictors whose coefficients should be included in the coefplot.
+#' @aliases getCoefsFromPredictors.rxGlm
+#' @S3method getCoefsFromPredictors rxGlm
+#' @author Jared P. Lander
+#' @return A character vector of coefficients listing the coefficients that match the predictor
+#' @param model A fitted model
+#' @param predictors A character vector of predictors to match against
+#' @param strict Logical specifying if interactions terms should be included (\code{FALSE}) or just the main terms (\code{TRUE}).
+#' @param \dots further arguments
+getCoefsFromPredictors.rxGlm <- function(model, predictors=NULL, strict=FALSE, ...)
+{
+    getCoefsFromPredictorsRevo(model, predictors, strict)
+}
