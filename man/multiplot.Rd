@@ -5,10 +5,11 @@
   multiplot(..., title = "Coefficient Plot",
     xlab = "Value", ylab = "Coefficient", innerCI = 1,
     outerCI = 2, lwdInner = 1, lwdOuter = 0, pointSize = 3,
-    dodgeHeight = 1, color = "blue", shape = 16, cex = 0.8,
-    textAngle = 0, numberAngle = 90, zeroColor = "grey",
-    zeroLWD = 1, zeroType = 2, single = TRUE,
-    scales = "fixed", ncol = length(unique(modelCI$Model)),
+    dodgeHeight = 1, color = "blue", shape = 16,
+    linetype = 1, cex = 0.8, textAngle = 0,
+    numberAngle = 90, zeroColor = "grey", zeroLWD = 1,
+    zeroType = 2, single = TRUE, scales = "fixed",
+    ncol = length(unique(modelCI$Model)),
     sort = c("natural", "normal", "magnitude", "size", "alphabetical"),
     decreasing = FALSE, names = NULL, numeric = FALSE,
     fillColor = "grey", alpha = 1/2, horizontal = FALSE,
@@ -16,7 +17,9 @@
     intercept = TRUE, interceptName = "(Intercept)",
     coefficients = NULL, predictors = NULL, strict = FALSE,
     newNames = NULL, plot = TRUE, drop = FALSE,
-    by = c("Coefficient", "Model"))
+    by = c("Coefficient", "Model"), plot.shapes = FALSE,
+    plot.linetypes = FALSE,
+    legend.position = c("right", "left", "bottom", "top"))
 }
 \arguments{
   \item{\dots}{Models to be plotted}
@@ -49,6 +52,9 @@
   \item{color}{The color of the points and lines}
 
   \item{shape}{The shape of the points}
+
+  \item{linetype}{The type of line drawn for the standard
+  errors}
 
   \item{cex}{The text size multiplier, currently not used}
 
@@ -145,6 +151,15 @@
   along the axis with one for each model.  If plotting by
   model only one coefficient at a time can be selected.
   This is called the secret weapon by Andy Gelman.}
+
+  \item{plot.shapes}{If \code{TRUE} points will have
+  different shapes for different models}
+
+  \item{plot.linetypes}{If \code{TRUE} lines will have
+  different shapes for different models}
+
+  \item{legend.position}{position of legend, one of "left",
+  "right", "bottom", "top"}
 }
 \value{
   A ggplot object
@@ -173,6 +188,17 @@ model3 <- lm(price ~ carat + color, data=diamonds)
 multiplot(model1, model2, model3)
 multiplot(model1, model2, model3, single=FALSE)
 multiplot(model1, model2, model3, plot=FALSE)
+require(reshape2)
+data(tips, package="reshape2")
+mod1 <- lm(tip ~ total_bill + sex, data=tips)
+mod2 <- lm(tip ~ total_bill * sex, data=tips)
+mod3 <- lm(tip ~ total_bill * sex * day, data=tips)
+mod7 <- lm(tip ~ total_bill + day + time, data=tips)
+multiplot(mod1, mod2, mod3, mod7, single=FALSE, scales="free_x")
+multiplot(mod1, mod2, mod3, mod7, single=FALSE, scales="free_x")
+multiplot(mod1, mod2, mod3, mod7, single=FALSE, scales="free_x", plot.shapes=TRUE)
+multiplot(mod1, mod2, mod3, mod7, single=TRUE, scales="free_x", plot.shapes=TRUE, plot.linetypes=TRUE)
+multiplot(mod1, mod2, mod3, mod7, single=TRUE, scales="free_x", plot.shapes=FALSE, plot.linetypes=TRUE, legend.position="bottom")
 }
 }
 \seealso{

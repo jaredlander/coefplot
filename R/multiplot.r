@@ -21,6 +21,7 @@
 #' @param dodgeHeight Amount of vertical dodging
 #' @param color The color of the points and lines
 #' @param shape The shape of the points
+#' @param linetype The type of line drawn for the standard errors
 #' @param cex The text size multiplier, currently not used
 #' @param textAngle The angle for the coefficient labels, 0 is horizontal
 #' @param numberAngle The angle for the value labels, 0 is horizontal
@@ -31,7 +32,7 @@
 #' @param single logical; If TRUE there will be one plot with the points and bars stacked, otherwise the models will be displayed in seperate facets
 #' @param scales The way the axes should be treated in a faceted plot.  Can be c("fixed", "free", "free_x", "free_y")
 #' @param ncol The number of columns that the models should be plotted in
-#' @param sort Determines the sort order of the coefficients.  Possible values are c("natural", "normal", "magnitude", "size", "alphabetical")
+#' @param sort Determines the sort order of the coefficients.  Possible values are c("natural", "magnitude", "alphabetical")
 #' @param decreasing logical; Whether the coefficients should be ascending or descending
 #' @param names Names for models, if NULL then they will be named after their inputs
 #' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with constinuous confidence bounds.
@@ -50,6 +51,10 @@
 #' @param shorten logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped.
 #' @param drop logical; if TRUE then models without valid coeffiecients to show will not be plotted
 #' @param by If "Coefficient" then anormal multiplot is plotted, if "Model" then the coefficients are plotted along the axis with one for each model.  If plotting by model only one coefficient at a time can be selected.  This is called the secret weapon by Andy Gelman.
+#' @param plot.shapes If \code{TRUE} points will have different shapes for different models
+#' @param plot.linetypes If \code{TRUE} lines will have different shapes for different models
+#' @param legend.position position of legend, one of "left", "right", "bottom", "top"
+#' @param secret.weapon If this is \code{TRUE} and exactly one coefficient is listed in coefficients then Andy Gelman's secret weapon is plotted.
 #' @return A ggplot object
 #' @examples
 #'
@@ -61,10 +66,27 @@
 #' multiplot(model1, model2, model3)
 #' multiplot(model1, model2, model3, single=FALSE)
 #' multiplot(model1, model2, model3, plot=FALSE)
+#' require(reshape2)
+#' data(tips, package="reshape2")
+#' mod1 <- lm(tip ~ total_bill + sex, data=tips)
+#' mod2 <- lm(tip ~ total_bill * sex, data=tips)
+#' mod3 <- lm(tip ~ total_bill * sex * day, data=tips)
+#' mod7 <- lm(tip ~ total_bill + day + time, data=tips)
+#' multiplot(mod1, mod2, mod3, mod7, single=FALSE, scales="free_x")
+#' multiplot(mod1, mod2, mod3, mod7, single=FALSE, scales="free_x")
+#' multiplot(mod1, mod2, mod3, mod7, single=FALSE, scales="free_x", plot.shapes=TRUE)
+#' multiplot(mod1, mod2, mod3, mod7, single=TRUE, scales="free_x", plot.shapes=TRUE, plot.linetypes=TRUE)
+#' multiplot(mod1, mod2, mod3, mod7, single=TRUE, scales="free_x", plot.shapes=FALSE, plot.linetypes=TRUE, legend.position="bottom")
+#' # the secret weapon
+#' multiplot(mod1, mod2, mod3, mod7, coefficients="total_bill", secret.weapon=TRUE)
+#' # horizontal secret weapon
+#' multiplot(mod1, mod2, mod3, mod7, coefficients="total_bill", by="Model", horizontal=FALSE)
+#' 
 #' }
 #'
 multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coefficient", 
-    					innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0, pointSize=3, dodgeHeight=1,  color="blue", shape=16,
+    					innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0, pointSize=3, dodgeHeight=1,  
+                      color="blue", shape=16, linetype=1,
 						cex=.8, textAngle=0, numberAngle=90,
 						zeroColor="grey", zeroLWD=1, zeroType=2,
 						#facet=FALSE,
@@ -73,8 +95,12 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
 						sort=c("natural", "normal", "magnitude", "size", "alphabetical"), decreasing=FALSE, names=NULL,
 						numeric=FALSE, fillColor="grey", alpha=1/2,
 						horizontal=FALSE, factors=NULL, only=NULL, shorten=TRUE,
-						intercept=TRUE, interceptName="(Intercept)", coefficients=NULL, predictors=NULL, strict=FALSE, newNames=NULL, plot=TRUE, drop=FALSE,
-                      by=c("Coefficient", "Model"))
+						intercept=TRUE, interceptName="(Intercept)", 
+                      coefficients=NULL, predictors=NULL, strict=FALSE, newNames=NULL, plot=TRUE, drop=FALSE,
+                      by=c("Coefficient", "Model"), plot.shapes=FALSE, plot.linetypes=FALSE,
+                      legend.position=c("right", "left", "bottom", "top"),
+                      secret.weapon=FALSE
+                      )
 {
     ## if ... is already a list just grab the dots, otherwise force it into a list
     if(tryCatch(is.list(...), error = function(e) FALSE))
@@ -116,16 +142,24 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
     sort <- match.arg(sort)
     by <- match.arg(by)
     
+    legend.position <- match.arg(legend.position)
+    
+    if(secret.weapon)
+    {
+        by <- "Model"
+        horizontal <- TRUE
+    }
+    
     if(by == "Model" & length(coefficients) != 1)
     {
-        stop("If plotting the model along the axis then exactly one variable must be specified for plotting")
+        stop("If plotting the model along the axis then exactly one coefficient must be specified for plotting")
     }
     
 #    return(theDots)
     # need to change getModelInfo and buildModelCI and coefplot.lm so that shorten, factors and only are normal arguments and not part of ..., that way it will work better for this
     # get the modelCI for each model and make one big data.frame
     modelCI <- ldply(theDots, .fun=buildModelCI, outerCI=outerCI, innerCI=innerCI, intercept=intercept, numeric=numeric, 
-                     sort=sort, decreasing=decreasing, factors=factors, only=only, shorten=shorten, coefficients=coefficients,
+                     sort=sort, decreasing=decreasing, factors=factors, shorten=shorten, coefficients=coefficients,
                      predictors=predictors, strict=strict, newNames=newNames)
     
     # Turn the Call into a unique identifier for each model
@@ -141,11 +175,11 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
         #modNames <- structure(as.list(match.call()[-1]), class = "uneval")
     }
     
-    ## if we are not plotting return modelCI right away
-    if(!plot)
-    {
-        return(modelCI)
-    }
+#     ## if we are not plotting return modelCI right away
+#     if(!plot)
+#     {
+#         return(modelCI)
+#     }
     
     ## if drop is true get rid of models without valid coefficients
     if(drop)
@@ -159,33 +193,32 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
     {
         return(modelCI)
     }
-    
-    # which columns will be kept in the melted data.frame
-#    keepCols <- c("LowOuter", "HighOuter", "LowInner", "HighInner", "Coefficient", "Model")
-    
-#     modelMelting <- meltModelCI(modelCI=modelCI, keepCols=keepCols, id.vars=c("Coefficient", "Model"), 
-#                                 variable.name="Type", value.name="Value", outerCols=c("LowOuter", "HighOuter"), 
-#                                 innerCols=c("LowInner", "HighInner")) 
-#  
-# 
-#     modelMelt <- modelMelting$modelMelt 
-#     modelMeltInner <- modelMelting$modelMeltInner 
-#     modelMeltOuter <- modelMelting$modelMeltOuter 
-#     rm(modelMelting);      # housekeeping 
 
     p <- buildPlotting.default(modelCI=modelCI, 
                         #modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
                        title=title, xlab=xlab, ylab=ylab,
                        lwdInner=lwdInner, lwdOuter=lwdOuter, pointSize=pointSize, dodgeHeight=dodgeHeight, 
-                        color=color, shape=shape, cex=cex, textAngle=textAngle, 
-                       numberAngle=numberAngle, zeroColor=zeroColor, zeroLWD=zeroLWD, outerCI=outerCI, innerCI=innerCI,# single=single,
+                        color=color, shape=shape, linetype=linetype, cex=cex, textAngle=textAngle, 
+                       numberAngle=numberAngle, zeroColor=zeroColor, zeroLWD=zeroLWD, 
+                               outerCI=outerCI, innerCI=innerCI,# single=single,
                        zeroType=zeroType, numeric=numeric, fillColor=fillColor, alpha=alpha, multi=TRUE,
                                value="Value", coefficient=by,
                        horizontal=horizontal, facet=FALSE, scales="fixed")
-    #return(p)
     
     theColorScale <- list("Coefficient"=scale_colour_discrete("Model"), 
                           "Model"=scale_color_manual(values=rep(color, length(unique(modelCI$Model))), guide=FALSE))
     
-    p + theColorScale[[by]] +  if(!single) facet_wrap(~Model, scales=scales, ncol=ncol)
+    theShapeScale <- list("NoShapes"=scale_shape_manual(values=rep(shape, length(unique(modelCI$Model))), guide=FALSE),
+                          "Shapes"=scale_shape_manual(values=1:length(unique(modelCI$Model)))
+                          )
+    
+    theLinetypeScale <- list("NoShapes"=scale_linetype_manual(values=rep(linetype, length(unique(modelCI$Model))), guide=FALSE),
+                             "Shapes"=scale_linetype_manual(values=1:length(unique(modelCI$Model)))
+                             )
+#     print(rep(linetype, length(unique(modelCI$Model))))
+    p + theColorScale[[by]] + 
+        theShapeScale[[plot.shapes+1]] + 
+        theLinetypeScale[[plot.linetypes+1]] + 
+        theme(legend.position=legend.position) + 
+        if(!single) facet_wrap(~Model, scales=scales, ncol=ncol)
 }
