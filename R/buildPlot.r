@@ -19,6 +19,7 @@
 #' @param pointSize Size of coefficient point
 #' @param color The color of the points and lines
 #' @param shape The shape of the points
+#' @param linetype The linetype of the error bars
 #' @param cex The text size multiplier, currently not used
 #' @param textAngle The angle for the coefficient labels, 0 is horizontal
 #' @param numberAngle The angle for the value labels, 0 is horizontal
@@ -41,7 +42,6 @@
 #' data(diamonds)
 #' model1 <- lm(price ~ carat + cut, data=diamonds)
 #' theCI <- coefplot:::buildModelCI(model1)
-#' theCIMelt <- coefplot:::meltModelCI(theCI)
 #' coefplot:::buildPlotting.default(theCI)
 #' coefplot(model1)
 #'
@@ -49,7 +49,7 @@ buildPlotting.default <- function(modelCI,
                                   title="Coefficient Plot", 
                                   xlab="Value", ylab="Coefficient", lwdInner=1, lwdOuter=0, pointSize=3,
                                   color="blue", cex=.8, textAngle=0, numberAngle=0, 
-                                  shape=16,
+                                  shape=16, linetype=1,
                                   outerCI=2, innerCI=1, multi=FALSE, 
                                   zeroColor="grey", zeroLWD=1, zeroType=2, 
                                   numeric=FALSE, fillColor="grey", alpha=1/2,
@@ -58,9 +58,9 @@ buildPlotting.default <- function(modelCI,
                                   errorHeight=0, dodgeHeight=1)
 {
     ## build the layer infos
-    outerCIGeom <- geom_errorbarh(aes_string(xmin="LowOuter", xmax="HighOuter", color="Model"), lwd=lwdOuter, height=errorHeight, position=position_dodgev(height=dodgeHeight))
+    outerCIGeom <- geom_errorbarh(aes_string(xmin="LowOuter", xmax="HighOuter", color="Model", linetype="Model"), lwd=lwdOuter, height=errorHeight, position=position_dodgev(height=dodgeHeight))
     
-    innerCIGeom <- geom_errorbarh(aes_string(xmin="LowInner", xmax="HighInner", color="Model"),lwd=lwdInner, height=errorHeight, position=position_dodgev(height=dodgeHeight))
+    innerCIGeom <- geom_errorbarh(aes_string(xmin="LowInner", xmax="HighInner", color="Model", linetype="Model"),lwd=lwdInner, height=errorHeight, position=position_dodgev(height=dodgeHeight))
     
     # ribbon layer
     #ribbonGeom <- list(None=NULL, geom_ribbon(aes(ymin=LowOuter, ymax=HighOuter, group=Checkers), data=modelCI, fill=fillColor, alpha=alpha, lwd=lwdOuter))
@@ -69,9 +69,10 @@ buildPlotting.default <- function(modelCI,
     pointGeom <- geom_point(aes_string(xmin=value, xmax=value, color="Model", shape="Model"), size=pointSize, position=position_dodgev(height=dodgeHeight))
 
     colorAes <- list(None=NULL, Single=aes(color=as.factor(Model)))
-    colorScale <- scale_color_manual(values=rep(color, length(unique(modelCI$Model))), guide=FALSE)
+    colorScaleSingle <- scale_color_manual(values=rep(color, length(unique(modelCI$Model))), guide=FALSE)
     shapeScaleSingle <- scale_shape_manual(values=rep(shape, length(unique(modelCI$Model))), guide=FALSE)
-    shapeScaleMulti <- scale_shape_manual(values=1:length(unique(modelCI$Model)))
+    linetypeScaleSingle <- scale_linetype_manual(values=rep(linetype, length(unique(modelCI$Model))), guide=FALSE)
+    
     xScale <- list(None=NULL, Single=scale_x_discrete())
     
     # faceting info
@@ -88,7 +89,7 @@ buildPlotting.default <- function(modelCI,
     #p <- p + xScale[[1 + multi]]
     p <- p + theme(axis.text.y=element_text(angle=textAngle, hjust=.5), axis.text.x=element_text(angle=numberAngle, vjust=.5)) + 
         labs(title=title, x=xlab, y=ylab)    # labeling and text info
-    p <- p + if(!multi){ list(colorScale, shapeScaleSingle) }else{shapeScaleMulti}
+    p <- p + if(!multi){ list(colorScaleSingle, shapeScaleSingle, linetypeScaleSingle) }
     p <- p + faceting[[facet + 1]]    	# faceting
     p <- p + if(horizontal) coord_flip()
     

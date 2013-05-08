@@ -7,7 +7,7 @@
     ylab = "Coefficient", lwdInner = 1, lwdOuter = 0,
     pointSize = 3, color = "blue", cex = 0.8,
     textAngle = 0, numberAngle = 0, shape = 16,
-    outerCI = 2, innerCI = 1, multi = FALSE,
+    linetype = 1, outerCI = 2, innerCI = 1, multi = FALSE,
     zeroColor = "grey", zeroLWD = 1, zeroType = 2,
     numeric = FALSE, fillColor = "grey", alpha = 1/2,
     horizontal = FALSE, facet = FALSE, scales = "free",
@@ -49,6 +49,8 @@
   \item{color}{The color of the points and lines}
 
   \item{shape}{The shape of the points}
+
+  \item{linetype}{The linetype of the error bars}
 
   \item{cex}{The text size multiplier, currently not used}
 
@@ -108,7 +110,6 @@
 data(diamonds)
 model1 <- lm(price ~ carat + cut, data=diamonds)
 theCI <- coefplot:::buildModelCI(model1)
-theCIMelt <- coefplot:::meltModelCI(theCI)
 coefplot:::buildPlotting.default(theCI)
 coefplot(model1)
 }
