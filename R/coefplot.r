@@ -83,7 +83,7 @@ coefplot <- function(model, ...)
 #' @param intercept logical; Whether the Intercept coefficient should be plotted
 #' @param interceptName Specifies name of intercept it case it is not the default of "(Intercept").
 #' @param plot logical; If the plot should be drawn, if false then a data.frame of the values will be returned
-#' @param predictors A character vector specifying which coefficients to keep.  Each individual coefficient can be specfied.  Use predictors to specify entire factors
+#' @param predictors A character vector specifying which coefficients to keep.  Each individual coefficient can be specfied.  Use predictors to specify entire factors.
 #' @param coefficients A character vector specifying which factor coefficients to keep.  It will keep all levels and any interactions, even if those are not listed.
 #' @param strict If TRUE then predictors will only be matched to its own coefficients, not its interactions
 ##See Details for information on \code{factors}, \code{only} and \code{shorten}
@@ -237,7 +237,7 @@ coefplot.glm <- function(...)
 #' 
 #' \dontrun{
 #' mod4 <- rxGlm(price ~ carat + cut + x, data=diamonds)
-#' mod5 <- rxGlm(price > 10000 ~ carat + cut + x, data=diamonds, fmaily="binomial")
+#' mod5 <- rxGlm(price > 10000 ~ carat + cut + x, data=diamonds, family="binomial")
 #' coefplot(mod4)
 #' coefplot(mod5)
 #' }
@@ -245,10 +245,10 @@ coefplot.glm <- function(...)
 coefplot.rxGlm <- function(...)
 {
     mf <- match.call(expand.dots=TRUE)
-    if("predictors" %in% names(mf) && !is.null(mf$predictors))
-    {
-        stop("predictors argument cannot be used for RevoScaleR models")
-    }
+#     if("predictors" %in% names(mf) && !is.null(mf$predictors))
+#     {
+#         stop("predictors argument cannot be used for RevoScaleR models")
+#     }
     coefplot.default(...)
 }
 
@@ -280,10 +280,10 @@ coefplot.rxGlm <- function(...)
 coefplot.rxLinMod <- function(...)
 {
     mf <- match.call(expand.dots=TRUE)
-    if("predictors" %in% names(mf) && !is.null(mf$predictors))
-    {
-        stop("predictors argument cannot be used for RevoScaleR models")
-    }
+#     if("predictors" %in% names(mf) && !is.null(mf$predictors))
+#     {
+#         stop("predictors argument cannot be used for RevoScaleR models")
+#     }
     coefplot.default(...)
 }
 
@@ -316,10 +316,10 @@ coefplot.rxLinMod <- function(...)
 coefplot.rxLogit <- function(...)
 {
     mf <- match.call(expand.dots=TRUE)
-    if("predictors" %in% names(mf) && !is.null(mf$predictors))
-    {
-        stop("predictors argument cannot be used for RevoScaleR models")
-    }
+#     if("predictors" %in% names(mf) && !is.null(mf$predictors))
+#     {
+#         stop("predictors argument cannot be used for RevoScaleR models")
+#     }
     coefplot.default(...)
 }
 
