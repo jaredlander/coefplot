@@ -29,7 +29,7 @@
 \examples{
 \dontrun{
 mod4 <- rxGlm(price ~ carat + cut + x, data=diamonds)
-mod5 <- rxGlm(price > 10000 ~ carat + cut + x, data=diamonds, fmaily="binomial")
+mod5 <- rxGlm(price > 10000 ~ carat + cut + x, data=diamonds, family="binomial")
 coefplot(mod4)
 coefplot(mod5)
 }

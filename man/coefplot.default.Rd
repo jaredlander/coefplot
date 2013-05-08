@@ -102,7 +102,7 @@
 
   \item{predictors}{A character vector specifying which
   coefficients to keep.  Each individual coefficient can be
-  specfied.  Use predictors to specify entire factors}
+  specfied.  Use predictors to specify entire factors.}
 
   \item{coefficients}{A character vector specifying which
   factor coefficients to keep.  It will keep all levels and
