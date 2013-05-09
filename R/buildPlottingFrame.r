@@ -67,6 +67,7 @@ buildModelCI.default <- function(model, outerCI=2, innerCI=1, intercept=TRUE, nu
                          decreasing=TRUE, name=NULL, interceptName="(Intercept)", ...)
 {
     sort <- match.arg(sort)
+
     #print(structure(as.list(match.call()[-1]), class = "uneval")$model)
     # get model information
     modelCI <- extract.coef(model)
@@ -93,10 +94,12 @@ buildModelCI.default <- function(model, outerCI=2, innerCI=1, intercept=TRUE, nu
     }
     
     # build confidence bounds columns
-    modelCI <- within(modelCI, {LowOuter <- Value - outerCI*SE;
-                  HighOuter <- Value + outerCI*SE;
-                  LowInner <- Value - innerCI*SE;
-                  HighInner <- Value + innerCI*SE})
+#     modelCI <- within(modelCI, {LowOuter <- Value - outerCI*SE;
+#                   HighOuter <- Value + outerCI*SE;
+#                   LowInner <- Value - innerCI*SE;
+#                   HighInner <- Value + innerCI*SE})
+    
+    modelCI[, c("HighInner", "LowInner", "HighOuter", "LowOuter")] <- modelCI$Value + modelCI$SE %*% matrix(c(innerCI, -innerCI, outerCI, -outerCI), nrow=1)
     
     # get rid of SE column
     modelCI$SE <- NULL
@@ -106,7 +109,7 @@ buildModelCI.default <- function(model, outerCI=2, innerCI=1, intercept=TRUE, nu
     {
         modelCI <- modelCI[rownames(modelCI) != interceptName, ]
     }
-    
+
     # make column for model name
     # if a name for the model is provided, use it, otherwise use the call
     if(is.null(name))
@@ -117,7 +120,7 @@ buildModelCI.default <- function(model, outerCI=2, innerCI=1, intercept=TRUE, nu
     {
         modelCI$Model <- name
     }
-    
+
     ## possible orderings of the coefficients
     ordering <- switch(sort,
                        natural=order(1:nrow(modelCI), decreasing=decreasing), 	# the way the data came in
