@@ -202,8 +202,10 @@ mod7 <- lm(tip ~ total_bill + day + time, data=tips)
 multiplot(mod1, mod2, mod3, mod7, single=FALSE, scales="free_x")
 multiplot(mod1, mod2, mod3, mod7, single=FALSE, scales="free_x")
 multiplot(mod1, mod2, mod3, mod7, single=FALSE, scales="free_x", plot.shapes=TRUE)
-multiplot(mod1, mod2, mod3, mod7, single=TRUE, scales="free_x", plot.shapes=TRUE, plot.linetypes=TRUE)
-multiplot(mod1, mod2, mod3, mod7, single=TRUE, scales="free_x", plot.shapes=FALSE, plot.linetypes=TRUE, legend.position="bottom")
+multiplot(mod1, mod2, mod3, mod7, single=TRUE, scales="free_x",
+plot.shapes=TRUE, plot.linetypes=TRUE)
+multiplot(mod1, mod2, mod3, mod7, single=TRUE, scales="free_x",
+plot.shapes=FALSE, plot.linetypes=TRUE, legend.position="bottom")
 # the secret weapon
 multiplot(mod1, mod2, mod3, mod7, coefficients="total_bill", secret.weapon=TRUE)
 # horizontal secret weapon

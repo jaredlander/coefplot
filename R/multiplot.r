@@ -58,7 +58,6 @@
 #' @return A ggplot object
 #' @examples
 #'
-#'\dontrun{
 #' data(diamonds)
 #' model1 <- lm(price ~ carat + cut, data=diamonds)
 #' model2 <- lm(price ~ carat + cut + color, data=diamonds)
@@ -75,14 +74,15 @@
 #' multiplot(mod1, mod2, mod3, mod7, single=FALSE, scales="free_x")
 #' multiplot(mod1, mod2, mod3, mod7, single=FALSE, scales="free_x")
 #' multiplot(mod1, mod2, mod3, mod7, single=FALSE, scales="free_x", plot.shapes=TRUE)
-#' multiplot(mod1, mod2, mod3, mod7, single=TRUE, scales="free_x", plot.shapes=TRUE, plot.linetypes=TRUE)
-#' multiplot(mod1, mod2, mod3, mod7, single=TRUE, scales="free_x", plot.shapes=FALSE, plot.linetypes=TRUE, legend.position="bottom")
+#' multiplot(mod1, mod2, mod3, mod7, single=TRUE, scales="free_x", 
+#' plot.shapes=TRUE, plot.linetypes=TRUE)
+#' multiplot(mod1, mod2, mod3, mod7, single=TRUE, scales="free_x", 
+#' plot.shapes=FALSE, plot.linetypes=TRUE, legend.position="bottom")
 #' # the secret weapon
 #' multiplot(mod1, mod2, mod3, mod7, coefficients="total_bill", secret.weapon=TRUE)
 #' # horizontal secret weapon
 #' multiplot(mod1, mod2, mod3, mod7, coefficients="total_bill", by="Model", horizontal=FALSE)
 #' 
-#' }
 #'
 multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coefficient", 
     					innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0, pointSize=3, dodgeHeight=1,  

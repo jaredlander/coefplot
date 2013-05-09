@@ -55,9 +55,11 @@ coefplot(model1, predictors="color", strict=TRUE)
 coefplot(model1, coefficients=c("(Intercept)", "color.Q"))
 coefplot(model1, predictors="cut", coefficients=c("(Intercept)", "color.Q"), strict=TRUE)
 coefplot(model1, predictors="cut", coefficients=c("(Intercept)", "color.Q"), strict=FALSE)
-coefplot(model1, predictors="cut", coefficients=c("(Intercept)", "color.Q"), strict=TRUE, newNames=c(color.Q="Color", "cut^4"="Fourth"))
+coefplot(model1, predictors="cut", coefficients=c("(Intercept)", "color.Q"),
+strict=TRUE, newNames=c(color.Q="Color", "cut^4"="Fourth"))
 coefplot(model1, predictors=c("(Intercept)", "carat"), newNames=c(carat="Size"))
-coefplot(model1, predictors=c("(Intercept)", "carat"), newNames=c(carat="Size", "(Intercept)"="Constant"))
+coefplot(model1, predictors=c("(Intercept)", "carat"),
+newNames=c(carat="Size", "(Intercept)"="Constant"))
 }
 \author{
   Jared P. Lander
