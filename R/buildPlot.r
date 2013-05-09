@@ -68,7 +68,7 @@ buildPlotting.default <- function(modelCI,
     # point layer
     pointGeom <- geom_point(aes_string(xmin=value, xmax=value, color="Model", shape="Model"), size=pointSize, position=position_dodgev(height=dodgeHeight))
 
-    colorAes <- list(None=NULL, Single=aes(color=as.factor(Model)))
+    #colorAes <- list(None=NULL, Single=aes(color=as.factor(Model)))
     colorScaleSingle <- scale_color_manual(values=rep(color, length(unique(modelCI$Model))), guide=FALSE)
     shapeScaleSingle <- scale_shape_manual(values=rep(shape, length(unique(modelCI$Model))), guide=FALSE)
     linetypeScaleSingle <- scale_linetype_manual(values=rep(linetype, length(unique(modelCI$Model))), guide=FALSE)
@@ -87,7 +87,7 @@ buildPlotting.default <- function(modelCI,
         innerCIGeom						# the inner CI bars
     p <- p + pointGeom						# the points
     #p <- p + xScale[[1 + multi]]
-    p <- p + theme(axis.text.y=element_text(angle=textAngle, hjust=.5), axis.text.x=element_text(angle=numberAngle, vjust=.5)) + 
+    p <- p + theme(axis.text.y=element_text(angle=textAngle, hjust=1), axis.text.x=element_text(angle=numberAngle, vjust=.5)) + 
         labs(title=title, x=xlab, y=ylab)    # labeling and text info
     p <- p + if(!multi){ list(colorScaleSingle, shapeScaleSingle, linetypeScaleSingle) }
     p <- p + faceting[[facet + 1]]    	# faceting
