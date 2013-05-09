@@ -24,10 +24,11 @@ collidev <- function(data, height = NULL, name, strategy, check.height = TRUE)
 {
     if (!is.null(height)) {
         if (!(all(c("ymin", "ymax") %in% names(data)))) {
-            data <- within(data, {
-                ymin <- y - height/2
-                ymax <- y + height/2
-            })
+#             data <- within(data, {
+#                 ymin <- y - height/2
+#                 ymax <- y + height/2
+#             })
+            data[, c("ymax", "ymin")] <- data$y + matrix(c(1, -1), ncol=2, nrow=NROW(data), byrow=TRUE)*height/2
         }
     }
     else {
@@ -52,12 +53,19 @@ collidev <- function(data, height = NULL, name, strategy, check.height = TRUE)
                 call. = FALSE)
     }
     if (!is.null(data$xmax)) {
-        ddply(data, .(ymin), strategy, height = height)
+        # this line is commented out and replaced with the one below to deal with CRANs abhorence of non-visible bindings
+        #ddply(data, .(ymin), strategy, height = height)
+        ddply(data, "ymin", strategy, height = height)
     }
     else if (!is.null(data$x)) {
         message("xmax not defined: adjusting position using x instead")
-        transform(ddply(transform(data, xmax = x), .(ymin), strategy, 
-                        height = height), x = xmax)
+        # this line is commented out and replaced with the ones below to deal with CRANs abhorence of non-visible bindings
+#        transform(ddply(transform(data, xmax = x), .(ymin), strategy, 
+#                        height = height), x = xmax)
+        data$xmax <- data$x
+        data <- ddply(data, "ymin", strategy, height = height)
+        data$x <- data$xmax
+        data
     }
     else {
         stop("Neither x nor xmax defined")
