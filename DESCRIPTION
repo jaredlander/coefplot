@@ -16,6 +16,8 @@ Imports:
     useful,
     scales,
     proto
+Suggests:
+    survival
 Collate:
     'coefplot.r'
     'coefplot-package.r'
