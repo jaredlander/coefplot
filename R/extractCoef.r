@@ -204,3 +204,37 @@ extract.coef.rxLogit <- function(model, ...)
 {
     extract.coef.default(model=model, ...)
 }
+
+#' extract.coef.coxph
+#' 
+#' Extract Coefficient Information from Models
+#' 
+#' Gets the coefficient values and standard errors, and variable names from a model.
+#' 
+#' @author Nicholas Galasinao
+#' @S3method extract.coef coxph
+#' @method extract.coef coxph
+#' @aliases extract.coef.coxph
+#' @param model Model object to extract information from.
+#' @param \dots Further arguments
+#' @return A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.
+#' @examples
+#' require(ggplot2)
+#' data(diamonds)
+#' mod1 <- lm(price ~ carat + cut + x, data=diamonds)
+#' \dontrun{extract.coef(mod1)}
+#' 
+extract.coef.coxph <- function(model, ...)
+{
+    # get summary of model
+    theSumm <- summary(model)
+    # get coef and standard error
+    #     print(theSumm)
+    #     print(head(model))
+    info <- as.data.frame(theSumm$coefficients[, 2:3])
+    names(info) <- c("Value", "SE")
+    # make a variable tracking the name
+    info$Coefficient <- rownames(info)
+    
+    return(info)
+}
