@@ -1,0 +1,35 @@
+theDF <- data.frame(x=1:10, y=1:10, mod=factor(1:10))
+ggplot(theDF, aes(x=x, y=y)) + geom_point(size=5)
+ggplot(theDF, aes(x=x, y=y)) + geom_point(aes(shape=mod))
+ggplot(theDF, aes(x=x, y=y)) + geom_point(shape=16, size=5)
+
+df2 <- data.frame(x = 1:5 , y = 1:25, z = 1:25)
+s <- ggplot(df2, aes(x = x, y = y))
+s + geom_point(aes(shape = z), size = 4) + scale_shape_identity()
+# While all symbols have a foreground colour, symbols 19-25 also take a
+# background colour (fill)
+s + geom_point(aes(shape = z), size = 4, colour = "Red") + scale_shape_identity()
+s + geom_point(aes(shape = z), size = 4, colour = "Red", fill = "Black") + scale_shape_identity()
+
+g <- Geom$find("geom_point")
+
+require(reshape2)
+data(tips, package="reshape2")
+head(tips)
+mod1 <- lm(tip ~ total_bill + sex, data=tips)
+mod2 <- lm(tip ~ total_bill * sex, data=tips)
+mod3 <- lm(tip ~ total_bill * sex * day, data=tips)
+mod4 <- lm(tip ~ total_bill * sex + day, data=tips)
+mod5 <- lm(tip ~ total_bill * day, data=tips)
+mod6 <- lm(tip ~ total_bill + day, data=tips)
+mod7 <- lm(tip ~ total_bill + day + time, data=tips)
+mod8 <- lm(tip ~ total_bill * sex : day, data=tips)
+coefplot(mod1)
+coefplot(mod2)
+multiplot(mod1, mod2, mod3, mod4, mod5, mod6, mod7)
+small <- coefplot(mod2, plot=F)
+mine <- multiplot(mod1, mod2, mod3, mod4, mod5, mod6, mod7, plot=F)
+mine
+ggplot(small, aes(y=Coefficient, x=Value)) + geom_vline(xintercept=0, color="grey", linetype=2) + geom_errorbarh(aes(xmin=LowOuter, xmax=HighOuter), height=0, linetype=4) + geom_point(color="blue")
+ggplot(mine, aes(y=Coefficient, x=Value)) + geom_vline(xintercept=0, color="grey", linetype=2) + geom_errorbarh(aes(xmin=LowOuter, xmax=HighOuter), height=0, linetype=1) + geom_point(color="blue", aes(shape=Model)) + scale_shape_manual(values=1:7)
+
