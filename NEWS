@@ -1,5 +1,9 @@
 Version 1.2.0
 -----------------------------------------------------------------------------------------------------
+Ability to work with coxph models.
+
+Version 1.2.0
+-----------------------------------------------------------------------------------------------------
 Major update.  The codebase has been refactored to run faster and be easily updated for improvements and adding new models.
 New arguments (predictors and coefficients) for specifying coefficients to be plotted both by indicating the specific coefficients (including specific factor levels) or by specifying the predictors that created coefficients.  This is particularly important for factor variables and interactions.
 New argument (newNames) for giving new names to coefficients.
