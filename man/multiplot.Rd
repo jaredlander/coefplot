@@ -185,7 +185,6 @@
   Gelman's secret weapon.
 }
 \examples{
-\dontrun{
 data(diamonds)
 model1 <- lm(price ~ carat + cut, data=diamonds)
 model2 <- lm(price ~ carat + cut + color, data=diamonds)
@@ -210,8 +209,6 @@ plot.shapes=FALSE, plot.linetypes=TRUE, legend.position="bottom")
 multiplot(mod1, mod2, mod3, mod7, coefficients="total_bill", secret.weapon=TRUE)
 # horizontal secret weapon
 multiplot(mod1, mod2, mod3, mod7, coefficients="total_bill", by="Model", horizontal=FALSE)
-
-}
 }
 \seealso{
   \code{link{coefplot}}
