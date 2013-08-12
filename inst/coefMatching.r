@@ -47,6 +47,20 @@ get.assign.glm <- function(model, ...)
     attr(theMat, "assign")
 }
 
+#' @title get.assign.coxph
+#' @description The assignment vector for an coxph model
+#' @details Gets relative positions of predictors
+#' @aliases get.assign.coxph
+#' @S3method get.assign coxph
+#' @author Jared P. Lander
+#' @param model Fitted model
+#' @param \dots Further arguments
+#' @return The assignment vector
+get.assign.coxph <- function(model, ...)
+{
+    model$assign
+}
+
 #' @title matchCoefs
 #' @description Match coefficients to predictors
 #' @details Matches coefficients to predictors using information from model matrices
