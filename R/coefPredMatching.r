@@ -49,6 +49,23 @@ get.assign.glm <- function(model, ...)
     attr(theMat, "assign")
 }
 
+#' @title get.assign.coxph
+#' @description The assignment vector for an coxph model
+#' @details Gets relative positions of predictors
+#' @aliases get.assign.coxph
+#' @S3method get.assign coxph
+#' @author Jared P. Lander
+#' @param model Fitted model
+#' @param \dots Further arguments
+#' @return The assignment vector
+get.assign.coxph <- function(model, ...)
+{
+    theAssign <- model$assign
+    times <- sapply(theAssign, length)
+    rep(1:length(times), times)
+}
+
+
 #' @title matchCoefs
 #' @description Match coefficients to predictors
 #' @details Matches coefficients to predictors using information from model matrices
@@ -95,7 +112,8 @@ matchCoefs.default <- function(model, ...)
     #thePos <- model$assign
     thePos <- get.assign(model)
     # get intercept indicator
-    inter <- attr(theTerms, "intercept")
+    #inter <- attr(theTerms, "intercept")
+    inter <- checkForIntercept(model)
     # get coef names
     coefNames <- names(coef(model))
     # get pred names
@@ -150,6 +168,21 @@ matchCoefs.default <- function(model, ...)
 # factorMelt <- factorMelt[factorMelt$value == 1, ]
 # 
 # 
+
+checkForIntercept <- function(terms, ...)
+{
+    UseMethod("checkForIntercept")
+}
+
+checkForIntercept.default <- function(terms, ...)
+{
+    attr(terms, "intercept")
+}
+
+checkForIntercept.coxph <- function(terms, ...)
+{
+    return(0)
+}
 
 #' @title getCoefsFromPredictors
 #' 
