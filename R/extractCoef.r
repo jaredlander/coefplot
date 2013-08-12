@@ -231,7 +231,7 @@ extract.coef.coxph <- function(model, ...)
     # get coef and standard error
     #     print(theSumm)
     #     print(head(model))
-    info <- as.data.frame(theSumm$coefficients[, 2:3])
+    info <- as.data.frame(theSumm$coefficients[, c(1,3)])
     names(info) <- c("Value", "SE")
     # make a variable tracking the name
     info$Coefficient <- rownames(info)
