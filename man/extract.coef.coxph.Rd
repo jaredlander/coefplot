@@ -21,10 +21,10 @@
   variable names from a model.
 }
 \examples{
-require(ggplot2)
-data(diamonds)
-mod1 <- lm(price ~ carat + cut + x, data=diamonds)
-\dontrun{extract.coef(mod1)}
+require(survival)
+head(bladder)
+blad1 <- coxph(Surv(stop, event) ~ rx + number + size + enum, data=bladder)
+extract.coef(blad1)
 }
 \author{
   Nicholas Galasinao
