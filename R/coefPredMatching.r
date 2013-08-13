@@ -169,17 +169,61 @@ matchCoefs.default <- function(model, ...)
 # 
 # 
 
-checkForIntercept <- function(terms, ...)
+#' @title checkForIntercept
+#' @description Checks models for intercept terms
+#' @details Most models have a slot in the terms attribute for whether or not there is an intercept.  However, some models, like coxph, do not properly report.  So now this check will be done by object specific functions.
+#' @author Jared P. Lander
+#' @aliases checkForIntercept
+#' @param model Model to be checked for an intercept
+#' @param \dots Further Arguments
+#' @return TRUE or FALSE (actually 0 or 1)
+#' @seealso checkForIntercept.default, checkForIntercept.coxph
+#' @examples
+#' require(survival)
+#' head(bladder)
+#' blad1 <- coxph(Surv(stop, event) ~ rx + number + size + enum, data=bladder)
+#' 
+#' data("tips", package="reshape2")
+#' tips1 <- lm(tip ~ total_bill + sex, data=tips)
+#' tips2 <- lm(tip ~ total_bill + sex - 1, data=tips)
+#' checkForIntercept(tips1)
+#' checkForIntercept(tips2)
+#' 
+checkForIntercept <- function(model, ...)
 {
     UseMethod("checkForIntercept")
 }
 
-checkForIntercept.default <- function(terms, ...)
+
+#' @title checkForIntercept.default
+#' @description Default method
+#' @details Check for an intercept in most models
+#' @inheritParams checkForIntercept
+#' @return TRUE or FALSE (actually 0 or 1)
+#' @author Jared P. Lander
+#' @seealso checkForIntercept
+#' @aliases checkForIntercept.default
+#' @S3method checkForIntercept default
+#' @method checkForIntercept default
+#' 
+checkForIntercept.default <- function(model, ...)
 {
-    attr(terms, "intercept")
+    attr(model$terms, "intercept")
 }
 
-checkForIntercept.coxph <- function(terms, ...)
+
+#' @title checkForIntercept.coxph
+#' @description coxph method
+#' @details coxph models should never be considered to have an intercept even though the terms element always reports an intercept.  So this function just returns 0.
+#' @inheritParams checkForIntercept
+#' @return TRUE or FALSE (actually 0 or 1)
+#' @author Jared P. Lander
+#' @seealso checkForIntercept
+#' @aliases checkForIntercept.coxph
+#' @S3method checkForIntercept coxph
+#' @method checkForIntercept coxph
+#' 
+checkForIntercept.coxph <- function(model, ...)
 {
     return(0)
 }

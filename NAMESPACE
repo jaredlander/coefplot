@@ -1,4 +1,6 @@
 S3method(buildModelCI,default)
+S3method(checkForIntercept,coxph)
+S3method(checkForIntercept,default)
 S3method(coefplot,default)
 S3method(coefplot,glm)
 S3method(coefplot,lm)
