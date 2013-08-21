@@ -141,7 +141,7 @@ matchCoefs.default <- function(model, ...)
     factorMelt$Term <- as.character(factorMelt$Term)
     
     # only keep rows where there's a match
-    factorMelt <- factorMelt[factorMelt$value == 1, ]
+    factorMelt <- factorMelt[factorMelt$value >= 1, ]
     
     # again, bring in coefficient if needed
     if(inter == 1)
