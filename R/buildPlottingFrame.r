@@ -136,6 +136,39 @@ buildModelCI.default <- function(model, outerCI=2, innerCI=1, intercept=TRUE, nu
     return(modelCI)
 }
 
+buildModelCI.randomForest <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FALSE, 
+                                      sort=c("natural", "magnitude", "alphabetical"), predictors=NULL, strict=FALSE, coefficients=NULL, 
+                                      newNames=NULL,
+                                      decreasing=TRUE, name=NULL, interceptName="(Intercept)", ...)
+{
+    theImportance <- as.data.frame(importance(model))
+    theImportance$Coefficient <- rownames(theImportance)
+    return(theImportance)
+}
+
+#' @title newNamesIfNeeded
+#' @description Revaluing a vector
+#' @details takes in a vector.  If new values are provided, revalue the vector.  If not, return the original.
+#' @author Jared P. Lander
+#' @aliases newNamesIfNeeded
+#' @import plyr
+#' @param names The original vector
+#' @param newNames The new values for the vector
+#' @return A vector of names
+#' @examples
+#'
+#' names <- c("hockey", "football", "baseball")
+#' newNames <- c(hockey="ice hockey")
+#' newNamesIfNeeded(names, newNames)
+
+newNamesIfNeeded <- function(names, newNames)
+{
+    if(!is.null(newNames))
+    {
+        names <- revalue(x=names, replace=newNames, warn_missing=FALSE)
+    }
+    return(names)
+}
 
 # #' Melt the modelCI
 # #'
