@@ -1,3 +1,7 @@
+Version 1.2.1
+-----------------------------------------------------------------------------------------------------
+In mulitplot there is now an option to reverse the order of the legend so it matches the ordering in the plot.
+
 Version 1.2.0
 -----------------------------------------------------------------------------------------------------
 Major update.  The codebase has been refactored to run faster and be easily updated for improvements and adding new models.
