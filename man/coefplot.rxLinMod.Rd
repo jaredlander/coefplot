@@ -2,7 +2,7 @@
 \alias{coefplot.rxLinMod}
 \title{coefplot.rxLinMod}
 \usage{
-  \method{coefplot}{rxLinMod} (...)
+\method{coefplot}{rxLinMod}(...)
 }
 \arguments{
   \item{\dots}{All arguments are passed on to
@@ -10,21 +10,21 @@
   argument information.}
 }
 \value{
-  A ggplot object.  See \code{\link{coefplot.lm}} for more
-  information.
+A ggplot object.  See \code{\link{coefplot.lm}} for more
+information.
 }
 \description{
-  Dotplot for rxLinMod coefficients
+Dotplot for rxLinMod coefficients
 }
 \details{
-  A graphical display of the coefficients and standard
-  errors from a fitted rxLinMod model
+A graphical display of the coefficients and standard errors
+from a fitted rxLinMod model
 
-  \code{\link{coefplot}} is the S3 generic method for
-  plotting the coefficients from a fitted model.
+\code{\link{coefplot}} is the S3 generic method for
+plotting the coefficients from a fitted model.
 
-  For more information on this function and it's arguments
-  see \code{\link{coefplot.lm}}
+For more information on this function and it's arguments
+see \code{\link{coefplot.lm}}
 }
 \examples{
 \dontrun{
@@ -34,6 +34,6 @@ coefplot(mod3)
 }
 }
 \author{
-  Jared P. Lander www.jaredlander.com
+Jared P. Lander www.jaredlander.com
 }
 

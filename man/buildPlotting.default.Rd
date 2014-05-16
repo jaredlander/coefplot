@@ -2,17 +2,14 @@
 \alias{buildPlotting.default}
 \title{Coefplot plotting}
 \usage{
-  buildPlotting.default(modelCI,
-    title = "Coefficient Plot", xlab = "Value",
-    ylab = "Coefficient", lwdInner = 1, lwdOuter = 0,
-    pointSize = 3, color = "blue", cex = 0.8,
-    textAngle = 0, numberAngle = 0, shape = 16,
-    linetype = 1, outerCI = 2, innerCI = 1, multi = FALSE,
-    zeroColor = "grey", zeroLWD = 1, zeroType = 2,
-    numeric = FALSE, fillColor = "grey", alpha = 1/2,
-    horizontal = FALSE, facet = FALSE, scales = "free",
-    value = "Value", coefficient = "Coefficient",
-    errorHeight = 0, dodgeHeight = 1)
+buildPlotting.default(modelCI, title = "Coefficient Plot", xlab = "Value",
+  ylab = "Coefficient", lwdInner = 1, lwdOuter = 0, pointSize = 3,
+  color = "blue", cex = 0.8, textAngle = 0, numberAngle = 0,
+  shape = 16, linetype = 1, outerCI = 2, innerCI = 1, multi = FALSE,
+  zeroColor = "grey", zeroLWD = 1, zeroType = 2, numeric = FALSE,
+  fillColor = "grey", alpha = 1/2, horizontal = FALSE, facet = FALSE,
+  scales = "free", value = "Value", coefficient = "Coefficient",
+  errorHeight = 0, dodgeHeight = 1)
 }
 \arguments{
   \item{modelCI}{An object created by
@@ -97,14 +94,14 @@
   \item{dodgeHeight}{Amount of vertical dodging}
 }
 \value{
-  a ggplot graph object
+a ggplot graph object
 }
 \description{
-  Build ggplot object for coefplot
+Build ggplot object for coefplot
 }
 \details{
-  This function builds up the ggplot layer by layer for
-  \code{\link{coefplot.lm}}
+This function builds up the ggplot layer by layer for
+\code{\link{coefplot.lm}}
 }
 \examples{
 data(diamonds)
@@ -114,10 +111,10 @@ coefplot:::buildPlotting.default(theCI)
 coefplot(model1)
 }
 \author{
-  Jared P. Lander www.jaredlander.com
+Jared P. Lander www.jaredlander.com
 }
 \seealso{
-  \code{\link{coefplot.default}} \code{\link{coefplot}}
-  \code{\link{multiplot}}
+\code{\link{coefplot.default}} \code{\link{coefplot}}
+\code{\link{multiplot}}
 }
 

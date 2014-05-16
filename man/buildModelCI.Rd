@@ -2,7 +2,7 @@
 \alias{buildModelCI}
 \title{buildModelCI}
 \usage{
-  buildModelCI(model, ...)
+buildModelCI(model, ...)
 }
 \arguments{
   \item{model}{A Fitted model such as from lm, glm}
@@ -10,15 +10,15 @@
   \item{\dots}{Arguments passed on onto other methods}
 }
 \value{
-  A \code{\link{data.frame}} listing coeffcients and
-  confidence bands.
+A \code{\link{data.frame}} listing coeffcients and
+confidence bands.
 }
 \description{
-  Construct Confidence Interval Values
+Construct Confidence Interval Values
 }
 \details{
-  Takes a model and builds a data.frame holding the
-  coefficient value and the confidence interval values.
+Takes a model and builds a data.frame holding the
+coefficient value and the confidence interval values.
 }
 \examples{
 data(diamonds)
@@ -27,9 +27,9 @@ coefplot:::buildModelCI(model1)
 coefplot(model1)
 }
 \author{
-  Jared P. Lander
+Jared P. Lander
 }
 \seealso{
-  \code{\link{coefplot}} \code{\link{multiplot}}
+\code{\link{coefplot}} \code{\link{multiplot}}
 }
 

@@ -2,7 +2,7 @@
 \alias{matchCoefs}
 \title{matchCoefs}
 \usage{
-  matchCoefs(model, ...)
+matchCoefs(model, ...)
 }
 \arguments{
   \item{model}{Fitted model}
@@ -10,14 +10,14 @@
   \item{\dots}{Further arguments}
 }
 \value{
-  a data.frame matching predictors to coefficients
+a data.frame matching predictors to coefficients
 }
 \description{
-  Match coefficients to predictors
+Match coefficients to predictors
 }
 \details{
-  Matches coefficients to predictors using information from
-  model matrices
+Matches coefficients to predictors using information from
+model matrices
 }
 \examples{
 require(reshape2)
@@ -35,6 +35,6 @@ coefplot:::matchCoefs(mod4)
 coefplot:::matchCoefs(mod5)
 }
 \author{
-  Jared P. Lander
+Jared P. Lander
 }
 

@@ -2,20 +2,16 @@
 \alias{coefplot.default}
 \title{coefplot.default}
 \usage{
-  \method{coefplot}{default} (model,
-    title = "Coefficient Plot", xlab = "Value",
-    ylab = "Coefficient", innerCI = 1, outerCI = 2,
-    lwdInner = 1, lwdOuter = 0, pointSize = 3,
-    color = "blue", shape = 16, cex = 0.8, textAngle = 0,
-    numberAngle = 0, zeroColor = "grey", zeroLWD = 1,
-    zeroType = 2, facet = FALSE, scales = "free",
-    sort = c("natural", "magnitude", "alphabetical"),
-    decreasing = FALSE, numeric = FALSE,
-    fillColor = "grey", alpha = 1/2, horizontal = FALSE,
-    factors = NULL, only = NULL, shorten = TRUE,
-    intercept = TRUE, interceptName = "(Intercept)",
-    coefficients = NULL, predictors = NULL, strict = FALSE,
-    newNames = NULL, plot = TRUE, ...)
+\method{coefplot}{default}(model, title = "Coefficient Plot",
+  xlab = "Value", ylab = "Coefficient", innerCI = 1, outerCI = 2,
+  lwdInner = 1, lwdOuter = 0, pointSize = 3, color = "blue",
+  shape = 16, cex = 0.8, textAngle = 0, numberAngle = 0,
+  zeroColor = "grey", zeroLWD = 1, zeroType = 2, facet = FALSE,
+  scales = "free", sort = c("natural", "magnitude", "alphabetical"),
+  decreasing = FALSE, numeric = FALSE, fillColor = "grey", alpha = 1/2,
+  horizontal = FALSE, factors = NULL, only = NULL, shorten = TRUE,
+  intercept = TRUE, interceptName = "(Intercept)", coefficients = NULL,
+  predictors = NULL, strict = FALSE, newNames = NULL, plot = TRUE, ...)
 }
 \arguments{
   \item{model}{The model to plot.}
@@ -133,23 +129,23 @@
   \item{\dots}{Arguments passed on to other functions}
 }
 \value{
-  If \code{plot} is \code{TRUE} then a \code{\link{ggplot}}
-  object is returned.  Otherwise a \code{\link{data.frame}}
-  listing coeffcients and confidence bands is returned.
+If \code{plot} is \code{TRUE} then a \code{\link{ggplot}}
+object is returned.  Otherwise a \code{\link{data.frame}}
+listing coeffcients and confidence bands is returned.
 }
 \description{
-  Dotplot for coefficients
+Dotplot for coefficients
 }
 \details{
-  A graphical display of the coefficients and standard
-  errors from a fitted model
+A graphical display of the coefficients and standard errors
+from a fitted model
 
-  \code{\link{coefplot}} is the S3 generic method for
-  plotting the coefficients from a fitted model.
+\code{\link{coefplot}} is the S3 generic method for
+plotting the coefficients from a fitted model.
 
-  This method also plots coefficients from glm (using
-  coefplot.lm) and rxLinMod models (through a redirection
-  from coefplot.rxLinMod)
+This method also plots coefficients from glm (using
+coefplot.lm) and rxLinMod models (through a redirection
+from coefplot.rxLinMod)
 }
 \examples{
 data(diamonds)
@@ -163,10 +159,10 @@ coefplot(model1, predictors="color", strict=TRUE)
 coefplot(model1, coefficients=c("(Intercept)", "color.Q"))
 }
 \author{
-  Jared P. Lander
+Jared P. Lander
 }
 \seealso{
-  \code{\link{lm}} \code{\link{glm}} \code{\link{ggplot}}
-  \code{\link{coefplot}} \code{\link{plotcoef}}
+\code{\link{lm}} \code{\link{glm}} \code{\link{ggplot}}
+\code{\link{coefplot}} \code{\link{plotcoef}}
 }
 

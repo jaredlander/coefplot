@@ -2,8 +2,8 @@
 \alias{getCoefsFromPredictors.default}
 \title{getCoefsFromPredictors.default}
 \usage{
-  getCoefsFromPredictors.default(model, predictors = NULL,
-    strict = FALSE, ...)
+\method{getCoefsFromPredictors}{default}(model, predictors = NULL,
+  strict = FALSE, ...)
 }
 \arguments{
   \item{model}{A fitted model}
@@ -19,18 +19,18 @@
   \item{\dots}{further arguments}
 }
 \value{
-  A character vector of coefficients listing the
-  coefficients that match the predictor
+A character vector of coefficients listing the coefficients
+that match the predictor
 }
 \description{
-  Default function (lm, glm) for matching coefficients with
-  predictors
+Default function (lm, glm) for matching coefficients with
+predictors
 }
 \details{
-  The user specifies predictors whose coefficients should
-  be included in the coefplot.
+The user specifies predictors whose coefficients should be
+included in the coefplot.
 }
 \author{
-  Jared P. Lander
+Jared P. Lander
 }
 

@@ -2,8 +2,7 @@
 \alias{collidev}
 \title{collidev}
 \usage{
-  collidev(data, height = NULL, name, strategy,
-    check.height = TRUE)
+collidev(data, height = NULL, name, strategy, check.height = TRUE)
 }
 \arguments{
   \item{data}{data}
@@ -17,23 +16,23 @@
   \item{check.height}{Refer to ggplot2}
 }
 \value{
-  Not sure
+Not sure
 }
 \description{
-  Vertical collision checking
+Vertical collision checking
 }
 \details{
-  A hacky adaptation of ggplot's collide function to be
-  used for vertical collisions.  No warranties on this
-  working except that it looks good for now.
+A hacky adaptation of ggplot's collide function to be used
+for vertical collisions.  No warranties on this working
+except that it looks good for now.
 
-  The adaptation switch x's to y's and y's to x's and width
-  to height
+The adaptation switch x's to y's and y's to x's and width
+to height
 }
 \examples{
 # none here
 }
 \author{
-  Jared P. Lander
+Jared P. Lander
 }
 

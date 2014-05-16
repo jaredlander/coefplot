@@ -2,23 +2,25 @@
 \alias{extract.coef.rxLogit}
 \title{extract.coef.rxLogit}
 \usage{
-  \method{extract.coef}{rxLogit} (model, ...)
+\method{extract.coef}{rxLogit}(model, ...)
 }
 \arguments{
   \item{\dots}{Further arguments}
 
   \item{model}{Model object to extract information from.}
+
+  \item{...}{Further arguments}
 }
 \value{
-  A \code{\link{data.frame}} containing the coefficient,
-  the standard error and the variable name.
+A \code{\link{data.frame}} containing the coefficient, the
+standard error and the variable name.
 }
 \description{
-  Extract Coefficient Information from rxLogit Models
+Extract Coefficient Information from rxLogit Models
 }
 \details{
-  Gets the coefficient values and standard errors, and
-  variable names from an rxLogit model.
+Gets the coefficient values and standard errors, and
+variable names from an rxLogit model.
 }
 \examples{
 \dontrun{
@@ -29,6 +31,6 @@ extract.coef(mod6)
 }
 }
 \author{
-  Jared P. Lander
+Jared P. Lander
 }
 

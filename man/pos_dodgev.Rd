@@ -2,7 +2,7 @@
 \alias{pos_dodgev}
 \title{pos_dodgev}
 \usage{
-  pos_dodgev(df, height)
+pos_dodgev(df, height)
 }
 \arguments{
   \item{df}{Refer to ggplot2}
@@ -10,23 +10,23 @@
   \item{height}{Refer to ggplot2}
 }
 \value{
-  Not sure
+Not sure
 }
 \description{
-  Vertical dodging internal
+Vertical dodging internal
 }
 \details{
-  A hacky adaptation of ggplot's pos_dodge function to be
-  used for vertical collisions.  No warranties on this
-  working except that it looks good for now.
+A hacky adaptation of ggplot's pos_dodge function to be
+used for vertical collisions.  No warranties on this
+working except that it looks good for now.
 
-  The adaptation switch x's to y's and y's to x's and width
-  to height
+The adaptation switch x's to y's and y's to x's and width
+to height
 }
 \examples{
 # none here
 }
 \author{
-  Jared P. Lander
+Jared P. Lander
 }
 

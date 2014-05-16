@@ -2,23 +2,25 @@
 \alias{extract.coef.rxGlm}
 \title{extract.coef.rxGlm}
 \usage{
-  \method{extract.coef}{rxGlm} (model, ...)
+\method{extract.coef}{rxGlm}(model, ...)
 }
 \arguments{
   \item{\dots}{Further arguments}
 
   \item{model}{Model object to extract information from.}
+
+  \item{...}{Further arguments}
 }
 \value{
-  A \code{\link{data.frame}} containing the coefficient,
-  the standard error and the variable name.
+A \code{\link{data.frame}} containing the coefficient, the
+standard error and the variable name.
 }
 \description{
-  Extract Coefficient Information from rxGlm Models
+Extract Coefficient Information from rxGlm Models
 }
 \details{
-  Gets the coefficient values and standard errors, and
-  variable names from an rxGlm model.
+Gets the coefficient values and standard errors, and
+variable names from an rxGlm model.
 }
 \examples{
 \dontrun{
@@ -31,6 +33,6 @@ extract.coef(mod5)
 }
 }
 \author{
-  Jared P. Lander
+Jared P. Lander
 }
 

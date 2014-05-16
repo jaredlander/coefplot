@@ -2,12 +2,11 @@
 \alias{buildModelCI.default}
 \title{buildModelCI.default}
 \usage{
-  \method{buildModelCI}{default} (model, outerCI = 2,
-    innerCI = 1, intercept = TRUE, numeric = FALSE,
-    sort = c("natural", "magnitude", "alphabetical"),
-    predictors = NULL, strict = FALSE, coefficients = NULL,
-    newNames = NULL, decreasing = TRUE, name = NULL,
-    interceptName = "(Intercept)", ...)
+\method{buildModelCI}{default}(model, outerCI = 2, innerCI = 1,
+  intercept = TRUE, numeric = FALSE, sort = c("natural", "magnitude",
+  "alphabetical"), predictors = NULL, strict = FALSE, coefficients = NULL,
+  newNames = NULL, decreasing = TRUE, name = NULL,
+  interceptName = "(Intercept)", ...)
 }
 \arguments{
   \item{model}{A Fitted model such as from lm, glm}
@@ -60,15 +59,15 @@
   be used}
 }
 \value{
-  A \code{\link{data.frame}} listing coeffcients and
-  confidence bands.
+A \code{\link{data.frame}} listing coeffcients and
+confidence bands.
 }
 \description{
-  Construct Confidence Interval Values
+Construct Confidence Interval Values
 }
 \details{
-  Takes a model and builds a data.frame holding the
-  coefficient value and the confidence interval values.
+Takes a model and builds a data.frame holding the
+coefficient value and the confidence interval values.
 }
 \examples{
 data(diamonds)
@@ -77,9 +76,9 @@ coefplot:::buildModelCI(model1)
 coefplot(model1)
 }
 \author{
-  Jared P. Lander
+Jared P. Lander
 }
 \seealso{
-  \code{\link{coefplot}} \code{\link{multiplot}}
+\code{\link{coefplot}} \code{\link{multiplot}}
 }
 

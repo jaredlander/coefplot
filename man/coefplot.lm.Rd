@@ -2,7 +2,7 @@
 \alias{coefplot.lm}
 \title{coefplot.lm}
 \usage{
-  \method{coefplot}{lm} (...)
+\method{coefplot}{lm}(...)
 }
 \arguments{
   \item{\dots}{All arguments are passed on to
@@ -10,27 +10,27 @@
   for argument information.}
 }
 \value{
-  A ggplot object.  See \code{\link{coefplot.lm}} for more
-  information.
+A ggplot object.  See \code{\link{coefplot.lm}} for more
+information.
 }
 \description{
-  Dotplot for lm coefficients
+Dotplot for lm coefficients
 }
 \details{
-  A graphical display of the coefficients and standard
-  errors from a fitted lm model
+A graphical display of the coefficients and standard errors
+from a fitted lm model
 
-  \code{\link{coefplot}} is the S3 generic method for
-  plotting the coefficients from a fitted model.
+\code{\link{coefplot}} is the S3 generic method for
+plotting the coefficients from a fitted model.
 
-  For more information on this function and it's arguments
-  see \code{\link{coefplot.default}}
+For more information on this function and it's arguments
+see \code{\link{coefplot.default}}
 }
 \examples{
 model1 <- lm(price ~ carat + cut*color, data=diamonds)
 coefplot(model1)
 }
 \author{
-  Jared P. Lander
+Jared P. Lander
 }
 

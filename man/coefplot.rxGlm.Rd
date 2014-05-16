@@ -2,7 +2,7 @@
 \alias{coefplot.rxGlm}
 \title{coefplot.rxGlm}
 \usage{
-  \method{coefplot}{rxGlm} (...)
+\method{coefplot}{rxGlm}(...)
 }
 \arguments{
   \item{\dots}{All arguments are passed on to
@@ -10,21 +10,21 @@
   for argument information.}
 }
 \value{
-  A ggplot object.  See \code{\link{coefplot.lm}} for more
-  information.
+A ggplot object.  See \code{\link{coefplot.lm}} for more
+information.
 }
 \description{
-  Dotplot for rxGlm coefficients
+Dotplot for rxGlm coefficients
 }
 \details{
-  A graphical display of the coefficients and standard
-  errors from a fitted rxGlm model
+A graphical display of the coefficients and standard errors
+from a fitted rxGlm model
 
-  \code{\link{coefplot}} is the S3 generic method for
-  plotting the coefficients from a fitted model.
+\code{\link{coefplot}} is the S3 generic method for
+plotting the coefficients from a fitted model.
 
-  For more information on this function and it's arguments
-  see \code{\link{coefplot.default}}
+For more information on this function and it's arguments
+see \code{\link{coefplot.default}}
 }
 \examples{
 \dontrun{
@@ -35,6 +35,6 @@ coefplot(mod5)
 }
 }
 \author{
-  Jared P. Lander
+Jared P. Lander
 }
 

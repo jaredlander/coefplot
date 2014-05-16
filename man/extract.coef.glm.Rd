@@ -2,23 +2,25 @@
 \alias{extract.coef.glm}
 \title{extract.coef.glm}
 \usage{
-  \method{extract.coef}{glm} (model, ...)
+\method{extract.coef}{glm}(model, ...)
 }
 \arguments{
   \item{\dots}{Further arguments}
 
   \item{model}{Model object to extract information from.}
+
+  \item{...}{Further arguments}
 }
 \value{
-  A \code{\link{data.frame}} containing the coefficient,
-  the standard error and the variable name.
+A \code{\link{data.frame}} containing the coefficient, the
+standard error and the variable name.
 }
 \description{
-  Extract Coefficient Information from glm Models
+Extract Coefficient Information from glm Models
 }
 \details{
-  Gets the coefficient values and standard errors, and
-  variable names from a glm model.
+Gets the coefficient values and standard errors, and
+variable names from a glm model.
 }
 \examples{
 require(ggplot2)
@@ -27,6 +29,6 @@ mod2 <- glm(price > 10000 ~ carat + cut + x, data=diamonds, family=binomial(link
 extract.coef(mod2)
 }
 \author{
-  Jared P. Lander
+Jared P. Lander
 }
 

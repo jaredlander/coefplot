@@ -2,7 +2,7 @@
 \alias{doRegex}
 \title{doRegex}
 \usage{
-  doRegex(x, matchAgainst, pattern = "(^| )\%s($|,|=)")
+doRegex(x, matchAgainst, pattern = "(^| )\%s($|,|=)")
 }
 \arguments{
   \item{x}{Root pattern to search for}
@@ -12,16 +12,16 @@
   \item{pattern}{Regex pattern to build x into}
 }
 \value{
-  A list of indices of matchAgainst that is matched
+A list of indices of matchAgainst that is matched
 }
 \description{
-  Helper function for matching coefficients
+Helper function for matching coefficients
 }
 \details{
-  Only used by \code{\link{getCoefsFromPredictorsRevo}} for
-  finding matches between predictors and coefficients
+Only used by \code{\link{getCoefsFromPredictorsRevo}} for
+finding matches between predictors and coefficients
 }
 \author{
-  Jared P. Lander
+Jared P. Lander
 }
 

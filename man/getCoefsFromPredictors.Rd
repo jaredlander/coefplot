@@ -2,7 +2,7 @@
 \alias{getCoefsFromPredictors}
 \title{getCoefsFromPredictors}
 \usage{
-  getCoefsFromPredictors(model, predictors, ...)
+getCoefsFromPredictors(model, predictors, ...)
 }
 \arguments{
   \item{model}{A fitted model}
@@ -13,18 +13,18 @@
   \item{\dots}{further arguments}
 }
 \value{
-  A character vector of coefficients listing the
-  coefficients that match the predictor
+A character vector of coefficients listing the coefficients
+that match the predictor
 }
 \description{
-  Generic function for finding which coefficients go with
-  which predictors
+Generic function for finding which coefficients go with
+which predictors
 }
 \details{
-  The user specifies predictors whose coefficients should
-  be included in the coefplot.
+The user specifies predictors whose coefficients should be
+included in the coefplot.
 }
 \author{
-  Jared P. Lander
+Jared P. Lander
 }
 

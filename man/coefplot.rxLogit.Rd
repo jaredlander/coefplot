@@ -2,7 +2,7 @@
 \alias{coefplot.rxLogit}
 \title{coefplot.rxLogit}
 \usage{
-  \method{coefplot}{rxLogit} (...)
+\method{coefplot}{rxLogit}(...)
 }
 \arguments{
   \item{\dots}{All arguments are passed on to
@@ -10,21 +10,21 @@
   argument information.}
 }
 \value{
-  A ggplot object.  See \code{\link{coefplot.lm}} for more
-  information.
+A ggplot object.  See \code{\link{coefplot.lm}} for more
+information.
 }
 \description{
-  Dotplot for rxLogit coefficients
+Dotplot for rxLogit coefficients
 }
 \details{
-  A graphical display of the coefficients and standard
-  errors from a fitted rxLogit model
+A graphical display of the coefficients and standard errors
+from a fitted rxLogit model
 
-  \code{\link{coefplot}} is the S3 generic method for
-  plotting the coefficients from a fitted model.
+\code{\link{coefplot}} is the S3 generic method for
+plotting the coefficients from a fitted model.
 
-  For more information on this function and it's arguments
-  see \code{\link{coefplot.lm}}
+For more information on this function and it's arguments
+see \code{\link{coefplot.lm}}
 }
 \examples{
 \dontrun{
@@ -34,6 +34,6 @@ coefplot(mod6)
 }
 }
 \author{
-  Jared P. Lander www.jaredlander.com
+Jared P. Lander www.jaredlander.com
 }
 

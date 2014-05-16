@@ -2,8 +2,8 @@
 \alias{getCoefsFromPredictors.rxLogit}
 \title{getCoefsFromPredictors.rxLogit}
 \usage{
-  getCoefsFromPredictors.rxLogit(model, predictors = NULL,
-    strict = FALSE, ...)
+\method{getCoefsFromPredictors}{rxLogit}(model, predictors = NULL,
+  strict = FALSE, ...)
 }
 \arguments{
   \item{model}{A fitted model}
@@ -18,18 +18,18 @@
   \item{\dots}{further arguments}
 }
 \value{
-  A character vector of coefficients listing the
-  coefficients that match the predictor
+A character vector of coefficients listing the coefficients
+that match the predictor
 }
 \description{
-  Function for matching coefficients with predictors for
-  rxLogit
+Function for matching coefficients with predictors for
+rxLogit
 }
 \details{
-  The user specifies predictors whose coefficients should
-  be included in the coefplot.
+The user specifies predictors whose coefficients should be
+included in the coefplot.
 }
 \author{
-  Jared P. Lander
+Jared P. Lander
 }
 

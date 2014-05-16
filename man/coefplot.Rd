@@ -3,9 +3,9 @@
 \alias{coefplot}
 \alias{coefplot-package}
 \alias{plotcoef}
-\title{Dotplot for model coefficients}
+\title{Plotting Model Coefficients}
 \usage{
-  coefplot(model, ...)
+coefplot(model, ...)
 }
 \arguments{
   \item{model}{The fitted model with coefficients to be
@@ -15,31 +15,31 @@
   details}
 }
 \value{
-  A ggplot2 object or data.frame.  See details in
-  \code{\link{coefplot.lm}} for more information
+A ggplot2 object or data.frame.  See details in
+\code{\link{coefplot.lm}} for more information
 }
 \description{
-  A graphical display of the coefficients and standard
-  errors from a fitted model
+Provides an S3 generic method for plotting coefficients
+from a model so it can be extended to other model types.
 
-  Provides an S3 generic method for plotting coefficients
-  from a model so it can be extended to other model types.
+A graphical display of the coefficients and standard errors
+from a fitted model
 }
 \details{
-  \code{coefplot} is the S3 generic method for plotting the
-  coefficients from a fitted model.
+Currently, methods are available for lm, glm and rxLinMod
+objects.
 
-  This can be extended with new methods for other types of
-  models not currently available.
+\code{coefplot} is the S3 generic method for plotting the
+coefficients from a fitted model.
 
-  A future iteration of \code{coefplot.glm} will also allow
-  for plotting the coefficients on the transformed scale.
+This can be extended with new methods for other types of
+models not currently available.
 
-  See \code{\link{coefplot.lm}} for specific documentation
-  and the return value.
+A future iteration of \code{coefplot.glm} will also allow
+for plotting the coefficients on the transformed scale.
 
-  Currently, methods are available for lm, glm and rxLinMod
-  objects.
+See \code{\link{coefplot.lm}} for specific documentation
+and the return value.
 }
 \examples{
 data(diamonds)
@@ -62,10 +62,10 @@ coefplot(model1, predictors=c("(Intercept)", "carat"),
 newNames=c(carat="Size", "(Intercept)"="Constant"))
 }
 \author{
-  Jared P. Lander
+Jared P. Lander
 }
 \seealso{
-  \code{\link{coefplot.lm}}
+\code{\link{coefplot.lm}}
 }
 \keyword{coefficient}
 \keyword{coefficients}

@@ -2,7 +2,7 @@
 \alias{get.assign.glm}
 \title{get.assign.glm}
 \usage{
-  get.assign.glm(model, ...)
+\method{get.assign}{glm}(model, ...)
 }
 \arguments{
   \item{model}{Fitted model}
@@ -10,15 +10,15 @@
   \item{\dots}{Further arguments}
 }
 \value{
-  The assignment vector
+The assignment vector
 }
 \description{
-  The assignment vector for a glm model
+The assignment vector for a glm model
 }
 \details{
-  Gets relative positions of predictors
+Gets relative positions of predictors
 }
 \author{
-  Jared P. Lander
+Jared P. Lander
 }
 
