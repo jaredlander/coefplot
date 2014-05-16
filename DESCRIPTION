@@ -6,7 +6,7 @@ Date: 2013-05-08
 Author: Jared P. Lander
 Maintainer: Jared P. Lander <packages@jaredlander.com>
 Description: Plots the coefficients from a model object
-License: BSD
+License: BSD_3_clause + file LICENSE
 LazyLoad: yes
 Depends:
     ggplot2 (>= 0.9.3)
