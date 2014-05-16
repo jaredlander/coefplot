@@ -2,25 +2,21 @@
 \alias{multiplot}
 \title{Plot multiple coefplots}
 \usage{
-  multiplot(..., title = "Coefficient Plot",
-    xlab = "Value", ylab = "Coefficient", innerCI = 1,
-    outerCI = 2, lwdInner = 1, lwdOuter = 0, pointSize = 3,
-    dodgeHeight = 1, color = "blue", shape = 16,
-    linetype = 1, cex = 0.8, textAngle = 0,
-    numberAngle = 90, zeroColor = "grey", zeroLWD = 1,
-    zeroType = 2, single = TRUE, scales = "fixed",
-    ncol = length(unique(modelCI$Model)),
-    sort = c("natural", "normal", "magnitude", "size", "alphabetical"),
-    decreasing = FALSE, names = NULL, numeric = FALSE,
-    fillColor = "grey", alpha = 1/2, horizontal = FALSE,
-    factors = NULL, only = NULL, shorten = TRUE,
-    intercept = TRUE, interceptName = "(Intercept)",
-    coefficients = NULL, predictors = NULL, strict = FALSE,
-    newNames = NULL, plot = TRUE, drop = FALSE,
-    by = c("Coefficient", "Model"), plot.shapes = FALSE,
-    plot.linetypes = FALSE,
-    legend.position = c("right", "left", "bottom", "top"),
-    secret.weapon = FALSE)
+multiplot(..., title = "Coefficient Plot", xlab = "Value",
+  ylab = "Coefficient", innerCI = 1, outerCI = 2, lwdInner = 1,
+  lwdOuter = 0, pointSize = 3, dodgeHeight = 1, color = "blue",
+  shape = 16, linetype = 1, cex = 0.8, textAngle = 0,
+  numberAngle = 90, zeroColor = "grey", zeroLWD = 1, zeroType = 2,
+  single = TRUE, scales = "fixed", ncol = length(unique(modelCI$Model)),
+  sort = c("natural", "normal", "magnitude", "size", "alphabetical"),
+  decreasing = FALSE, names = NULL, numeric = FALSE, fillColor = "grey",
+  alpha = 1/2, horizontal = FALSE, factors = NULL, only = NULL,
+  shorten = TRUE, intercept = TRUE, interceptName = "(Intercept)",
+  coefficients = NULL, predictors = NULL, strict = FALSE,
+  newNames = NULL, plot = TRUE, drop = FALSE, by = c("Coefficient",
+  "Model"), plot.shapes = FALSE, plot.linetypes = FALSE,
+  legend.position = c("right", "left", "bottom", "top"),
+  secret.weapon = FALSE, legend.reverse = FALSE)
 }
 \arguments{
   \item{\dots}{Models to be plotted}
@@ -165,27 +161,30 @@
   \item{secret.weapon}{If this is \code{TRUE} and exactly
   one coefficient is listed in coefficients then Andy
   Gelman's secret weapon is plotted.}
+
+  \item{legend.reverse}{Setting to reverse the legend in a
+  multiplot so that it matches the order they are drawn in
+  the plot}
 }
 \value{
-  A ggplot object
+A ggplot object
 }
 \description{
-  Plot the coeffcients from multiple models
+Plot the coeffcients from multiple models
 }
 \details{
-  Plots a graph similar to \code{\link{coefplot}} but for
-  multiple plots at once.
+Plots a graph similar to \code{\link{coefplot}} but for
+multiple plots at once.
 
-  For now, if \code{names} is provided the plots will
-  appear in alphabetical order of the names.  This wil be
-  adjusted in future iterations.  When setting \code{by} to
-  "Model" and specifying exactly one variable in
-  \code{variables} that one coefficient will be plotted
-  repeatedly with the axis labeled by model.  This is Andy
-  Gelman's secret weapon.
+For now, if \code{names} is provided the plots will appear
+in alphabetical order of the names.  This wil be adjusted
+in future iterations.  When setting \code{by} to "Model"
+and specifying exactly one variable in \code{variables}
+that one coefficient will be plotted repeatedly with the
+axis labeled by model.  This is Andy Gelman's secret
+weapon.
 }
 \examples{
-\dontrun{
 data(diamonds)
 model1 <- lm(price ~ carat + cut, data=diamonds)
 model2 <- lm(price ~ carat + cut + color, data=diamonds)
@@ -210,10 +209,8 @@ plot.shapes=FALSE, plot.linetypes=TRUE, legend.position="bottom")
 multiplot(mod1, mod2, mod3, mod7, coefficients="total_bill", secret.weapon=TRUE)
 # horizontal secret weapon
 multiplot(mod1, mod2, mod3, mod7, coefficients="total_bill", by="Model", horizontal=FALSE)
-
-}
 }
 \seealso{
-  \code{link{coefplot}}
+\code{link{coefplot}}
 }
 

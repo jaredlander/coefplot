@@ -55,6 +55,7 @@
 #' @param plot.linetypes If \code{TRUE} lines will have different shapes for different models
 #' @param legend.position position of legend, one of "left", "right", "bottom", "top"
 #' @param secret.weapon If this is \code{TRUE} and exactly one coefficient is listed in coefficients then Andy Gelman's secret weapon is plotted.
+#' @param legend.reverse Setting to reverse the legend in a multiplot so that it matches the order they are drawn in the plot
 #' @return A ggplot object
 #' @examples
 #'
@@ -99,7 +100,7 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
                       coefficients=NULL, predictors=NULL, strict=FALSE, newNames=NULL, plot=TRUE, drop=FALSE,
                       by=c("Coefficient", "Model"), plot.shapes=FALSE, plot.linetypes=FALSE,
                       legend.position=c("right", "left", "bottom", "top"),
-                      secret.weapon=FALSE
+                      secret.weapon=FALSE, legend.reverse=FALSE
                       )
 {
     ## if ... is already a list just grab the dots, otherwise force it into a list
@@ -194,6 +195,8 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
         return(modelCI)
     }
 
+    legendLabels <- if(legend.reverse){ rev(unique(modelCI$Model)) } else{ unique(modelCI$Model) }
+
     p <- buildPlotting.default(modelCI=modelCI, 
                         #modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
                        title=title, xlab=xlab, ylab=ylab,
@@ -205,7 +208,7 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
                                value="Value", coefficient=by,
                        horizontal=horizontal, facet=FALSE, scales="fixed")
     
-    theColorScale <- list("Coefficient"=scale_colour_discrete("Model"), 
+    theColorScale <- list("Coefficient"=scale_colour_discrete("Model", breaks=legendLabels), 
                           "Model"=scale_color_manual(values=rep(color, length(unique(modelCI$Model))), guide=FALSE))
     
     theShapeScale <- list("NoShapes"=scale_shape_manual(values=rep(shape, length(unique(modelCI$Model))), guide=FALSE),
