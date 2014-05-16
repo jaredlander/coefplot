@@ -16,14 +16,5 @@ Imports:
     useful,
     scales,
     proto
-Collate:
-    'coefplot.r'
-    'coefplot-package.r'
-    'multiplot.r'
-    'extractCoef.r'
-    'buildPlottingFrame.r'
-    'buildPlot.r'
-    'dodging.r'
-    'coefPredMatching.r'
 ByteCompile: TRUE
 Packaged: 2013-03-22 05:16:05 UTC; Jared
