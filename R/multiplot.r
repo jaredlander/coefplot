@@ -53,7 +53,7 @@
 #' @param by If "Coefficient" then anormal multiplot is plotted, if "Model" then the coefficients are plotted along the axis with one for each model.  If plotting by model only one coefficient at a time can be selected.  This is called the secret weapon by Andy Gelman.
 #' @param plot.shapes If \code{TRUE} points will have different shapes for different models
 #' @param plot.linetypes If \code{TRUE} lines will have different shapes for different models
-#' @param legend.position position of legend, one of "left", "right", "bottom", "top"
+#' @param legend.position position of legend, one of "left", "right", "bottom", "top", "none"
 #' @param secret.weapon If this is \code{TRUE} and exactly one coefficient is listed in coefficients then Andy Gelman's secret weapon is plotted.
 #' @param legend.reverse Setting to reverse the legend in a multiplot so that it matches the order they are drawn in the plot
 #' @return A ggplot object
@@ -99,7 +99,7 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
 						intercept=TRUE, interceptName="(Intercept)", 
                       coefficients=NULL, predictors=NULL, strict=FALSE, newNames=NULL, plot=TRUE, drop=FALSE,
                       by=c("Coefficient", "Model"), plot.shapes=FALSE, plot.linetypes=FALSE,
-                      legend.position=c("right", "left", "bottom", "top"),
+                      legend.position=c("right", "left", "bottom", "top", "none"),
                       secret.weapon=FALSE, legend.reverse=FALSE
                       )
 {
