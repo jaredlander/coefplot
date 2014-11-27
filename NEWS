@@ -1,3 +1,7 @@
+Version 1.2.2
+-----------------------------------------------------------------------------------------------------
+Support for glmnet models.  Added tests.
+
 Version 1.2.1
 -----------------------------------------------------------------------------------------------------
 In mulitplot there is now an option to reverse the order of the legend so it matches the ordering in the plot.
