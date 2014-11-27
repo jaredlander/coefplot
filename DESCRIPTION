@@ -16,7 +16,6 @@ Imports:
     useful,
     scales,
     proto
-Enchances:
-    glmnet
+Enchances: glmnet
 ByteCompile: TRUE
 Packaged: 2013-03-22 05:16:05 UTC; Jared
