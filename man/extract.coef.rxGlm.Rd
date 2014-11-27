@@ -9,8 +9,6 @@
 \item{model}{Model object to extract information from.}
 
 \item{...}{Further arguments}
-
-\item{\dots}{Further arguments}
 }
 \value{
 A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.

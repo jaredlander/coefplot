@@ -20,10 +20,13 @@ Extract Coefficient Information from Models
 Gets the coefficient values and standard errors, and variable names from a model.
 }
 \examples{
+\dontrun{
 require(ggplot2)
+library(coefplot)
 data(diamonds)
 mod1 <- lm(price ~ carat + cut + x, data=diamonds)
-\dontrun{extract.coef(mod1)}
+extract.coef(mod1)
+}
 }
 \author{
 Jared P. Lander

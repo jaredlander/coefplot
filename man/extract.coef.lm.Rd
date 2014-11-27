@@ -9,8 +9,6 @@
 \item{model}{Model object to extract information from.}
 
 \item{...}{Further arguments}
-
-\item{\dots}{Further arguments}
 }
 \value{
 A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.
@@ -22,10 +20,13 @@ Extract Coefficient Information from lm Models
 Gets the coefficient values and standard errors, and variable names from an lm model.
 }
 \examples{
+\dontrun{
 require(ggplot2)
 data(diamonds)
+library(coefplot)
 mod1 <- lm(price ~ carat + cut + x, data=diamonds)
 extract.coef(mod1)
+}
 }
 \author{
 Jared P. Lander

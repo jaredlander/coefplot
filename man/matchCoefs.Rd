@@ -20,6 +20,7 @@ Match coefficients to predictors
 Matches coefficients to predictors using information from model matrices
 }
 \examples{
+\dontrun{
 require(reshape2)
 require(plyr)
 data("tips", package="reshape2")
@@ -33,6 +34,7 @@ coefplot:::matchCoefs(mod2)
 coefplot:::matchCoefs(mod3)
 coefplot:::matchCoefs(mod4)
 coefplot:::matchCoefs(mod5)
+}
 }
 \author{
 Jared P. Lander

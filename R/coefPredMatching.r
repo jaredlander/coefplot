@@ -56,6 +56,7 @@ get.assign.glm <- function(model, ...)
 #' @param \dots Further arguments
 #' @return a data.frame matching predictors to coefficients
 #' @examples
+#' \dontrun{
 #' require(reshape2)
 #' require(plyr)
 #' data("tips", package="reshape2")
@@ -69,6 +70,7 @@ get.assign.glm <- function(model, ...)
 #' coefplot:::matchCoefs(mod3)
 #' coefplot:::matchCoefs(mod4)
 #' coefplot:::matchCoefs(mod5)
+#' }
 # 
 matchCoefs <- function(model, ...)
 {
