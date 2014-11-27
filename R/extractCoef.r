@@ -216,6 +216,7 @@ extract.coef.rxLogit <- function(model, ...)
 #' @param \dots Further arguments
 #' @return A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.
 #' @examples
+#' \dontrun{
 #' library(glmnet)
 #' library(ggplot2)
 #' library(useful)
@@ -224,13 +225,14 @@ extract.coef.rxLogit <- function(model, ...)
 #' diaY <- build.y(price ~ carat + cut + x - 1, data=diamonds)
 #' modG1 <- glmnet(x=diaX, y=diaY)
 #' extract.coef(modG1)
+#' }
 #' 
 extract.coef.glmnet <- function(model, lambda=median(model$lambda), ...)
 {
     # get coefs at given s
     theCoef <- as.matrix(coef(model, s=lambda))
-    coefDF <- data.frame(Value=theCoef, SE=NA, Coefficient=rownames(theCoef))
-    coefDF <- coefDF[nonzeroCoef(coef(model, s=lambda)), ]
+    coefDF <- data.frame(Value=theCoef, SE=NA_real_, Coefficient=rownames(theCoef))
+    coefDF <- coefDF[theCoef != 0, ]
     names(coefDF)[1] <- "Value"
 
     return(coefDF)
