@@ -247,6 +247,7 @@ extract.coef.glmnet <- function(model, lambda=median(model$lambda), ...)
 #' @param \dots Further arguments
 #' @return A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.
 #' @examples
+#' \dontrun{
 #' library(glmnet)
 #' library(ggplot2)
 #' library(useful)
@@ -255,6 +256,7 @@ extract.coef.glmnet <- function(model, lambda=median(model$lambda), ...)
 #' diaY <- build.y(price ~ carat + cut + x - 1, data=diamonds)
 #' modG1 <- cv.glmnet(x=diaX, y=diaY, k=5)
 #' extract.coef(modG1)
+#' }
 #' 
 extract.coef.cv.glmnet <- function(model, lambda="lambda.min", ...)
 {
