@@ -22,7 +22,6 @@ get.assign <- function(model, ...)
 #' @description The assignment vector for an lm model
 #' @details Gets relative positions of predictors
 #' @aliases get.assign.lm
-#' @S3method get.assign lm
 #' @author Jared P. Lander
 #' @param model Fitted model
 #' @param \dots Further arguments
@@ -36,7 +35,6 @@ get.assign.lm <- function(model, ...)
 #' @description The assignment vector for a glm model
 #' @details Gets relative positions of predictors
 #' @aliases get.assign.glm
-#' @S3method get.assign glm
 #' @author Jared P. Lander
 #' @param model Fitted model
 #' @param \dots Further arguments
@@ -82,7 +80,6 @@ matchCoefs <- function(model, ...)
 #' @details Matches coefficients to predictors using information from model matrices
 #' @author Jared P. Lander
 #' @aliases matchCoefs.default
-#' @S3method matchCoefs default
 #' @import reshape2
 #' @param model Fitted model
 #' @param \dots Further arguments
@@ -174,7 +171,6 @@ getCoefsFromPredictors <- function(model, predictors, ...)
 #' 
 #' @details The user specifies predictors whose coefficients should be included in the coefplot.
 #' @aliases getCoefsFromPredictors.default
-#' @S3method getCoefsFromPredictors default
 #' @author Jared P. Lander
 #' @return A character vector of coefficients listing the coefficients that match the predictor
 #' @param model A fitted model
@@ -279,7 +275,6 @@ doRegex <- function(x, matchAgainst, pattern="(^| )%s($|,|=)")
 #' 
 #' @details The user specifies predictors whose coefficients should be included in the coefplot.
 #' @aliases getCoefsFromPredictors.rxLinMod
-#' @S3method getCoefsFromPredictors rxLinMod
 #' @author Jared P. Lander
 #' @return A character vector of coefficients listing the coefficients that match the predictor
 #' @param model A fitted model
@@ -298,7 +293,6 @@ getCoefsFromPredictors.rxLinMod <- function(model, predictors=NULL, strict=FALSE
 #' 
 #' @details The user specifies predictors whose coefficients should be included in the coefplot.
 #' @aliases getCoefsFromPredictors.rxLogit
-#' @S3method getCoefsFromPredictors rxLogit
 #' @author Jared P. Lander
 #' @return A character vector of coefficients listing the coefficients that match the predictor
 #' @param model A fitted model
@@ -317,7 +311,6 @@ getCoefsFromPredictors.rxLogit <- function(model, predictors=NULL, strict=FALSE,
 #' 
 #' @details The user specifies predictors whose coefficients should be included in the coefplot.
 #' @aliases getCoefsFromPredictors.rxGlm
-#' @S3method getCoefsFromPredictors rxGlm
 #' @author Jared P. Lander
 #' @return A character vector of coefficients listing the coefficients that match the predictor
 #' @param model A fitted model

@@ -107,7 +107,6 @@ coefplot <- function(model, ...)
 #' @seealso \code{\link{lm}} \code{\link{glm}} \code{\link{ggplot}} \code{\link{coefplot}} \code{\link{plotcoef}}
 #' @export coefplot.default
 #' @method coefplot default
-#' @S3method coefplot default
 #' @examples
 #' 
 #' data(diamonds)
@@ -173,7 +172,6 @@ coefplot.default <- function(model, title="Coefficient Plot", xlab="Value", ylab
 #' @aliases coefplot.lm
 #' @export coefplot.lm
 #' @method coefplot lm
-#' @S3method coefplot lm
 #' @author Jared P. Lander
 #' @param \dots All arguments are passed on to \code{\link{coefplot.default}}.  Please see that function for argument information.
 #' @return A ggplot object.  See \code{\link{coefplot.lm}} for more information.
@@ -199,7 +197,6 @@ coefplot.lm <- function(...)
 #' @aliases coefplot.glm
 #' @export coefplot.glm
 #' @method coefplot glm
-#' @S3method coefplot glm
 #' @author Jared P. Lander
 #' @param \dots All arguments are passed on to \code{\link{coefplot.default}}.  Please see that function for argument information.
 #' @return A ggplot object.  See \code{\link{coefplot.lm}} for more information.
@@ -226,7 +223,6 @@ coefplot.glm <- function(...)
 #' @aliases coefplot.rxGlm
 #' @export coefplot.rxGlm
 #' @method coefplot rxGlm
-#' @S3method coefplot rxGlm
 #' @author Jared P. Lander
 #' @param \dots All arguments are passed on to \code{\link{coefplot.default}}.  Please see that function for argument information.
 #' @return A ggplot object.  See \code{\link{coefplot.lm}} for more information.
@@ -263,7 +259,6 @@ coefplot.rxGlm <- function(...)
 #' @aliases coefplot.rxLinMod
 #' @export coefplot.rxLinMod
 #' @method coefplot rxLinMod
-#' @S3method coefplot rxLinMod
 #' @author Jared P. Lander www.jaredlander.com
 #' @param \dots All arguments are passed on to \code{\link{coefplot.lm}}.  Please see that function for argument information.
 #' @return A ggplot object.  See \code{\link{coefplot.lm}} for more information.
@@ -299,7 +294,6 @@ coefplot.rxLinMod <- function(...)
 #' @aliases coefplot.rxLogit
 #' @export coefplot.rxLogit
 #' @method coefplot rxLogit
-#' @S3method coefplot rxLogit
 #' @author Jared P. Lander www.jaredlander.com
 #' @param \dots All arguments are passed on to \code{\link{coefplot.lm}}.  Please see that function for argument information.
 #' @return A ggplot object.  See \code{\link{coefplot.lm}} for more information.

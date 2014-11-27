@@ -6,7 +6,6 @@
 #' Gets the coefficient values and standard errors, and variable names from a model.
 #' 
 #' @author Jared P. Lander
-#' @S3method extract.coef default
 #' @method extract.coef default
 #' @aliases extract.coef.default
 #' @param model Model object to extract information from.
@@ -41,7 +40,6 @@ extract.coef.default <- function(model, ...)
 #' 
 #' @author Jared P. Lander
 #' @aliases extract.coef.lm
-#' @S3method extract.coef lm
 #' @method extract.coef lm
 #' @inheritParams extract.coef.default
 #' @param \dots Further arguments
@@ -68,7 +66,6 @@ extract.coef.lm <- function(model, ...)
 #' @aliases extract.coef.glm
 #' @inheritParams extract.coef.default
 #' @param \dots Further arguments
-#' @S3method extract.coef glm
 #' @method extract.coef glm
 #' @return A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.
 #' @examples
@@ -124,7 +121,6 @@ extract.coef <- function(model, ...)
 #' @aliases extract.coef.rxLinMod
 #' @inheritParams extract.coef.default
 #' @param \dots Further arguments
-#' @S3method extract.coef rxLinMod
 #' @method extract.coef rxLinMod
 #' @return A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.
 #' @examples
@@ -160,7 +156,6 @@ extract.coef.rxLinMod <- function(model, ...)
 #' @aliases extract.coef.rxGlm
 #' @inheritParams extract.coef.default
 #' @param \dots Further arguments
-#' @S3method extract.coef rxGlm
 #' @method extract.coef rxGlm
 #' @return A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.
 #' @examples
@@ -189,7 +184,6 @@ extract.coef.rxGlm <- function(model, ...)
 #' @aliases extract.coef.rxLogit
 #' @inheritParams extract.coef.default
 #' @param \dots Further arguments
-#' @S3method extract.coef rxLogit
 #' @method extract.coef rxLogit
 #' @return A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.
 #' @examples
