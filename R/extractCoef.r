@@ -204,3 +204,59 @@ extract.coef.rxLogit <- function(model, ...)
 {
     extract.coef.default(model=model, ...)
 }
+
+#' @title extract.coef.glmnet
+#' @description Extract Coefficient Information from Models
+#' @details Gets the coefficient values and variable names from a model.  Since glmnet does not have standard errors, those will just be NA.
+#' @author Jared P. Lander
+#' @method extract.coef glmnet
+#' @aliases extract.coef.glmnet
+#' @param model Model object from which to extract information.
+#' @param lambda Value of penalty parameter
+#' @param \dots Further arguments
+#' @return A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.
+#' @examples
+#' library(glmnet)
+#' library(ggplot2)
+#' library(useful)
+#' data(diamonds)
+#' diaX <- build.x(price ~ carat + cut + x - 1, data=diamonds, contrasts = TRUE)
+#' diaY <- build.y(price ~ carat + cut + x - 1, data=diamonds)
+#' modG1 <- glmnet(x=diaX, y=diaY)
+#' extract.coef(modG1)
+#' 
+extract.coef.glmnet <- function(model, lambda=median(model$lambda), ...)
+{
+    # get coefs at given s
+    theCoef <- as.matrix(coef(model, s=lambda))
+    coefDF <- data.frame(Value=theCoef, SE=NA, Coefficient=rownames(theCoef))
+    coefDF <- coefDF[nonzeroCoef(coef(model, s=lambda)), ]
+    names(coefDF)[1] <- "Value"
+
+    return(coefDF)
+}
+
+#' @title extract.coef.cv.default
+#' @description Extract Coefficient Information from Models
+#' @details Gets the coefficient values and variable names from a model.  Since glmnet does not have standard errors, those will just be NA.
+#' @author Jared P. Lander
+#' @method extract.coef cv.glmnet
+#' @aliases extract.coef.cv.glmnet
+#' @param model Model object from which to extract information.
+#' @param lambda Value of penalty parameter.  Can be either a numeric value or one of "lambda.min" or "lambda.1se"
+#' @param \dots Further arguments
+#' @return A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.
+#' @examples
+#' library(glmnet)
+#' library(ggplot2)
+#' library(useful)
+#' data(diamonds)
+#' diaX <- build.x(price ~ carat + cut + x - 1, data=diamonds, contrasts = TRUE)
+#' diaY <- build.y(price ~ carat + cut + x - 1, data=diamonds)
+#' modG1 <- cv.glmnet(x=diaX, y=diaY, k=5)
+#' extract.coef(modG1)
+#' 
+extract.coef.cv.glmnet <- function(model, lambda="lambda.min", ...)
+{
+    extract.coef.glmnet(model, lambda=lambda, ...)
+}

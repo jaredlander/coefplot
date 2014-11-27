@@ -314,10 +314,12 @@ coefplot.rxLogit <- function(...)
     coefplot.default(...)
 }
 
-# coefplot.glmnet <- function(..., s=NULL)
+
+# coefplot.glmnet <- function(model, lambda=NULL, ...)
 # {
-#     modelCI <- extract.coef(model, s=s)
 #     
+#     modelCI <- data.frame(lambda=lambda) %>% group_by(lambda) %>% extract.coef.glmnet(model=model, lambda=.)
+#     return(modelCI)
 #     # if not plotting just return the modelCI data.frame
 #     if(!plot)
 #     {
