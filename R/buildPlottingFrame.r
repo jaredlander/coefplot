@@ -70,7 +70,7 @@ buildModelCI.default <- function(model, outerCI=2, innerCI=1, intercept=TRUE, nu
 
     #print(structure(as.list(match.call()[-1]), class = "uneval")$model)
     # get model information
-    modelCI <- extract.coef(model)
+    modelCI <- extract.coef(model, ...)
     
     # if the user has specified predictors calculate which coefficient they go with
     keptCoefsFromPredictors <- getCoefsFromPredictors(model=model, predictors=predictors, strict=strict)
