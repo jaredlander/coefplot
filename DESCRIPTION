@@ -16,7 +16,9 @@ Imports:
     useful,
     scales,
     proto
-Enhances: glmnet
+Enhances: 
+    glmnet,
+    maxLik
 ByteCompile: TRUE
 Packaged: 2013-03-22 05:16:05 UTC; Jared
 Suggests:

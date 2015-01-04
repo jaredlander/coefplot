@@ -238,7 +238,7 @@ extract.coef.glmnet <- function(model, lambda=median(model$lambda), ...)
     return(coefDF)
 }
 
-#' @title extract.coef.cv.default
+#' @title extract.coef.cv.glmnet
 #' @description Extract Coefficient Information from Models
 #' @details Gets the coefficient values and variable names from a model.  Since glmnet does not have standard errors, those will just be NA.
 #' @author Jared P. Lander
@@ -263,4 +263,43 @@ extract.coef.glmnet <- function(model, lambda=median(model$lambda), ...)
 extract.coef.cv.glmnet <- function(model, lambda="lambda.min", ...)
 {
     extract.coef.glmnet(model, lambda=lambda, ...)
+}
+
+
+#' @title extract.coef.maxLik
+#' @description Extract Coefficient Information from Models
+#' @details Gets the coefficient values and variable names from a model.
+#' @author Jared P. Lander
+#' @method extract.coef maxLik
+#' @aliases extract.coef.maxLik
+#' @param model Model object from which to extract information.
+#' @param \dots Further arguments
+#' @return A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.
+#' @examples
+#' library(maxLik)
+#' loglik <- function(param) {
+#'  mu <- param[1]
+#'  sigma <- param[2]
+#'  ll <- -0.5*N*log(2*pi) - N*log(sigma) - sum(0.5*(x - mu)^2/sigma^2)
+#' ll
+#' }
+#' x <- rnorm(1000, 1, 2) # use mean=1, stdd=2
+#' N <- length(x)
+#' res <- maxLik(loglik, start=c(0,1)) # use 'wrong' start values
+#' extract.coef(res)
+#' 
+extract.coef.maxLik <- function(model, ...)
+{
+    # get coefficients
+    theCoef <- coef(model)
+    # get coef names
+    coefNames <- names(theCoef)
+    
+    ## if names do not exist make the names the number of the coef
+    if(is.null(coefNames))
+    {
+        coefNames <- seq(along=theCoef)
+    }
+    
+    data.frame(Value=theCoef, SE=stdEr(model), Coefficient=coefNames)
 }
