@@ -314,8 +314,9 @@ coefplot.rxLogit <- function(...)
     coefplot.default(...)
 }
 
-# coefplot.glmnet <- function(..., s=NULL)
+# coefplot.glmnet <- function(..., lambda=NULL)
 # {
+#     
 #     modelCI <- extract.coef(model, s=s)
 #     
 #     # if not plotting just return the modelCI data.frame
