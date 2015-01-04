@@ -89,3 +89,118 @@ test_that("Coefficients have proper types", {
     expect_equal(sapply(coefG7, class), c(Value="numeric", SE="numeric", Coefficient="character"))
 })
 
+expectedCoef1 <- structure(list(Value = c(0.920269613554671, 0.105024517384353), 
+                                SE = c(0.159734746376432, 0.0073647898487626), 
+                                Coefficient = c("(Intercept)", "total_bill")), 
+                           .Names = c("Value", "SE", "Coefficient"), 
+                           row.names = c("(Intercept)", "total_bill"), 
+                           class = "data.frame")
+
+expectedCoef2 <- structure(list(Value = c(0.933278494035796, 0.105232356866155, -0.0266087137098722), 
+                                SE = c(0.173755748089091, 0.00745817378218747, 0.138333951666825), 
+                                Coefficient = c("(Intercept)", "total_bill", "sexMale")), 
+                           .Names = c("Value", "SE", "Coefficient"), 
+                           row.names = c("(Intercept)", "total_bill", "sexMale"), 
+                           class = "data.frame")
+
+expectedCoef3 <- structure(list(Value = c(0.97703525070222, 0.105943079358779, -0.0280925699231267, -0.14919234332629), 
+                                SE = c(0.178163334196653, 0.00748273981231774, 0.13827928730744, 0.135435290301022), 
+                                Coefficient = c("(Intercept)", "total_bill", "sexMale", "smokerYes")), 
+                           .Names = c("Value", "SE", "Coefficient"), 
+                           row.names = c("(Intercept)", "total_bill", "sexMale", "smokerYes"), 
+                           class = "data.frame")
+
+expectedCoef4 <- structure(list(Value = c(0.838665697721798, 0.106867331154389, 0.159699673580903, 0.171601527915647, -0.50028527366166), 
+                                SE = c(0.193672618884891, 0.00746732438703733, 0.173479347933277, 0.225167097638273, 0.28123965022277), 
+                                Coefficient = c("(Intercept)", "total_bill", "sexMale", "smokerYes", "sexMale:smokerYes")), 
+                           .Names = c("Value", "SE", "Coefficient"), 
+                           row.names = c("(Intercept)", "total_bill", "sexMale", "smokerYes", "sexMale:smokerYes"), 
+                           class = "data.frame")
+
+expectedCoef5 <- structure(list(Value = c(0.669681625556689, 0.106867331154389, 0.168984072165109, 0.328683745746012, 0.340585600080757), 
+                                SE = c(0.212128542982023, 0.00746732438703733, 0.193681264106416, 0.168404634825236, 0.223182521333619), 
+                                Coefficient = c("(Intercept)", "total_bill", "sexFemale:smokerNo", "sexMale:smokerNo", "sexFemale:smokerYes")),
+                           .Names = c("Value", "SE", "Coefficient"), 
+                           row.names = c("(Intercept)", "total_bill", "sexFemale:smokerNo", "sexMale:smokerNo", "sexFemale:smokerYes"), 
+                           class = "data.frame")
+
+expectedCoef6 <- structure(list(Value = c(1.0480199036793, 0.0988779199719281, -0.195872209747046, 0.0089827576377142), 
+                                SE = c(0.272497600665525, 0.0138079864596611, 0.338953639877964, 0.0164171081078769), 
+                                Coefficient = c("(Intercept)", "total_bill", "sexMale", "total_bill:sexMale")), 
+                           .Names = c("Value", "SE", "Coefficient"), 
+                           row.names = c("(Intercept)", "total_bill", "sexMale", "total_bill:sexMale"), 
+                           class = "data.frame")
+
+expectedCoef7 <- structure(list(Value = c(2.77351851851852, 0.339883543337153, 0.157996632996634, -0.220232028185638), 
+                                SE = c(0.188579004667271, 0.235285923694171, 0.306193520066471, 0.381520292408129), 
+                                Coefficient = c("(Intercept)", "sexMale", "smokerYes", "sexMale:smokerYes")), 
+                           .Names = c("Value", "SE", "Coefficient"), 
+                           row.names = c("(Intercept)", "sexMale", "smokerYes", "sexMale:smokerYes"), 
+                           class = "data.frame")
+
+expectedCoefG1 <- structure(list(Value = c(-6.20405198369694, 0.178746135713105), 
+                                 SE = c(0.787846856153379, 0.0280564850923222), 
+                                 Coefficient = c("(Intercept)", "total_bill")), 
+                            .Names = c("Value", "SE", "Coefficient"), 
+                            row.names = c("(Intercept)", "total_bill"), 
+                            class = "data.frame")
+
+expectedCoefG2 <- structure(list(Value = c(-6.16250676539459, 0.179197631542195, -0.0778168380625508), 
+                                 SE = c(0.830682665606069, 0.0282263860677389, 0.510653903330164), 
+                                 Coefficient = c("(Intercept)", "total_bill", "sexMale")), 
+                            .Names = c("Value", "SE", "Coefficient"), 
+                            row.names = c("(Intercept)", "total_bill", "sexMale"), 
+                            class = "data.frame")
+
+expectedCoefG3 <- structure(list(Value = c(-6.28879908755451, 0.19791038354303, 0.0425603970575011, -1.26080742323577), 
+                                 SE = c(0.887343464175678, 0.0313202875695088, 0.525802585221906, 0.568477363122317), 
+                                 Coefficient = c("(Intercept)", "total_bill", "sexMale", "smokerYes")), 
+                            .Names = c("Value", "SE", "Coefficient"), 
+                            row.names = c("(Intercept)", "total_bill", "sexMale", "smokerYes"), 
+                            class = "data.frame")
+
+expectedCoefG4 <- structure(list(Value = c(-6.50722534287237, 0.200398977461892, 0.277416562038954, -0.641536473204469, -0.871196107806703), 
+                                 SE = c(0.957583876450863, 0.0319532718817944, 0.622811036359676, 0.980442295268331, 1.17344558101382), 
+                                 Coefficient = c("(Intercept)", "total_bill", "sexMale", "smokerYes", "sexMale:smokerYes")), 
+                            .Names = c("Value", "SE", "Coefficient"), 
+                            row.names = c("(Intercept)", "total_bill", "sexMale", "smokerYes", "sexMale:smokerYes"), 
+                            class = "data.frame")
+
+expectedCoefG5 <- structure(list(Value = c(-7.74254136184459, 0.200398977461892, 1.23531601897222, 1.51273258101117, 0.593779545767748), 
+                                 SE = c(1.15628637706478, 0.0319532718817944, 0.759703572779889, 0.673162985532241, 0.989243572422861), 
+                                 Coefficient = c("(Intercept)", "total_bill", "sexFemale:smokerNo", "sexMale:smokerNo", "sexFemale:smokerYes")), 
+                            .Names = c("Value", "SE", "Coefficient"), 
+                            row.names = c("(Intercept)", "total_bill", "sexFemale:smokerNo", "sexMale:smokerNo", "sexFemale:smokerYes"), 
+                            class = "data.frame")
+
+expectedCoefG6 <- structure(list(Value = c(-9.02683319336376, 0.288225436284044, 3.54244163292209, -0.136784802449348), 
+                                 SE = c(2.23820089584356, 0.0808437446613046, 2.39386567363978, 0.086162375938673), 
+                                 Coefficient = c("(Intercept)", "total_bill", "sexMale", "total_bill:sexMale")), 
+                            .Names = c("Value", "SE", "Coefficient"), 
+                            row.names = c("(Intercept)", "total_bill", "sexMale", "total_bill:sexMale"), 
+                            class = "data.frame")
+
+expectedCoefG7 <- structure(list(Value = c(-2.07944154018219, 0.457581107749538, -0.223143450341104, -0.179377881333291), 
+                                 SE = c(0.433002251934947, 0.512188079894551, 0.744316797288887, 0.889142445029405), 
+                                 Coefficient = c("(Intercept)", "sexMale", "smokerYes", "sexMale:smokerYes")), 
+                            .Names = c("Value", "SE", "Coefficient"), 
+                            row.names = c("(Intercept)", "sexMale", "smokerYes", "sexMale:smokerYes"), 
+                            class = "data.frame")
+
+test_that("Data comes out as expected", {
+    expect_equivalent(coef1, expectedCoef1)
+    expect_equivalent(coef2, expectedCoef2)
+    expect_equivalent(coef3, expectedCoef3)
+    expect_equivalent(coef4, expectedCoef4)
+    expect_equivalent(coef5, expectedCoef5)
+    expect_equivalent(coef6, expectedCoef6)
+    expect_equivalent(coef7, expectedCoef7)
+    
+    expect_equivalent(coefG1, expectedCoefG1)
+    expect_equivalent(coefG2, expectedCoefG2)
+    expect_equivalent(coefG3, expectedCoefG3)
+    expect_equivalent(coefG4, expectedCoefG4)
+    expect_equivalent(coefG5, expectedCoefG5)
+    expect_equivalent(coefG6, expectedCoefG6)
+    expect_equivalent(coefG7, expectedCoefG7)
+})
