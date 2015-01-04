@@ -6,3 +6,4 @@ test
 utilities.r
 ^.git/
 inst/
+.Rhistory
