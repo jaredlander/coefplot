@@ -1,4 +1,4 @@
-context("ExtractCoefficients")
+context("Extracting Coefficients")
 
 # we need data
 data("tips", package="reshape2")
