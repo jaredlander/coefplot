@@ -55,7 +55,7 @@ buildModelCI <- function(model, ...)
 #' @seealso \code{\link{coefplot}} \code{\link{multiplot}}
 #' @examples
 #'
-#' data(diamonds)
+#' data(diamonds, package='ggplot2')
 #' model1 <- lm(price ~ carat + cut, data=diamonds)
 #' coefplot:::buildModelCI(model1)
 #' coefplot(model1)
