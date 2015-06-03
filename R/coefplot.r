@@ -147,7 +147,7 @@ coefplot.default <- function(model, title="Coefficient Plot", xlab="Value", ylab
         return(modelCI)
     }
     
-    p <- buildPlotting.default(modelCI=modelCI,
+    p <- coefplot.data.frame(model=modelCI,
                         #modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
                        title=title, xlab=xlab, ylab=ylab,
                        lwdInner=lwdInner, lwdOuter=lwdOuter, pointSize=pointSize, color=color, cex=cex, textAngle=textAngle, 
@@ -157,6 +157,74 @@ coefplot.default <- function(model, title="Coefficient Plot", xlab="Value", ylab
     
     #rm(modelCI);    	# housekeeping
 	return(p)		# return the ggplot object
+}
+
+#' @title coefplot.data.frame
+#' @description Dotplot for coefficients
+#' @details A graphical display of the coefficients and standard errors from a fitted model, this function uses a data.frame as the input.
+#' @aliases coefplot.data.frame
+#' @author Jared P. Lander
+#' @export coefplot.data.frame
+#' @param model A data.frame like that built from coefplot(..., plot=FALSE)
+#' @param title The name of the plot, if NULL then no name is given
+#' @param xlab The x label
+#' @param ylab The y label
+#' @param innerCI How wide the inner confidence interval should be, normally 1 standard deviation.  If 0, then there will be no inner confidence interval.
+#' @param outerCI How wide the outer confidence interval should be, normally 2 standard deviations.  If 0, then there will be no outer confidence interval.
+#' @param multi logical; If this is for \code{\link{multiplot}} then leave the colors as determined by the legend, if FALSE then make all colors the same
+#' @param lwdInner The thickness of the inner confidence interval
+#' @param lwdOuter The thickness of the outer confidence interval
+#' @param pointSize Size of coefficient point
+#' @param color The color of the points and lines
+#' @param shape The shape of the points
+#' @param linetype The linetype of the error bars
+#' @param cex The text size multiplier, currently not used
+#' @param textAngle The angle for the coefficient labels, 0 is horizontal
+#' @param numberAngle The angle for the value labels, 0 is horizontal
+#' @param zeroColor The color of the line indicating 0
+#' @param zeroLWD The thickness of the 0 line
+#' @param zeroType The type of 0 line, 0 will mean no line
+#' @param facet logical; If the coefficients should be faceted by the variables, numeric coefficients (including the intercept) will be one facet
+#' @param scales The way the axes should be treated in a faceted plot.  Can be c("fixed", "free", "free_x", "free_y")
+#' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with constinuous confidence bounds.
+#' @param fillColor The color of the confidence bounds for a numeric factor
+#' @param alpha The transparency level of the numeric factor's confidence bound
+#' @param horizontal logical; If the plot should be displayed horizontally
+#' @param value Name of variable for value metric
+#' @param coefficient Name of variable for coefficient names
+#' @param errorHeight Height of error bars
+#' @param dodgeHeight Amount of vertical dodging
+#' @param \dots Further Arguments
+#' @return a ggplot graph object
+#' @examples 
+#' data(diamonds)
+#' head(diamonds)
+#' model1 <- lm(price ~ carat + cut*color, data=diamonds)
+#' model2 <- lm(price ~ carat*color, data=diamonds)
+#' df1 <- coefplot(model1, plot=FALSE)
+#' df2 <- coefplot(model2, plot=FALSE)
+#' coefplot(df1)
+#' coefplot(df2)
+#' 
+coefplot.data.frame <- function(model, title="Coefficient Plot", 
+                                xlab="Value", ylab="Coefficient", lwdInner=1, lwdOuter=0, 
+                                pointSize=3, color="blue", cex=.8, textAngle=0, numberAngle=0, 
+                                shape=16, linetype=1,
+                                outerCI=2, innerCI=1, multi=FALSE, 
+                                zeroColor="grey", zeroLWD=1, zeroType=2, 
+                                numeric=FALSE, fillColor="grey", alpha=1/2,
+                                horizontal=FALSE, facet=FALSE, scales="free",
+                                value="Value", coefficient="Coefficient", 
+                                errorHeight=0, dodgeHeight=1,
+                                ...)
+{
+    buildPlotting.default(modelCI=model,
+                          #modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
+                          title=title, xlab=xlab, ylab=ylab,
+                          lwdInner=lwdInner, lwdOuter=lwdOuter, pointSize=pointSize, color=color, cex=cex, textAngle=textAngle, 
+                          numberAngle=numberAngle, zeroColor=zeroColor, zeroLWD=zeroLWD, outerCI=outerCI, innerCI=innerCI, multi=FALSE,
+                          zeroType=zeroType, numeric=numeric, fillColor=fillColor, alpha=alpha, 
+                          horizontal=horizontal, facet=facet, scales=scales)
 }
 
 #' coefplot.lm

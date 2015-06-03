@@ -271,6 +271,7 @@ extract.coef.cv.glmnet <- function(model, lambda="lambda.min", ...)
 #' @details Gets the coefficient values and variable names from a model.
 #' @author Jared P. Lander
 #' @method extract.coef maxLik
+#' @export extract.coef.maxLik
 #' @aliases extract.coef.maxLik
 #' @param model Model object from which to extract information.
 #' @param \dots Further arguments
@@ -301,5 +302,5 @@ extract.coef.maxLik <- function(model, ...)
         coefNames <- seq(along=theCoef)
     }
     
-    data.frame(Value=theCoef, SE=stdEr(model), Coefficient=coefNames)
+    data.frame(Value=theCoef, SE=summary(model)$estimate[, 'Std. error'], Coefficient=coefNames)
 }

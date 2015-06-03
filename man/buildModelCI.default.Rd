@@ -49,7 +49,7 @@ Construct Confidence Interval Values
 Takes a model and builds a data.frame holding the coefficient value and the confidence interval values.
 }
 \examples{
-data(diamonds)
+data(diamonds, package='ggplot2')
 model1 <- lm(price ~ carat + cut, data=diamonds)
 coefplot:::buildModelCI(model1)
 coefplot(model1)
