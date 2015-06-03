@@ -1,5 +1,9 @@
 Version 1.2.2
 -----------------------------------------------------------------------------------------------------
+Can run coefplot on a data.frame that is properly setup like on resulting from coefplot(..., plot=FALSE).
+
+Version 1.2.2
+-----------------------------------------------------------------------------------------------------
 Support for glmnet models.  Added tests.
 
 Version 1.2.1
