@@ -84,7 +84,7 @@ coefplot <- function(model, ...)
 #' @param zeroType The type of 0 line, 0 will mean no line
 #' @param facet logical; If the coefficients should be faceted by the variables, numeric coefficients (including the intercept) will be one facet.  Currently not available.
 #' @param scales The way the axes should be treated in a faceted plot.  Can be c("fixed", "free", "free_x", "free_y").  Currently not available.
-#' @param sort Determines the sort order of the coefficients.  Possible values are c("natural", "normal", "magnitude", "size", "alphabetical")
+#' @param sort Determines the sort order of the coefficients.  Possible values are c("natural", "magnitude", "alphabetical")
 #' @param decreasing logical; Whether the coefficients should be ascending or descending
 #' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with constinuous confidence bounds.  Currently not available.
 #' @param fillColor The color of the confidence bounds for a numeric factor.  Currently not available.
