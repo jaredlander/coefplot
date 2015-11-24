@@ -1,5 +1,0 @@
-Coefplot is a package for plotting the coefficients and standard errors from a variety of models.  Currently lm, glm, rxLinMod and rxLogit are supported.
-
-The package is designed for S3 dispatch from the functions coefplot and getModelInfo to make for easy additions of new models.
-
-If interested in helping please contact the package author.

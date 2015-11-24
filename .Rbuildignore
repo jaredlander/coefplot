@@ -7,3 +7,5 @@ utilities.r
 ^.git/
 inst/
 .Rhistory
+^README\.Rmd$
+^README-.*\.png$
