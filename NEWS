@@ -1,4 +1,8 @@
-Version 1.2.2
+Version 1.2.3.9000
+-----------------------------------------------------------------------------------------------------
+Patched to accomodate changes to ggplot2.
+
+Version 1.2.3
 -----------------------------------------------------------------------------------------------------
 Can run coefplot on a data.frame that is properly setup like on resulting from coefplot(..., plot=FALSE).
 
