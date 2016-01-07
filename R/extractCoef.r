@@ -272,11 +272,13 @@ extract.coef.cv.glmnet <- function(model, lambda="lambda.min", ...)
 #' @author Jared P. Lander
 #' @method extract.coef maxLik
 #' @export extract.coef.maxLik
+#' @export
 #' @aliases extract.coef.maxLik
 #' @param model Model object from which to extract information.
 #' @param \dots Further arguments
 #' @return A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.
 #' @examples
+#' \dontrun{
 #' library(maxLik)
 #' loglik <- function(param) {
 #'  mu <- param[1]
@@ -288,6 +290,7 @@ extract.coef.cv.glmnet <- function(model, lambda="lambda.min", ...)
 #' N <- length(x)
 #' res <- maxLik(loglik, start=c(0,1)) # use 'wrong' start values
 #' extract.coef(res)
+#' }
 #' 
 extract.coef.maxLik <- function(model, ...)
 {

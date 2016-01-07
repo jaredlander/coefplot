@@ -106,6 +106,7 @@ coefplot <- function(model, ...)
 #' @return If \code{plot} is \code{TRUE} then a \code{\link{ggplot}} object is returned.  Otherwise a \code{\link{data.frame}} listing coeffcients and confidence bands is returned.
 #' @seealso \code{\link{lm}} \code{\link{glm}} \code{\link{ggplot}} \code{\link{coefplot}} \code{\link{plotcoef}}
 #' @export coefplot.default
+#' @export
 #' @method coefplot default
 #' @examples
 #' 
@@ -165,6 +166,7 @@ coefplot.default <- function(model, title="Coefficient Plot", xlab="Value", ylab
 #' @aliases coefplot.data.frame
 #' @author Jared P. Lander
 #' @export coefplot.data.frame
+#' @export
 #' @param model A data.frame like that built from coefplot(..., plot=FALSE)
 #' @param title The name of the plot, if NULL then no name is given
 #' @param xlab The x label
@@ -239,6 +241,7 @@ coefplot.data.frame <- function(model, title="Coefficient Plot",
 #'
 #' @aliases coefplot.lm
 #' @export coefplot.lm
+#' @export
 #' @method coefplot lm
 #' @author Jared P. Lander
 #' @param \dots All arguments are passed on to \code{\link{coefplot.default}}.  Please see that function for argument information.
@@ -264,6 +267,7 @@ coefplot.lm <- function(...)
 #'
 #' @aliases coefplot.glm
 #' @export coefplot.glm
+#' @export
 #' @method coefplot glm
 #' @author Jared P. Lander
 #' @param \dots All arguments are passed on to \code{\link{coefplot.default}}.  Please see that function for argument information.
@@ -290,6 +294,7 @@ coefplot.glm <- function(...)
 #'
 #' @aliases coefplot.rxGlm
 #' @export coefplot.rxGlm
+#' @export
 #' @method coefplot rxGlm
 #' @author Jared P. Lander
 #' @param \dots All arguments are passed on to \code{\link{coefplot.default}}.  Please see that function for argument information.
@@ -326,6 +331,7 @@ coefplot.rxGlm <- function(...)
 #'
 #' @aliases coefplot.rxLinMod
 #' @export coefplot.rxLinMod
+#' @export
 #' @method coefplot rxLinMod
 #' @author Jared P. Lander www.jaredlander.com
 #' @param \dots All arguments are passed on to \code{\link{coefplot.lm}}.  Please see that function for argument information.
@@ -361,6 +367,7 @@ coefplot.rxLinMod <- function(...)
 #'
 #' @aliases coefplot.rxLogit
 #' @export coefplot.rxLogit
+#' @export
 #' @method coefplot rxLogit
 #' @author Jared P. Lander www.jaredlander.com
 #' @param \dots All arguments are passed on to \code{\link{coefplot.lm}}.  Please see that function for argument information.

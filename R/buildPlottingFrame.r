@@ -35,6 +35,7 @@ buildModelCI <- function(model, ...)
 #' @author Jared P. Lander
 #' @aliases buildModelCI.default
 #' @export buildModelCI.default
+#' @export
 #' @method buildModelCI default
 #' @import plyr
 #' @param model A Fitted model such as from lm, glm
