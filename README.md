@@ -1,4 +1,4 @@
-[![Travis-CI Build Status](https://travis-ci.org/jaredlander/coefplot.svg?branch=master)](https://travis-ci.org/jaredlander/coefplot) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/coefplot)](http://cran.r-project.org/package=coefplot) [![Downloads from the RStudio CRAN mirror](http://cranlogs.r-pkg.org/badges/useful)](http://cran.rstudio.com/package=useful)
+[![Travis-CI Build Status](https://travis-ci.org/jaredlander/coefplot.svg?branch=master)](https://travis-ci.org/jaredlander/coefplot) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/coefplot)](http://cran.r-project.org/package=coefplot) [![Downloads from the RStudio CRAN mirror](http://cranlogs.r-pkg.org/badges/coefplot)](http://cran.rstudio.com/package=coefplot)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 Coefplot is a package for plotting the coefficients and standard errors from a variety of models. Currently lm, glm, glmnet, maxLik, rxLinMod, rxGLM and rxLogit are supported.
