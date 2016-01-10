@@ -227,10 +227,10 @@ extract.coef.rxLogit <- function(model, ...)
 #' extract.coef(modG1)
 #' }
 #' 
-extract.coef.glmnet <- function(model, lambda=median(model$lambda), ...)
+extract.coef.glmnet <- function(model, lambda=stats::median(model$lambda), ...)
 {
     # get coefs at given s
-    theCoef <- as.matrix(coef(model, s=lambda))
+    theCoef <- as.matrix(stats::coef(model, s=lambda))
     coefDF <- data.frame(Value=theCoef, SE=NA_real_, Coefficient=rownames(theCoef))
     coefDF <- coefDF[theCoef != 0, ]
     names(coefDF)[1] <- "Value"
@@ -295,7 +295,7 @@ extract.coef.cv.glmnet <- function(model, lambda="lambda.min", ...)
 extract.coef.maxLik <- function(model, ...)
 {
     # get coefficients
-    theCoef <- coef(model)
+    theCoef <- stats::coef(model)
     # get coef names
     coefNames <- names(theCoef)
     

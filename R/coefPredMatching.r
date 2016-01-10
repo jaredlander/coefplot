@@ -42,7 +42,7 @@ get.assign.lm <- function(model, ...)
 get.assign.glm <- function(model, ...)
 {
     # build model.matrix
-    theMat <- model.matrix(object=model$formula, data=model$data)
+    theMat <- stats::model.matrix(object=model$formula, data=model$data)
     # get assignment
     attr(theMat, "assign")
 }
@@ -232,7 +232,7 @@ getCoefsFromPredictorsRevo <- function(model, predictors=NULL, strict=FALSE, ...
     names(predMatcher) <- predictors
     
     # get coefficient names
-    coefNames <- names(coef(model))
+    coefNames <- names(stats::coef(model))
     
     # if strict do one search
     if(strict)

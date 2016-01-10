@@ -13,7 +13,8 @@ Depends:
 Imports:
     plyr,
     reshape2,
-    useful
+    useful,
+    stats
 Enhances:
     glmnet,
     maxLik
