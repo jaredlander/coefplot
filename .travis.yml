@@ -3,6 +3,9 @@
 language: r
 warnings_are_errors: true
 sudo: required
+r_packages:
+  - glmnet
+  - maxLik
 
 notifications:
   email:
