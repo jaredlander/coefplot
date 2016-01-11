@@ -1,7 +1,7 @@
 Package: coefplot
 Type: Package
 Title: Plots Coefficients from Fitted Models
-Version: 1.2.4
+Version: 1.2.4.9000
 Date: 2016-01-09
 Author: Jared P. Lander
 Maintainer: Jared P. Lander <packages@jaredlander.com>
