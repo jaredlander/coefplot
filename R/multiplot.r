@@ -86,7 +86,7 @@
 #' 
 #'
 multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coefficient", 
-    					innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0, pointSize=3, dodgeHeight=1,  
+    					innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0.5, pointSize=3, dodgeHeight=1,  
                       color="blue", shape=16, linetype=1,
 						cex=.8, textAngle=0, numberAngle=90,
 						zeroColor="grey", zeroLWD=1, zeroType=2,
