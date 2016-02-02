@@ -5,7 +5,7 @@
 \title{Coefplot plotting}
 \usage{
 buildPlotting.default(modelCI, title = "Coefficient Plot", xlab = "Value",
-  ylab = "Coefficient", lwdInner = 1, lwdOuter = 0, pointSize = 3,
+  ylab = "Coefficient", lwdInner = 1, lwdOuter = 0.5, pointSize = 3,
   color = "blue", cex = 0.8, textAngle = 0, numberAngle = 0,
   shape = 16, linetype = 1, outerCI = 2, innerCI = 1, multi = FALSE,
   zeroColor = "grey", zeroLWD = 1, zeroType = 2, numeric = FALSE,

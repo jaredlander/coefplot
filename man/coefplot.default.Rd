@@ -6,7 +6,7 @@
 \usage{
 \method{coefplot}{default}(model, title = "Coefficient Plot",
   xlab = "Value", ylab = "Coefficient", innerCI = 1, outerCI = 2,
-  lwdInner = 1, lwdOuter = 0, pointSize = 3, color = "blue",
+  lwdInner = 1, lwdOuter = 0.5, pointSize = 3, color = "blue",
   shape = 16, cex = 0.8, textAngle = 0, numberAngle = 0,
   zeroColor = "grey", zeroLWD = 1, zeroType = 2, facet = FALSE,
   scales = "free", sort = c("natural", "magnitude", "alphabetical"),
