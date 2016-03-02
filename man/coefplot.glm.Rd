@@ -26,6 +26,7 @@ For more information on this function and it's arguments see \code{\link{coefplo
 
 model2 <- glm(price > 10000 ~ carat + cut*color, data=diamonds, family=binomial(link="logit"))
 coefplot(model2)
+coefplot(model2, trans=invlogit)
 }
 \author{
 Jared P. Lander
