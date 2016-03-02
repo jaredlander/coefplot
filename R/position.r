@@ -139,13 +139,13 @@ pos_dodgev <- function(df, height) {
 #' p + geom_linerange(aes(ymin = y-1, ymax = y+1), position = "dodge")
 #' # You need to explicitly specify the height for dodging
 #' p + geom_linerange(aes(ymin = y-1, ymax = y+1),
-#'   position = position_dodge(height = 0.9))
+#'   position = position_dodge(width = 0.9))
 #'
 #' # Similarly with error bars:
-#' p + geom_errorbar(aes(ymin = y-1, ymax = y+1), height = 0.2,
+#' p + geom_errorbar(aes(ymin = y-1, ymax = y+1), width = 0.2,
 #'   position = "dodge")
 #' p + geom_errorbar(aes(ymin = y-1, ymax = y+1, height = 0.2),
-#'   position = position_dodge(height = 0.90))
+#'   position = position_dodge(width = 0.90))
 #' }
 position_dodgev <- function(height = NULL) {
     ggproto(NULL, PositionDodgeV, height = height)
