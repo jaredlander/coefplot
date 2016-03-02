@@ -13,7 +13,8 @@
   decreasing = FALSE, numeric = FALSE, fillColor = "grey", alpha = 1/2,
   horizontal = FALSE, factors = NULL, only = NULL, shorten = TRUE,
   intercept = TRUE, interceptName = "(Intercept)", coefficients = NULL,
-  predictors = NULL, strict = FALSE, newNames = NULL, plot = TRUE, ...)
+  predictors = NULL, strict = FALSE, trans = identity, newNames = NULL,
+  plot = TRUE, ...)
 }
 \arguments{
 \item{model}{The model to plot.}
@@ -81,6 +82,8 @@
 \item{predictors}{A character vector specifying which coefficients to keep.  Each individual coefficient can be specfied.  Use predictors to specify entire factors.}
 
 \item{strict}{If TRUE then predictors will only be matched to its own coefficients, not its interactions}
+
+\item{trans}{A transformation function to apply to the values and confidence intervals.  \code{identity} by default.  Use \code{invlogit} for binary regression.}
 
 \item{newNames}{Named character vector of new names for coefficients}
 

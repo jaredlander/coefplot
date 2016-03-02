@@ -7,7 +7,7 @@
 \method{buildModelCI}{default}(model, outerCI = 2, innerCI = 1,
   intercept = TRUE, numeric = FALSE, sort = c("natural", "magnitude",
   "alphabetical"), predictors = NULL, strict = FALSE, coefficients = NULL,
-  newNames = NULL, decreasing = TRUE, name = NULL,
+  newNames = NULL, trans = identity, decreasing = TRUE, name = NULL,
   interceptName = "(Intercept)", ...)
 }
 \arguments{
@@ -30,6 +30,8 @@
 \item{coefficients}{A character vector specifying which factor variables to keep.  It will keep all levels and any interactions, even if those are not listed.}
 
 \item{newNames}{Named character vector of new names for coefficients}
+
+\item{trans}{A transformation function to apply to the values and confidence intervals.  \code{identity} by default.  Use \code{invlogit} for binary regression.}
 
 \item{decreasing}{logical; Whether the coefficients should be ascending or descending}
 

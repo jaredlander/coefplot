@@ -99,6 +99,7 @@ coefplot <- function(model, ...)
 ##See Details for information on \code{factors}, \code{only} and \code{shorten}
 #' @param newNames Named character vector of new names for coefficients
 ### non-listed arguments
+#' @param trans A transformation function to apply to the values and confidence intervals.  \code{identity} by default.  Use \code{invlogit} for binary regression.
 #' @param factors Vector of factor variables that will be the only ones shown
 #' @param only logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.
 #' @param shorten logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped.  Currently not available.
@@ -129,6 +130,7 @@ coefplot.default <- function(model, title="Coefficient Plot", xlab="Value", ylab
                              numeric=FALSE, fillColor="grey", alpha=1/2,
                              horizontal=FALSE, factors=NULL, only=NULL, shorten=TRUE,
                              intercept=TRUE, interceptName="(Intercept)", coefficients=NULL, predictors=NULL, strict=FALSE, 
+                             trans=identity,
                              newNames=NULL, plot=TRUE, ...)
 {
 	theDots <- list(...)
@@ -140,6 +142,7 @@ coefplot.default <- function(model, title="Coefficient Plot", xlab="Value", ylab
     modelCI <- buildModelCI(model, outerCI=outerCI, innerCI=innerCI, intercept=intercept, 
                             coefficients=coefficients, predictors=predictors, strict=strict, newNames=newNames,
                             numeric=numeric, sort=sort, 
+                            trans=trans,
                             decreasing=decreasing, factors=factors, only=only, shorten=shorten, ...)
     
     # if not plotting just return the modelCI data.frame

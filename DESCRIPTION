@@ -14,7 +14,8 @@ Imports:
     plyr,
     reshape2,
     useful,
-    stats
+    stats,
+    dplyr
 Enhances:
     glmnet,
     maxLik
