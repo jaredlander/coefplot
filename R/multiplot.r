@@ -45,6 +45,7 @@
 #' @param coefficients A character vector specifying which factor coefficients to keep.  It will keep all levels and any interactions, even if those are not listed.
 #' @param strict If TRUE then predictors will only be matched to its own coefficients, not its interactions
 #' @param newNames Named character vector of new names for coefficients
+#' @param trans A transformation function to apply to the values and confidence intervals.  \code{identity} by default.  Use \code{invlogit} for binary regression.
 #' @param plot logical; If the plot should be drawn, if false then a data.frame of the values will be returned
 #' @param factors Vector of factor variables that will be the only ones shown
 #' @param only logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.
@@ -100,7 +101,7 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
                       coefficients=NULL, predictors=NULL, strict=FALSE, newNames=NULL, plot=TRUE, drop=FALSE,
                       by=c("Coefficient", "Model"), plot.shapes=FALSE, plot.linetypes=FALSE,
                       legend.position=c("right", "left", "bottom", "top", "none"),
-                      secret.weapon=FALSE, legend.reverse=FALSE
+                      secret.weapon=FALSE, legend.reverse=FALSE, trans=identity
                       )
 {
     ## if ... is already a list just grab the dots, otherwise force it into a list
@@ -161,7 +162,7 @@ multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coeffic
     # get the modelCI for each model and make one big data.frame
     modelCI <- ldply(theDots, .fun=buildModelCI, outerCI=outerCI, innerCI=innerCI, intercept=intercept, numeric=numeric, 
                      sort=sort, decreasing=decreasing, factors=factors, shorten=shorten, coefficients=coefficients,
-                     predictors=predictors, strict=strict, newNames=newNames)
+                     predictors=predictors, strict=strict, newNames=newNames, trans=trans)
     
     # Turn the Call into a unique identifier for each model
     #modelCI$Model <- as.factor(as.numeric(factor(modelCI$Model, levels=unique(modelCI$Model))))

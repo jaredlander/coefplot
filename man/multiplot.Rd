@@ -18,7 +18,7 @@ multiplot(..., title = "Coefficient Plot", xlab = "Value",
   newNames = NULL, plot = TRUE, drop = FALSE, by = c("Coefficient",
   "Model"), plot.shapes = FALSE, plot.linetypes = FALSE,
   legend.position = c("right", "left", "bottom", "top", "none"),
-  secret.weapon = FALSE, legend.reverse = FALSE)
+  secret.weapon = FALSE, legend.reverse = FALSE, trans = identity)
 }
 \arguments{
 \item{title}{The name of the plot, if NULL then no name is given}
@@ -110,6 +110,8 @@ multiplot(..., title = "Coefficient Plot", xlab = "Value",
 \item{secret.weapon}{If this is \code{TRUE} and exactly one coefficient is listed in coefficients then Andy Gelman's secret weapon is plotted.}
 
 \item{legend.reverse}{Setting to reverse the legend in a multiplot so that it matches the order they are drawn in the plot}
+
+\item{trans}{A transformation function to apply to the values and confidence intervals.  \code{identity} by default.  Use \code{invlogit} for binary regression.}
 
 \item{\dots}{Models to be plotted}
 }
