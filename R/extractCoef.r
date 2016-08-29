@@ -60,6 +60,36 @@ extract.coef.lm <- function(model, ...)
     extract.coef.default(model=model, ...)
 }
 
+#' @title extract.coef.logitmfx
+#' @description Extract Coefficient Information from logitmfx Models
+#' @details Gets the coefficient values and standard errors, and variable names from an logitmfx model.
+#' @author Jared P. Lander
+#' @aliases extract.coef.logitmfx
+#' @method extract.coef logitmfx
+#' @inheritParams extract.coef.default
+#' @return A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.
+#' @examples
+#' \dontrun{
+#' data(diamonds, package='ggplot2')
+#' library(coefplot)
+#' library(mfx)
+#' margin1 <- logitmfx(price > 18000 ~ cut + carat, data=diamonds, 
+#' atmean=FALSE, robust=TRUE)
+#' extract.coef(margin1)
+#' }
+#' 
+extract.coef.logitmfx <- function(model, ...)
+{
+    # get values amd SDs
+    info <- as.data.frame(model$mfxest[, c('dF/dx', 'Std. Err.')])
+    # give them the appropriate names
+    names(info) <- c('Value', 'SE')
+    # make a column holding the coefficient name
+    info$Coefficient <- rownames(info)
+    
+    return(info)
+}
+
 
 #' extract.coef.glm
 #' 

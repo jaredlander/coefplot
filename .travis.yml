@@ -6,6 +6,7 @@ sudo: required
 r_packages:
   - glmnet
   - maxLik
+  - mfx
 
 notifications:
   email:

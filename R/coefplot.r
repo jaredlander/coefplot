@@ -419,6 +419,34 @@ coefplot.rxLogit <- function(...)
 #     data.frame(Coefficient=rownames(theCoef)[nonZeroIndex], Value=theCoef[nonZeroIndex])
 # }
 
+#' @title  coefplot.logitmfx
+#' @description  Dotplot for logitmfx coefficients
+#' @details  A graphical display of the coefficients and standard errors from a fitted logitmfx model
+#' 
+#' \code{\link{coefplot}} is the S3 generic method for plotting the coefficients from a fitted model.
+#'
+#' For more information on this function and it's arguments see \code{\link{coefplot.default}}
+#'
+#' @aliases coefplot.logitmfx
+#' @export coefplot.logitmfx
+#' @export
+#' @method coefplot logitmfx
+#' @author Jared P. Lander
+#' @param \dots All arguments are passed on to \code{\link{coefplot.default}}.  Please see that function for argument information.
+#' @return A ggplot object.  See \code{\link{coefplot.lm}} for more information.
+#' @examples
+#' 
+#' data(diamonds, package='ggplot2')
+#' library(coefplot)
+#' library(mfx)
+#' margin1 <- logitmfx(price > 18000 ~ cut + carat, data=diamonds, 
+#' atmean=FALSE, robust=TRUE)
+#' coefplot(margin1)
+#' 
+coefplot.logitmfx <- function(...)
+{
+    coefplot.default(...)
+}
 
 # just another name for it
 plotcoef <- function(...)
