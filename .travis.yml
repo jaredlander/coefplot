@@ -1,12 +1,18 @@
 # Sample .travis.yml for R projects
 
 language: r
+r:
+    - release
+    - devel
 warnings_are_errors: true
 sudo: required
 r_packages:
   - glmnet
   - maxLik
   - mfx
+
+install:
+    - Rscript -e 'library("devtools"); library(methods); options(repos=c(CRAN="http://cran.rstudio.com")); install_deps(dependencies = "Enhances")'
 
 notifications:
   email:
