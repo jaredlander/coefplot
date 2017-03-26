@@ -31,4 +31,3 @@ coefplot(model2, trans=invlogit)
 \author{
 Jared P. Lander
 }
-

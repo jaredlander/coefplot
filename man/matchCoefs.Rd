@@ -40,4 +40,3 @@ coefplot:::matchCoefs(mod5)
 \author{
 Jared P. Lander
 }
-

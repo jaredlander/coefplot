@@ -25,4 +25,3 @@ The user specifies predictors whose coefficients should be included in the coefp
 \author{
 Jared P. Lander
 }
-

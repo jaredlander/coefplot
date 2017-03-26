@@ -97,4 +97,3 @@ coefplot(df2)
 \author{
 Jared P. Lander
 }
-

@@ -23,4 +23,3 @@ Gets relative positions of predictors
 \author{
 Jared P. Lander
 }
-

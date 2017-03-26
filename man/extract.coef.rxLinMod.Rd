@@ -32,4 +32,3 @@ extract.coef(mod3)
 \author{
 Jared P. Lander
 }
-

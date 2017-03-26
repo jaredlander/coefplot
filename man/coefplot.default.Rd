@@ -117,10 +117,9 @@ coefplot(model1, predictors="color", strict=TRUE)
 coefplot(model1, coefficients=c("(Intercept)", "color.Q"))
 
 }
-\author{
-Jared P. Lander
-}
 \seealso{
 \code{\link{lm}} \code{\link{glm}} \code{\link{ggplot}} \code{\link{coefplot}} \code{\link{plotcoef}}
 }
-
+\author{
+Jared P. Lander
+}

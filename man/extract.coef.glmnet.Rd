@@ -39,4 +39,3 @@ extract.coef(modG1)
 \author{
 Jared P. Lander
 }
-

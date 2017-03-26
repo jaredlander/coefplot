@@ -25,4 +25,3 @@ Only used by \code{\link{getCoefsFromPredictorsRevo}} for finding matches betwee
 \author{
 Jared P. Lander
 }
-

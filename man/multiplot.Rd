@@ -21,6 +21,8 @@ multiplot(..., title = "Coefficient Plot", xlab = "Value",
   secret.weapon = FALSE, legend.reverse = FALSE, trans = identity)
 }
 \arguments{
+\item{\dots}{Models to be plotted}
+
 \item{title}{The name of the plot, if NULL then no name is given}
 
 \item{xlab}{The x label}
@@ -112,8 +114,6 @@ multiplot(..., title = "Coefficient Plot", xlab = "Value",
 \item{legend.reverse}{Setting to reverse the legend in a multiplot so that it matches the order they are drawn in the plot}
 
 \item{trans}{A transformation function to apply to the values and confidence intervals.  \code{identity} by default.  Use \code{invlogit} for binary regression.}
-
-\item{\dots}{Models to be plotted}
 }
 \value{
 A ggplot object
@@ -158,4 +158,3 @@ multiplot(mod1, mod2, mod3, mod7, coefficients="total_bill", by="Model", horizon
 \seealso{
 \code{link{coefplot}}
 }
-

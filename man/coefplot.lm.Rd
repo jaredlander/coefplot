@@ -30,4 +30,3 @@ coefplot(model1)
 \author{
 Jared P. Lander
 }
-

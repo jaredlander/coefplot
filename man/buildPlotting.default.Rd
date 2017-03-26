@@ -90,10 +90,9 @@ coefplot:::buildPlotting.default(theCI)
 coefplot(model1)
 
 }
-\author{
-Jared P. Lander www.jaredlander.com
-}
 \seealso{
 \code{\link{coefplot.default}} \code{\link{coefplot}} \code{\link{multiplot}}
 }
-
+\author{
+Jared P. Lander www.jaredlander.com
+}

@@ -27,4 +27,3 @@ invlogit(c(-1, 1, 2))
 \author{
 Jared P. Lander
 }
-

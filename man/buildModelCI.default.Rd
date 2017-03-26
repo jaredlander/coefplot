@@ -58,10 +58,9 @@ coefplot:::buildModelCI(model1)
 coefplot(model1)
 
 }
-\author{
-Jared P. Lander
-}
 \seealso{
 \code{\link{coefplot}} \code{\link{multiplot}}
 }
-
+\author{
+Jared P. Lander
+}

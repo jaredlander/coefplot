@@ -23,4 +23,3 @@ Matches coefficients to predictors using information from model matrices
 \author{
 Jared P. Lander
 }
-

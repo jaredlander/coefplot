@@ -33,4 +33,3 @@ coefplot(mod6)
 \author{
 Jared P. Lander www.jaredlander.com
 }
-

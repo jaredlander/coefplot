@@ -39,4 +39,3 @@ mod4 <- rxLinMod(price ~ carat*cut + x, diamonds)
 \author{
 Jared P. Lander
 }
-

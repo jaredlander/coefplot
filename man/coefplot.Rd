@@ -4,6 +4,8 @@
 \name{coefplot}
 \alias{coefplot}
 \alias{coefplot-package}
+\alias{coefplot-package}
+\alias{coefplot}
 \alias{plotcoef}
 \title{Plotting Model Coefficients}
 \usage{
@@ -55,11 +57,11 @@ coefplot(model1, predictors=c("(Intercept)", "carat"),
 newNames=c(carat="Size", "(Intercept)"="Constant"))
 
 }
-\author{
-Jared P. Lander
-}
 \seealso{
 \code{\link{coefplot.lm}}
+}
+\author{
+Jared P. Lander
 }
 \keyword{coefficient}
 \keyword{coefficients}
@@ -70,4 +72,3 @@ Jared P. Lander
 \keyword{lm}
 \keyword{model}
 \keyword{rxLinMod}
-

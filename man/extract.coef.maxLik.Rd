@@ -39,4 +39,3 @@ extract.coef(res)
 \author{
 Jared P. Lander
 }
-
