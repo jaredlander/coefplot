@@ -66,7 +66,7 @@ buildPlotting.default <- function(modelCI,
     #ribbonGeom <- list(None=NULL, geom_ribbon(aes(ymin=LowOuter, ymax=HighOuter, group=Checkers), data=modelCI, fill=fillColor, alpha=alpha, lwd=lwdOuter))
     
     # point layer
-    pointGeom <- geom_point(aes_string(xmin=value, xmax=value, color="Model", shape="Model"), size=pointSize, position=position_dodgev(height=dodgeHeight))
+    pointGeom <- geom_point(aes_string(x=value, color="Model", shape="Model"), size=pointSize, position=position_dodgev(height=dodgeHeight))
 
     #colorAes <- list(None=NULL, Single=aes(color=as.factor(Model)))
     colorScaleSingle <- scale_color_manual(values=rep(color, length(unique(modelCI$Model))), guide=FALSE)
