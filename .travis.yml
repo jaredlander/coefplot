@@ -8,12 +8,11 @@ r:
 sudo: false
 cache:
     packages: true
-warnings_are_errors: true
-sudo: required
 r_packages:
   - glmnet
   - maxLik
   - xgboost
+warnings_are_errors: true
 after_success:
   - Rscript -e 'covr::codecov()'
 
