@@ -17,7 +17,7 @@ Adjust position by dodging overlaps to the side.
 \examples{
 ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
   geom_bar(position = "dodge")
-\donttest{
+
 ggplot(diamonds, aes(price, fill = cut)) +
   geom_histogram(position="dodge")
 # see ?geom_boxplot and ?geom_bar for more examples
@@ -42,5 +42,5 @@ p + geom_errorbar(aes(ymin = y-1, ymax = y+1), width = 0.2,
   position = "dodge")
 p + geom_errorbar(aes(ymin = y-1, ymax = y+1, height = 0.2),
   position = position_dodge(width = 0.90))
-}
+
 }
