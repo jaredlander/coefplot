@@ -5,7 +5,7 @@
 #'
 #' Plots a graph similar to \code{\link{coefplot}} but for multiple plots at once.
 #'
-#' For now, if \code{names} is provided the plots will appear in alphabetical order of the names.  This wil be adjusted in future iterations.  When setting \code{by} to "Model" and specifying exactly one variable in \code{variables} that one coefficient will be plotted repeatedly with the axis labeled by model.  This is Andy Gelman's secret weapon.
+#' For now, if \code{names} is provided the plots will appear in alphabetical order of the names.  This will be adjusted in future iterations.  When setting \code{by} to "Model" and specifying exactly one variable in \code{variables} that one coefficient will be plotted repeatedly with the axis labeled by model.  This is Andy Gelman's secret weapon.
 #'
 #' @export multiplot
 #' @seealso \code{link{coefplot}}
@@ -29,7 +29,7 @@
 #' @param zeroLWD The thickness of the 0 line
 #' @param zeroType The type of 0 line, 0 will mean no line
 ## @param facet logical; If the coefficients should be faceted by the variables, numeric coefficients (including the intercept) will be one facet
-#' @param single logical; If TRUE there will be one plot with the points and bars stacked, otherwise the models will be displayed in seperate facets
+#' @param single logical; If TRUE there will be one plot with the points and bars stacked, otherwise the models will be displayed in separate facets
 #' @param scales The way the axes should be treated in a faceted plot.  Can be c("fixed", "free", "free_x", "free_y")
 #' @param ncol The number of columns that the models should be plotted in
 #' @param sort Determines the sort order of the coefficients.  Possible values are c("natural", "magnitude", "alphabetical")
@@ -41,7 +41,7 @@
 #' @param horizontal logical; If the plot should be displayed horizontally
 #' @param intercept logical; Whether the Intercept coefficient should be plotted
 #' @param interceptName Specifies name of intercept it case it is not the default of "(Intercept").
-#' @param predictors A character vector specifying which coefficients to keep.  Each individual coefficient can be specfied.  Use predictors to specify entire factors
+#' @param predictors A character vector specifying which coefficients to keep.  Each individual coefficient can be specified.  Use predictors to specify entire factors
 #' @param coefficients A character vector specifying which factor coefficients to keep.  It will keep all levels and any interactions, even if those are not listed.
 #' @param strict If TRUE then predictors will only be matched to its own coefficients, not its interactions
 #' @param newNames Named character vector of new names for coefficients
@@ -50,8 +50,8 @@
 #' @param factors Vector of factor variables that will be the only ones shown
 #' @param only logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.
 #' @param shorten logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped.
-#' @param drop logical; if TRUE then models without valid coeffiecients to show will not be plotted
-#' @param by If "Coefficient" then anormal multiplot is plotted, if "Model" then the coefficients are plotted along the axis with one for each model.  If plotting by model only one coefficient at a time can be selected.  This is called the secret weapon by Andy Gelman.
+#' @param drop logical; if TRUE then models without valid coefficients to show will not be plotted
+#' @param by If "Coefficient" then a normal multiplot is plotted, if "Model" then the coefficients are plotted along the axis with one for each model.  If plotting by model only one coefficient at a time can be selected.  This is called the secret weapon by Andy Gelman.
 #' @param plot.shapes If \code{TRUE} points will have different shapes for different models
 #' @param plot.linetypes If \code{TRUE} lines will have different shapes for different models
 #' @param legend.position position of legend, one of "left", "right", "bottom", "top", "none"

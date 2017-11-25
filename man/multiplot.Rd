@@ -59,7 +59,7 @@ multiplot(..., title = "Coefficient Plot", xlab = "Value",
 
 \item{zeroType}{The type of 0 line, 0 will mean no line}
 
-\item{single}{logical; If TRUE there will be one plot with the points and bars stacked, otherwise the models will be displayed in seperate facets}
+\item{single}{logical; If TRUE there will be one plot with the points and bars stacked, otherwise the models will be displayed in separate facets}
 
 \item{scales}{The way the axes should be treated in a faceted plot.  Can be c("fixed", "free", "free_x", "free_y")}
 
@@ -91,7 +91,7 @@ multiplot(..., title = "Coefficient Plot", xlab = "Value",
 
 \item{coefficients}{A character vector specifying which factor coefficients to keep.  It will keep all levels and any interactions, even if those are not listed.}
 
-\item{predictors}{A character vector specifying which coefficients to keep.  Each individual coefficient can be specfied.  Use predictors to specify entire factors}
+\item{predictors}{A character vector specifying which coefficients to keep.  Each individual coefficient can be specified.  Use predictors to specify entire factors}
 
 \item{strict}{If TRUE then predictors will only be matched to its own coefficients, not its interactions}
 
@@ -99,9 +99,9 @@ multiplot(..., title = "Coefficient Plot", xlab = "Value",
 
 \item{plot}{logical; If the plot should be drawn, if false then a data.frame of the values will be returned}
 
-\item{drop}{logical; if TRUE then models without valid coeffiecients to show will not be plotted}
+\item{drop}{logical; if TRUE then models without valid coefficients to show will not be plotted}
 
-\item{by}{If "Coefficient" then anormal multiplot is plotted, if "Model" then the coefficients are plotted along the axis with one for each model.  If plotting by model only one coefficient at a time can be selected.  This is called the secret weapon by Andy Gelman.}
+\item{by}{If "Coefficient" then a normal multiplot is plotted, if "Model" then the coefficients are plotted along the axis with one for each model.  If plotting by model only one coefficient at a time can be selected.  This is called the secret weapon by Andy Gelman.}
 
 \item{plot.shapes}{If \code{TRUE} points will have different shapes for different models}
 
@@ -124,7 +124,7 @@ Plot the coeffcients from multiple models
 \details{
 Plots a graph similar to \code{\link{coefplot}} but for multiple plots at once.
 
-For now, if \code{names} is provided the plots will appear in alphabetical order of the names.  This wil be adjusted in future iterations.  When setting \code{by} to "Model" and specifying exactly one variable in \code{variables} that one coefficient will be plotted repeatedly with the axis labeled by model.  This is Andy Gelman's secret weapon.
+For now, if \code{names} is provided the plots will appear in alphabetical order of the names.  This will be adjusted in future iterations.  When setting \code{by} to "Model" and specifying exactly one variable in \code{variables} that one coefficient will be plotted repeatedly with the axis labeled by model.  This is Andy Gelman's secret weapon.
 }
 \examples{
 
