@@ -8,8 +8,12 @@ r:
 sudo: false
 cache:
     packages: true
-install:
-    - Rscript -e 'install.packages(c("glmnet", "xgboost", "maxLik"), lib="/usr/lib/R/library")'
+before_install:
+    - sudo mkdir -p /usr/lib/R/library
+    - echo 'R_LIBS=/usr/lib/R/library:/usr/lib/R/site-library/' > ~/.Renviron
+    - sudo chmod 2777 /usr/lib/R/library
+#install:
+#    - Rscript -e 'install.packages(c("glmnet", "xgboost", "maxLik"), lib="/usr/lib/R/library")'
 r_packages:
     - glmnet
     - maxLik
