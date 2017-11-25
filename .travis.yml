@@ -9,7 +9,7 @@ sudo: false
 cache:
     packages: true
 install:
-    - Rscript -e 'install.packages(c("glmnet", "xgboost", "maxLik"), lib='/usr/lib/R/library')'
+    - Rscript -e 'install.packages(c("glmnet", "xgboost", "maxLik"), lib="/usr/lib/R/library")'
 r_packages:
     - glmnet
     - maxLik
