@@ -9,17 +9,17 @@ sudo: false
 cache:
     packages: true
 r_packages:
-  - glmnet
-  - maxLik
-  - xgboost
+    - glmnet
+    - maxLik
+    - xgboost
 warnings_are_errors: true
 after_success:
-  - Rscript -e 'covr::codecov()'
+    - Rscript -e 'covr::codecov()'
 
 notifications:
-  email:
-    on_success: change
-    on_failure: change
-  slack:
-    rooms:
-      - jaredlander:rOAt1FPjvpOV7GhGxdLcu4KW#coefplot
+    email:
+        on_success: change
+        on_failure: change
+    slack:
+        rooms:
+            - jaredlander:rOAt1FPjvpOV7GhGxdLcu4KW#coefplot
