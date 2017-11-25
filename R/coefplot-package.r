@@ -9,3 +9,9 @@
 #' @name coefplot
 #' @aliases coefplot-package
 NULL
+
+
+## quiets concerns of R CMD check re: the .data's that appear in pipelines 
+## because dplyr doesn't offer a way to use arrange with Standard evaluation
+
+if(getRversion() >= "2.15.1")  utils::globalVariables(c(".data"))
