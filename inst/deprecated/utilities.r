@@ -212,7 +212,7 @@ rxVarMatcher <- function(modelFactorVars, modelCoefNames, modelCoefs, shorten=TR
 #' @param outerCI How wide the outer confidence interval should be, normally 2 standard deviations.  If 0, then there will be no outer confidence interval.
 #' @param sort Determines the sort order of the coefficients.  Possible values are c("natural", "normal", "magnitude", "size", "alphabetical")
 #' @param decreasing logical; Whether the coefficients should be ascending or descending
-#' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with constinuous confidence bounds.
+#' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with continuous confidence bounds.
 #' @param intercept logical; Whether the Intercept coefficient should be plotted
 #' @param \dots See Details for information on \code{factors}, \code{only} and \code{shorten}
 #' @param name A name for the model, if NULL the call will be used
@@ -357,7 +357,7 @@ buildModelCI <- function(model, outerCI=2, innerCI=1, intercept=TRUE, numeric=FA
 #' @param zeroType The type of 0 line, 0 will mean no line
 #' @param facet logical; If the coefficients should be faceted by the variables, numeric coefficients (including the intercept) will be one facet
 #' @param scales The way the axes should be treated in a faceted plot.  Can be c("fixed", "free", "free_x", "free_y")
-#' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with constinuous confidence bounds.
+#' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with continuous confidence bounds.
 #' @param fillColor The color of the confidence bounds for a numeric factor
 #' @param alpha The transparency level of the numeric factor's confidence bound
 #' @param horizontal logical; If the plot should be displayed horizontally
