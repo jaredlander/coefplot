@@ -13,7 +13,7 @@ cache:
 #    - echo 'R_LIBS=/usr/lib/R/library:/usr/lib/R/site-library/' > ~/.Renviron
 #    - sudo chmod 2777 /usr/lib/R/library
 install:
-    - Rscript -e 'install.packages("devtools"); library("devtools"); library(methods); options(repos=c(CRAN="http://cran.rstudio.com")); install_deps(dependencies = "Enhances")'
+    - Rscript -e 'install.packages("devtools"); library("devtools"); library(methods); options(repos=c(CRAN="http://cran.rstudio.com")); install_deps(dependencies = c("Depends", "Imports", "LinkingTo", "Suggests", "Enhances"))'
 #    - Rscript -e 'install.packages(c("glmnet", "xgboost", "maxLik", "ggplot2", "plyr", "reshape2", "useful", "dplyr", "dygraphs", "tibble", "purrr", "testthat", "covr"), lib="/usr/lib/R/library", dependencies=TRUE)'
 #r_packages:
 #    - glmnet
