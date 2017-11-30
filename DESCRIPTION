@@ -20,13 +20,12 @@ Imports:
     tibble,
     magrittr,
     purrr
-Enhances:
-    glmnet,
-    maxLik,
-    xgboost
 ByteCompile: TRUE
 Packaged: 2017-07-31 Jared
 Suggests:
     testthat,
-    covr
+    covr,
+    glmnet,
+    maxLik,
+    xgboost
 RoxygenNote: 6.0.1
