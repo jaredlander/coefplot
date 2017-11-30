@@ -126,8 +126,8 @@ buildModelCI.default <- function(model, outerCI=2, innerCI=1, intercept=TRUE, nu
     # perform a transformation on the numbers if it's not the identity
     if(!identical(trans, identity))
     {
-        modelCI <- dplyr::mutate_each_(tbl=modelCI, funs=dplyr::funs(trans), 
-                                       vars=c('Value', 
+        modelCI <- dplyr::mutate_at(.tbl=modelCI, .funs=dplyr::funs(trans), 
+                                       .vars=c('Value', 
                                               'HighInner', 'HighOuter', 
                                               'LowInner', 'LowOuter'))
     }
