@@ -19,11 +19,11 @@
 
 \item{intercept}{logical; Whether the Intercept coefficient should be plotted}
 
-\item{numeric}{logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with constinuous confidence bounds.; not used for now.}
+\item{numeric}{logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with continuous confidence bounds.; not used for now.}
 
 \item{sort}{Determines the sort order of the coefficients.  Possible values are c("natural", "magnitude", "alphabetical")}
 
-\item{predictors}{A character vector specifying which variables to keep.  Each individual variable has to be specfied, so individual levels of factors must be specified.  We are working on making this easier to implement, but this is the only option for now.}
+\item{predictors}{A character vector specifying which variables to keep.  Each individual variable has to be specified, so individual levels of factors must be specified.  We are working on making this easier to implement, but this is the only option for now.}
 
 \item{strict}{If TRUE then predictors will only be matched to its own coefficients, not its interactions}
 

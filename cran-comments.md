@@ -1,8 +1,13 @@
+## Version Number
+1.2.5
+
 ## Test environments
-- Ubuntu 14.04, R 3.2.2
 - travis-ci latest version
-- Windows 8.1, R 3.2.3
-- Windows 8.1, R 3.3.0 (R-Devel)
+- Windows 10, R 3.4.2
+- Windows 10, R 3.5.0 (R-Devel)
+- Win Builder
 
 ## R CMD check results
-There were no ERRORs, WARNINGs or NOTEs. 
+There were no ERRORs
+
+On my PC, with R 3.4.2, I get the NOTE that some examples took over 5s but I do not see this note with other versions or on Win-Builder.

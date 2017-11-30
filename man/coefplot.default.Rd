@@ -79,7 +79,7 @@
 
 \item{coefficients}{A character vector specifying which factor coefficients to keep.  It will keep all levels and any interactions, even if those are not listed.}
 
-\item{predictors}{A character vector specifying which coefficients to keep.  Each individual coefficient can be specfied.  Use predictors to specify entire factors.}
+\item{predictors}{A character vector specifying which coefficients to keep.  Each individual coefficient can be specified.  Use predictors to specify entire factors.}
 
 \item{strict}{If TRUE then predictors will only be matched to its own coefficients, not its interactions}
 

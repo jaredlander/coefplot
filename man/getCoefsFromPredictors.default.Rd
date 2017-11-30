@@ -10,7 +10,7 @@
 \arguments{
 \item{model}{A fitted model}
 
-\item{predictors}{A character vector of predictors to match against.  Interactions can be explicitely specified by VariableA:VariableB.}
+\item{predictors}{A character vector of predictors to match against.  Interactions can be explicitly specified by VariableA:VariableB.}
 
 \item{strict}{Logical specifying if interactions terms should be included (\code{FALSE}) or just the main terms (\code{TRUE}).}
 

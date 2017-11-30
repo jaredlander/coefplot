@@ -176,7 +176,7 @@ getCoefsFromPredictors <- function(model, predictors, ...)
 #' @author Jared P. Lander
 #' @return A character vector of coefficients listing the coefficients that match the predictor
 #' @param model A fitted model
-#' @param predictors A character vector of predictors to match against.  Interactions can be explicitely specified by VariableA:VariableB.
+#' @param predictors A character vector of predictors to match against.  Interactions can be explicitly specified by VariableA:VariableB.
 #' @param strict Logical specifying if interactions terms should be included (\code{FALSE}) or just the main terms (\code{TRUE}).
 #' @param \dots further arguments
 getCoefsFromPredictors.default <- function(model, predictors=NULL, strict=FALSE, ...)
@@ -210,12 +210,12 @@ getCoefsFromPredictors.default <- function(model, predictors=NULL, strict=FALSE,
 
 #' @title getCoefsFromPredictorsRevo
 #' 
-#' @description Function thhat does the work for Revo models for matching coefficients with predictors
+#' @description Function that does the work for Revo models for matching coefficients with predictors
 #' 
 #' @details The user specifies predictors whose coefficients should be included in the coefplot.
 #' @aliases getCoefsFromPredictorsRevo
 #' @author Jared P. Lander
-#' @return A character vector of coefficients listing the coefficients that match the predictor.  As of now interactions cannot be explicitely specified.
+#' @return A character vector of coefficients listing the coefficients that match the predictor.  As of now interactions cannot be explicitly specified.
 #' @param model A fitted model
 #' @param predictors A character vector of predictors to match against
 #' @param strict Logical specifying if interactions terms should be included (\code{FALSE}) or just the main terms (\code{TRUE}).
