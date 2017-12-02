@@ -27,5 +27,8 @@ Suggests:
     covr,
     glmnet,
     maxLik,
-    xgboost
+    xgboost,
+    knitr,
+    rmarkdown
 RoxygenNote: 6.0.1
+VignetteBuilder: knitr

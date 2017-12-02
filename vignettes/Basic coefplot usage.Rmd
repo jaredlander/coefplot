@@ -1,0 +1,39 @@
+---
+title: "Basic coefplot Usage"
+author: "Vignette Author"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Basic coefplot Usage}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The idea for `coefplot` came from Andrew Gelman and Jennifer Hill's masterwork [
+Data Analysis Using Regression and Multilevel/Hierarchical Models](http://amzn.to/2j89Gsu). Whenever someone asks me how to learn statistics, that book is one of my first answers.
+
+The coefficient plot gives a quick visual overview of a generalized linear model. A version exists in [arm](https://github.com/gelman/arm) but requires fiddling with base graphics so I made this package as the next generation.
+
+# Basic Usage
+
+## lm
+
+## glm
+
+## maxLik
+
+## glmnet
+
+## sgboost
+
+# Secret Weapon
+
+# coefpath
+
