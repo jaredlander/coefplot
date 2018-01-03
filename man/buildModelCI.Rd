@@ -12,7 +12,7 @@ buildModelCI(model, ...)
 \item{\dots}{Arguments passed on onto other methods}
 }
 \value{
-A \code{\link{data.frame}} listing coeffcients and confidence bands.
+A \code{\link{data.frame}} listing coefficients and confidence bands.
 }
 \description{
 Construct Confidence Interval Values

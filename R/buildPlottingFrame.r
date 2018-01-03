@@ -12,7 +12,7 @@
 #' @import plyr
 #' @param model A Fitted model such as from lm, glm
 #' @param \dots Arguments passed on onto other methods
-#' @return A \code{\link{data.frame}} listing coeffcients and confidence bands.
+#' @return A \code{\link{data.frame}} listing coefficients and confidence bands.
 #' @seealso \code{\link{coefplot}} \code{\link{multiplot}}
 #' @examples
 #'
@@ -53,7 +53,7 @@ buildModelCI <- function(model, ...)
 #' @param interceptName Specifies name of intercept it case it is not the default of "(Intercept").
 #' @param \dots See Details for information on \code{factors}, \code{only} and \code{shorten}
 #' @param name A name for the model, if NULL the call will be used
-#' @return A \code{\link{data.frame}} listing coeffcients and confidence bands.
+#' @return A \code{\link{data.frame}} listing coefficients and confidence bands.
 #' @seealso \code{\link{coefplot}} \code{\link{multiplot}}
 #' @examples
 #'

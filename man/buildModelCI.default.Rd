@@ -42,7 +42,7 @@
 \item{\dots}{See Details for information on \code{factors}, \code{only} and \code{shorten}}
 }
 \value{
-A \code{\link{data.frame}} listing coeffcients and confidence bands.
+A \code{\link{data.frame}} listing coefficients and confidence bands.
 }
 \description{
 Construct Confidence Interval Values

@@ -28,7 +28,7 @@
 #' @param zeroType The type of 0 line, 0 will mean no line
 #' @param facet logical; If the coefficients should be faceted by the variables, numeric coefficients (including the intercept) will be one facet
 #' @param scales The way the axes should be treated in a faceted plot.  Can be c("fixed", "free", "free_x", "free_y")
-#' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with constinuous confidence bounds.
+#' @param numeric logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with continuous confidence bounds.
 #' @param fillColor The color of the confidence bounds for a numeric factor
 #' @param alpha The transparency level of the numeric factor's confidence bound
 #' @param horizontal logical; If the plot should be displayed horizontally
