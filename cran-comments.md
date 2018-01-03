@@ -9,6 +9,7 @@
 - Windows 10, R 3.4.2
 - Windows 10, R 3.5.0 (R-Devel)
 - Win Builder
+- Ubuntu 16.04 (WSL), R 3.4.3
 
 ## R CMD check results
 There were no ERRORs or WARNINGs other than a note to CRAN maintainers as seen below.

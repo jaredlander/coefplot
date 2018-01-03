@@ -231,7 +231,11 @@ extract.coef.glmnet <- function(model, lambda=stats::median(model$lambda), ...)
 {
     # get coefs at given s
     theCoef <- as.matrix(stats::coef(model, s=lambda))
-    coefDF <- data.frame(Value=theCoef, SE=NA_real_, Coefficient=rownames(theCoef))
+    # supressing warning because sometimes there will be two intercepts
+    # that would generate a rowname warning which really isn't needed
+    coefDF <- suppressWarnings(
+        data.frame(Value=theCoef, SE=NA_real_, Coefficient=rownames(theCoef))
+    )
     coefDF <- coefDF[theCoef != 0, ]
     names(coefDF)[1] <- "Value"
 
