@@ -23,7 +23,7 @@ Imports:
 ByteCompile: TRUE
 Packaged: 2017-07-31 Jared
 Suggests:
-    testthat,
+    testthat (>= 2.0.0),
     covr,
     glmnet,
     maxLik,
