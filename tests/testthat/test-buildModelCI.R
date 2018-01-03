@@ -59,7 +59,3 @@ test_that('buildModelCI returns correct number of rows', {
     expect_equal(nrow(coefG1), 5)
 })
 
-
-test_that('buildModelCI gives warning for glmnet models', {
-    expect_warning(coefG1 <- coefplot:::buildModelCI(modG1))
-})
