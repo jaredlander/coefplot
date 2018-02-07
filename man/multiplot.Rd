@@ -119,7 +119,7 @@ multiplot(..., title = "Coefficient Plot", xlab = "Value",
 A ggplot object
 }
 \description{
-Plot the coeffcients from multiple models
+Plot the coefficients from multiple models
 }
 \details{
 Plots a graph similar to \code{\link{coefplot}} but for multiple plots at once.

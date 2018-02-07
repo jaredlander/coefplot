@@ -92,7 +92,7 @@
 \item{\dots}{Arguments passed on to other functions}
 }
 \value{
-If \code{plot} is \code{TRUE} then a \code{\link{ggplot}} object is returned.  Otherwise a \code{\link{data.frame}} listing coeffcients and confidence bands is returned.
+If \code{plot} is \code{TRUE} then a \code{\link{ggplot}} object is returned.  Otherwise a \code{\link{data.frame}} listing coefficients and confidence bands is returned.
 }
 \description{
 Dotplot for coefficients

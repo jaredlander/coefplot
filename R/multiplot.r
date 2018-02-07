@@ -1,7 +1,7 @@
 ### Functions for plotting multiple coefplots at once
 #' Plot multiple coefplots
 #'
-#' Plot the coeffcients from multiple models
+#' Plot the coefficients from multiple models
 #'
 #' Plots a graph similar to \code{\link{coefplot}} but for multiple plots at once.
 #'
