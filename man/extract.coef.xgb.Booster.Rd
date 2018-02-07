@@ -12,9 +12,9 @@
 
 \item{feature_names}{Names of coefficients}
 
-\item{\dots}{Further arguments}
+\item{removeNonSelected}{If \code{TRUE} (default) do not return the non-selected (0) coefficients}
 
-\item{If}{\code{TRUE} (default) do not return the non-selected (0) coefficients}
+\item{\dots}{Further arguments}
 }
 \value{
 A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.

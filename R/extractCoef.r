@@ -322,7 +322,7 @@ extract.coef.maxLik <- function(model, ...)
 #' @export
 #' @param model Model object from which to extract information.
 #' @param feature_names Names of coefficients
-#' @param If \code{TRUE} (default) do not return the non-selected (0) coefficients
+#' @param removeNonSelected If \code{TRUE} (default) do not return the non-selected (0) coefficients
 #' @param \dots Further arguments
 #' @return A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.
 #' @examples
