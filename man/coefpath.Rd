@@ -10,7 +10,7 @@ coefpath(model, ...)
 
 \method{coefpath}{glmnet}(model, xlab = "Log Lambda", ylab = "Coefficients",
   showLegend = c("onmouseover", "auto", "always", "follow", "never"),
-  annotate = TRUE, ...)
+  annotate = TRUE, elementID = NULL, ...)
 
 \method{coefpath}{cv.glmnet}(model, xlab = "Log Lambda",
   ylab = "Coefficients", showLegend = c("onmouseover", "auto", "always",
@@ -32,6 +32,8 @@ coefpath(model, ...)
 \item{showLegend}{When to display the legend. Specify "always" to always show the legend. Specify "onmouseover" to only display it when a user mouses over the chart. Specify "follow" to have the legend show as overlay to the chart which follows the mouse. The default behavior is "auto", which results in "always" when more than one series is plotted and "onmouseover" when only a single series is plotted.}
 
 \item{annotate}{If \code{TRUE} (default) plot the name of the series}
+
+\item{elementID}{Unique identified for dygraph, if \code{NULL} it will be randomly generated}
 
 \item{colorMin}{Color for line showing lambda.min}
 

@@ -37,6 +37,7 @@ coefpath <- function(model, ...)
 #' @param ylab y-axis label
 #' @param showLegend When to display the legend. Specify "always" to always show the legend. Specify "onmouseover" to only display it when a user mouses over the chart. Specify "follow" to have the legend show as overlay to the chart which follows the mouse. The default behavior is "auto", which results in "always" when more than one series is plotted and "onmouseover" when only a single series is plotted.
 #' @param annotate If \code{TRUE} (default) plot the name of the series
+#' @param elementID Unique identified for dygraph, if \code{NULL} it will be randomly generated
 #' 
 coefpath.glmnet <- function(model,
                             xlab='Log Lambda',
@@ -44,6 +45,7 @@ coefpath.glmnet <- function(model,
                             showLegend=c('onmouseover', 'auto', 'always', 
                                          'follow' ,'never'),
                             annotate=TRUE,
+                            elementID=NULL,
                             ...)
 {
     # figure out how to show the legend
@@ -52,8 +54,21 @@ coefpath.glmnet <- function(model,
     # get the coefficients in a nice data.frame
     pathDF <- extractPath(model, ...)
     
+    # if ID is NULL, make a random ID
+    if(is.null(elementID))
+    {
+        elementID <- sprintf('coefpath_%s', 
+                             paste(
+                                 sample(x=c(letters, LETTERS, 0:9), 
+                                        size=12, 
+                                        replace=TRUE), 
+                                 collapse=''
+                             )
+        )
+    }
+    
     # build the graph
-    g <- dygraphs::dygraph(pathDF) %>% 
+    g <- dygraphs::dygraph(pathDF, elementId=elementID) %>% 
         # nice axis labels
         dygraphs::dyAxis(name='x', label=xlab) %>% 
         dygraphs::dyAxis(name='y', label=ylab) %>% 
