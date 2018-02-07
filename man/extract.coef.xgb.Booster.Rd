@@ -4,7 +4,8 @@
 \alias{extract.coef.xgb.Booster}
 \title{extract.coef.xgb.Booster}
 \usage{
-\method{extract.coef}{xgb.Booster}(model, feature_names = NULL, ...)
+\method{extract.coef}{xgb.Booster}(model, feature_names = NULL,
+  removeNonSelected = TRUE, ...)
 }
 \arguments{
 \item{model}{Model object from which to extract information.}
@@ -12,6 +13,8 @@
 \item{feature_names}{Names of coefficients}
 
 \item{\dots}{Further arguments}
+
+\item{If}{\code{TRUE} (default) do not return the non-selected (0) coefficients}
 }
 \value{
 A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.

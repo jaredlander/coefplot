@@ -322,6 +322,7 @@ extract.coef.maxLik <- function(model, ...)
 #' @export
 #' @param model Model object from which to extract information.
 #' @param feature_names Names of coefficients
+#' @param If \code{TRUE} (default) do not return the non-selected (0) coefficients
 #' @param \dots Further arguments
 #' @return A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.
 #' @examples
@@ -337,7 +338,9 @@ extract.coef.maxLik <- function(model, ...)
 #' extract.coef(xg1)
 #' extract.coef(xg1, feature_names=colnames(diaX))
 #' 
-extract.coef.xgb.Booster <- function(model, feature_names=NULL, ...)
+extract.coef.xgb.Booster <- function(model, feature_names=NULL, 
+                                     removeNonSelected=TRUE,
+                                     ...)
 {
     # get coefs for the boosted tree
     theCoef <- xgboost::xgb.importance(model=model, 
@@ -348,6 +351,13 @@ extract.coef.xgb.Booster <- function(model, feature_names=NULL, ...)
         dplyr::mutate(SE=NA_real_) %>% 
         # rename some columns
         dplyr::select('Value'='Weight', 'SE'='SE', 'Coefficient'='Feature')
+    
+    if(removeNonSelected)
+    {
+        theCoef <- theCoef %>% 
+            # remove 0 Values
+            dplyr::filter_at(.vars='Value', .vars_predicate=dplyr::all_vars(. != 0))
+    }
     
     return(theCoef)
 }

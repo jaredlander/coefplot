@@ -14,31 +14,38 @@ xg1 <- xgboost(data=diaX, label=diaY,
 
 xgCoef <- extract.coef(xg1)
 xgCoef_named <- extract.coef(xg1, feature_names=colnames(diaX))
+xgCoef_named_all <- extract.coef(xg1, feature_names=colnames(diaX), removeNonSelected=FALSE)
 
 test_that("The correct class is returned", {
     expect_is(xgCoef, 'tbl')
     expect_is(xgCoef_named, 'tbl')
+    expect_is(xgCoef_named_all, 'tbl')
 })
 
 test_that("The correct number and names of columns are returned", {
     expect_named(xgCoef)
     expect_named(xgCoef_named)
+    expect_named(xgCoef_named_all)
     
     expect_length(xgCoef, 3)
     expect_length(xgCoef_named, 3)
+    expect_length(xgCoef_named_all, 3)
     
     expect_equal(names(xgCoef), c('Value', 'SE', 'Coefficient'))
     expect_equal(names(xgCoef_named), c('Value', 'SE', 'Coefficient'))
+    expect_equal(names(xgCoef_named_all), c('Value', 'SE', 'Coefficient'))
 })
 
 test_that("The correct number of rows are returned", {
     expect_equal(nrow(xgCoef), ncol(diaX))
     expect_equal(nrow(xgCoef_named), ncol(diaX))
+    expect_equal(nrow(xgCoef_named_all), ncol(diaX))
 })
 
 test_that("The correct coefficient names are returned", {
     expect_equal(xgCoef$Coefficient, 1:ncol(diaX))
     expect_equal(xgCoef_named$Coefficient, colnames(diaX))
+    expect_equal(xgCoef_named_all$Coefficient, colnames(diaX))
 })
 
 unlink('TestModelXG.model')
