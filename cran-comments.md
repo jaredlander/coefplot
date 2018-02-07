@@ -1,6 +1,8 @@
 ## Version Number
 1.2.6
 
+This is an update that added minor features and no big changes.
+
 ## Test environments
 - travis-ci
     - R-oldrel
