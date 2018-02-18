@@ -38,6 +38,8 @@ coefpath <- function(model, ...)
 #' @param showLegend When to display the legend. Specify "always" to always show the legend. Specify "onmouseover" to only display it when a user mouses over the chart. Specify "follow" to have the legend show as overlay to the chart which follows the mouse. The default behavior is "auto", which results in "always" when more than one series is plotted and "onmouseover" when only a single series is plotted.
 #' @param annotate If \code{TRUE} (default) plot the name of the series
 #' @param elementID Unique identified for dygraph, if \code{NULL} it will be randomly generated
+#' @param width Width in pixels (optional, defaults to automatic sizing)
+#' @param height Height in pixels (optional, defaults to automatic sizing)
 #' 
 coefpath.glmnet <- function(model,
                             xlab='Log Lambda',
@@ -46,6 +48,7 @@ coefpath.glmnet <- function(model,
                                          'follow' ,'never'),
                             annotate=TRUE,
                             elementID=NULL,
+                            width=NULL, height=NULL,
                             ...)
 {
     # figure out how to show the legend
@@ -68,7 +71,8 @@ coefpath.glmnet <- function(model,
     }
     
     # build the graph
-    g <- dygraphs::dygraph(pathDF, elementId=elementID) %>% 
+    g <- dygraphs::dygraph(pathDF, elementId=elementID, 
+                           width=width, height=height) %>% 
         # nice axis labels
         dygraphs::dyAxis(name='x', label=xlab) %>% 
         dygraphs::dyAxis(name='y', label=ylab) %>% 

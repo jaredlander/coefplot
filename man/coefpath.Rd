@@ -10,7 +10,7 @@ coefpath(model, ...)
 
 \method{coefpath}{glmnet}(model, xlab = "Log Lambda", ylab = "Coefficients",
   showLegend = c("onmouseover", "auto", "always", "follow", "never"),
-  annotate = TRUE, elementID = NULL, ...)
+  annotate = TRUE, elementID = NULL, width = NULL, height = NULL, ...)
 
 \method{coefpath}{cv.glmnet}(model, xlab = "Log Lambda",
   ylab = "Coefficients", showLegend = c("onmouseover", "auto", "always",
@@ -34,6 +34,10 @@ coefpath(model, ...)
 \item{annotate}{If \code{TRUE} (default) plot the name of the series}
 
 \item{elementID}{Unique identified for dygraph, if \code{NULL} it will be randomly generated}
+
+\item{width}{Width in pixels (optional, defaults to automatic sizing)}
+
+\item{height}{Height in pixels (optional, defaults to automatic sizing)}
 
 \item{colorMin}{Color for line showing lambda.min}
 
