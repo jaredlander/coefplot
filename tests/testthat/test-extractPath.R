@@ -8,7 +8,7 @@ modG1 <- glmnet(x=diaX, y=diaY)
 modG2 <- cv.glmnet(x=diaX, y=diaY, nfolds=5)
 
 extracted <- extractPath(modG1)
-extracted2 <- extractPath(modG1)
+extracted2 <- extractPath(modG2)
 
 test_that('extractPath returns the correct type and number of columns', {
     expect_length(extracted, c(8))
