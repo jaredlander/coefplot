@@ -86,23 +86,27 @@
 #' multiplot(mod1, mod2, mod3, mod7, coefficients="total_bill", by="Model", horizontal=FALSE)
 #' 
 #'
-multiplot <- function(..., title="Coefficient Plot", xlab="Value", ylab="Coefficient", 
-    					innerCI=1, outerCI=2, lwdInner=1, lwdOuter=0, pointSize=3, dodgeHeight=1,  
+multiplot <- function(..., 
+                      title="Coefficient Plot", xlab="Value", ylab="Coefficient", 
+                      innerCI=1, outerCI=2, 
+                      lwdInner=1, 
+                      lwdOuter=(Sys.info()["sysname"] != 'Windows')*0.5, 
+                      pointSize=3, dodgeHeight=1,  
                       color="blue", shape=16, linetype=1,
-						cex=.8, textAngle=0, numberAngle=90,
-						zeroColor="grey", zeroLWD=1, zeroType=2,
-						#facet=FALSE,
-                        single=TRUE,
-                        scales="fixed", ncol=length(unique(modelCI$Model)),
-						sort=c("natural", "normal", "magnitude", "size", "alphabetical"), decreasing=FALSE, names=NULL,
-						numeric=FALSE, fillColor="grey", alpha=1/2,
-						horizontal=FALSE, factors=NULL, only=NULL, shorten=TRUE,
-						intercept=TRUE, interceptName="(Intercept)", 
+                      cex=.8, textAngle=0, numberAngle=90,
+                      zeroColor="grey", zeroLWD=1, zeroType=2,
+                      #facet=FALSE,
+                      single=TRUE,
+                      scales="fixed", ncol=length(unique(modelCI$Model)),
+                      sort=c("natural", "normal", "magnitude", "size", "alphabetical"), decreasing=FALSE, names=NULL,
+                      numeric=FALSE, fillColor="grey", alpha=1/2,
+                      horizontal=FALSE, factors=NULL, only=NULL, shorten=TRUE,
+                      intercept=TRUE, interceptName="(Intercept)", 
                       coefficients=NULL, predictors=NULL, strict=FALSE, newNames=NULL, plot=TRUE, drop=FALSE,
                       by=c("Coefficient", "Model"), plot.shapes=FALSE, plot.linetypes=FALSE,
                       legend.position=c("right", "left", "bottom", "top", "none"),
                       secret.weapon=FALSE, legend.reverse=FALSE, trans=identity
-                      )
+)
 {
     ## if ... is already a list just grab the dots, otherwise force it into a list
     if(tryCatch(is.list(...), error = function(e) FALSE))
