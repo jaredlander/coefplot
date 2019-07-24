@@ -9,18 +9,21 @@
 \arguments{
 \item{model}{Model object from which to extract information.}
 
-\item{lambda}{Value of penalty parameter.  Can be either a numeric value or one of "lambda.min" or "lambda.1se"}
+\item{lambda}{Value of penalty parameter.  Can be either a numeric value or 
+one of "lambda.min" or "lambda.1se"}
 
 \item{\dots}{Further arguments}
 }
 \value{
-A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.
+A \code{\link{data.frame}} containing the coefficient, the standard 
+error and the variable name.
 }
 \description{
 Extract Coefficient Information from Models
 }
 \details{
-Gets the coefficient values and variable names from a model.  Since glmnet does not have standard errors, those will just be NA.
+Gets the coefficient values and variable names from a model.  Since 
+glmnet does not have standard errors, those will just be NA.
 }
 \examples{
 library(glmnet)

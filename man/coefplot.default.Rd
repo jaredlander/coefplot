@@ -10,11 +10,11 @@
   shape = 16, cex = 0.8, textAngle = 0, numberAngle = 0,
   zeroColor = "grey", zeroLWD = 1, zeroType = 2, facet = FALSE,
   scales = "free", sort = c("natural", "magnitude", "alphabetical"),
-  decreasing = FALSE, numeric = FALSE, fillColor = "grey", alpha = 1/2,
-  horizontal = FALSE, factors = NULL, only = NULL, shorten = TRUE,
-  intercept = TRUE, interceptName = "(Intercept)", coefficients = NULL,
-  predictors = NULL, strict = FALSE, trans = identity, newNames = NULL,
-  plot = TRUE, ...)
+  decreasing = FALSE, numeric = FALSE, fillColor = "grey",
+  alpha = 1/2, horizontal = FALSE, factors = NULL, only = NULL,
+  shorten = TRUE, intercept = TRUE, interceptName = "(Intercept)",
+  coefficients = NULL, predictors = NULL, strict = FALSE,
+  trans = identity, newNames = NULL, plot = TRUE, ...)
 }
 \arguments{
 \item{model}{The model to plot.}

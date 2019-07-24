@@ -1,3 +1,6 @@
+# Version 1.2.7
+- Coefficients near zero in `xgboost` models are not returned and the user can set the tolerance level.
+
 # Version 1.2.6
 - `coefpath` has an argument for ID and assigns a random ID to the `dygraph` object if one is not supplied.
 - Zero-valued coefficients in `xgboost` models are not returned by default.

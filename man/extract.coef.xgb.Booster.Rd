@@ -5,7 +5,7 @@
 \title{extract.coef.xgb.Booster}
 \usage{
 \method{extract.coef}{xgb.Booster}(model, feature_names = NULL,
-  removeNonSelected = TRUE, ...)
+  removeNonSelected = TRUE, zero_threshold = 0.001, ...)
 }
 \arguments{
 \item{model}{Model object from which to extract information.}
@@ -14,28 +14,35 @@
 
 \item{removeNonSelected}{If \code{TRUE} (default) do not return the non-selected (0) coefficients}
 
+\item{zero_threshold}{Since \code{coefficients} from 
+\code{\link[xgboost]{xgboost}} are not exactly zero, 
+this is the threshold under which a coefficient is considered zero}
+
 \item{\dots}{Further arguments}
 }
 \value{
-A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.
+A \code{\link{data.frame}} containing the coefficient, the standard 
+error and the variable name.
 }
 \description{
 Extract Coefficient Information from Models
 }
 \details{
-Gets the coefficient values and variable names from a model.  Since xgboost does not have standard errors, those will just be NA.
+Gets the coefficient values and variable names from a model. Since 
+xgboost does not have standard errors, those will just be NA.
 }
 \examples{
 library(xgboost)
 data(diamonds, package='ggplot2')
 diaX <- useful::build.x(price ~ carat + cut + x, data=diamonds, contrasts=FALSE)
 diaY <- useful::build.y(price ~ carat + cut + x, data=diamonds)
-xg1 <- xgboost(data=diaX, label=diaY, 
+xg1 <- xgb.train(data=xgb.DMatrix(data=diaX, label=diaY), 
 booster='gblinear',
 objective='reg:linear', eval_metric='rmse',
 nrounds=50
 )
 extract.coef(xg1)
+extract.coef(xg1, zero_threshold=0)
 extract.coef(xg1, feature_names=colnames(diaX))
 
 }

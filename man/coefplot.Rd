@@ -4,8 +4,6 @@
 \name{coefplot}
 \alias{coefplot}
 \alias{coefplot-package}
-\alias{coefplot-package}
-\alias{coefplot}
 \alias{plotcoef}
 \title{Plotting Model Coefficients}
 \usage{
