@@ -12,7 +12,8 @@
 \item{\dots}{Further arguments}
 }
 \value{
-A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.
+A \code{\link{data.frame}} containing the coefficient, the standard 
+error and the variable name.
 }
 \description{
 Extract Coefficient Information from Models
