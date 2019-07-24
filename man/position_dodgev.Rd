@@ -44,3 +44,4 @@ p + geom_errorbar(aes(ymin = y-1, ymax = y+1, height = 0.2),
   position = position_dodge(width = 0.90))
 
 }
+\concept{position adjustments}

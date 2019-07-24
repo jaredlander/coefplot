@@ -4,8 +4,8 @@
 \alias{annotateSeries}
 \title{annotateSeries}
 \usage{
-annotateSeries(dygraph, series, x = 0, text = series, tooltip = series,
-  width = 50, ...)
+annotateSeries(dygraph, series, x = 0, text = series,
+  tooltip = series, width = 50, ...)
 }
 \arguments{
 \item{dygraph}{Dygraph to add an annotation to}

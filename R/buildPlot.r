@@ -47,7 +47,10 @@
 #'
 buildPlotting.default <- function(modelCI, 
                                   title="Coefficient Plot", 
-                                  xlab="Value", ylab="Coefficient", lwdInner=1, lwdOuter=0, pointSize=3,
+                                  xlab="Value", ylab="Coefficient", 
+                                  lwdInner=1, 
+                                  lwdOuter=(Sys.info()["sysname"] != 'Windows')*0.5, 
+                                  pointSize=3,
                                   color="blue", cex=.8, textAngle=0, numberAngle=0, 
                                   shape=16, linetype=1,
                                   outerCI=2, innerCI=1, multi=FALSE, 

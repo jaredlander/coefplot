@@ -12,13 +12,15 @@
 \item{...}{Further arguments}
 }
 \value{
-A \code{\link{data.frame}} containing the coefficient, the standard error and the variable name.
+A \code{\link{data.frame}} containing the coefficient, the standard 
+error and the variable name.
 }
 \description{
 Extract Coefficient Information from rxLogit Models
 }
 \details{
-Gets the coefficient values and standard errors, and variable names from an rxLogit model.
+Gets the coefficient values and standard errors, and variable names from an 
+rxLogit model.
 }
 \examples{
 \dontrun{

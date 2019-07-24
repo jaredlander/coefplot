@@ -1,3 +1,7 @@
+# Version 1.2.7
+- Coefficients near zero in `xgboost` models are not returned and the user can set the tolerance level.
+- Changed the default `lwdOuter` to be 0 on Windows machines and 0.5 on non-Windows machines. Based on a pull request from [xfim](https://github.com/xfim).
+
 # Version 1.2.6
 - `coefpath` has an argument for ID and assigns a random ID to the `dygraph` object if one is not supplied.
 - Zero-valued coefficients in `xgboost` models are not returned by default.
