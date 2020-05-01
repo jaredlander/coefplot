@@ -36,6 +36,8 @@
 #' @param coefficient Name of variable for coefficient names
 #' @param errorHeight Height of error bars
 #' @param dodgeHeight Amount of vertical dodging
+#' @param interactive If `TRUE` an interactive plot is generated instead of `[ggplot2]`
+#' @md
 #' @return a ggplot graph object
 #' @examples
 #'
@@ -45,25 +47,51 @@
 #' coefplot:::buildPlotting.default(theCI)
 #' coefplot(model1)
 #'
-buildPlotting.default <- function(modelCI, 
-                                  title="Coefficient Plot", 
-                                  xlab="Value", ylab="Coefficient", 
-                                  lwdInner=1, 
-                                  lwdOuter=(Sys.info()["sysname"] != 'Windows')*0.5, 
-                                  pointSize=3,
-                                  color="blue", cex=.8, textAngle=0, numberAngle=0, 
-                                  shape=16, linetype=1,
-                                  outerCI=2, innerCI=1, multi=FALSE, 
-                                  zeroColor="grey", zeroLWD=1, zeroType=2, 
-                                  numeric=FALSE, fillColor="grey", alpha=1/2,
-                                  horizontal=FALSE, facet=FALSE, scales="free",
-                                  value="Value", coefficient="Coefficient", 
-                                  errorHeight=0, dodgeHeight=1)
+buildPlotting.default <- function(
+    modelCI, 
+    title="Coefficient Plot", 
+    xlab="Value", ylab="Coefficient", 
+    lwdInner=1 + interactive*2, 
+    lwdOuter=if(interactive) 1 else unname((Sys.info()["sysname"] != 'Windows')*0.5), 
+    pointSize=3 + interactive*5,
+    color="blue", cex=.8, textAngle=0, numberAngle=0, 
+    shape=16, linetype=1,
+    outerCI=2, innerCI=1, multi=FALSE, 
+    zeroColor="grey", zeroLWD=1, zeroType=2, 
+    numeric=FALSE, fillColor="grey", alpha=1/2,
+    horizontal=FALSE, facet=FALSE, scales="free",
+    value="Value", coefficient="Coefficient", 
+    errorHeight=0, dodgeHeight=1,
+    interactive=FALSE
+)
 {
-    ## build the layer infos
-    outerCIGeom <- geom_errorbarh(aes_string(xmin="LowOuter", xmax="HighOuter", color="Model", linetype="Model"), lwd=lwdOuter, height=errorHeight, position=position_dodgev(height=dodgeHeight))
+    if(interactive)
+    {
+        return(
+            buildPlottingPloty.default(
+                modelCI=modelCI,
+                title=title, 
+                xlab=xlab, ylab=ylab,
+                lwdInner=lwdInner,
+                lwdOuter=lwdOuter,
+                color=color, shape=shape,
+                pointSize=pointSize
+            )
+        )
+    }
     
-    innerCIGeom <- geom_errorbarh(aes_string(xmin="LowInner", xmax="HighInner", color="Model", linetype="Model"),lwd=lwdInner, height=errorHeight, position=position_dodgev(height=dodgeHeight))
+    ## build the layer infos
+    outerCIGeom <- geom_errorbarh(
+        aes_string(xmin="LowOuter", xmax="HighOuter", color="Model", linetype="Model"), 
+        lwd=lwdOuter, height=errorHeight, position=position_dodgev(height=dodgeHeight),
+        na.rm=TRUE
+    )
+    
+    innerCIGeom <- geom_errorbarh(
+        aes_string(xmin="LowInner", xmax="HighInner", color="Model", linetype="Model"),
+        lwd=lwdInner, height=errorHeight, position=position_dodgev(height=dodgeHeight),
+        na.rm=TRUE
+    )
     
     # ribbon layer
     #ribbonGeom <- list(None=NULL, geom_ribbon(aes(ymin=LowOuter, ymax=HighOuter, group=Checkers), data=modelCI, fill=fillColor, alpha=alpha, lwd=lwdOuter))

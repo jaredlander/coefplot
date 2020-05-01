@@ -4,15 +4,39 @@
 \alias{coefplot.data.frame}
 \title{coefplot.data.frame}
 \usage{
-\method{coefplot}{data.frame}(model, title = "Coefficient Plot",
-  xlab = "Value", ylab = "Coefficient", lwdInner = 1, lwdOuter = 0,
-  pointSize = 3, color = "blue", cex = 0.8, textAngle = 0,
-  numberAngle = 0, shape = 16, linetype = 1, outerCI = 2,
-  innerCI = 1, multi = FALSE, zeroColor = "grey", zeroLWD = 1,
-  zeroType = 2, numeric = FALSE, fillColor = "grey", alpha = 1/2,
-  horizontal = FALSE, facet = FALSE, scales = "free",
-  value = "Value", coefficient = "Coefficient", errorHeight = 0,
-  dodgeHeight = 1, ...)
+\method{coefplot}{data.frame}(
+  model,
+  title = "Coefficient Plot",
+  xlab = "Value",
+  ylab = "Coefficient",
+  interactive = FALSE,
+  lwdInner = 1 + interactive * 2,
+  lwdOuter = if (interactive) 1 else unname((Sys.info()["sysname"] != "Windows") * 0.5),
+  pointSize = 3 + interactive * 5,
+  color = "blue",
+  cex = 0.8,
+  textAngle = 0,
+  numberAngle = 0,
+  shape = 16,
+  linetype = 1,
+  outerCI = 2,
+  innerCI = 1,
+  multi = FALSE,
+  zeroColor = "grey",
+  zeroLWD = 1,
+  zeroType = 2,
+  numeric = FALSE,
+  fillColor = "grey",
+  alpha = 1/2,
+  horizontal = FALSE,
+  facet = FALSE,
+  scales = "free",
+  value = "Value",
+  coefficient = "Coefficient",
+  errorHeight = 0,
+  dodgeHeight = 1,
+  ...
+)
 }
 \arguments{
 \item{model}{A data.frame like that built from coefplot(..., plot=FALSE)}
@@ -22,6 +46,8 @@
 \item{xlab}{The x label}
 
 \item{ylab}{The y label}
+
+\item{interactive}{If `TRUE` an interactive plot is generated instead of `[ggplot2]`}
 
 \item{lwdInner}{The thickness of the inner confidence interval}
 
