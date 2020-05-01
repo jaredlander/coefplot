@@ -17,17 +17,6 @@ Coefplot method for workflow objects
 \details{
 Pulls model element out of workflow object then calls \code{coefplot}.
 }
-\examples{
-
-library(workflows)
-lm_spec <- parsnip::linear_reg() \%>\% parsnip::set_engine('lm')
-flow <- workflow() \%>\% 
-    add_model(lm_spec) \%>\% 
-    add_formula(mpg ~ cyl + qsec + disp)
-mod5 <- parsnip::fit(flow, data=mtcars)# mod5 <- parsnip::fit(flow, data=mtcars)
-coefplot(mod5)
-coefplot(mod5, interactive=TRUE)
-}
 \author{
 Jared P. Lander
 }

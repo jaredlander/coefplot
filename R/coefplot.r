@@ -317,16 +317,6 @@ coefplot.glm <- function(...)
 #' @author Jared P. Lander
 #' @param model A workflow object
 #' @param \dots All arguments are passed on to \code{\link{coefplot.default}}.  Please see that function for argument information.
-#' @examples 
-#' 
-#' library(workflows)
-#' lm_spec <- parsnip::linear_reg() %>% parsnip::set_engine('lm')
-#' flow <- workflow() %>% 
-#'     add_model(lm_spec) %>% 
-#'     add_formula(mpg ~ cyl + qsec + disp)
-#' mod5 <- parsnip::fit(flow, data=mtcars)# mod5 <- parsnip::fit(flow, data=mtcars)
-#' coefplot(mod5)
-#' coefplot(mod5, interactive=TRUE)
 coefplot.workflow <- function(model, ...)
 {
     coefplot.default(model$fit$fit$fit, ...)
@@ -338,12 +328,6 @@ coefplot.workflow <- function(model, ...)
 #' @author Jared P. Lander
 #' @param model A parsnip object
 #' @param \dots All arguments are passed on to \code{\link{coefplot.default}}.  Please see that function for argument information.
-#' @examples 
-#' 
-#' lm_spec <- parsnip::linear_reg() %>% parsnip::set_engine('lm')
-#' mod6 <- parsnip::fit(lm_spec, mpg ~ cyl + qsec + disp, data=mtcars)
-#' coefplot(mod6)
-#' coefplot(mod6, interactive=TRUE)
 #' 
 coefplot.model_fit <- function(model, ...)
 {

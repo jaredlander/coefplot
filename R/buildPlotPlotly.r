@@ -8,8 +8,8 @@
 #' @param title The name of the plot, if NULL then no name is given
 #' @param xlab The x label
 #' @param ylab The y label
-#' @param innerCI How wide the inner confidence interval should be, normally 1 standard deviation.  If 0, then there will be no inner confidence interval.
-#' @param outerCI How wide the outer confidence interval should be, normally 2 standard deviations.  If 0, then there will be no outer confidence interval.
+#' @param lwdInner The thickness of the inner confidence interval
+#' @param lwdOuter The thickness of the outer confidence interval
 #' @param color The color of the points and lines
 #' @param shape The shape of the points
 #' @param pointSize Size of coefficient point

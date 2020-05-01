@@ -17,14 +17,6 @@ Coefplot method for parsnip objects
 \details{
 Pulls model element out of parsnip object then calls \code{coefplot}.
 }
-\examples{
-
-lm_spec <- parsnip::linear_reg() \%>\% parsnip::set_engine('lm')
-mod6 <- parsnip::fit(lm_spec, mpg ~ cyl + qsec + disp, data=mtcars)
-coefplot(mod6)
-coefplot(mod6, interactive=TRUE)
-
-}
 \author{
 Jared P. Lander
 }

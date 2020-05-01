@@ -25,15 +25,15 @@ buildPlottingPloty.default(
 
 \item{ylab}{The y label}
 
+\item{lwdInner}{The thickness of the inner confidence interval}
+
+\item{lwdOuter}{The thickness of the outer confidence interval}
+
 \item{color}{The color of the points and lines}
 
 \item{shape}{The shape of the points}
 
 \item{pointSize}{Size of coefficient point}
-
-\item{innerCI}{How wide the inner confidence interval should be, normally 1 standard deviation.  If 0, then there will be no inner confidence interval.}
-
-\item{outerCI}{How wide the outer confidence interval should be, normally 2 standard deviations.  If 0, then there will be no outer confidence interval.}
 }
 \value{
 a ggplot graph object
