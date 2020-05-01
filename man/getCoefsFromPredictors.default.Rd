@@ -4,8 +4,7 @@
 \alias{getCoefsFromPredictors.default}
 \title{getCoefsFromPredictors.default}
 \usage{
-\method{getCoefsFromPredictors}{default}(model, predictors = NULL,
-  strict = FALSE, ...)
+\method{getCoefsFromPredictors}{default}(model, predictors = NULL, strict = FALSE, ...)
 }
 \arguments{
 \item{model}{A fitted model}

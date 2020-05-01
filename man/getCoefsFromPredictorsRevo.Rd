@@ -4,8 +4,7 @@
 \alias{getCoefsFromPredictorsRevo}
 \title{getCoefsFromPredictorsRevo}
 \usage{
-getCoefsFromPredictorsRevo(model, predictors = NULL, strict = FALSE,
-  ...)
+getCoefsFromPredictorsRevo(model, predictors = NULL, strict = FALSE, ...)
 }
 \arguments{
 \item{model}{A fitted model}

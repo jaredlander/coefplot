@@ -4,8 +4,13 @@
 \alias{extract.coef.xgb.Booster}
 \title{extract.coef.xgb.Booster}
 \usage{
-\method{extract.coef}{xgb.Booster}(model, feature_names = NULL,
-  removeNonSelected = TRUE, zero_threshold = 0.001, ...)
+\method{extract.coef}{xgb.Booster}(
+  model,
+  feature_names = NULL,
+  removeNonSelected = TRUE,
+  zero_threshold = 0.001,
+  ...
+)
 }
 \arguments{
 \item{model}{Model object from which to extract information.}

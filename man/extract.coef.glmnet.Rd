@@ -4,8 +4,7 @@
 \alias{extract.coef.glmnet}
 \title{extract.coef.glmnet}
 \usage{
-\method{extract.coef}{glmnet}(model,
-  lambda = stats::median(model$lambda), ...)
+\method{extract.coef}{glmnet}(model, lambda = stats::median(model$lambda), ...)
 }
 \arguments{
 \item{model}{Model object from which to extract information.}

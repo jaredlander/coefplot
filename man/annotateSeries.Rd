@@ -4,14 +4,21 @@
 \alias{annotateSeries}
 \title{annotateSeries}
 \usage{
-annotateSeries(dygraph, series, x = 0, text = series,
-  tooltip = series, width = 50, ...)
+annotateSeries(
+  dygraph,
+  series,
+  x = 0,
+  text = series,
+  tooltip = series,
+  width = 50,
+  ...
+)
 }
 \arguments{
 \item{dygraph}{Dygraph to add an annotation to}
 
 \item{series}{Series to attach the annotation to. By default, the last series
-defined using \code{\link{dySeries}}.}
+defined using \code{\link[dygraphs]{dySeries}}.}
 
 \item{x}{Either numeric or date value indicating where to place the
 annotation. For date value, this should be of class \code{POSIXct} or

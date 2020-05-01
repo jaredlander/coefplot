@@ -8,17 +8,32 @@
 \usage{
 coefpath(model, ...)
 
-\method{coefpath}{glmnet}(model, xlab = "Log Lambda",
-  ylab = "Coefficients", showLegend = c("onmouseover", "auto",
-  "always", "follow", "never"), annotate = TRUE, elementID = NULL, ...)
+\method{coefpath}{glmnet}(
+  model,
+  xlab = "Log Lambda",
+  ylab = "Coefficients",
+  showLegend = c("onmouseover", "auto", "always", "follow", "never"),
+  annotate = TRUE,
+  elementID = NULL,
+  ...
+)
 
-\method{coefpath}{cv.glmnet}(model, xlab = "Log Lambda",
-  ylab = "Coefficients", showLegend = c("onmouseover", "auto",
-  "always", "follow", "never"), annotate = TRUE, colorMin = "black",
-  strokePatternMin = "dotted", labelMin = "lambda.min",
-  locMin = c("bottom", "top"), color1se = "black",
-  strokePattern1se = "dotted", label1se = "lambda.1se",
-  loc1se = c("bottom", "top"), ...)
+\method{coefpath}{cv.glmnet}(
+  model,
+  xlab = "Log Lambda",
+  ylab = "Coefficients",
+  showLegend = c("onmouseover", "auto", "always", "follow", "never"),
+  annotate = TRUE,
+  colorMin = "black",
+  strokePatternMin = "dotted",
+  labelMin = "lambda.min",
+  locMin = c("bottom", "top"),
+  color1se = "black",
+  strokePattern1se = "dotted",
+  label1se = "lambda.1se",
+  loc1se = c("bottom", "top"),
+  ...
+)
 }
 \arguments{
 \item{model}{A \code{\link[glmnet]{glmnet}} model}
