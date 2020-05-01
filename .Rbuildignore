@@ -12,4 +12,4 @@ inst/
 ^\.travis\.yml$
 ^cran-comments\.md$
 ^codecov\.yml$
-R/hex_builder.r
+hex/
