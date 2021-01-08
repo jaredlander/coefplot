@@ -10,10 +10,11 @@
     - ubuntu-20.04 (release)
     - ubuntu-20.04 (devel)
 - Windows 10, R 4.0.2
+- Ubuntu 18.04, R 4.0.3
 
 ## R CMD check results
 
-There were no ERRORs, WARNINGs when checked locally.
+There were no ERRORs, WARNINGs, NOTEs when checked locally on Windows and Ubuntu.
 
 However, when checking on GitHub Actions, I get this WARNING:
 
