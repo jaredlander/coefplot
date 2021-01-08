@@ -38,24 +38,20 @@ xgboost does not have standard errors, those will just be NA.
 }
 \examples{
 \dontshow{
-if(requireNamespace('xgboost', quietly=TRUE))
-\{
-}
+if(requireNamespace('xgboost', quietly=TRUE))\{}
 library(xgboost)
 data(diamonds, package='ggplot2')
 diaX <- useful::build.x(price ~ carat + cut + x, data=diamonds, contrasts=FALSE)
 diaY <- useful::build.y(price ~ carat + cut + x, data=diamonds)
 xg1 <- xgb.train(data=xgb.DMatrix(data=diaX, label=diaY), 
 booster='gblinear',
-objective='reg:linear', eval_metric='rmse',
+objective='reg:squarederror', eval_metric='rmse',
 nrounds=50
 )
 extract.coef(xg1)
 extract.coef(xg1, zero_threshold=0)
 extract.coef(xg1, feature_names=colnames(diaX))
-\dontshow{
-\}
-}
+\dontshow{\}}
 
 }
 \author{

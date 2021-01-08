@@ -13,7 +13,7 @@ diaY <- useful::build.y(price ~ carat + cut + x, data=diamonds)
 
 xg1 <- xgboost(data=diaX, label=diaY, 
                booster='gblinear',
-               objective='reg:linear', eval_metric='rmse',
+               objective='reg:squarederror', eval_metric='rmse',
                nrounds=50,
                verbose=FALSE,
                save_name='TestModelXG.model'

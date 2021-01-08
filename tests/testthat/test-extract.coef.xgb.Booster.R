@@ -6,7 +6,7 @@ diaY <- useful::build.y(price ~ carat + cut + x, data=diamonds)
 
 xg1 <- xgboost(data=diaX, label=diaY, 
                booster='gblinear',
-               objective='reg:linear', eval_metric='rmse',
+               objective='reg:squarederror', eval_metric='rmse',
                nrounds=50,
                verbose=FALSE,
                save_name='TestModelXG.model'
@@ -18,7 +18,7 @@ xgCoef_named_all <- extract.coef(xg1, feature_names=colnames(diaX), removeNonSel
 
 xg2 <- xgb.train(data=xgb.DMatrix(data=diaX, label=diaY), 
                booster='gblinear',
-               objective='reg:linear', eval_metric='rmse',
+               objective='reg:squarederror', eval_metric='rmse',
                alpha=65.65,
                nrounds=50,
                verbose=FALSE,
