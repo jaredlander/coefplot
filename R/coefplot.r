@@ -103,6 +103,7 @@ coefplot <- function(model, ...)
 #' @param factors Vector of factor variables that will be the only ones shown
 #' @param only logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.
 #' @param shorten logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped.  Currently not available.
+#' @param interactive If `TRUE` an interactive plot is generated instead of `[ggplot2]`
 #' @param \dots Arguments passed on to other functions
 #' @return If \code{plot} is \code{TRUE} then a \code{\link{ggplot}} object is returned.  Otherwise a \code{\link{data.frame}} listing coefficients and confidence bands is returned.
 #' @seealso \code{\link{lm}} \code{\link{glm}} \code{\link{ggplot}} \code{\link{coefplot}} \code{\link{plotcoef}}
@@ -121,21 +122,26 @@ coefplot <- function(model, ...)
 #' coefplot(model1, predictors="color", strict=TRUE)
 #' coefplot(model1, coefficients=c("(Intercept)", "color.Q"))
 #'
-coefplot.default <- function(model, title="Coefficient Plot", 
-                             xlab="Value", ylab="Coefficient", 
-                             innerCI=1, outerCI=2, 
-                             lwdInner=1, 
-                             lwdOuter=(Sys.info()["sysname"] != 'Windows')*0.5, 
-                             pointSize=3,  color="blue", shape=16,
-                             cex=.8, textAngle=0, numberAngle=0,
-                             zeroColor="grey", zeroLWD=1, zeroType=2,
-                             facet=FALSE, scales="free",
-                             sort=c("natural", "magnitude", "alphabetical"), decreasing=FALSE,
-                             numeric=FALSE, fillColor="grey", alpha=1/2,
-                             horizontal=FALSE, factors=NULL, only=NULL, shorten=TRUE,
-                             intercept=TRUE, interceptName="(Intercept)", coefficients=NULL, predictors=NULL, strict=FALSE, 
-                             trans=identity,
-                             newNames=NULL, plot=TRUE, ...)
+coefplot.default <- function(
+    model, title="Coefficient Plot", 
+    xlab="Value", ylab="Coefficient", 
+    innerCI=1, outerCI=2, 
+    lwdInner=1 + interactive*2, 
+    lwdOuter=if(interactive) 1 else unname((Sys.info()["sysname"] != 'Windows')*0.5), 
+    pointSize=3 + interactive*5, 
+    color="blue", shape=16,
+    cex=.8, textAngle=0, numberAngle=0,
+    zeroColor="grey", zeroLWD=1, zeroType=2,
+    facet=FALSE, scales="free",
+    sort=c("natural", "magnitude", "alphabetical"), decreasing=FALSE,
+    numeric=FALSE, fillColor="grey", alpha=1/2,
+    horizontal=FALSE, factors=NULL, only=NULL, shorten=TRUE,
+    intercept=TRUE, interceptName="(Intercept)", coefficients=NULL, predictors=NULL, strict=FALSE, 
+    trans=identity,
+    interactive=FALSE,
+    newNames=NULL, plot=TRUE, 
+    ...
+)
 {
 	theDots <- list(...)
 	
@@ -143,11 +149,14 @@ coefplot.default <- function(model, title="Coefficient Plot",
     sort <- match.arg(sort)
     #print(coefficients);print("hello");print(predictors)
     # construct a data.frame containing confidence interval information
-    modelCI <- buildModelCI(model, outerCI=outerCI, innerCI=innerCI, intercept=intercept, 
-                            coefficients=coefficients, predictors=predictors, strict=strict, newNames=newNames,
-                            numeric=numeric, sort=sort, 
-                            trans=trans,
-                            decreasing=decreasing, factors=factors, only=only, shorten=shorten, ...)
+    modelCI <- buildModelCI(
+        model, outerCI=outerCI, innerCI=innerCI, intercept=intercept, 
+        coefficients=coefficients, predictors=predictors, strict=strict, newNames=newNames,
+        numeric=numeric, sort=sort, 
+        trans=trans,
+        decreasing=decreasing, factors=factors, only=only, shorten=shorten, 
+        ...
+    )
     
     # if not plotting just return the modelCI data.frame
     if(!plot)
@@ -161,7 +170,8 @@ coefplot.default <- function(model, title="Coefficient Plot",
                        lwdInner=lwdInner, lwdOuter=lwdOuter, pointSize=pointSize, color=color, cex=cex, textAngle=textAngle, 
                        numberAngle=numberAngle, zeroColor=zeroColor, zeroLWD=zeroLWD, outerCI=outerCI, innerCI=innerCI, multi=FALSE,
                        zeroType=zeroType, numeric=numeric, fillColor=fillColor, alpha=alpha, 
-                       horizontal=horizontal, facet=facet, scales=scales)
+                       horizontal=horizontal, facet=facet, scales=scales, 
+                       interactive=interactive)
     
     #rm(modelCI);    	# housekeeping
 	return(p)		# return the ggplot object
@@ -203,6 +213,7 @@ coefplot.default <- function(model, title="Coefficient Plot",
 #' @param coefficient Name of variable for coefficient names
 #' @param errorHeight Height of error bars
 #' @param dodgeHeight Amount of vertical dodging
+#' @param interactive If `TRUE` an interactive plot is generated instead of `[ggplot2]`
 #' @param \dots Further Arguments
 #' @return a ggplot graph object
 #' @examples 
@@ -215,25 +226,36 @@ coefplot.default <- function(model, title="Coefficient Plot",
 #' coefplot(df1)
 #' coefplot(df2)
 #' 
-coefplot.data.frame <- function(model, title="Coefficient Plot", 
-                                xlab="Value", ylab="Coefficient", lwdInner=1, lwdOuter=0, 
-                                pointSize=3, color="blue", cex=.8, textAngle=0, numberAngle=0, 
-                                shape=16, linetype=1,
-                                outerCI=2, innerCI=1, multi=FALSE, 
-                                zeroColor="grey", zeroLWD=1, zeroType=2, 
-                                numeric=FALSE, fillColor="grey", alpha=1/2,
-                                horizontal=FALSE, facet=FALSE, scales="free",
-                                value="Value", coefficient="Coefficient", 
-                                errorHeight=0, dodgeHeight=1,
-                                ...)
+coefplot.data.frame <- function(
+    model, title="Coefficient Plot", 
+    xlab="Value", ylab="Coefficient", 
+    interactive=FALSE,
+    lwdInner=1 + interactive*2, 
+    lwdOuter=if(interactive) 1 else unname((Sys.info()["sysname"] != 'Windows')*0.5), 
+    pointSize=3 + interactive*5, 
+    color="blue", cex=.8, textAngle=0, numberAngle=0, 
+    shape=16, linetype=1,
+    outerCI=2, innerCI=1, multi=FALSE, 
+    zeroColor="grey", zeroLWD=1, zeroType=2, 
+    numeric=FALSE, fillColor="grey", alpha=1/2,
+    horizontal=FALSE, facet=FALSE, scales="free",
+    value="Value", coefficient="Coefficient", 
+    errorHeight=0, dodgeHeight=1,
+    # interactive=FALSE,
+    ...)
 {
-    buildPlotting.default(modelCI=model,
-                          #modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
-                          title=title, xlab=xlab, ylab=ylab,
-                          lwdInner=lwdInner, lwdOuter=lwdOuter, pointSize=pointSize, color=color, cex=cex, textAngle=textAngle, 
-                          numberAngle=numberAngle, zeroColor=zeroColor, zeroLWD=zeroLWD, outerCI=outerCI, innerCI=innerCI, multi=FALSE,
-                          zeroType=zeroType, numeric=numeric, fillColor=fillColor, alpha=alpha, 
-                          horizontal=horizontal, facet=facet, scales=scales)
+    buildPlotting.default(
+        modelCI=model,
+        #modelMeltInner=modelMeltInner, modelMeltOuter=modelMeltOuter,
+        title=title, xlab=xlab, ylab=ylab,
+        lwdInner=lwdInner, lwdOuter=lwdOuter, 
+        pointSize=pointSize, color=color, cex=cex, textAngle=textAngle, 
+        numberAngle=numberAngle, zeroColor=zeroColor, zeroLWD=zeroLWD, 
+        outerCI=outerCI, innerCI=innerCI, multi=FALSE,
+        zeroType=zeroType, numeric=numeric, fillColor=fillColor, alpha=alpha, 
+        horizontal=horizontal, facet=facet, scales=scales,
+        interactive=interactive
+    )
 }
 
 #' coefplot.lm
@@ -289,6 +311,28 @@ coefplot.glm <- function(...)
     coefplot.default(...)
 }
 
+#' @title coefplot.workflow
+#' @description Coefplot method for workflow objects
+#' @details Pulls model element out of workflow object then calls \code{coefplot}.
+#' @author Jared P. Lander
+#' @param model A workflow object
+#' @param \dots All arguments are passed on to \code{\link{coefplot.default}}.  Please see that function for argument information.
+coefplot.workflow <- function(model, ...)
+{
+    coefplot.default(model$fit$fit$fit, ...)
+}
+
+#' @title coefplot.model_fit
+#' @description Coefplot method for parsnip objects
+#' @details Pulls model element out of parsnip object then calls \code{coefplot}.
+#' @author Jared P. Lander
+#' @param model A parsnip object
+#' @param \dots All arguments are passed on to \code{\link{coefplot.default}}.  Please see that function for argument information.
+#' 
+coefplot.model_fit <- function(model, ...)
+{
+    coefplot.default(model$fit, ...)
+}
 
 #' coefplot.rxGlm
 #' 

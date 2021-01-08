@@ -4,8 +4,7 @@
 \alias{getCoefsFromPredictors.rxLinMod}
 \title{getCoefsFromPredictors.rxLinMod}
 \usage{
-\method{getCoefsFromPredictors}{rxLinMod}(model, predictors = NULL,
-  strict = FALSE, ...)
+\method{getCoefsFromPredictors}{rxLinMod}(model, predictors = NULL, strict = FALSE, ...)
 }
 \arguments{
 \item{model}{A fitted model}

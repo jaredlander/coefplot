@@ -104,7 +104,7 @@ multiplot <- function(...,
                       intercept=TRUE, interceptName="(Intercept)", 
                       coefficients=NULL, predictors=NULL, strict=FALSE, newNames=NULL, plot=TRUE, drop=FALSE,
                       by=c("Coefficient", "Model"), plot.shapes=FALSE, plot.linetypes=FALSE,
-                      legend.position=c("right", "left", "bottom", "top", "none"),
+                      legend.position=c("bottom", "right", "left", "top", "none"),
                       secret.weapon=FALSE, legend.reverse=FALSE, trans=identity
 )
 {

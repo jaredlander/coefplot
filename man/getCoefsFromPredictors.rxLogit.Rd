@@ -4,8 +4,7 @@
 \alias{getCoefsFromPredictors.rxLogit}
 \title{getCoefsFromPredictors.rxLogit}
 \usage{
-\method{getCoefsFromPredictors}{rxLogit}(model, predictors = NULL,
-  strict = FALSE, ...)
+\method{getCoefsFromPredictors}{rxLogit}(model, predictors = NULL, strict = FALSE, ...)
 }
 \arguments{
 \item{model}{A fitted model}

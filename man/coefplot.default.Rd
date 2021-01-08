@@ -4,18 +4,46 @@
 \alias{coefplot.default}
 \title{coefplot.default}
 \usage{
-\method{coefplot}{default}(model, title = "Coefficient Plot",
-  xlab = "Value", ylab = "Coefficient", innerCI = 1, outerCI = 2,
-  lwdInner = 1, lwdOuter = (Sys.info()["sysname"] != "Windows") * 0.5,
-  pointSize = 3, color = "blue", shape = 16, cex = 0.8,
-  textAngle = 0, numberAngle = 0, zeroColor = "grey", zeroLWD = 1,
-  zeroType = 2, facet = FALSE, scales = "free", sort = c("natural",
-  "magnitude", "alphabetical"), decreasing = FALSE, numeric = FALSE,
-  fillColor = "grey", alpha = 1/2, horizontal = FALSE,
-  factors = NULL, only = NULL, shorten = TRUE, intercept = TRUE,
-  interceptName = "(Intercept)", coefficients = NULL,
-  predictors = NULL, strict = FALSE, trans = identity,
-  newNames = NULL, plot = TRUE, ...)
+\method{coefplot}{default}(
+  model,
+  title = "Coefficient Plot",
+  xlab = "Value",
+  ylab = "Coefficient",
+  innerCI = 1,
+  outerCI = 2,
+  lwdInner = 1 + interactive * 2,
+  lwdOuter = if (interactive) 1 else unname((Sys.info()["sysname"] != "Windows") * 0.5),
+  pointSize = 3 + interactive * 5,
+  color = "blue",
+  shape = 16,
+  cex = 0.8,
+  textAngle = 0,
+  numberAngle = 0,
+  zeroColor = "grey",
+  zeroLWD = 1,
+  zeroType = 2,
+  facet = FALSE,
+  scales = "free",
+  sort = c("natural", "magnitude", "alphabetical"),
+  decreasing = FALSE,
+  numeric = FALSE,
+  fillColor = "grey",
+  alpha = 1/2,
+  horizontal = FALSE,
+  factors = NULL,
+  only = NULL,
+  shorten = TRUE,
+  intercept = TRUE,
+  interceptName = "(Intercept)",
+  coefficients = NULL,
+  predictors = NULL,
+  strict = FALSE,
+  trans = identity,
+  interactive = FALSE,
+  newNames = NULL,
+  plot = TRUE,
+  ...
+)
 }
 \arguments{
 \item{model}{The model to plot.}
@@ -56,7 +84,7 @@
 
 \item{scales}{The way the axes should be treated in a faceted plot.  Can be c("fixed", "free", "free_x", "free_y").  Currently not available.}
 
-\item{sort}{Determines the sort order of the coefficients.  Possible values are c("natural", "normal", "magnitude", "size", "alphabetical")}
+\item{sort}{Determines the sort order of the coefficients.  Possible values are c("natural", "magnitude", "alphabetical")}
 
 \item{decreasing}{logical; Whether the coefficients should be ascending or descending}
 
@@ -85,6 +113,8 @@
 \item{strict}{If TRUE then predictors will only be matched to its own coefficients, not its interactions}
 
 \item{trans}{A transformation function to apply to the values and confidence intervals.  \code{identity} by default.  Use \code{invlogit} for binary regression.}
+
+\item{interactive}{If `TRUE` an interactive plot is generated instead of `[ggplot2]`}
 
 \item{newNames}{Named character vector of new names for coefficients}
 

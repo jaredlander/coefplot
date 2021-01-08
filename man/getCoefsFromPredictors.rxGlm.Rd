@@ -4,8 +4,7 @@
 \alias{getCoefsFromPredictors.rxGlm}
 \title{getCoefsFromPredictors.rxGlm}
 \usage{
-\method{getCoefsFromPredictors}{rxGlm}(model, predictors = NULL,
-  strict = FALSE, ...)
+\method{getCoefsFromPredictors}{rxGlm}(model, predictors = NULL, strict = FALSE, ...)
 }
 \arguments{
 \item{model}{A fitted model}

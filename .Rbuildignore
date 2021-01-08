@@ -12,3 +12,4 @@ inst/
 ^\.travis\.yml$
 ^cran-comments\.md$
 ^codecov\.yml$
+hex/

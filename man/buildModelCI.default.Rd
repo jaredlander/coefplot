@@ -4,11 +4,23 @@
 \alias{buildModelCI.default}
 \title{buildModelCI.default}
 \usage{
-\method{buildModelCI}{default}(model, outerCI = 2, innerCI = 1,
-  intercept = TRUE, numeric = FALSE, sort = c("natural", "magnitude",
-  "alphabetical"), predictors = NULL, strict = FALSE,
-  coefficients = NULL, newNames = NULL, trans = identity,
-  decreasing = TRUE, name = NULL, interceptName = "(Intercept)", ...)
+\method{buildModelCI}{default}(
+  model,
+  outerCI = 2,
+  innerCI = 1,
+  intercept = TRUE,
+  numeric = FALSE,
+  sort = c("natural", "magnitude", "alphabetical"),
+  predictors = NULL,
+  strict = FALSE,
+  coefficients = NULL,
+  newNames = NULL,
+  trans = identity,
+  decreasing = TRUE,
+  name = NULL,
+  interceptName = "(Intercept)",
+  ...
+)
 }
 \arguments{
 \item{model}{A Fitted model such as from lm, glm}
