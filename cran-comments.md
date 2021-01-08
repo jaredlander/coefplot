@@ -13,10 +13,13 @@
 
 ## R CMD check results
 
-There were no ERRORs, WARNINGs other than a note to CRAN maintainers as seen below.
+There were no ERRORs, WARNINGs when checked locally.
 
-* checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
-Maintainer: 'Jared P. Lander <packages@jaredlander.com>'
+However, when checking on GitHub Actions, I get this WARNING:
+
+> Warning: Requires orphaned package: ‘plotly’
+
+This seems strange since I can't find anything about plotly being orphaned.
 
 On my PC, with R 4.0.2, I sometimes get the NOTE that some examples took over 5s but I do not see this note with other versions. Same with Win-Builder but with fewer examples.
 
