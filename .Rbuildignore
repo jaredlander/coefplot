@@ -9,7 +9,7 @@ inst/
 .Rhistory
 ^README\.Rmd$
 ^README-.*\.png$
-^\.travis\.yml$
 ^cran-comments\.md$
 ^codecov\.yml$
 hex/
+^\.github$
