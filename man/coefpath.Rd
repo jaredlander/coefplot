@@ -77,6 +77,10 @@ This is a replacement plot for visualizing the coefficient path resulting from t
 }
 \examples{
 
+#' \dontshow{
+if(requireNamespace('glmnet', quietly=TRUE))
+\{
+}
 library(glmnet)
 library(ggplot2)
 library(useful)
@@ -93,6 +97,9 @@ x <- matrix(rnorm(100*20),100,20)
 y <- rnorm(100)
 fit1 <- glmnet(x, y)
 coefpath(fit1)
+\dontshow{
+\}
+}
 
 }
 \author{

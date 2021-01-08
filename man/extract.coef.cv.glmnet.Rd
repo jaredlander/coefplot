@@ -26,6 +26,10 @@ Gets the coefficient values and variable names from a model.  Since
 glmnet does not have standard errors, those will just be NA.
 }
 \examples{
+\dontshow{
+if(requireNamespace('glmnet', quietly=TRUE))
+\{
+}
 library(glmnet)
 library(ggplot2)
 library(useful)
@@ -35,6 +39,9 @@ diaX <- useful::build.x(price ~ carat + cut + x - 1, data=diamonds,
 diaY <- useful::build.y(price ~ carat + cut + x - 1, data=diamonds)
 modG1 <- cv.glmnet(x=diaX, y=diaY, k=5)
 extract.coef(modG1)
+\dontshow{
+\}
+}
 
 }
 \author{

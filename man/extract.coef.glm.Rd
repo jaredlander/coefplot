@@ -23,7 +23,7 @@ Gets the coefficient values and standard errors, and variable names from a glm m
 }
 \examples{
 \dontrun{
-require(ggplot2)
+library(ggplot2)
 data(diamonds)
 library(coefplot)
 mod2 <- glm(price > 10000 ~ carat + cut + x, data=diamonds, family=binomial(link="logit"))

@@ -23,7 +23,7 @@ Gets the coefficient values and standard errors, and variable names from an lm m
 }
 \examples{
 \dontrun{
-require(ggplot2)
+library(ggplot2)
 data(diamonds)
 library(coefplot)
 mod1 <- lm(price ~ carat + cut + x, data=diamonds)

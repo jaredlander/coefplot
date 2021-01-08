@@ -24,7 +24,7 @@ rxLinMod model.
 }
 \examples{
 \dontrun{
-require(ggplot2)
+library(ggplot2)
 data(diamonds)
 mod3 <- rxLinMod(price ~ carat + cut + x, data=diamonds)
 extract.coef(mod3)

@@ -14,7 +14,7 @@
 #' error and the variable name.
 #' @examples
 #' \dontrun{
-#' require(ggplot2)
+#' library(ggplot2)
 #' library(coefplot)
 #' data(diamonds)
 #' mod1 <- lm(price ~ carat + cut + x, data=diamonds)
@@ -50,7 +50,7 @@ extract.coef.default <- function(model, ...)
 #' error and the variable name.
 #' @examples
 #' \dontrun{
-#' require(ggplot2)
+#' library(ggplot2)
 #' data(diamonds)
 #' library(coefplot)
 #' mod1 <- lm(price ~ carat + cut + x, data=diamonds)
@@ -77,7 +77,7 @@ extract.coef.lm <- function(model, ...)
 #' error and the variable name.
 #' @examples
 #' \dontrun{
-#' require(ggplot2)
+#' library(ggplot2)
 #' data(diamonds)
 #' library(coefplot)
 #' mod2 <- glm(price > 10000 ~ carat + cut + x, data=diamonds, family=binomial(link="logit"))
@@ -106,7 +106,7 @@ extract.coef.glm <- function(model, ...)
 #' error and the variable name.
 #' @examples
 #' \dontrun{
-#' require(ggplot2)
+#' library(ggplot2)
 #' data(diamonds)
 #' library(coefplot)
 #' mod1 <- lm(price ~ carat + cut + x, data=diamonds)
@@ -140,7 +140,7 @@ extract.coef <- function(model, ...)
 #' error and the variable name.
 #' @examples
 #' \dontrun{
-#' require(ggplot2)
+#' library(ggplot2)
 #' data(diamonds)
 #' mod3 <- rxLinMod(price ~ carat + cut + x, data=diamonds)
 #' extract.coef(mod3)
@@ -176,7 +176,7 @@ extract.coef.rxLinMod <- function(model, ...)
 #' error and the variable name.
 #' @examples
 #' \dontrun{
-#' require(ggplot2)
+#' library(ggplot2)
 #' data(diamonds)
 #' mod4 <- rxGlm(price ~ carat + cut + x, data=diamonds)
 #' mod5 <- rxGlm(price > 10000 ~ carat + cut + x, data=diamonds, fmaily="binomial")
@@ -205,7 +205,7 @@ extract.coef.rxGlm <- function(model, ...)
 #' error and the variable name.
 #' @examples
 #' \dontrun{
-#' require(ggplot2)
+#' library(ggplot2)
 #' data(diamonds)
 #' mod6 <- rxLogit(price > 10000 ~ carat + cut + x, data=diamonds)
 #' extract.coef(mod6)
@@ -229,7 +229,10 @@ extract.coef.rxLogit <- function(model, ...)
 #' @return A \code{\link{data.frame}} containing the coefficient, the standard 
 #' error and the variable name.
 #' @examples
-#' \dontrun{
+#' \dontshow{
+#' if(requireNamespace('glmnet', quietly=TRUE))
+#' \{
+#' }
 #' library(glmnet)
 #' library(ggplot2)
 #' library(useful)
@@ -238,6 +241,9 @@ extract.coef.rxLogit <- function(model, ...)
 #' diaY <- build.y(price ~ carat + cut + x - 1, data=diamonds)
 #' modG1 <- glmnet(x=diaX, y=diaY)
 #' extract.coef(modG1)
+#' }
+#' \dontshow{
+#' \}
 #' }
 #' 
 extract.coef.glmnet <- function(model, lambda=stats::median(model$lambda), ...)
@@ -270,6 +276,10 @@ extract.coef.glmnet <- function(model, lambda=stats::median(model$lambda), ...)
 #' @return A \code{\link{data.frame}} containing the coefficient, the standard 
 #' error and the variable name.
 #' @examples
+#' \dontshow{
+#' if(requireNamespace('glmnet', quietly=TRUE))
+#' \{
+#' }
 #' library(glmnet)
 #' library(ggplot2)
 #' library(useful)
@@ -279,6 +289,9 @@ extract.coef.glmnet <- function(model, lambda=stats::median(model$lambda), ...)
 #' diaY <- useful::build.y(price ~ carat + cut + x - 1, data=diamonds)
 #' modG1 <- cv.glmnet(x=diaX, y=diaY, k=5)
 #' extract.coef(modG1)
+#' \dontshow{
+#' \}
+#' }
 #' 
 extract.coef.cv.glmnet <- function(model, lambda="lambda.min", ...)
 {
@@ -299,7 +312,10 @@ extract.coef.cv.glmnet <- function(model, lambda="lambda.min", ...)
 #' @return A \code{\link{data.frame}} containing the coefficient, the standard 
 #' error and the variable name.
 #' @examples
-#' \dontrun{
+#' \dontshow{
+#' if(requireNamespace('maxLik', quietly=TRUE))
+#' \{
+#' }
 #' library(maxLik)
 #' loglik <- function(param) {
 #'  mu <- param[1]
@@ -311,6 +327,9 @@ extract.coef.cv.glmnet <- function(model, lambda="lambda.min", ...)
 #' N <- length(x)
 #' res <- maxLik(loglik, start=c(0,1)) # use 'wrong' start values
 #' extract.coef(res)
+#' }
+#' \dontshow{
+#' \}
 #' }
 #' 
 extract.coef.maxLik <- function(model, ...)
@@ -348,6 +367,10 @@ extract.coef.maxLik <- function(model, ...)
 #' @return A \code{\link{data.frame}} containing the coefficient, the standard 
 #' error and the variable name.
 #' @examples
+#' \dontshow{
+#' if(requireNamespace('xgboost', quietly=TRUE))
+#' \{
+#' }
 #' library(xgboost)
 #' data(diamonds, package='ggplot2')
 #' diaX <- useful::build.x(price ~ carat + cut + x, data=diamonds, contrasts=FALSE)
@@ -360,6 +383,9 @@ extract.coef.maxLik <- function(model, ...)
 #' extract.coef(xg1)
 #' extract.coef(xg1, zero_threshold=0)
 #' extract.coef(xg1, feature_names=colnames(diaX))
+#' \dontshow{
+#' \}
+#' }
 #' 
 extract.coef.xgb.Booster <- function(model, feature_names=NULL, 
                                      removeNonSelected=TRUE, 

@@ -37,6 +37,10 @@ Gets the coefficient values and variable names from a model. Since
 xgboost does not have standard errors, those will just be NA.
 }
 \examples{
+\dontshow{
+if(requireNamespace('xgboost', quietly=TRUE))
+\{
+}
 library(xgboost)
 data(diamonds, package='ggplot2')
 diaX <- useful::build.x(price ~ carat + cut + x, data=diamonds, contrasts=FALSE)
@@ -49,6 +53,9 @@ nrounds=50
 extract.coef(xg1)
 extract.coef(xg1, zero_threshold=0)
 extract.coef(xg1, feature_names=colnames(diaX))
+\dontshow{
+\}
+}
 
 }
 \author{

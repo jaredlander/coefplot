@@ -24,7 +24,7 @@ rxLogit model.
 }
 \examples{
 \dontrun{
-require(ggplot2)
+library(ggplot2)
 data(diamonds)
 mod6 <- rxLogit(price > 10000 ~ carat + cut + x, data=diamonds)
 extract.coef(mod6)

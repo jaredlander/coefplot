@@ -48,7 +48,7 @@ multiplot(
   by = c("Coefficient", "Model"),
   plot.shapes = FALSE,
   plot.linetypes = FALSE,
-  legend.position = c("right", "left", "bottom", "top", "none"),
+  legend.position = c("bottom", "right", "left", "top", "none"),
   secret.weapon = FALSE,
   legend.reverse = FALSE,
   trans = identity

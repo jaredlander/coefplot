@@ -24,7 +24,7 @@ rxGlm model.
 }
 \examples{
 \dontrun{
-require(ggplot2)
+library(ggplot2)
 data(diamonds)
 mod4 <- rxGlm(price ~ carat + cut + x, data=diamonds)
 mod5 <- rxGlm(price > 10000 ~ carat + cut + x, data=diamonds, fmaily="binomial")
