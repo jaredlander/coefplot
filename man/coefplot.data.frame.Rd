@@ -122,7 +122,7 @@ coefplot(df2)
 
 }
 \seealso{
-\link{\code{coefplot}}
+\code{\link{coefplot}}
 }
 \author{
 Jared P. Lander

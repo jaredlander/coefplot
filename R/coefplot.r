@@ -210,7 +210,7 @@ coefplot.default <- function(
 #' @param dodgeHeight Amount of vertical dodging
 #' @param interactive If `TRUE` an interactive plot is generated instead of `[ggplot2]`
 #' @param \dots Further Arguments
-#' @seealso \link{\code{coefplot}}
+#' @seealso \code{\link{coefplot}}
 #' @return a ggplot graph object
 #' @examples 
 #' data(diamonds)
