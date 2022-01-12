@@ -121,6 +121,9 @@ coefplot(df1)
 coefplot(df2)
 
 }
+\seealso{
+\link{\code{coefplot}}
+}
 \author{
 Jared P. Lander
 }

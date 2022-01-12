@@ -16,11 +16,7 @@
 
 There were no ERRORs, WARNINGs, NOTEs when checked locally on Windows and Ubuntu.
 
-However, when checking on GitHub Actions, I get this WARNING:
-
-> Warning: Requires orphaned package: ‘plotly’
-
-This seems strange since I can't find anything about plotly being orphaned.
+Now that plotly is no longer orphaned thhis update should not generate notes about that.
 
 On my PC, with R 4.0.2, I sometimes get the NOTE that some examples took over 5s but I do not see this note with other versions. Same with Win-Builder but with fewer examples.
 
