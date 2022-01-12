@@ -13,3 +13,4 @@ inst/
 ^codecov\.yml$
 hex/
 ^\.github$
+^CRAN-RELEASE$
