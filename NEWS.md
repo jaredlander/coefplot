@@ -1,3 +1,7 @@
+# Version 1.2.8
+- Methods for plotting `{workflows}` and `{parsnip}` models.
+- Fixed warning due to deprecation of `guide` argument in `{ggplot2}`.
+
 # Version 1.2.7
 - Coefficients near zero in `{xgboost}` models are not returned and the user can set the tolerance level.
 - Changed the default `lwdOuter` to be 0 on Windows machines and 0.5 on non-Windows machines. Based on a pull request from [xfim](https://github.com/xfim).

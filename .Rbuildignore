@@ -1,3 +1,5 @@
+^renv$
+^renv\.lock$
 ^\.Rproj\.user$
 ^.*\.Rproj$
 .gitignore
@@ -13,3 +15,4 @@ inst/
 ^codecov\.yml$
 hex/
 ^\.github$
+^CRAN-RELEASE$

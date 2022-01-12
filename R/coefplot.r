@@ -1,23 +1,21 @@
 ## the generic function for coefplot
 ## this way it can be used for more than just the generalized family of linear models
 
-## Should there be a seperate help file for each coefplot method?
+## Should there be a separate help file for each coefplot() method?
 
 #' Dotplot for model coefficients
 #'
-#' A graphical display of the coefficients and standard errors from a fitted model
+#' @description A graphical display of the coefficients and standard errors from a fitted model
 #'
 #' \code{coefplot} is the S3 generic method for plotting the coefficients from a fitted model.
 #'
 #' This can be extended with new methods for other types of models not currently available.
 #'
-#' A future iteration of \code{coefplot.glm} will also allow for plotting the coefficients on the transformed scale.
-#'
-#' See \code{\link{coefplot.lm}} for specific documentation and the return value.
+# See \code{\link{coefplot.lm}} for specific documentation and the return value.
 #'
 #' @aliases coefplot plotcoef
 #' @author Jared P. Lander
-#' @seealso \code{\link{coefplot.lm}}
+#' @seealso \code{\link{coefplot.lm}} \code{\link{coefplot.data.frame}}
 #' @param model The fitted model with coefficients to be plotted
 #' @param \dots See \code{\link{coefplot.lm}} for argument details
 #' @return A ggplot2 object or data.frame.  See details in \code{\link{coefplot.lm}} for more information
@@ -50,21 +48,17 @@ coefplot <- function(model, ...)
     UseMethod(generic="coefplot")
 }
 
-
-
 ## the default method for coefplot
 #' coefplot.default
 #' 
-#' Dotplot for coefficients
+# Dotplot for coefficients
 #'
-#' A graphical display of the coefficients and standard errors from a fitted model
+# A graphical display of the coefficients and standard errors from a fitted model
 #'
-#' \code{\link{coefplot}} is the S3 generic method for plotting the coefficients from a fitted model.
-#'
-#' This method also plots coefficients from glm (using coefplot.lm) and rxLinMod models (through a redirection from coefplot.rxLinMod)
+# This method also plots coefficients from glm (using coefplot.lm) and rxLinMod models (through a redirection from coefplot.rxLinMod)
 #'
 #' @aliases coefplot.default
-#' @author Jared P. Lander
+# @author Jared P. Lander
 #' @param model The model to plot.
 #' @param title The name of the plot, if NULL then no name is given
 #' @param xlab The x label
@@ -103,12 +97,13 @@ coefplot <- function(model, ...)
 #' @param factors Vector of factor variables that will be the only ones shown
 #' @param only logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.
 #' @param shorten logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped.  Currently not available.
-#' @param interactive If `TRUE` an interactive plot is generated instead of `[ggplot2]`
+#' @param interactive If \code{TRUE} an interactive plot is generated instead of \code{ggplot2}
 #' @param \dots Arguments passed on to other functions
 #' @return If \code{plot} is \code{TRUE} then a \code{\link{ggplot}} object is returned.  Otherwise a \code{\link{data.frame}} listing coefficients and confidence bands is returned.
 #' @seealso \code{\link{lm}} \code{\link{glm}} \code{\link{ggplot}} \code{\link{coefplot}} \code{\link{plotcoef}}
 #' @export coefplot.default
 #' @export
+#' @describeIn coefplot Default method
 #' @method coefplot default
 #' @examples
 #' 
@@ -215,6 +210,7 @@ coefplot.default <- function(
 #' @param dodgeHeight Amount of vertical dodging
 #' @param interactive If `TRUE` an interactive plot is generated instead of `[ggplot2]`
 #' @param \dots Further Arguments
+#' @seealso \code{\link{coefplot}}
 #' @return a ggplot graph object
 #' @examples 
 #' data(diamonds)
@@ -260,21 +256,22 @@ coefplot.data.frame <- function(
 
 #' coefplot.lm
 #' 
-#' Dotplot for lm coefficients
+# Dotplot for lm coefficients
 #'
-#' A graphical display of the coefficients and standard errors from a fitted lm model
+# A graphical display of the coefficients and standard errors from a fitted lm model
 #'
-#' \code{\link{coefplot}} is the S3 generic method for plotting the coefficients from a fitted model.
+# \code{\link{coefplot}} is the S3 generic method for plotting the coefficients from a fitted model.
 #'
-#' For more information on this function and it's arguments see \code{\link{coefplot.default}}
+# For more information on this function and it's arguments see \code{\link{coefplot.default}}
 #'
 #' @aliases coefplot.lm
 #' @export coefplot.lm
 #' @export
 #' @method coefplot lm
-#' @author Jared P. Lander
+# @author Jared P. Lander
+#' @describeIn coefplot \code{lm}
 #' @param \dots All arguments are passed on to \code{\link{coefplot.default}}.  Please see that function for argument information.
-#' @return A ggplot object.  See \code{\link{coefplot.lm}} for more information.
+# @return A ggplot object.  See \code{\link{coefplot.lm}} for more information.
 #' @examples
 #' 
 #' model1 <- lm(price ~ carat + cut*color, data=diamonds)
@@ -286,11 +283,13 @@ coefplot.lm <- function(...)
 
 #' coefplot.glm
 #' 
-#' Dotplot for glm coefficients
+# Dotplot for glm coefficients
 #'
-#' A graphical display of the coefficients and standard errors from a fitted glm model
+# A graphical display of the coefficients and standard errors from a fitted glm model
 #'
-#' \code{\link{coefplot}} is the S3 generic method for plotting the coefficients from a fitted model.
+# \code{\link{coefplot}} is the S3 generic method for plotting the coefficients from a fitted model.
+#' 
+# \code{coefplot.glm} allows for plotting the coefficients on the transformed scale.
 #'
 #' For more information on this function and it's arguments see \code{\link{coefplot.default}}
 #'
@@ -298,9 +297,10 @@ coefplot.lm <- function(...)
 #' @export coefplot.glm
 #' @export
 #' @method coefplot glm
-#' @author Jared P. Lander
+# @author Jared P. Lander
+#' @describeIn coefplot \code{glm}
 #' @param \dots All arguments are passed on to \code{\link{coefplot.default}}.  Please see that function for argument information.
-#' @return A ggplot object.  See \code{\link{coefplot.lm}} for more information.
+# @return A ggplot object.  See \code{\link{coefplot.lm}} for more information.
 #' @examples
 #' 
 #' model2 <- glm(price > 10000 ~ carat + cut*color, data=diamonds, family=binomial(link="logit"))
@@ -314,7 +314,8 @@ coefplot.glm <- function(...)
 #' @title coefplot.workflow
 #' @description Coefplot method for workflow objects
 #' @details Pulls model element out of workflow object then calls \code{coefplot}.
-#' @author Jared P. Lander
+# @author Jared P. Lander
+#' @describeIn coefplot \code{tidymodels workflows}
 #' @param model A workflow object
 #' @param \dots All arguments are passed on to \code{\link{coefplot.default}}.  Please see that function for argument information.
 coefplot.workflow <- function(model, ...)
@@ -325,7 +326,8 @@ coefplot.workflow <- function(model, ...)
 #' @title coefplot.model_fit
 #' @description Coefplot method for parsnip objects
 #' @details Pulls model element out of parsnip object then calls \code{coefplot}.
-#' @author Jared P. Lander
+# @author Jared P. Lander
+#' @describeIn coefplot \code{parsnip}
 #' @param model A parsnip object
 #' @param \dots All arguments are passed on to \code{\link{coefplot.default}}.  Please see that function for argument information.
 #' 
@@ -336,19 +338,20 @@ coefplot.model_fit <- function(model, ...)
 
 #' coefplot.rxGlm
 #' 
-#' Dotplot for rxGlm coefficients
+# Dotplot for rxGlm coefficients
 #'
-#' A graphical display of the coefficients and standard errors from a fitted rxGlm model
+# A graphical display of the coefficients and standard errors from a fitted rxGlm model
 #'
-#' \code{\link{coefplot}} is the S3 generic method for plotting the coefficients from a fitted model.
+# \code{\link{coefplot}} is the S3 generic method for plotting the coefficients from a fitted model.
 #'
-#' For more information on this function and it's arguments see \code{\link{coefplot.default}}
+# For more information on this function and it's arguments see \code{\link{coefplot.default}}
 #'
 #' @aliases coefplot.rxGlm
 #' @export coefplot.rxGlm
 #' @export
 #' @method coefplot rxGlm
-#' @author Jared P. Lander
+# @author Jared P. Lander
+#' @describeIn coefplot \code{rxGlm}
 #' @param \dots All arguments are passed on to \code{\link{coefplot.default}}.  Please see that function for argument information.
 #' @return A ggplot object.  See \code{\link{coefplot.lm}} for more information.
 #' @examples
@@ -373,19 +376,20 @@ coefplot.rxGlm <- function(...)
 ## just simply call coefplot.lm which will work just fine
 #' coefplot.rxLinMod
 #' 
-#' Dotplot for rxLinMod coefficients
+# Dotplot for rxLinMod coefficients
 #'
-#' A graphical display of the coefficients and standard errors from a fitted rxLinMod model
+# A graphical display of the coefficients and standard errors from a fitted rxLinMod model
 #'
-#' \code{\link{coefplot}} is the S3 generic method for plotting the coefficients from a fitted model.
+# \code{\link{coefplot}} is the S3 generic method for plotting the coefficients from a fitted model.
 #'
-#' For more information on this function and it's arguments see \code{\link{coefplot.lm}}
+# For more information on this function and it's arguments see \code{\link{coefplot.lm}}
 #'
 #' @aliases coefplot.rxLinMod
 #' @export coefplot.rxLinMod
 #' @export
 #' @method coefplot rxLinMod
-#' @author Jared P. Lander www.jaredlander.com
+# @author Jared P. Lander www.jaredlander.com
+#' @describeIn coefplot \code{rxLinMod}
 #' @param \dots All arguments are passed on to \code{\link{coefplot.lm}}.  Please see that function for argument information.
 #' @return A ggplot object.  See \code{\link{coefplot.lm}} for more information.
 #' @examples
@@ -409,19 +413,20 @@ coefplot.rxLinMod <- function(...)
 ## just simply call coefplot.lm which will work just fine
 #' coefplot.rxLogit
 #' 
-#' Dotplot for rxLogit coefficients
+# Dotplot for rxLogit coefficients
 #'
-#' A graphical display of the coefficients and standard errors from a fitted rxLogit model
+# A graphical display of the coefficients and standard errors from a fitted rxLogit model
 #'
-#' \code{\link{coefplot}} is the S3 generic method for plotting the coefficients from a fitted model.
+# \code{\link{coefplot}} is the S3 generic method for plotting the coefficients from a fitted model.
 #'
-#' For more information on this function and it's arguments see \code{\link{coefplot.lm}}
+# For more information on this function and it's arguments see \code{\link{coefplot.lm}}
 #'
 #' @aliases coefplot.rxLogit
 #' @export coefplot.rxLogit
 #' @export
 #' @method coefplot rxLogit
-#' @author Jared P. Lander www.jaredlander.com
+# @author Jared P. Lander www.jaredlander.com
+#' @describeIn coefplot \code{rxLogit}
 #' @param \dots All arguments are passed on to \code{\link{coefplot.lm}}.  Please see that function for argument information.
 #' @return A ggplot object.  See \code{\link{coefplot.lm}} for more information.
 #' @examples

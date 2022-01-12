@@ -5,34 +5,202 @@
 \alias{coefplot}
 \alias{coefplot-package}
 \alias{plotcoef}
+\alias{coefplot.default}
+\alias{coefplot.lm}
+\alias{coefplot.glm}
+\alias{coefplot.workflow}
+\alias{coefplot.model_fit}
+\alias{coefplot.rxGlm}
+\alias{coefplot.rxLinMod}
+\alias{coefplot.rxLogit}
 \title{Plotting Model Coefficients}
 \usage{
 coefplot(model, ...)
+
+\method{coefplot}{default}(
+  model,
+  title = "Coefficient Plot",
+  xlab = "Value",
+  ylab = "Coefficient",
+  innerCI = 1,
+  outerCI = 2,
+  lwdInner = 1 + interactive * 2,
+  lwdOuter = if (interactive) 1 else unname((Sys.info()["sysname"] != "Windows") * 0.5),
+  pointSize = 3 + interactive * 5,
+  color = "blue",
+  shape = 16,
+  cex = 0.8,
+  textAngle = 0,
+  numberAngle = 0,
+  zeroColor = "grey",
+  zeroLWD = 1,
+  zeroType = 2,
+  facet = FALSE,
+  scales = "free",
+  sort = c("natural", "magnitude", "alphabetical"),
+  decreasing = FALSE,
+  numeric = FALSE,
+  fillColor = "grey",
+  alpha = 1/2,
+  horizontal = FALSE,
+  factors = NULL,
+  only = NULL,
+  shorten = TRUE,
+  intercept = TRUE,
+  interceptName = "(Intercept)",
+  coefficients = NULL,
+  predictors = NULL,
+  strict = FALSE,
+  trans = identity,
+  interactive = FALSE,
+  newNames = NULL,
+  plot = TRUE,
+  ...
+)
+
+\method{coefplot}{lm}(...)
+
+\method{coefplot}{glm}(...)
+
+\method{coefplot}{workflow}(model, ...)
+
+\method{coefplot}{model_fit}(model, ...)
+
+\method{coefplot}{rxGlm}(...)
+
+\method{coefplot}{rxLinMod}(...)
+
+\method{coefplot}{rxLogit}(...)
 }
 \arguments{
-\item{model}{The fitted model with coefficients to be plotted}
+\item{model}{A parsnip object}
 
-\item{\dots}{See \code{\link{coefplot.lm}} for argument details}
+\item{\dots}{All arguments are passed on to \code{\link{coefplot.lm}}.  Please see that function for argument information.}
+
+\item{title}{The name of the plot, if NULL then no name is given}
+
+\item{xlab}{The x label}
+
+\item{ylab}{The y label}
+
+\item{innerCI}{How wide the inner confidence interval should be, normally 1 standard deviation.  If 0, then there will be no inner confidence interval.}
+
+\item{outerCI}{How wide the outer confidence interval should be, normally 2 standard deviations.  If 0, then there will be no outer confidence interval.}
+
+\item{lwdInner}{The thickness of the inner confidence interval}
+
+\item{lwdOuter}{The thickness of the outer confidence interval}
+
+\item{pointSize}{Size of coefficient point}
+
+\item{color}{The color of the points and lines}
+
+\item{shape}{The shape of the points}
+
+\item{cex}{The text size multiplier, currently not used}
+
+\item{textAngle}{The angle for the coefficient labels, 0 is horizontal}
+
+\item{numberAngle}{The angle for the value labels, 0 is horizontal}
+
+\item{zeroColor}{The color of the line indicating 0}
+
+\item{zeroLWD}{The thickness of the 0 line}
+
+\item{zeroType}{The type of 0 line, 0 will mean no line}
+
+\item{facet}{logical; If the coefficients should be faceted by the variables, numeric coefficients (including the intercept) will be one facet.  Currently not available.}
+
+\item{scales}{The way the axes should be treated in a faceted plot.  Can be c("fixed", "free", "free_x", "free_y").  Currently not available.}
+
+\item{sort}{Determines the sort order of the coefficients.  Possible values are c("natural", "magnitude", "alphabetical")}
+
+\item{decreasing}{logical; Whether the coefficients should be ascending or descending}
+
+\item{numeric}{logical; If true and factors has exactly one value, then it is displayed in a horizontal graph with continuous confidence bounds.  Currently not available.}
+
+\item{fillColor}{The color of the confidence bounds for a numeric factor.  Currently not available.}
+
+\item{alpha}{The transparency level of the numeric factor's confidence bound.  Currently not available.}
+
+\item{horizontal}{logical; If the plot should be displayed horizontally.  Currently not available.}
+
+\item{factors}{Vector of factor variables that will be the only ones shown}
+
+\item{only}{logical; If factors has a value this determines how interactions are treated.  True means just that variable will be shown and not its interactions.  False means interactions will be included.}
+
+\item{shorten}{logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped.  Currently not available.}
+
+\item{intercept}{logical; Whether the Intercept coefficient should be plotted}
+
+\item{interceptName}{Specifies name of intercept it case it is not the default of "(Intercept").}
+
+\item{coefficients}{A character vector specifying which factor coefficients to keep.  It will keep all levels and any interactions, even if those are not listed.}
+
+\item{predictors}{A character vector specifying which coefficients to keep.  Each individual coefficient can be specified.  Use predictors to specify entire factors.}
+
+\item{strict}{If TRUE then predictors will only be matched to its own coefficients, not its interactions}
+
+\item{trans}{A transformation function to apply to the values and confidence intervals.  \code{identity} by default.  Use \code{invlogit} for binary regression.}
+
+\item{interactive}{If \code{TRUE} an interactive plot is generated instead of \code{ggplot2}}
+
+\item{newNames}{Named character vector of new names for coefficients}
+
+\item{plot}{logical; If the plot should be drawn, if false then a data.frame of the values will be returned}
 }
 \value{
 A ggplot2 object or data.frame.  See details in \code{\link{coefplot.lm}} for more information
+
+If \code{plot} is \code{TRUE} then a \code{\link{ggplot}} object is returned.  Otherwise a \code{\link{data.frame}} listing coefficients and confidence bands is returned.
+
+A ggplot object.  See \code{\link{coefplot.lm}} for more information.
+
+A ggplot object.  See \code{\link{coefplot.lm}} for more information.
+
+A ggplot object.  See \code{\link{coefplot.lm}} for more information.
 }
 \description{
 Provides an S3 generic method for plotting coefficients from a model so it can be extended to other model types.
 
 A graphical display of the coefficients and standard errors from a fitted model
-}
-\details{
-Currently, methods are available for lm, glm and rxLinMod objects.
 
 \code{coefplot} is the S3 generic method for plotting the coefficients from a fitted model.
 
 This can be extended with new methods for other types of models not currently available.
 
-A future iteration of \code{coefplot.glm} will also allow for plotting the coefficients on the transformed scale.
+Coefplot method for workflow objects
 
-See \code{\link{coefplot.lm}} for specific documentation and the return value.
+Coefplot method for parsnip objects
 }
+\details{
+Currently, methods are available for lm, glm and rxLinMod objects.
+
+For more information on this function and it's arguments see \code{\link{coefplot.default}}
+
+Pulls model element out of workflow object then calls \code{coefplot}.
+
+Pulls model element out of parsnip object then calls \code{coefplot}.
+}
+\section{Methods (by class)}{
+\itemize{
+\item \code{default}: Default method
+
+\item \code{lm}: \code{lm}
+
+\item \code{glm}: \code{glm}
+
+\item \code{workflow}: \code{tidymodels workflows}
+
+\item \code{model_fit}: \code{parsnip}
+
+\item \code{rxGlm}: \code{rxGlm}
+
+\item \code{rxLinMod}: \code{rxLinMod}
+
+\item \code{rxLogit}: \code{rxLogit}
+}}
+
 \examples{
 
 data(diamonds)
@@ -54,9 +222,49 @@ coefplot(model1, predictors=c("(Intercept)", "carat"), newNames=c(carat="Size"))
 coefplot(model1, predictors=c("(Intercept)", "carat"), 
 newNames=c(carat="Size", "(Intercept)"="Constant"))
 
+
+data(diamonds)
+head(diamonds)
+model1 <- lm(price ~ carat + cut*color, data=diamonds)
+model2 <- lm(price ~ carat*color, data=diamonds)
+coefplot(model1)
+coefplot(model2)
+coefplot(model1, predictors="color")
+coefplot(model1, predictors="color", strict=TRUE)
+coefplot(model1, coefficients=c("(Intercept)", "color.Q"))
+
+
+model1 <- lm(price ~ carat + cut*color, data=diamonds)
+coefplot(model1)
+
+model2 <- glm(price > 10000 ~ carat + cut*color, data=diamonds, family=binomial(link="logit"))
+coefplot(model2)
+coefplot(model2, trans=invlogit)
+
+\dontrun{
+mod4 <- rxGlm(price ~ carat + cut + x, data=diamonds)
+mod5 <- rxGlm(price > 10000 ~ carat + cut + x, data=diamonds, family="binomial")
+coefplot(mod4)
+coefplot(mod5)
+}
+
+
+\dontrun{
+data(diamonds)
+mod3 <- rxLinMod(price ~ carat + cut + x, data=diamonds)
+coefplot(mod3)
+}
+
+\dontrun{
+data(diamonds)
+mod6 <- rxLogit(price > 10000 ~ carat + cut + x, data=diamonds)
+coefplot(mod6)
+}
 }
 \seealso{
-\code{\link{coefplot.lm}}
+\code{\link{coefplot.lm}} \code{\link{coefplot.data.frame}}
+
+\code{\link{lm}} \code{\link{glm}} \code{\link{ggplot}} \code{\link{coefplot}} \code{\link{plotcoef}}
 }
 \author{
 Jared P. Lander
