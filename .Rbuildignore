@@ -16,3 +16,4 @@ inst/
 hex/
 ^\.github$
 ^CRAN-RELEASE$
+^CRAN-SUBMISSION$
