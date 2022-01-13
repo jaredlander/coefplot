@@ -17,3 +17,4 @@ hex/
 ^\.github$
 ^CRAN-RELEASE$
 ^CRAN-SUBMISSION$
+revdep/
