@@ -1,8 +1,8 @@
 Package: coefplot
 Type: Package
 Title: Plots Coefficients from Fitted Models
-Version: 1.2.7
-Date: 2021-01-07
+Version: 1.2.8
+Date: 2022-01-12
 Author: Jared P. Lander
 Maintainer: Jared P. Lander <packages@jaredlander.com>
 Description: Plots the coefficients from model objects. This very quickly shows the user the point estimates and confidence intervals for fitted models.
@@ -34,4 +34,4 @@ Suggests:
     knitr,
     rmarkdown
 Encoding: UTF-8
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2

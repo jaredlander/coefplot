@@ -100,9 +100,9 @@ buildPlotting.default <- function(
     pointGeom <- geom_point(aes_string(x=value, color="Model", shape="Model"), size=pointSize, position=position_dodgev(height=dodgeHeight))
 
     #colorAes <- list(None=NULL, Single=aes(color=as.factor(Model)))
-    colorScaleSingle <- scale_color_manual(values=rep(color, length(unique(modelCI$Model))), guide=FALSE)
-    shapeScaleSingle <- scale_shape_manual(values=rep(shape, length(unique(modelCI$Model))), guide=FALSE)
-    linetypeScaleSingle <- scale_linetype_manual(values=rep(linetype, length(unique(modelCI$Model))), guide=FALSE)
+    colorScaleSingle <- scale_color_manual(values=rep(color, length(unique(modelCI$Model))), guide='none')
+    shapeScaleSingle <- scale_shape_manual(values=rep(shape, length(unique(modelCI$Model))), guide='none')
+    linetypeScaleSingle <- scale_linetype_manual(values=rep(linetype, length(unique(modelCI$Model))), guide='none')
     
     xScale <- list(None=NULL, Single=scale_x_discrete())
     

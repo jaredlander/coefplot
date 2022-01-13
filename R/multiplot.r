@@ -214,13 +214,13 @@ multiplot <- function(...,
                        horizontal=horizontal, facet=FALSE, scales="fixed")
     
     theColorScale <- list("Coefficient"=scale_colour_discrete("Model", breaks=legendLabels), 
-                          "Model"=scale_color_manual(values=rep(color, length(unique(modelCI$Model))), guide=FALSE))
+                          "Model"=scale_color_manual(values=rep(color, length(unique(modelCI$Model))), guide='none'))
     
-    theShapeScale <- list("NoShapes"=scale_shape_manual(values=rep(shape, length(unique(modelCI$Model))), guide=FALSE),
+    theShapeScale <- list("NoShapes"=scale_shape_manual(values=rep(shape, length(unique(modelCI$Model))), guide='none'),
                           "Shapes"=scale_shape_manual(values=1:length(unique(modelCI$Model)))
                           )
     
-    theLinetypeScale <- list("NoShapes"=scale_linetype_manual(values=rep(linetype, length(unique(modelCI$Model))), guide=FALSE),
+    theLinetypeScale <- list("NoShapes"=scale_linetype_manual(values=rep(linetype, length(unique(modelCI$Model))), guide='none'),
                              "Shapes"=scale_linetype_manual(values=1:length(unique(modelCI$Model)))
                              )
 #     print(rep(linetype, length(unique(modelCI$Model))))
