@@ -16,7 +16,9 @@
 
 ## R CMD check results
 
-There were no ERRORs, WARNINGs, NOTEs when checked locally on Windows and Ubuntu or on GitHub Actions.
+There were no ERRORs, WARNINGs, NOTEs when checked locally on Windows and Ubuntu or the GitHub Actions for Windows or Ubuntu-release.
+
+GitHub Actions for Mac and Ubuntu-devel had a notes of an example taking more than 5 seconds, though I imagine that has more to do with the machine doing the testing.
 
 WinBuild had a note of an example taking more than 10 seconds, though I imagine that has more to do with the machine doing the testing.
 
