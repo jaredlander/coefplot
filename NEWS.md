@@ -14,7 +14,7 @@
 
 # Version 1.2.5
 - Added `coefpath` to plot the coefficient path resulting from a `glmnet` object.
-- `coefplot` now displays the coeffcients from a linear `xgboost` model.
+- `coefplot` now displays the coefficients from a linear `xgboost` model.
 
 # Version 1.2.4
 - Patched to accommodate changes to `{ggplot2}`.
