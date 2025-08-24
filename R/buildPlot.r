@@ -82,13 +82,13 @@ buildPlotting.default <- function(
     
     ## build the layer infos
     outerCIGeom <- geom_errorbarh(
-        aes(xmin="LowOuter", xmax="HighOuter", color="Model", linetype="Model"), 
+        aes(xmin=LowOuter, xmax=HighOuter, color=Model, linetype=Model), 
         lwd=lwdOuter, height=errorHeight, position=position_dodgev(height=dodgeHeight),
         na.rm=TRUE
     )
     
     innerCIGeom <- geom_errorbarh(
-        aes(xmin="LowInner", xmax="HighInner", color="Model", linetype="Model"),
+        aes(xmin=LowInner, xmax=HighInner, color=Model, linetype=Model),
         lwd=lwdInner, height=errorHeight, position=position_dodgev(height=dodgeHeight),
         na.rm=TRUE
     )
@@ -97,7 +97,7 @@ buildPlotting.default <- function(
     #ribbonGeom <- list(None=NULL, geom_ribbon(aes(ymin=LowOuter, ymax=HighOuter, group=Checkers), data=modelCI, fill=fillColor, alpha=alpha, lwd=lwdOuter))
     
     # point layer
-    pointGeom <- geom_point(aes_string(x=value, color="Model", shape="Model"), size=pointSize, position=position_dodgev(height=dodgeHeight))
+    pointGeom <- geom_point(aes(x = .data[[value]], color = Model, shape = Model), size=pointSize, position=position_dodgev(height=dodgeHeight))
 
     #colorAes <- list(None=NULL, Single=aes(color=as.factor(Model)))
     colorScaleSingle <- scale_color_manual(values=rep(color, length(unique(modelCI$Model))), guide='none')
@@ -111,7 +111,7 @@ buildPlotting.default <- function(
     
     # for a regular coefplot or a multiplot in seperate facets
     #p <- ggplot(data=modelCI, aes_string(x=value))
-    p <- ggplot(data=modelCI, aes_string(x=value, y=coefficient))    		# the basics of the plot
+    p <- ggplot(data=modelCI, aes(x = .data[[value]], y = .data[[coefficient]]))    		# the basics of the plot
     #p <- p + colorAes[[1 + multi]] #                                    # in case model needs to be factorized, do it here
     p <- p + geom_vline(xintercept=0, colour=zeroColor, linetype=zeroType, lwd=zeroLWD)		# the zero line
     p <- p + outerCIGeom +    				# the outer CI bars
