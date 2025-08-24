@@ -238,7 +238,6 @@ extract.coef.rxLogit <- function(model, ...)
 #' diaY <- build.y(price ~ carat + cut + x - 1, data=diamonds)
 #' modG1 <- glmnet(x=diaX, y=diaY)
 #' extract.coef(modG1)
-#' }
 #' \dontshow{\}}
 #' 
 extract.coef.glmnet <- function(model, lambda=stats::median(model$lambda), ...)
@@ -317,7 +316,6 @@ extract.coef.cv.glmnet <- function(model, lambda="lambda.min", ...)
 #' N <- length(x)
 #' res <- maxLik(loglik, start=c(0,1)) # use 'wrong' start values
 #' extract.coef(res)
-#' }
 #' \dontshow{
 #' \}
 #' }

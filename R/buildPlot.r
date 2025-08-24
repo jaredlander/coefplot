@@ -82,13 +82,13 @@ buildPlotting.default <- function(
     
     ## build the layer infos
     outerCIGeom <- geom_errorbarh(
-        aes_string(xmin="LowOuter", xmax="HighOuter", color="Model", linetype="Model"), 
+        aes(xmin="LowOuter", xmax="HighOuter", color="Model", linetype="Model"), 
         lwd=lwdOuter, height=errorHeight, position=position_dodgev(height=dodgeHeight),
         na.rm=TRUE
     )
     
     innerCIGeom <- geom_errorbarh(
-        aes_string(xmin="LowInner", xmax="HighInner", color="Model", linetype="Model"),
+        aes(xmin="LowInner", xmax="HighInner", color="Model", linetype="Model"),
         lwd=lwdInner, height=errorHeight, position=position_dodgev(height=dodgeHeight),
         na.rm=TRUE
     )
