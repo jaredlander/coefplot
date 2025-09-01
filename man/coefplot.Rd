@@ -2,7 +2,6 @@
 % Please edit documentation in R/coefplot-package.r, R/coefplot.r
 \name{coefplot}
 \alias{coefplot}
-\alias{coefplot-package}
 \alias{plotcoef}
 \alias{coefplot.default}
 \alias{coefplot.lm}

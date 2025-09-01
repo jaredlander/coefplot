@@ -29,6 +29,7 @@ glmnet does not have standard errors, those will just be NA.
 library(glmnet)
 library(ggplot2)
 library(useful)
+library(coefplot)
 data(diamonds)
 diaX <- build.x(price ~ carat + cut + x - 1, data=diamonds, contrasts = TRUE)
 diaY <- build.y(price ~ carat + cut + x - 1, data=diamonds)

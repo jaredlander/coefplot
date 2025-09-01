@@ -314,6 +314,7 @@ coefplot.glm <- function(...)
 #' @title coefplot.workflow
 #' @description Coefplot method for workflow objects
 #' @details Pulls model element out of workflow object then calls \code{coefplot}.
+#' @export
 # @author Jared P. Lander
 #' @describeIn coefplot \code{tidymodels workflows}
 #' @param model A workflow object
@@ -326,6 +327,7 @@ coefplot.workflow <- function(model, ...)
 #' @title coefplot.model_fit
 #' @description Coefplot method for parsnip objects
 #' @details Pulls model element out of parsnip object then calls \code{coefplot}.
+#' @export
 # @author Jared P. Lander
 #' @describeIn coefplot \code{parsnip}
 #' @param model A parsnip object
