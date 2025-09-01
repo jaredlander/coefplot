@@ -17,7 +17,7 @@
 
 ## R CMD check results
 
-There were no ERRORs, WARNINGs, NOTEs when checked locally on Windows and Ubuntu or the GitHub Actions for Windows or Ubuntu-release.
+There were no ERRORs, WARNINGs, NOTEs when checked locally on Ubuntu or the GitHub Actions for Windows or Mac. For Github Actions with Ubuntu-release there were no ERRORs or WARNINGs, just a NOTE, but that was related to the executiobn time of examples, likely due to using slow runners.
 
 ## Tests
 
