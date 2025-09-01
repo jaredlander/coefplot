@@ -99,8 +99,8 @@ coefplot <- function(model, ...)
 #' @param shorten logical or character; If \code{FALSE} then coefficients for factor levels will include their variable name.  If \code{TRUE} coefficients for factor levels will be stripped of their variable names.  If a character vector of variables only coefficients for factor levels associated with those variables will the variable names stripped.  Currently not available.
 #' @param interactive If \code{TRUE} an interactive plot is generated instead of \code{ggplot2}
 #' @param \dots Arguments passed on to other functions
-#' @return If \code{plot} is \code{TRUE} then a \code{\link{ggplot}} object is returned.  Otherwise a \code{\link{data.frame}} listing coefficients and confidence bands is returned.
-#' @seealso \code{\link{lm}} \code{\link{glm}} \code{\link{ggplot}} \code{\link{coefplot}} \code{\link{plotcoef}}
+#' @return If \code{plot} is \code{TRUE} then a \code{\link[ggplot2]{ggplot}} object is returned.  Otherwise a \code{\link{data.frame}} listing coefficients and confidence bands is returned.
+#' @seealso \code{\link{lm}} \code{\link[stats]{glm}} \code{\link[ggplot2]{ggplot}} \code{\link{coefplot}} \code{\link{plotcoef}}
 #' @export coefplot.default
 #' @export
 #' @describeIn coefplot Default method
@@ -283,9 +283,9 @@ coefplot.lm <- function(...)
 
 #' coefplot.glm
 #' 
-# Dotplot for glm coefficients
+#' Dotplot for glm coefficients
 #'
-# A graphical display of the coefficients and standard errors from a fitted glm model
+#' A graphical display of the coefficients and standard errors from a fitted glm model
 #'
 # \code{\link{coefplot}} is the S3 generic method for plotting the coefficients from a fitted model.
 #' 
@@ -314,6 +314,7 @@ coefplot.glm <- function(...)
 #' @title coefplot.workflow
 #' @description Coefplot method for workflow objects
 #' @details Pulls model element out of workflow object then calls \code{coefplot}.
+#' @export
 # @author Jared P. Lander
 #' @describeIn coefplot \code{tidymodels workflows}
 #' @param model A workflow object
@@ -326,6 +327,7 @@ coefplot.workflow <- function(model, ...)
 #' @title coefplot.model_fit
 #' @description Coefplot method for parsnip objects
 #' @details Pulls model element out of parsnip object then calls \code{coefplot}.
+#' @export
 # @author Jared P. Lander
 #' @describeIn coefplot \code{parsnip}
 #' @param model A parsnip object

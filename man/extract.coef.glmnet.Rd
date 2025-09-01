@@ -24,6 +24,20 @@ Extract Coefficient Information from Models
 Gets the coefficient values and variable names from a model.  Since 
 glmnet does not have standard errors, those will just be NA.
 }
+\examples{
+\dontshow{if(requireNamespace('glmnet', quietly=TRUE))\{}
+library(glmnet)
+library(ggplot2)
+library(useful)
+library(coefplot)
+data(diamonds)
+diaX <- build.x(price ~ carat + cut + x - 1, data=diamonds, contrasts = TRUE)
+diaY <- build.y(price ~ carat + cut + x - 1, data=diamonds)
+modG1 <- glmnet(x=diaX, y=diaY)
+extract.coef(modG1)
+\dontshow{\}}
+
+}
 \author{
 Jared P. Lander
 }

@@ -7,9 +7,8 @@ Authors@R:
            role = c("aut", "cre"),
            email = "packages@jaredlander.com",
            comment = c(ORCID = "0000-0002-7291-726X"))
-Version: 1.2.8
-Date: 2022-01-12
-Maintainer: Jared P. Lander <packages@jaredlander.com>
+Version: 1.2.9
+Date: 2025-08-23
 Description: Plots the coefficients from model objects. This very quickly shows the user the point estimates and confidence intervals for fitted models.
 License: BSD_3_clause + file LICENSE
 LazyLoad: yes
@@ -27,7 +26,7 @@ Imports:
     purrr,
     plotly
 ByteCompile: TRUE
-Packaged: 2018-01-02 Jared
+Packaged: 2025-08-23 Jared
 Suggests:
     testthat (>= 2.0.0),
     covr,
@@ -39,4 +38,4 @@ Suggests:
     knitr,
     rmarkdown
 Encoding: UTF-8
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.2

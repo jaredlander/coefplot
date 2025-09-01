@@ -1,6 +1,6 @@
 ## Version Number
 
-1.2.8
+1.2.9
 
 ## Test environments
 
@@ -9,20 +9,15 @@
     - macOS-latest (release)
     - ubuntu-20.04 (release)
     - ubuntu-20.04 (devel)
-- Windows 10, R 4.1.0
-- Ubuntu 18.04, R 4.1.2
-- Win-Builder
-- R-Hub
+    - ubuntu-22.04 (release)
+    - ubuntu-22.04 (devel)
+    - ubuntu-24.04 (release)
+    - ubuntu-24.04 (devel)
+- Ubuntu 12.04, R 4.5.1
 
 ## R CMD check results
 
-There were no ERRORs, WARNINGs, NOTEs when checked locally on Windows and Ubuntu or the GitHub Actions for Windows or Ubuntu-release.
-
-GitHub Actions for Mac and Ubuntu-devel had a notes of an example taking more than 5 seconds, though I imagine that has more to do with the machine doing the testing.
-
-WinBuild had a note of an example taking more than 10 seconds, though I imagine that has more to do with the machine doing the testing.
-
-R-Hub had a note of an example taking more than 5 seconds, though I imagine that has more to do with the machine doing the testing.
+There were no ERRORs, WARNINGs, NOTEs when checked locally on Ubuntu or the GitHub Actions for Windows or Mac. For Github Actions with Ubuntu-release there were no ERRORs or WARNINGs, just a NOTE, but that was related to the executiobn time of examples, likely due to using slow runners.
 
 ## Tests
 

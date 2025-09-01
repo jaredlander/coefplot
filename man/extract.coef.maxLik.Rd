@@ -21,6 +21,27 @@ Extract Coefficient Information from Models
 \details{
 Gets the coefficient values and variable names from a model.
 }
+\examples{
+\dontshow{
+if(requireNamespace('maxLik', quietly=TRUE))
+\{
+}
+library(maxLik)
+loglik <- function(param) {
+ mu <- param[1]
+ sigma <- param[2]
+ ll <- -0.5*N*log(2*pi) - N*log(sigma) - sum(0.5*(x - mu)^2/sigma^2)
+ll
+}
+x <- rnorm(1000, 1, 2) # use mean=1, stdd=2
+N <- length(x)
+res <- maxLik(loglik, start=c(0,1)) # use 'wrong' start values
+extract.coef(res)
+\dontshow{
+\}
+}
+
+}
 \author{
 Jared P. Lander
 }

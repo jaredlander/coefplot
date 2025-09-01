@@ -7,6 +7,7 @@
 #' 
 #' @author Jared P. Lander
 #' @method extract.coef default
+#' @export
 #' @aliases extract.coef.default
 #' @param model Model object to extract information from.
 #' @param \dots Further arguments
@@ -45,6 +46,7 @@ extract.coef.default <- function(model, ...)
 #' @author Jared P. Lander
 #' @aliases extract.coef.lm
 #' @method extract.coef lm
+#' @export
 #' @inheritParams extract.coef.default
 #' @return A \code{\link{data.frame}} containing the coefficient, the standard 
 #' error and the variable name.
@@ -73,6 +75,7 @@ extract.coef.lm <- function(model, ...)
 #' @aliases extract.coef.glm
 #' @inheritParams extract.coef.default
 #' @method extract.coef glm
+#' @export
 #' @return A \code{\link{data.frame}} containing the coefficient, the standard 
 #' error and the variable name.
 #' @examples
@@ -136,6 +139,7 @@ extract.coef <- function(model, ...)
 #' @aliases extract.coef.rxLinMod
 #' @inheritParams extract.coef.default
 #' @method extract.coef rxLinMod
+#' @export
 #' @return A \code{\link{data.frame}} containing the coefficient, the standard 
 #' error and the variable name.
 #' @examples
@@ -172,6 +176,7 @@ extract.coef.rxLinMod <- function(model, ...)
 #' @aliases extract.coef.rxGlm
 #' @inheritParams extract.coef.default
 #' @method extract.coef rxGlm
+#' @export
 #' @return A \code{\link{data.frame}} containing the coefficient, the standard 
 #' error and the variable name.
 #' @examples
@@ -201,6 +206,7 @@ extract.coef.rxGlm <- function(model, ...)
 #' @aliases extract.coef.rxLogit
 #' @inheritParams extract.coef.default
 #' @method extract.coef rxLogit
+#' @export
 #' @return A \code{\link{data.frame}} containing the coefficient, the standard 
 #' error and the variable name.
 #' @examples
@@ -216,12 +222,30 @@ extract.coef.rxLogit <- function(model, ...)
     extract.coef.default(model=model, ...)
 }
 
+# #' @title extract.coef.glmnet
+# #' @description Extract Coefficient Information from Models
+# #' @details Gets the coefficient values and variable names from a model.  Since 
+# #' glmnet does not have standard errors, those will just be NA.
+# #' @author Jared P. Lander
+# #' @method extract.coef glmnet
+# #' @aliases extract.coef.elnet
+# #' @param model Model object from which to extract information.
+# #' @param lambda Value of penalty parameter
+# #' @param \dots Further arguments
+# #' @return A \code{\link{data.frame}} containing the coefficient, the standard 
+# #' error and the variable name.
+# extract.coef.elnet <- function(model, lambda=stats::median(model$lambda), ...)
+# {
+#     extract.coef.glmnet(model, lambda, ...)
+# }
+
 #' @title extract.coef.glmnet
 #' @description Extract Coefficient Information from Models
 #' @details Gets the coefficient values and variable names from a model.  Since 
 #' glmnet does not have standard errors, those will just be NA.
 #' @author Jared P. Lander
 #' @method extract.coef glmnet
+#' @export
 #' @aliases extract.coef.glmnet
 #' @param model Model object from which to extract information.
 #' @param lambda Value of penalty parameter
@@ -233,12 +257,12 @@ extract.coef.rxLogit <- function(model, ...)
 #' library(glmnet)
 #' library(ggplot2)
 #' library(useful)
+#' library(coefplot)
 #' data(diamonds)
 #' diaX <- build.x(price ~ carat + cut + x - 1, data=diamonds, contrasts = TRUE)
 #' diaY <- build.y(price ~ carat + cut + x - 1, data=diamonds)
 #' modG1 <- glmnet(x=diaX, y=diaY)
 #' extract.coef(modG1)
-#' }
 #' \dontshow{\}}
 #' 
 extract.coef.glmnet <- function(model, lambda=stats::median(model$lambda), ...)
@@ -317,7 +341,6 @@ extract.coef.cv.glmnet <- function(model, lambda="lambda.min", ...)
 #' N <- length(x)
 #' res <- maxLik(loglik, start=c(0,1)) # use 'wrong' start values
 #' extract.coef(res)
-#' }
 #' \dontshow{
 #' \}
 #' }

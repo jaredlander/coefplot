@@ -112,7 +112,6 @@ pos_dodgev <- function(df, height) {
 
 #' Adjust position by dodging overlaps to the side.
 #'
-#' @inheritParams ggplot2::position_identity
 #' @param height Dodging height, when different to the height of the individual
 #'   elements. This is useful when you want to align narrow geoms with wider
 #'   geoms. See the examples for a use case.
