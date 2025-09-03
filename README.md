@@ -4,8 +4,6 @@
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/coefplot)](https://CRAN.R-project.org/package=coefplot)
 [![Downloads from the RStudio CRAN
 mirror](https://cranlogs.r-pkg.org/badges/coefplot)](https://CRAN.R-project.org/package=coefplot)
-[![Coverage
-Status](https://img.shields.io/codecov/c/github/jaredlander/coefplot/master.svg)](https://codecov.io/github/jaredlander/coefplot?branch=master)
 <!-- badges: end -->
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
