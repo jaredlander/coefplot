@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "packages@jaredlander.com",
            comment = c(ORCID = "0000-0002-7291-726X"))
-Version: 1.2.9
+Version: 1.3.1
 Date: 2025-08-23
 Description: Plots the coefficients from model objects. This very quickly shows the user the point estimates and confidence intervals for fitted models.
 License: BSD_3_clause + file LICENSE
@@ -39,3 +39,5 @@ Suggests:
     rmarkdown
 Encoding: UTF-8
 RoxygenNote: 7.3.2
+Enhances: 
+    hardhat

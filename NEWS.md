@@ -1,3 +1,9 @@
+# Version 1.3.1
+- Added support for tidymodels workflows
+
+# Version 1.2.9
+- Bug Fixes
+
 # Version 1.2.8
 - Methods for plotting `{workflows}` and `{parsnip}` models.
 - Fixed warning due to deprecation of `guide` argument in `{ggplot2}`.

@@ -8,6 +8,8 @@ flow <- workflow() %>%
 mod5 <- parsnip::fit(flow, data=mtcars)
 mod6 <- parsnip::fit(lm_spec, mpg ~ cyl + qsec + disp, data=mtcars)
 
+mod7 <- workflows::fit(flow, data=mtcars)
+
 coef5_static_default <- coefplot(mod5)
 coef5_static_false <- coefplot(mod5, interactive=FALSE)
 coef5_interactive <- coefplot(mod5, interactive=TRUE)
@@ -18,12 +20,20 @@ coef6_static_false <- coefplot(mod6, interactive=FALSE)
 coef6_interactive <- coefplot(mod6, interactive=TRUE)
 coef6_interactive_sorted <- coefplot(mod6, interactive=TRUE, sort='magnitude')
 
+coef7_static_default <- coefplot(mod7)
+coef7_static_false <- coefplot(mod7, interactive=FALSE)
+coef7_interactive <- coefplot(mod7, interactive=TRUE)
+coef7_interactive_sorted <- coefplot(mod7, interactive=TRUE, sort='magnitude')
+
 test_that("Static plots return ggplot objects", {
     expect_s3_class(coef5_static_default, 'ggplot')
     expect_s3_class(coef5_static_false, 'ggplot')
     
     expect_s3_class(coef6_static_default, 'ggplot')
     expect_s3_class(coef6_static_false, 'ggplot')
+    
+    expect_s3_class(coef7_static_default, 'ggplot')
+    expect_s3_class(coef7_static_false, 'ggplot')
 })
 
 test_that("Interactive plots return plotly objects", {
@@ -32,4 +42,7 @@ test_that("Interactive plots return plotly objects", {
     
     expect_s3_class(coef6_interactive, 'plotly')
     expect_s3_class(coef6_interactive_sorted, 'plotly')
+    
+    expect_s3_class(coef7_interactive, 'plotly')
+    expect_s3_class(coef7_interactive_sorted, 'plotly')
 })
