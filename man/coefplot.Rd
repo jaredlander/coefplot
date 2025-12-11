@@ -64,6 +64,8 @@ coefplot(model, ...)
 
 \method{coefplot}{model_fit}(model, ...)
 
+\method{coefplot}{model_fit}(model, ...)
+
 \method{coefplot}{rxGlm}(...)
 
 \method{coefplot}{rxLinMod}(...)
@@ -71,7 +73,7 @@ coefplot(model, ...)
 \method{coefplot}{rxLogit}(...)
 }
 \arguments{
-\item{model}{A parsnip object}
+\item{model}{A workflow object}
 
 \item{\dots}{All arguments are passed on to \code{\link{coefplot.lm}}.  Please see that function for argument information.}
 
@@ -173,6 +175,8 @@ Dotplot for glm coefficients
 Coefplot method for workflow objects
 
 Coefplot method for parsnip objects
+
+Coefplot method for workflow objects
 }
 \details{
 A graphical display of the coefficients and standard errors from a fitted glm model
@@ -184,6 +188,8 @@ For more information on this function and it's arguments see \code{\link{coefplo
 Pulls model element out of workflow object then calls \code{coefplot}.
 
 Pulls model element out of parsnip object then calls \code{coefplot}.
+
+Pulls model element out of workflow object then calls \code{coefplot}.
 }
 \section{Methods (by class)}{
 \itemize{
@@ -196,6 +202,8 @@ Pulls model element out of parsnip object then calls \code{coefplot}.
 \item \code{coefplot(workflow)}: \code{tidymodels workflows}
 
 \item \code{coefplot(model_fit)}: \code{parsnip}
+
+\item \code{coefplot(model_fit)}: \code{workflow}
 
 \item \code{coefplot(rxGlm)}: \code{rxGlm}
 

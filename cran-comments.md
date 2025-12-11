@@ -1,6 +1,6 @@
 ## Version Number
 
-1.2.9
+1.3.1
 
 ## Test environments
 
@@ -13,7 +13,7 @@
     - ubuntu-22.04 (devel)
     - ubuntu-24.04 (release)
     - ubuntu-24.04 (devel)
-- Ubuntu 12.04, R 4.5.1
+- Ubuntu 22.04, R 4.5.1
 
 ## R CMD check results
 

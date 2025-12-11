@@ -338,6 +338,20 @@ coefplot.model_fit <- function(model, ...)
     coefplot.default(model$fit, ...)
 }
 
+#' @title coefplot.workflow
+#' @description Coefplot method for workflow objects
+#' @details Pulls model element out of workflow object then calls \code{coefplot}.
+#' @export
+# @author Jared P. Lander
+#' @describeIn coefplot \code{workflow}
+#' @param model A workflow object
+#' @param \dots All arguments are passed on to \code{\link{coefplot}}.  Please see that function for argument information.
+#' 
+coefplot.model_fit <- function(model, ...)
+{
+    coefplot(hardhat::extract_fit_engine(model), ...)
+}
+
 #' coefplot.rxGlm
 #' 
 # Dotplot for rxGlm coefficients
